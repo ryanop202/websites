@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Réservation — Création Natacha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <span class="brand-name">Création Natacha</span>
+    <span class="brand-role">Salon de coiffure — Payerne</span>
+  </div>
+  <nav class="site-nav" id="site-nav">
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="prestations.html">Prestations</a></li>
+      <li><a href="reservation.html" class="active">Réservation</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <a class="btn-call" href="tel:+41266607474">Appeler</a>
+</header>
+
+<main>
+
+  <section class="page-intro">
+    <p class="kicker">Réservation</p>
+    <h1>Choisissez votre créneau</h1>
+    <p class="lead placeholder">Aperçu du parcours de réservation — prestation, jour, heure. Une fois connecté à votre agenda (Cal.com), vos vraies disponibilités s'afficheront automatiquement.</p>
+  </section>
+
+  <div class="scallop-divider" aria-hidden="true">
+    <svg viewBox="0 0 1200 30" preserveAspectRatio="none">
+      <path d="M0,0 a30,30 0 0 0 60,0 a30,30 0 0 0 60,0 a30,30 0 0 0 60,0 a30,30 0 0 0 60,0 a30,30 0 0 0 60,0 a30,30 0 0 0 60,0 a30,30 0 0 0 60,0 a30,30 0 0 0 60,0 a30,30 0 0 0 60,0 a30,30 0 0 0 60,0 a30,30 0 0 0 60,0 a30,30 0 0 0 60,0 a30,30 0 0 0 60,0 a30,30 0 0 0 60,0 a30,30 0 0 0 60,0 a30,30 0 0 0 60,0 a30,30 0 0 0 60,0 a30,30 0 0 0 60,0 a30,30 0 0 0 60,0" />
+    </svg>
+  </div>
+
+  <section class="booking">
+    <div class="cal-mock">
+
+      <div class="cal-step" id="step-service">
+        <h3 class="step-title">1. Choisissez une prestation</h3>
+        <div class="service-select" id="service-select"></div>
+      </div>
+
+      <div class="cal-step" id="step-day" hidden>
+        <h3 class="step-title">2. Choisissez un jour</h3>
+        <div class="cal-days" id="cal-days"></div>
+      </div>
+
+      <div class="cal-step" id="step-time" hidden>
+        <h3 class="step-title">3. Choisissez une heure</h3>
+        <div class="cal-slots" id="cal-slots"></div>
+      </div>
+
+      <div class="cal-confirm" id="cal-confirm" hidden>
+        <h3 class="step-title">Récapitulatif</h3>
+        <p><strong id="cal-service-label"></strong></p>
+        <p id="cal-selected"></p>
+        <p class="cal-price">Prix : <strong id="cal-price"></strong></p>
+        <button class="btn-primary" id="cal-request" type="button">Demander ce créneau</button>
+        <p class="cal-success" id="cal-success" hidden>Demande envoyée (démo). Sur le site réel, ceci arrive directement dans l'agenda de Natacha.</p>
+      </div>
+
+    </div>
+    <a class="btn-secondary" href="tel:+41266607474">Réserver par téléphone</a>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Création Natacha — Salon de coiffure, Payerne</p>
+  <a class="btn-call" href="tel:+41266607474">Appeler</a>
+</footer>
+
+<script src="js/script.js"></script>
+<script src="js/booking-ui.js"></script>
+</body>
+</html>

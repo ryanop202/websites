@@ -44,11 +44,11 @@ Hooks à tester ensuite :
 ## Texte de la pub (sous la vidéo, commun aux 2)
 
 > Coiffeurs, barbiers, esthéticiennes, ongleries de la Broye 👋
-> Tes clientes comparent les salons sur Google avant de réserver. Si tu n'as pas de site, tu perds celles qui ne te connaissent pas encore.
-> Je te prépare une maquette de ton site, gratuitement, prête aujourd'hui. Rien à préparer de ton côté. Si elle ne te plaît pas, on en reste là.
-> 👉 Écris-moi sur WhatsApp.
+> Vos clientes comparent les salons sur Google avant de réserver. Sans site, vous perdez celles qui ne vous connaissent pas encore.
+> Je vous prépare une maquette de votre site, gratuitement, en 24 h. Rien à préparer de votre côté. Si elle ne vous plaît pas, on en reste là.
+> 👉 Écrivez-nous sur WhatsApp : 076 757 43 93
 
-Titre : **Ta maquette de site gratuite**
+Titre : **Votre maquette de site gratuite en 24 h**
 Bouton : **Envoyer un message** (WhatsApp)
 
 ---
@@ -59,3 +59,10 @@ Bouton : **Envoyer un message** (WhatsApp)
 - Une coupe toutes les 2–3 s, pas de plan fixe plus long.
 - Musique tendance sans paroles, volume bas.
 - Exporter aussi en 4:5 pour le fil d'actualité.
+
+## Décisions du 12.10.2026
+
+- Hooks retenus : vidéo 1 « Même talent. Même quartier. Une seule a un site. », vidéo 2 « J'ai cherché « onglerie Payerne » sur Google. »
+- Carrousel : 3 salons (coiffure, onglerie, barbier) + carte offre. Visuel texte : appel direct.
+- Délai : maquette en 24 h. Numéro : 076 757 43 93. Vouvoiement + marque Wibzo.
+- Fichiers finaux : `wibzo/pubs-beaute/`.

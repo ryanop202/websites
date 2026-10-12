@@ -69,4 +69,4 @@ Plan des 2 vidéos :
 
 ### Prochaine étape
 
-Scripts vidéo faits : voir `scripts-videos.md`. Reste : créer les maquettes beauté fictives, monter les 2 vidéos, faire les 2 images.
+Les 4 pubs beauté sont faites : `wibzo/pubs-beaute/` (voir son A-LIRE.md). Reste : trancher le budget (CLAUDE.md), puis lancer la campagne.

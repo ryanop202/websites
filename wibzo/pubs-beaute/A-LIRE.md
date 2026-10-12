@@ -16,13 +16,13 @@ Images :
 - Aucun visage, aucune voix.
 - Salons fictifs : Salon Mélanie, Studio Nacre, Barber Le 21, avec la mention « Exemple de maquette ».
 - Fausses fiches et résultats de recherche : noms et notes floutés, aucune note ni aucun avis inventé.
-- Pas de numéro à l'écran (le bouton WhatsApp de la pub fait le lien) : le choix 076 757 43 93 / 079 322 77 02 n'est pas encore tranché.
+- Numéro WhatsApp : 076 757 43 93 (décidé le 12.10.2026), affiché sur la fin des vidéos, la carte 4 et le visuel texte.
 - Texte dans la zone visible (ni dans les 14 % du haut, ni dans les 35 % du bas pour le format 9:16).
 
 ## Points à vérifier avant de lancer
-- [ ] La vidéo 2 dit « J'ai cherché sur Google » mais montre une recherche stylisée (pas une vraie capture Google). Option plus authentique : enregistrer ton écran avec une vraie recherche et flouter les noms.
+- Vidéo 2 : écran de recherche réaliste recréé (carte, épingles, fiches avec étoiles, horaires, boutons Site Web / Itinéraire / Appeler), sans logo Google, noms et notes floutés.
 - [ ] La maquette montre « Réservation en ligne » : être sûr de pouvoir la livrer (Cal.com ou autre).
-- [ ] « Prêt en 24 h » : le site Wibzo dit « en général 1 à 2 jours » pour la mise en ligne. La maquette, elle, en 24 h, c'est OK ?
+- Délai annoncé : « Maquette en 24 h » (décidé le 12.10.2026). La mise en ligne reste « 1 à 2 jours » sur le site.
 - [ ] Budget : CLAUDE.md dit encore « pas de publicité payante » et environ 100 CHF max par test.
 
 ## Modifier ou refaire

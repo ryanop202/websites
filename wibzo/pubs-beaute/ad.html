@@ -78,14 +78,47 @@ html, body { background: #000; overflow: hidden; }
 .r-th i { width: 52px; height: 40px; border-radius: 8px; }
 .sw { position: absolute; left: 340px; top: 360px; }
 
+
+/* Recherche réaliste (style appli de cartes, sans logo) */
+.scr--g { background: #fff; color: #202124; font-family: D; }
+.g-top { position: absolute; left: 0; right: 0; top: 0; z-index: 4; background: #fff; padding: 52px 16px 10px; }
+.g-bar { height: 62px; border-radius: 999px; background: #fff; box-shadow: 0 1px 6px rgba(32,33,36,.28); display: flex; align-items: center; gap: 14px; padding: 0 20px; font: 400 22px/1 D; }
+.g-bar svg { width: 26px; height: 26px; flex: none; }
+.g-bar .av { margin-left: auto; width: 34px; height: 34px; border-radius: 50%; background: #7e57c2; }
+.g-chips { display: flex; gap: 8px; margin-top: 12px; overflow: hidden; }
+.g-chips span { flex: none; padding: 9px 14px; border-radius: 999px; border: 1px solid #dadce0; font: 500 16px/1 D; color: #3c4043; white-space: nowrap; }
+.g-map { position: absolute; left: 0; right: 0; top: 150px; height: 230px; background: #e8eae6; overflow: hidden; }
+.g-map .rd { position: absolute; background: #fff; }
+.g-map .wt { position: absolute; background: #aadaff; }
+.g-map .pk { position: absolute; background: #c8e6c9; border-radius: 30px; }
+.pin { position: absolute; width: 30px; height: 30px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: #ea4335; border: 3px solid #fff; box-shadow: 0 2px 4px rgba(0,0,0,.3); }
+.g-list { position: absolute; left: 0; right: 0; top: 368px; background: #fff; border-radius: 22px 22px 0 0; box-shadow: 0 -2px 8px rgba(0,0,0,.12); padding-top: 14px; }
+.g-grab { width: 44px; height: 5px; border-radius: 3px; background: #dadce0; margin: 0 auto 6px; }
+.g-it { position: relative; padding: 14px 20px 16px; border-bottom: 1px solid #ebebeb; }
+.g-it.on { box-shadow: inset 0 0 0 4px #C6FF3D; background: #f8ffe8; }
+.g-it.off { opacity: .35; }
+.g-n { height: 22px; border-radius: 6px; background: #202124; filter: blur(5px); }
+.g-r { display: flex; align-items: center; gap: 6px; margin-top: 10px; font: 500 16px/1 D; color: #70757a; }
+.g-r b { font-weight: 600; color: #3c4043; filter: blur(3px); }
+.g-r i { color: #fbbc04; font-style: normal; letter-spacing: 1px; }
+.g-m { margin-top: 7px; font: 500 15px/1.3 D; color: #70757a; }
+.g-m em { font-style: normal; color: #188038; }
+.g-a { display: flex; gap: 8px; margin-top: 11px; }
+.g-a span { padding: 8px 13px; border-radius: 999px; border: 1px solid #dadce0; font: 600 14px/1 D; color: #1a73e8; }
+.g-a span.web { background: #e8f0fe; border-color: #d2e3fc; }
+.g-th { position: absolute; right: 18px; top: 16px; width: 70px; height: 70px; border-radius: 10px; }
+.g-home { position: absolute; left: 0; right: 0; top: 150px; bottom: 0; padding: 30px 20px; }
+.g-sug { display: flex; align-items: center; gap: 16px; padding: 16px 4px; font: 400 21px/1 D; color: #202124; border-bottom: 1px solid #f1f1f1; }
+.g-sug svg { width: 22px; height: 22px; flex: none; }
+
 /* Fin */
 .stamp { position: absolute; left: 150px; top: 760px; width: 780px; padding: 20px 0 24px; border: 12px solid #C6FF3D; border-radius: 34px; text-align: center; color: #C6FF3D; opacity: 0; background: rgba(13,15,14,.85); }
-.stamp b { display: block; font: 800 120px/.9 B; letter-spacing: -.04em; text-transform: uppercase; }
+.stamp b { display: block; font: 800 96px/.9 B; letter-spacing: -.04em; text-transform: uppercase; }
 .logo { font-family: B; font-weight: 800; letter-spacing: -.05em; line-height: 1; }
 .wa { position: absolute; left: 70px; top: 560px; width: 940px; height: 180px; border-radius: 999px; background: #25D366; color: #fff; display: flex; align-items: center; justify-content: center; gap: 26px; font: 800 62px/1 D; letter-spacing: -.02em; box-shadow: 0 30px 80px -20px rgba(37,211,102,.6); opacity: 0; }
 .wa svg { width: 90px; height: 90px; }
 .waring { position: absolute; left: 70px; top: 560px; width: 940px; height: 180px; border-radius: 999px; border: 6px solid #25D366; opacity: 0; }
-.sub { position: absolute; left: 0; right: 0; top: 800px; text-align: center; font: 600 44px/1.25 D; color: #b9bcb5; opacity: 0; }
+.sub { position: absolute; left: 0; right: 0; top: 780px; text-align: center; font: 600 44px/1.25 D; color: #b9bcb5; opacity: 0; }
 .finger { position: absolute; width: 86px; height: 86px; margin: -43px 0 0 -43px; border-radius: 50%; background: rgba(255,255,255,.55); border: 4px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,.35); opacity: 0; z-index: 9; }
 .rip { position: absolute; width: 86px; height: 86px; margin: -43px 0 0 -43px; border-radius: 50%; border: 5px solid #fff; opacity: 0; z-index: 9; }
 .pill { position: absolute; display: inline-flex; padding: 16px 28px; border-radius: 999px; background: #3d8b5a; color: #fff; font: 800 40px/1 D; opacity: 0; }
@@ -141,7 +174,7 @@ html, body { background: #000; overflow: hidden; }
         <div><span class="w hl" data-t=".35">« onglerie Payerne »</span></div>
         <div><span class="w" data-t=".8">sur Google.</span> <span class="w lime" data-t="1.3">Regardez ↓</span></div>
       </div>
-      <div class="search" id="b1s"><svg viewBox="0 0 24 24"><path fill="none" stroke="#666" stroke-width="2.6" d="M10.5 3a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15zM16 16l5 5"/></svg><span id="b1t"></span><span class="caret" id="b1c"></span></div>
+      <div class="ph" id="b1p" style="left:340px;top:480px;transform:scale(.72)"><div class="scr scr--g" id="b1g"></div></div>
     </div>
 
     <div class="sc" id="b2">
@@ -149,10 +182,7 @@ html, body { background: #000; overflow: hidden; }
         <div><span class="w" data-t="2.95">Celles avec un site :</span></div>
         <div><span class="w lime" data-t="3.9">photos, prix, réservation.</span></div>
       </div>
-      <div class="res" data-r="0" style="top:280px"><div class="r-name"></div><div class="r-st"></div><div class="r-chip">Site Web</div></div>
-      <div class="res" data-r="1" style="top:440px"><div class="r-name" style="width:260px"></div><div class="r-st"></div><div class="r-chip no">Pas de site</div></div>
-      <div class="res" data-r="2" style="top:600px"><div class="r-name" style="width:300px"></div><div class="r-st"></div><div class="r-chip">Site Web</div></div>
-      <div class="res" data-r="3" style="top:760px"><div class="r-name" style="width:220px"></div><div class="r-st"></div><div class="r-chip no">Pas de site</div></div>
+      <div class="ph" id="b2p" style="left:340px;top:300px;transform:scale(.96)"><div class="scr scr--g" id="b2g"></div></div>
     </div>
 
     <div class="sc" id="b3">
@@ -174,7 +204,7 @@ html, body { background: #000; overflow: hidden; }
       <div class="v2"><span class="w hl" data-t="7.85">avec un site.</span></div>
     </div>
     <div class="ph on" id="c1p" style="left:340px;top:240px;transform:scale(.88)"><div class="scr scr--site" id="c1s"><span class="tagx">Exemple de maquette</span></div></div>
-    <div class="stamp" id="c1st"><b>Prêt en 24 h</b></div>
+    <div class="stamp" id="c1st"><b>Maquette en 24 h</b></div>
   </div>
 
   <div class="sc" id="c2">
@@ -186,8 +216,8 @@ html, body { background: #000; overflow: hidden; }
       <div style="font-size:70px;margin-top:20px"><span class="w" data-t="12.75">Sans engagement.</span></div>
     </div>
     <div class="waring" id="waring"></div>
-    <div class="wa" id="wa"><svg viewBox="0 0 24 24"><path fill="#fff" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>Écrivez-nous</div>
-    <div class="sub" id="sub">sur WhatsApp · salons de la Broye</div>
+    <div class="wa" id="wa"><svg viewBox="0 0 24 24"><path fill="#fff" d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.47-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.5h-.01a9.4 9.4 0 0 1-4.8-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.4 9.4 0 0 1-1.44-5.01c0-5.2 4.23-9.43 9.43-9.43a9.37 9.37 0 0 1 9.42 9.44c0 5.2-4.23 9.42-9.43 9.42m8.02-17.44A11.27 11.27 0 0 0 12.05.75C5.8.75.71 5.84.7 12.1c0 2 .52 3.95 1.52 5.67L.6 23.25l5.6-1.47a11.3 11.3 0 0 0 5.85 1.49c6.25 0 11.34-5.09 11.35-11.35 0-3.03-1.18-5.88-3.32-8.02"/></svg>Écrivez-nous</div>
+    <div class="sub" id="sub"><b style="color:#F2F0EA;font:800 84px/1 B;letter-spacing:-.03em">076 757 43 93</b><br>sur WhatsApp · salons de la Broye</div>
     <div class="rip" id="c2r" style="left:930px;top:650px"></div><div class="finger" id="c2f"></div>
   </div>
 
@@ -235,6 +265,42 @@ function fiche(el) {
     '<div class="fi-ph"><i>?</i><i>?</i><i>?</i></div>' +
     '<div class="fi-miss"><div><b>×</b>Pas de site web</div><div><b>×</b>Pas de prix</div><div><b>×</b>Pas de réservation</div></div>';
 }
+
+var MAG = '<svg viewBox="0 0 24 24"><path fill="none" stroke="#5f6368" stroke-width="2.4" d="M10.5 3a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15zM16 16l5 5"/></svg>';
+var CLK = '<svg viewBox="0 0 24 24"><path fill="none" stroke="#9aa0a6" stroke-width="2" d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7v5l3 2"/></svg>';
+function gTop(q) {
+  return '<div class="st" style="position:absolute;left:0;right:0;z-index:5"><span>9:41</span><span>●●●</span></div><div class="g-top"><div class="g-bar">' + MAG + '<span class="gq">' + q + '</span><span class="gc" style="display:inline-block;width:2px;height:26px;background:#1a73e8"></span><span class="av"></span></div>' +
+    '<div class="g-chips"><span>Ouvert</span><span>Note 4+</span><span>Prix</span><span>Le plus proche</span></div></div>';
+}
+function gMap() {
+  return '<div class="g-map"><div class="pk" style="left:30px;top:120px;width:120px;height:70px"></div><div class="wt" style="right:-20px;top:-10px;width:110px;height:260px;transform:rotate(12deg)"></div>' +
+    '<div class="rd" style="left:0;right:0;top:95px;height:12px;transform:rotate(-8deg)"></div><div class="rd" style="left:160px;top:-20px;width:12px;height:300px;transform:rotate(14deg)"></div><div class="rd" style="left:0;right:0;top:175px;height:8px;transform:rotate(4deg)"></div>' +
+    '<div class="pin" style="left:120px;top:60px"></div><div class="pin" style="left:210px;top:120px"></div><div class="pin" style="left:80px;top:150px"></div><div class="pin" style="left:260px;top:40px"></div></div>';
+}
+var GITEMS = [
+  { w: 210, r: '4,9', n: '(87)', h: 'Ferme à 18:30', site: true, th: '#d9b8c9' },
+  { w: 170, r: '5,0', n: '(12)', h: 'Ferme à 18:00', site: false },
+  { w: 230, r: '4,8', n: '(41)', h: 'Ferme à 19:00', site: true, th: '#c7a6d6' },
+  { w: 150, r: '4,7', n: '(9)', h: 'Ouvre à 9:00 mar.', site: false }
+];
+function gList() {
+  var h = '<div class="g-list"><div class="g-grab"></div>';
+  GITEMS.forEach(function (it, i) {
+    h += '<div class="g-it"><div class="g-n" style="width:' + it.w + 'px"></div>' +
+      '<div class="g-r"><b>' + it.r + '</b><i>★★★★★</i><span style="filter:blur(3px)">' + it.n + '</span></div>' +
+      '<div class="g-m">Salon de manucure · Payerne</div><div class="g-m"><em>Ouvert</em> · ' + it.h + '</div>' +
+      '<div class="g-a">' + (it.site ? '<span class="web">Site Web</span>' : '') + '<span>Itinéraire</span><span>Appeler</span></div>' +
+      '<div class="g-th" style="background:' + (it.site ? it.th : '#eee') + '"></div></div>';
+  });
+  return h + '</div>';
+}
+if (V === '2') {
+  document.getElementById('b1g').innerHTML = gTop('') + '<div class="g-home">' +
+    ['onglerie près de moi', 'onglerie payerne avis', 'pose gel payerne', 'manucure estavayer'].map(function (x) { return '<div class="g-sug">' + CLK + x + '</div>'; }).join('') + '</div>';
+  document.getElementById('b2g').innerHTML = gTop('onglerie payerne') + gMap() + gList();
+  document.querySelector('#b2g .gc').remove();
+}
+
 var KEY = V === '1' ? 'coif' : 'ongl';
 document.querySelectorAll('[data-fiche]').forEach(fiche);
 document.querySelectorAll('[data-site]').forEach(function (e) { site(e, e.dataset.site); });
@@ -324,21 +390,18 @@ function render(t) {
     finger($('a3f'), $('a3r'), t, [[5.85, 640, 900], [6.1, 520, 463, 1], [6.4, 520, 463], [6.7, 526, 685, 1], [6.9, 526, 685]]);
     pop($('a3pill'), t, 6.85, .3);
   } else {
-    // b1 : barre de recherche qui s'écrit
-    var sb = $('b1s'), xs = p(t, 1.45, .35);
-    sb.style.opacity = t < 1.45 ? 0 : 1;
-    sb.style.transform = 'translateY(' + ((1 - outExpo(xs)) * 80) + 'px) scale(' + lerp(.8, 1, outBack(xs)) + ')';
-    var q = 'onglerie payerne', n = Math.round(clamp((t - 1.7) / .95) * q.length);
-    $('b1t').textContent = q.slice(0, n);
-    $('b1c').style.opacity = (t * 2.5 % 1) < .55 ? 1 : 0;
-    // b2 : résultats
-    document.querySelectorAll('.res').forEach(function (e, i) {
-      var t0 = 3.0 + i * .15, x = p(t, t0, .3);
-      e.style.opacity = t < t0 ? 0 : 1;
-      e.style.transform = 'translateX(' + ((1 - outExpo(x)) * 200) + 'px)';
-      var hasSite = i === 0 || i === 2;
-      e.classList.toggle('on', hasSite && t >= 3.9);
-      e.style.filter = !hasSite && t >= 3.9 ? 'grayscale(1) brightness(.6)' : 'none';
+    // b1 : le téléphone arrive, la recherche s'écrit
+    slideUp($('b1p'), t, 1.45, .72, -4);
+    var q = 'onglerie payerne', n = Math.round(clamp((t - 1.75) / .95) * q.length);
+    $('b1g').querySelector('.gq').textContent = q.slice(0, n);
+    $('b1g').querySelector('.gc').style.opacity = (t * 2.5 % 1) < .55 ? 1 : 0;
+    // b2 : résultats, puis on met en avant ceux avec un site
+    var y2 = outExpo(p(t, 2.95, .4));
+    $('b2p').style.transform = 'translateY(' + ((1 - y2) * 120) + 'px) scale(.96)';
+    $('b2g').querySelector('.g-list').style.transform = 'translateY(' + lerp(0, -150, inOut(p(t, 3.3, .5))) + 'px)';
+    document.querySelectorAll('.g-it').forEach(function (e, i) {
+      e.classList.toggle('on', GITEMS[i].site && t >= 3.9);
+      e.classList.toggle('off', !GITEMS[i].site && t >= 3.9);
     });
     // b3 : fiche vide balayée
     var b3 = $('b3p'), sw = p(t, 6.5, .4);

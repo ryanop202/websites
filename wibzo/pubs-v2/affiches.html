@@ -13,6 +13,19 @@
 .bar b { font: 800 46px/1 B; letter-spacing: -.02em; }
 .pill { display: inline-block; padding: 14px 26px; border-radius: 999px; border: 3px solid #C6FF3D; color: #C6FF3D; font: 800 30px/1 D; letter-spacing: .02em; text-transform: uppercase; }
 .stampg { position: absolute; padding: 18px 40px 22px; border: 14px solid #C6FF3D; border-radius: 30px; color: #C6FF3D; background: rgba(13,15,14,.9); font: 800 120px/1 B; letter-spacing: -.03em; text-transform: uppercase; transform: rotate(-9deg); box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+.light { background: #F2EEE5 !important; color: #141414; }
+.light .bg { background-image: linear-gradient(rgba(0,0,0,.035) 2px, transparent 2px), linear-gradient(90deg, rgba(0,0,0,.035) 2px, transparent 2px); }
+.rc { position: absolute; width: 560px; padding: 44px 46px 40px; background: #fff; color: #141414; font-family: "Courier New", monospace; box-shadow: 0 40px 80px -30px rgba(0,0,0,.45), 0 2px 6px rgba(0,0,0,.08); }
+.rc:before, .rc:after { content: ""; position: absolute; left: 0; right: 0; height: 18px; background: linear-gradient(-45deg, transparent 12px, #fff 0) 0 0/24px 18px repeat-x, linear-gradient(45deg, transparent 12px, #fff 0) 0 0/24px 18px repeat-x; }
+.rc:before { top: -17px; transform: rotate(180deg); }
+.rc:after { bottom: -17px; }
+.rc h3 { font: 800 40px/1 B; letter-spacing: -.02em; text-align: center; }
+.rc .sub { text-align: center; margin-top: 8px; font: 700 20px/1 "Courier New", monospace; color: #666; }
+.rc .ln { display: flex; justify-content: space-between; gap: 16px; padding: 16px 0; border-bottom: 2px dashed #ccc; font: 700 26px/1.2 "Courier New", monospace; }
+.rc .ln b { white-space: nowrap; }
+.rc .tot { display: flex; justify-content: space-between; align-items: baseline; margin-top: 22px; font: 800 40px/1 B; }
+.rc .tot b { font-size: 76px; letter-spacing: -.03em; background: #C6FF3D; padding: 2px 12px 6px; border-radius: 10px; }
+.rc .bc { margin-top: 26px; height: 54px; background: repeating-linear-gradient(90deg, #141414 0 3px, transparent 3px 6px, #141414 6px 7px, transparent 7px 11px, #141414 11px 15px, transparent 15px 17px); }
 </style>
 </head>
 <body>
@@ -38,16 +51,19 @@ if (K === 'a') {
     phoneHTML('p3', 'coif', { on: true, tag: true, style: 'left:720px;top:480px;transform:scale(.58)' }) +
     '<div style="position:absolute;left:0;right:0;bottom:0;height:260px;background:linear-gradient(180deg,rgba(13,15,14,0),#0D0F0E 55%)"></div>' + BAR;
 } else {
-  // Affiche B — problème : peur de payer pour rien → solution : vous voyez la maquette d'abord, gratuite, en 24 h
-  h = '<div class="glow" style="left:-160px;top:200px"></div>' +
-    '<div style="position:absolute;left:70px;top:66px"><span class="logo" style="font-size:52px">Wibzo<span class="lime">.</span></span></div>' +
-    '<div class="big" style="position:absolute;left:70px;top:160px;font-size:96px">Peur de payer<br>un site <span class="red">pour rien</span>&nbsp;?</div>' +
-    '<div class="big lime" style="position:absolute;left:70px;top:370px;font-size:72px">Voyez-le d’abord.</div>' +
-    phoneHTML('pb', 'cafe', { on: true, tag: true, style: 'left:660px;top:480px;transform:scale(.74) rotate(5deg)' }) +
-    '<div class="stampg" style="left:60px;top:540px">Maquette<br>gratuite</div>' +
-    '<div class="big" style="position:absolute;left:74px;top:880px;font-size:46px;color:#d6d8d2">prête en moins de</div>' +
-    '<div class="big lime" style="position:absolute;left:66px;top:935px;font-size:230px;line-height:.82">24 H</div>' +
-    '<div style="position:absolute;left:0;right:0;bottom:0;height:230px;background:linear-gradient(180deg,rgba(13,15,14,0),#0D0F0E 50%)"></div>' + BAR;
+  // Affiche B (design clair, ticket de caisse) — problème : peur de payer pour rien → maquette 0 CHF, < 24 h, sans engagement
+  document.getElementById('f').classList.add('light');
+  h = '<div style="position:absolute;left:70px;top:66px"><span class="logo" style="font-size:52px;color:#141414">Wibzo<span style="color:#7fb800">.</span></span></div>' +
+    '<div class="big" style="position:absolute;left:70px;top:160px;font-size:94px;color:#141414">Peur de payer<br>un site <span style="color:#e0362b">pour rien</span>&nbsp;?</div>' +
+    phoneHTML('pb', 'garage', { tag: true, style: 'left:650px;top:400px;transform:scale(.66) rotate(8deg)' }) +
+    '<div class="rc" style="left:80px;top:430px;transform:rotate(-4deg)">' +
+      '<h3 style="font-size:50px;line-height:.95">MAQUETTE<br>GRATUITE</h3><div class="sub">Reçu Wibzo · votre site avant de payer</div>' +
+      '<div class="ln" style="margin-top:22px"><span>Maquette de<br>votre site</span><b>0.00 CHF</b></div>' +
+      '<div class="ln"><span>Délai</span><b>&lt; 24 h</b></div>' +
+      '<div class="ln"><span>Engagement</span><b>aucun</b></div>' +
+      '<div class="tot"><span>TOTAL</span><b>0 CHF</b></div>' +
+      '<div class="bc"></div></div>' +
+    '<div class="big" style="position:absolute;left:660px;top:960px;font-size:38px;color:#141414;width:360px;text-align:right;line-height:1">prête en<br>moins de<br><span style="font-size:120px;color:#2e8b57;line-height:.9">24 H</span></div>' + BAR;
 }
 document.getElementById('c').innerHTML = h;
 </script>

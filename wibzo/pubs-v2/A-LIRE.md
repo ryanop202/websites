@@ -19,7 +19,7 @@ Vidéos (14,9 s, voix Théo d'ElevenLabs + musique originale qui baisse sous la 
 
 Affiches (1080 × 1350, fil d'actualité) :
 - `Wibzo_affiche_pas-de-site_4x5.png` — problème « Pas de site ? Vos clients vont chez le concurrent. » → « La solution : MAQUETTE GRATUITE de votre site en 24 H ».
-- `Wibzo_affiche_peur-de-payer_4x5.png` — problème « Peur de payer un site pour rien ? Voyez-le d'abord. » → tampon MAQUETTE GRATUITE, prête en moins de 24 H.
+- `Wibzo_affiche_peur-de-payer_4x5.png` — design CLAIR, différent de l'affiche 1 (pour tester 2 styles) : « Peur de payer un site pour rien ? » + ticket de caisse « MAQUETTE GRATUITE » (maquette 0.00 CHF, délai < 24 h, engagement aucun, TOTAL 0 CHF) + « prête en moins de 24 H ».
 - Bas des 2 affiches : « Écrivez MAQUETTE au 076 757 43 93 ».
 
 Dans le Gestionnaire de publicités : 1 pub par vidéo avec les 2 formats (« Personnaliser les médias selon le placement » : 9:16 pour Stories/Reels, 4:5 pour le fil).

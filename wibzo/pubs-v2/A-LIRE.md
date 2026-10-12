@@ -11,15 +11,16 @@ Créées le 12.10.2026. Remplacent les pubs « beauté » (supprimées à la dem
 ## Fichiers à publier
 
 Vidéos (14,9 s, voix Théo d'ElevenLabs + musique originale qui baisse sous la voix, texte + téléphone visibles dès la 1re image) :
-- Voix vidéo 1 : « Et si vous voyiez votre site avant de payer quoi que ce soit ? Je crée la maquette de votre salon, garage, boulangerie, atelier, restaurant… Elle vous plaît ? On continue. Sinon, on en reste là. Maquette gratuite, en moins de vingt-quatre heures. Écrivez-nous sur WhatsApp ! »
-- Voix vidéo 2 : « Pendant que vous lisez ça, votre concurrent prend vos clients. Lui, il a un site : le client réserve en deux clics. Vous ? Juste une fiche Google. Il va voir ailleurs. Maquette gratuite, en moins de vingt-quatre heures. Écrivez-nous sur WhatsApp ! »
+- Voix vidéo 1 : « Et si vous voyiez votre site avant de payer quoi que ce soit ? Je crée gratuitement la maquette de votre site. Elle vous plaît ? On continue. Sinon, on en reste là. Et tout ça, en moins de vingt-quatre heures. Écrivez-nous sur WhatsApp ! » (les métiers défilent à l'écran, la voix ne les énumère pas)
+- Voix vidéo 2 : « Pendant que vous lisez ça, votre concurrent prend vos clients. Lui, il a un site : le client réserve en deux clics. Vous ? Juste une fiche Google. Il va voir ailleurs. Je crée la maquette de votre site gratuitement, en moins de vingt-quatre heures. Écrivez-nous sur WhatsApp ! »
 - Fichiers voix : `audio/voix_v1.mp3`, `audio/voix_v2.mp3`. Calage animation/musique sur la voix : `out/warp_vN.json` (copie dans `calage_vN.json`).
-- `Wibzo_voir-avant-de-payer_9x16.mp4` / `_4x5.mp4` — hook « Et si vous voyiez votre site AVANT de payer quoi que ce soit ? » → les métiers défilent (salon, garage, boulangerie, atelier, restaurant) → « Elle vous plaît ? On continue. Sinon, on en reste là. » → compteur 24 H → WhatsApp.
+- `Wibzo_voir-avant-de-payer_9x16.mp4` / `_4x5.mp4` — hook « Et si vous voyiez votre site AVANT de payer quoi que ce soit ? » → « Je crée GRATUITEMENT la maquette de votre… » + les métiers défilent (salon, garage, boulangerie, atelier, restaurant) → « Elle vous plaît ? On continue. Sinon, on en reste là. » → compteur 24 H → WhatsApp.
 - `Wibzo_le-concurrent_9x16.mp4` / `_4x5.mp4` — hook « Pendant que vous lisez ça, votre concurrent prend vos clients. » (réservations qui tombent chez lui) → « Lui, il a un site. Le client réserve en 2 clics. » → « Vous ? Juste une fiche Google. Il va voir ailleurs. » → compteur 24 H → WhatsApp.
 
 Affiches (1080 × 1350, fil d'actualité) :
-- `Wibzo_affiche_clients-tout-seuls_4x5.png` — « Et si demain, vos clients vous trouvaient tout seuls ? »
-- `Wibzo_affiche_offre-directe_4x5.png` — « Je crée la maquette de votre site. Gratuite. »
+- `Wibzo_affiche_maquette-gratuite_4x5.png` — « Pas encore de site ? » + MAQUETTE GRATUITE de votre site en 24 H (énorme) + 3 maquettes en éventail.
+- `Wibzo_affiche_voir-avant-de-payer_4x5.png` — « Votre site, vous le voyez avant de payer. » + tampon MAQUETTE GRATUITE + prête en moins de 24 H.
+- Bas des 2 affiches : une seule barre « Écrivez-nous · 076 757 43 93 ». Plus de photo de fond.
 
 Dans le Gestionnaire de publicités : 1 pub par vidéo avec les 2 formats (« Personnaliser les médias selon le placement » : 9:16 pour Stories/Reels, 4:5 pour le fil).
 

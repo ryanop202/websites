@@ -31,6 +31,12 @@ Dernière mise à jour : 12.10.2026 (soir). À lire au début de chaque nouvelle
 - **Higgsfield** : plan gratuit, ~7 crédits restants ; seul le modèle `z_image` fonctionne (1 génération à la fois).
 - Si les vidéos doivent être refaites : `wibzo/pubs-v2/A-LIRE.md` (calage voix : `calage_vN.json` → `out/warp_vN.json`).
 
+## Outils prêts (12.10.2026, nuit)
+- `wibzo/whatsapp-business.md` : profil, message d'accueil, message d'absence, 9 réponses rapides (/prix, /gratuit, /delai…), étiquettes. Questions encore à trancher listées en bas.
+- `wibzo/suivi-wibzo.xlsx` : suivi des contacts (statuts colorés, relance J+3 en orange), stats des posts Instagram avec score, bilan automatique (coût par client pub).
+- `wibzo/LIVRER-UNE-MAQUETTE.md` : méthode maquette en < 24 h + prompt à coller dans Claude. ⚠️ Hébergement des démos bloqué (Netlify sans crédits) → choisir Cloudflare Pages ou captures d'écran.
+- `wibzo/reels-organiques/PLANNING-SEMAINE.md` : 18 idées de Reels du 14 au 19.10 (7 familles d'accroches) + légendes.
+
 ## Prochaines étapes (dans l'ordre)
 1. [x] **E-mail** (fait, confirmé par Ryan le 12.10.2026) : créer contact@wibzo.ch dans Infomaniak (Service Mail → wibzo.ch → Créer une adresse mail → Créer une boîte mail → `contact` → utilisateur Ryan → « Créer la boîte mail »). Le bouton final ne réagissait pas en automatique : à cliquer par Ryan. Opérationnel sous 24 h.
 2. [ ] **Mentions légales** (reporté par Ryan le 12.10.2026 — reste requis avant les pubs) : Ryan donne nom + adresse (voir avec ses parents) → Claude met à jour `wibzo/site-v3` → publier (Netlify au prochain cycle ou Cloudflare Pages).

@@ -1,4 +1,4 @@
-# Lancement Wibzo — état et prochaines étapes
+﻿# Lancement Wibzo — état et prochaines étapes
 
 Dernière mise à jour : 12.10.2026 (soir). À lire au début de chaque nouvelle session, après CLAUDE.md.
 
@@ -32,11 +32,12 @@ Dernière mise à jour : 12.10.2026 (soir). À lire au début de chaque nouvelle
 - Si les vidéos doivent être refaites : `wibzo/pubs-v2/A-LIRE.md` (calage voix : `calage_vN.json` → `out/warp_vN.json`).
 
 ## Prochaines étapes (dans l'ordre)
-1. [ ] **E-mail** : créer contact@wibzo.ch dans Infomaniak (Service Mail → wibzo.ch → Créer une adresse mail → Créer une boîte mail → `contact` → utilisateur Ryan → « Créer la boîte mail »). Le bouton final ne réagissait pas en automatique : à cliquer par Ryan. Opérationnel sous 24 h.
-2. [ ] **Mentions légales** : Ryan donne nom + adresse (voir avec ses parents) → Claude met à jour `wibzo/site-v3` → publier (Netlify au prochain cycle ou Cloudflare Pages).
-3. [ ] **Vérifications** (CLAUDE.md) : accord de l'entreprise formatrice (activité parallèle), AVS, impôts.
-4. [ ] **WhatsApp Business** sur 076 757 43 93 : valider le numéro, logo, lien wibzo.ch. Claude prépare : message d'accueil automatique pour « MAQUETTE » + réponses rapides (prix, délai, « c'est vraiment gratuit ? »).
-5. [ ] **Meta** : page Facebook + Instagram Wibzo, WhatsApp relié à la page, moyen de paiement dans le Gestionnaire de publicités.
+1. [x] **E-mail** (fait, confirmé par Ryan le 12.10.2026) : créer contact@wibzo.ch dans Infomaniak (Service Mail → wibzo.ch → Créer une adresse mail → Créer une boîte mail → `contact` → utilisateur Ryan → « Créer la boîte mail »). Le bouton final ne réagissait pas en automatique : à cliquer par Ryan. Opérationnel sous 24 h.
+2. [ ] **Mentions légales** (reporté par Ryan le 12.10.2026 — reste requis avant les pubs) : Ryan donne nom + adresse (voir avec ses parents) → Claude met à jour `wibzo/site-v3` → publier (Netlify au prochain cycle ou Cloudflare Pages).
+3. [x] **Vérifications** (OK selon Ryan, 12.10.2026) (CLAUDE.md) : accord de l'entreprise formatrice (activité parallèle), AVS, impôts.
+4. [ ] **WhatsApp Business** (en attente de validation du numéro, 12.10.2026) sur 076 757 43 93 : valider le numéro, logo, lien wibzo.ch. Claude prépare : message d'accueil automatique pour « MAQUETTE » + réponses rapides (prix, délai, « c'est vraiment gratuit ? »).
+5. [ ] **Meta** (en cours, 12.10.2026) — Page Facebook Wibzo CRÉÉE : https://www.facebook.com/profile.php?id=61595038304219 (catégorie Web Designer, site + contact@wibzo.ch, pas d'adresse, aucun ami invité, logo `wibzo/wibzo-profil-1080.png`, couverture `wibzo/wibzo-couverture.png`). Instagram @wibzo.ch créé par Ryan, photo + bio faites (sans « MAQUETTE », choix de Ryan). 6 posts prêts dans `wibzo/posts-instagram/` (voir A-LIRE.md), pas encore publiés. Bio Facebook corrigée sans « MAQUETTE » (12.10.2026, soir). Reste : lien wibzo.ch sur Instagram (seulement via l'app mobile), relier Instagram à la page Facebook (Instagram déjà passé en compte Business, catégorie Web Designer, e-mail contact@wibzo.ch, le 12.10.2026), WhatsApp (après validation), carte de paiement (Ryan). Âge : la mère de Ryan co-gère les comptes Wibzo et prend les décisions ; date de naissance de la mère mise sur Instagram (12.10.2026, en attente de mise à jour Meta). Si Meta demande une vérification d'âge, c'est elle qui la fait. Compte publicitaire + carte : à son nom. : page Facebook + Instagram Wibzo, WhatsApp relié à la page, moyen de paiement dans le Gestionnaire de publicités.
 6. [ ] **Pouvoir livrer en < 24 h** : base de maquette réutilisable (1–2 h par commerce), tableau de suivi des contacts (date, maquette envoyée, réponse, vendu), limite ~3 maquettes/jour (mettre les pubs en pause si débordé).
+6b. [ ] **Test organique 1 semaine AVANT les pubs** — 3 premiers Reels + carrousel prêts pour le 13.10 dans `wibzo/reels-organiques/` (voir A-LIRE.md : heures, textes, comment programmer). Programmation automatique impossible tant qu'Instagram n'est pas relié à la page Facebook. (décision de Ryan, 12.10.2026) : 2–3 Reels/jour sur Instagram, comparer surtout la durée de visionnage, puis mettre en pub les 2–3 meilleures vidéos (sans musique Instagram).
 7. [ ] **Lancer les pubs** : 100 CHF / 8 jours. Bilan : ≥ 1 client = continuer ; conversations sans client = corriger maquette/prix/relance ; presque aucune conversation = nouveaux hooks/visuels.
 8. [ ] **En parallèle** : messages WhatsApp aux 206 commerces du fichier, **20–30 par jour max** (risque de blocage du numéro ; règles LCD sur la prospection à vérifier).

@@ -170,6 +170,21 @@ S'inspirer des principes de ckw-design :
 
 Si le skill ckw-design est installé dans Claude Code, l'utiliser pour les tâches de design.
 
+### Priorité des skills
+
+En cas de conflit entre les skills, suivre cet ordre :
+
+1. CLAUDE.md (toujours prioritaire, surtout la règle « ne pas inventer »)
+2. ckw-design : direction artistique, design, mise en page
+3. local-business-rebuild : méthode de travail pour un nouveau site de commerce local
+4. les autres skills de design (frontend-design, frontend-design-anthropic, responsive-design, theme-factory, etc.) seulement en complément
+
+Ignorer dans ces skills ce qui contredit CLAUDE.md :
+
+* pas de faux témoignages, avis ou notes
+* pas de photos de banque d'images présentées comme celles du commerce (plats, équipe, locaux)
+* pas d'Astro/Vercel par défaut : rester en HTML/CSS simple comme les sites existants, sauf décision de Ryan
+
 ## DIRECTION ARTISTIQUE PAR CLIENT
 
 La direction artistique doit être déterminée en fonction du secteur,

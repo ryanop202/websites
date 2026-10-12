@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# ⚠️ Remplacer DOMAINE par le vrai nom de domaine avant la mise en ligne
+Sitemap: https://DOMAINE/sitemap.xml

@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Pub Wibzo – Le salon d'en face</title>
+<style>
+@font-face { font-family: B; src: url(fonts/bricolage-800-latin.woff2) format("woff2"); font-weight: 800; }
+@font-face { font-family: D; src: url(fonts/dmsans-latin.woff2) format("woff2"); font-weight: 100 1000; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #000; overflow: hidden; }
+#f { position: relative; width: 1080px; height: var(--H); overflow: hidden; background: #0D0F0E; font-family: D; color: #F2F0EA; }
+.bg { position: absolute; inset: -120px; background-image: linear-gradient(rgba(255,255,255,.04) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,.04) 2px, transparent 2px); background-size: 90px 90px; }
+.glow { position: absolute; width: 1300px; height: 1300px; left: -110px; top: calc(var(--T) + 490px - 650px); border-radius: 50%; background: radial-gradient(closest-side, rgba(198,255,61,.17), transparent); }
+.vig { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, transparent 45%, rgba(0,0,0,.55)); pointer-events: none; }
+#box { position: absolute; left: 0; top: var(--T); width: 1080px; height: 980px; }
+.sc { position: absolute; inset: 0; opacity: 0; transform-origin: 50% 45%; }
+.big { font-family: B; font-weight: 800; text-transform: uppercase; letter-spacing: -.035em; line-height: .92; }
+.w { display: inline-block; opacity: 0; transform-origin: 50% 70%; }
+.lime { color: #C6FF3D; }
+.red { color: #FF5A4F; }
+.hl { background: #C6FF3D; color: #0D0F0E; padding: 0 .12em .02em; border-radius: .08em; }
+#flash { position: absolute; inset: 0; background: #C6FF3D; opacity: 0; }
+#white { position: absolute; inset: 0; background: #fff; opacity: 0; }
+
+/* Scène 1 : la rue */
+.street { position: absolute; left: 0; right: 0; top: 540px; height: 420px; }
+.ground { position: absolute; left: 40px; right: 40px; bottom: 30px; height: 6px; border-radius: 3px; background: #2a2f2b; }
+.shop { position: absolute; bottom: 36px; width: 400px; height: 330px; border-radius: 22px 22px 0 0; background: #191d1a; border: 4px solid #2f3530; overflow: hidden; }
+.shop--a { left: 60px; }
+.shop--b { right: 60px; border-color: #C6FF3D; background: #1d2414; box-shadow: 0 0 90px -10px rgba(198,255,61,.45); }
+.awn { height: 54px; background: repeating-linear-gradient(90deg, #3a403b 0 50px, #262b27 50px 100px); }
+.shop--b .awn { background: repeating-linear-gradient(90deg, #C6FF3D 0 50px, #9fd12a 50px 100px); }
+.sign { margin: 18px auto 0; width: 300px; text-align: center; font: 800 34px/1 B; letter-spacing: -.01em; color: #6d726c; }
+.shop--b .sign { color: #C6FF3D; }
+.win { position: absolute; left: 30px; bottom: 0; width: 150px; height: 170px; border-radius: 10px 10px 0 0; background: #222724; }
+.door { position: absolute; right: 40px; bottom: 0; width: 120px; height: 200px; border-radius: 12px 12px 0 0; background: #222724; }
+.shop--b .win, .shop--b .door { background: #f3ffd6; }
+.tab { position: absolute; left: 44px; bottom: 60px; width: 122px; padding: 10px 8px; border-radius: 10px; background: #0D0F0E; color: #C6FF3D; font: 700 20px/1.15 D; text-align: center; }
+.closed { position: absolute; left: 44px; bottom: 70px; width: 122px; padding: 8px; border-radius: 8px; background: #3a1f1d; color: #ff8d84; font: 700 20px/1 D; text-align: center; }
+.pp { position: absolute; bottom: 36px; width: 46px; height: 92px; opacity: 0; }
+.pp i { position: absolute; left: 8px; top: 0; width: 30px; height: 30px; border-radius: 50%; background: #F2F0EA; }
+.pp b { position: absolute; left: 0; top: 34px; width: 46px; height: 58px; border-radius: 22px 22px 6px 6px; background: #F2F0EA; }
+
+/* Téléphones */
+.ph { position: absolute; width: 400px; height: 780px; padding: 12px; border-radius: 58px; background: #1d201e; border: 2px solid #3a403b; box-shadow: 0 60px 100px -40px rgba(0,0,0,.9); }
+.scr { position: relative; width: 100%; height: 100%; border-radius: 46px; overflow: hidden; }
+.scr--salon { background: #f6ede6; color: #2b1d1a; }
+.st { display: flex; justify-content: space-between; padding: 22px 34px 0; font: 700 20px/1 D; }
+.s-h { padding: 34px 28px 0; font: 400 25px/1 Georgia, serif; }
+.s-t { padding: 26px 28px 0; font: italic 400 44px/1.02 Georgia, serif; }
+.s-d { position: absolute; left: 25px; top: 300px; font: 700 18px/1 D; letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
+.slot { position: absolute; width: 100px; height: 60px; border-radius: 14px; border: 2px solid #e2d0c6; background: #fff; display: grid; place-items: center; font: 700 22px/1 D; }
+.slot.off { opacity: .35; text-decoration: line-through; }
+.slot.on { background: #2b1d1a; border-color: #2b1d1a; color: #f6ede6; }
+.btn3 { position: absolute; left: 25px; top: 620px; width: 326px; height: 84px; border-radius: 18px; background: #2b1d1a; color: #f6ede6; display: grid; place-items: center; font: 800 28px/1 D; }
+.btn3.ok { background: #3d8b5a; }
+.finger { position: absolute; width: 86px; height: 86px; margin: -43px 0 0 -43px; border-radius: 50%; background: rgba(255,255,255,.55); border: 4px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,.35); opacity: 0; }
+.rip { position: absolute; width: 86px; height: 86px; margin: -43px 0 0 -43px; border-radius: 50%; border: 5px solid #fff; opacity: 0; }
+
+.scr--lock { background: linear-gradient(160deg, #2a2d33, #121316); color: #fff; }
+.l-time { text-align: center; padding-top: 70px; font: 300 108px/1 D; letter-spacing: -.02em; }
+.l-date { text-align: center; margin-top: 8px; font: 500 24px/1 D; opacity: .75; }
+.nt { position: absolute; left: 18px; right: 18px; height: 108px; border-radius: 26px; background: rgba(255,255,255,.14); display: flex; align-items: center; gap: 16px; padding: 0 20px; opacity: 0; }
+.nt i { flex: none; width: 58px; height: 58px; border-radius: 16px; background: #FF5A4F; display: grid; place-items: center; }
+.nt i svg { width: 32px; height: 32px; }
+.nt b { display: block; font: 700 25px/1.1 D; }
+.nt small { font: 500 20px/1.2 D; opacity: .7; }
+
+.col { position: absolute; left: 545px; width: 500px; }
+.pill { display: inline-flex; align-items: center; gap: 12px; padding: 18px 30px; border-radius: 999px; background: #3d8b5a; color: #fff; font: 800 44px/1 D; opacity: 0; }
+.arr { font: 800 90px/1 B; color: #6d726c; opacity: 0; display: inline-block; }
+
+/* Scène 5 */
+#burst { position: absolute; left: 540px; top: calc(var(--T) + 300px); width: 400px; height: 400px; margin: -200px 0 0 -200px; border-radius: 50%; border: 40px solid #C6FF3D; opacity: 0; }
+.logo { font-family: B; font-weight: 800; letter-spacing: -.05em; line-height: 1; }
+.chk { position: absolute; left: 150px; display: flex; align-items: center; gap: 30px; font: 800 66px/1 D; letter-spacing: -.02em; opacity: 0; }
+.chk i { flex: none; width: 82px; height: 82px; border-radius: 50%; background: #C6FF3D; display: grid; place-items: center; }
+.chk i svg { width: 46px; height: 46px; }
+
+/* Scène 6 */
+.ring { position: absolute; left: 290px; top: 420px; width: 500px; height: 500px; }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring b { position: absolute; inset: 0; display: grid; place-items: center; font: 800 200px/1 B; letter-spacing: -.05em; }
+
+/* Scène 7 */
+.stamp { position: absolute; left: 150px; top: 610px; width: 780px; padding: 26px 0 30px; border: 12px solid #C6FF3D; border-radius: 34px; text-align: center; color: #C6FF3D; opacity: 0; }
+.stamp b { display: block; font: 800 170px/.9 B; letter-spacing: -.04em; }
+.stamp small { display: block; margin-top: 6px; font: 800 60px/1 B; letter-spacing: .02em; text-transform: uppercase; }
+
+/* Scène 8 */
+.wa { position: absolute; left: 70px; top: 330px; width: 940px; height: 190px; border-radius: 999px; background: #25D366; color: #fff; display: flex; align-items: center; justify-content: center; gap: 28px; font: 800 68px/1 D; letter-spacing: -.02em; box-shadow: 0 30px 80px -20px rgba(37,211,102,.6); opacity: 0; }
+.wa svg { width: 96px; height: 96px; }
+.waring { position: absolute; left: 70px; top: 330px; width: 940px; height: 190px; border-radius: 999px; border: 6px solid #25D366; opacity: 0; }
+.tel { position: absolute; left: 0; right: 0; top: 590px; text-align: center; font: 800 118px/1 B; letter-spacing: -.03em; opacity: 0; }
+.sub { position: absolute; left: 0; right: 0; top: 740px; text-align: center; font: 600 46px/1.2 D; color: #b9bcb5; opacity: 0; }
+</style>
+</head>
+<body>
+<div id="f">
+  <div class="bg" id="bg"></div>
+  <div class="glow" id="glow"></div>
+  <div id="flash"></div>
+  <div id="burst"></div>
+
+  <div id="box">
+
+    <!-- 1. Vos clients réservent chez le salon d'en face. -->
+    <div class="sc" id="s1">
+      <div class="big" style="position:absolute;left:70px;top:10px;font-size:126px">
+        <div><span class="w" data-t="0">Vos</span> <span class="w" data-t=".28">clients</span></div>
+        <div><span class="w" data-t=".5">réservent</span></div>
+        <div><span class="w" data-t=".9">chez</span> <span class="w" data-t="1.0">le</span> <span class="w" data-t="1.08">salon</span></div>
+        <div><span class="w hl" data-t="1.33">d’en face.</span></div>
+      </div>
+      <div class="street">
+        <div class="ground"></div>
+        <div class="shop shop--a"><div class="awn"></div><div class="sign">VOTRE SALON</div><div class="win"></div><div class="closed">Appelez…</div><div class="door"></div></div>
+        <div class="shop shop--b" id="shopb"><div class="awn"></div><div class="sign">EN FACE</div><div class="win"></div><div class="tab">Réserver en ligne ✓</div><div class="door"></div></div>
+        <div class="pp"><i></i><b></b></div><div class="pp"><i></i><b></b></div><div class="pp"><i></i><b></b></div><div class="pp"><i></i><b></b></div><div class="pp"><i></i><b></b></div>
+      </div>
+    </div>
+
+    <!-- 2. Voici pourquoi. -->
+    <div class="sc" id="s2">
+      <div class="big" style="position:absolute;left:0;right:0;top:250px;text-align:center;font-size:210px;color:#0D0F0E">
+        <div><span class="w" data-t="2.09">Voici</span></div>
+        <div><span class="w" data-t="2.38">pourquoi.</span></div>
+      </div>
+    </div>
+
+    <!-- 3. Chez eux, on réserve en ligne, en deux clics. -->
+    <div class="sc" id="s3">
+      <div class="big" style="position:absolute;left:70px;top:0;font-size:124px"><span class="w" data-t="3.12">Chez</span> <span class="w lime" data-t="3.34">eux&nbsp;:</span></div>
+      <div class="ph" id="ph3" style="left:70px;top:185px">
+        <div class="scr scr--salon">
+          <div class="st"><span>10:42</span><span>●●●</span></div>
+          <div class="s-h">Salon Exemple</div>
+          <div class="s-t">Réservez<br>en ligne.</div>
+          <div class="s-d">Mardi · choisir une heure</div>
+          <div class="slot" style="left:25px;top:340px">09:00</div>
+          <div class="slot" id="slot" style="left:138px;top:340px">10:30</div>
+          <div class="slot off" style="left:251px;top:340px">11:15</div>
+          <div class="slot off" style="left:25px;top:415px">13:30</div>
+          <div class="slot" style="left:138px;top:415px">14:15</div>
+          <div class="slot" style="left:251px;top:415px">15:00</div>
+          <div class="slot" style="left:25px;top:490px">16:30</div>
+          <div class="slot off" style="left:138px;top:490px">17:15</div>
+          <div class="slot" style="left:251px;top:490px">18:00</div>
+          <div class="btn3" id="btn3">Réserver</div>
+          <div class="rip" id="rip3"></div>
+          <div class="finger" id="fing3"></div>
+        </div>
+      </div>
+      <div class="col" style="top:300px">
+        <div class="big" style="font-size:118px"><span class="w" data-t="4.0">1 clic</span></div>
+        <div style="margin:18px 0 10px 8px"><span class="arr" id="arr3">↓</span></div>
+        <div class="big lime" style="font-size:118px"><span class="w" data-t="4.98">2 clics</span></div>
+        <div style="margin-top:44px"><span class="pill" id="pill3">Réservé ✓</span></div>
+      </div>
+    </div>
+
+    <!-- 4. Chez vous… il faut appeler. -->
+    <div class="sc" id="s4">
+      <div class="big" style="position:absolute;left:70px;top:0;font-size:124px;color:#9a9d97"><span class="w" data-t="5.6">Chez</span> <span class="w" data-t="5.78">vous…</span></div>
+      <div class="ph" id="ph4" style="left:70px;top:185px">
+        <div class="scr scr--lock">
+          <div class="l-time">10:42</div>
+          <div class="l-date">Mardi</div>
+          <div class="nt" style="top:260px"><i><svg viewBox="0 0 24 24"><path fill="#fff" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></i><div><b>Appel manqué</b><small>Client · maintenant</small></div></div>
+          <div class="nt" style="top:382px"><i><svg viewBox="0 0 24 24"><path fill="#fff" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></i><div><b>Appel manqué</b><small>Client · il y a 4 min</small></div></div>
+          <div class="nt" style="top:504px"><i><svg viewBox="0 0 24 24"><path fill="#fff" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></i><div><b>Appel manqué</b><small>Client · il y a 12 min</small></div></div>
+        </div>
+      </div>
+      <div class="col" style="top:330px">
+        <div class="big" style="font-size:104px"><span class="w" data-t="6.47">Il faut</span></div>
+        <div class="big red" style="font-size:104px"><span class="w" data-t="6.72">appeler.</span></div>
+        <div style="margin-top:46px;font:700 46px/1.15 D;color:#9a9d97"><span class="w" data-t="6.95">Pendant que vous coupez.</span></div>
+      </div>
+    </div>
+
+    <!-- 5. Wibzo crée votre site avec réservation en ligne. -->
+    <div class="sc" id="s5">
+      <div class="logo" id="logo5" style="position:absolute;left:0;right:0;top:40px;text-align:center;font-size:260px">Wibzo<span class="lime">.</span></div>
+      <div class="chk" id="k1" style="top:420px"><i><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="#0D0F0E" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Votre site</div>
+      <div class="chk" id="k2" style="top:560px"><i><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="#0D0F0E" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Réservation en ligne</div>
+      <div class="chk" id="k3" style="top:700px"><i><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="#0D0F0E" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Fiche Google</div>
+    </div>
+
+    <!-- 6. Maquette gratuite en vingt-quatre heures. -->
+    <div class="sc" id="s6">
+      <div class="big" style="position:absolute;left:0;right:0;top:20px;text-align:center;font-size:150px">
+        <div><span class="w" data-t="9.94">Maquette</span></div>
+        <div style="margin-top:14px"><span class="w hl" data-t="10.32">gratuite</span></div>
+      </div>
+      <div class="ring" id="ring6">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" stroke="#262a27" stroke-width="7"/><circle id="arc6" cx="50" cy="50" r="44" fill="none" stroke="#C6FF3D" stroke-width="7" stroke-linecap="round" stroke-dasharray="276.5" stroke-dashoffset="276.5"/></svg>
+        <b id="num6">0H</b>
+      </div>
+    </div>
+
+    <!-- 7. Vous payez seulement si elle vous plaît. -->
+    <div class="sc" id="s7">
+      <div class="big" style="position:absolute;left:0;right:0;top:20px;text-align:center;font-size:124px">
+        <div><span class="w" data-t="11.78">Vous</span> <span class="w" data-t="11.9">payez</span></div>
+        <div><span class="w" data-t="12.22">seulement</span></div>
+        <div><span class="w" data-t="12.55">si elle vous</span> <span class="w lime" data-t="12.93">plaît.</span></div>
+      </div>
+      <div class="stamp" id="stamp"><b>0 CHF</b><small>d’avance</small></div>
+    </div>
+
+    <!-- 8. Écrivez-nous sur WhatsApp ! -->
+    <div class="sc" id="s8">
+      <div class="logo" style="position:absolute;left:0;right:0;top:20px;text-align:center;font-size:96px"><span class="w" data-t="13.42">Wibzo<span class="lime">.</span></span></div>
+      <div class="big" style="position:absolute;left:0;right:0;top:160px;text-align:center;font-size:112px"><span class="w" data-t="13.48">Écrivez-nous</span></div>
+      <div class="waring" id="waring"></div>
+      <div class="wa" id="wa"><svg viewBox="0 0 24 24"><path fill="#fff" d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.47-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.5h-.01a9.4 9.4 0 0 1-4.8-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.4 9.4 0 0 1-1.44-5.01c0-5.2 4.23-9.43 9.43-9.43a9.37 9.37 0 0 1 9.42 9.44c0 5.2-4.23 9.42-9.43 9.42m8.02-17.44A11.27 11.27 0 0 0 12.05.75C5.8.75.71 5.84.7 12.1c0 2 .52 3.95 1.52 5.67L.6 23.25l5.6-1.47a11.3 11.3 0 0 0 5.85 1.49c6.25 0 11.34-5.09 11.35-11.35 0-3.03-1.18-5.88-3.32-8.02"/></svg>Sur WhatsApp</div>
+      <div class="tel" id="tel">076 757 43 93</div>
+      <div class="sub" id="sub">Maquette gratuite · Suisse romande</div>
+      <div class="rip" id="rip8" style="left:955px;top:425px"></div>
+      <div class="finger" id="fing8"></div>
+    </div>
+
+  </div>
+  <div class="vig"></div>
+  <div id="white"></div>
+</div>
+
+<script>
+// Format : ?f=916 (1080x1920) ou ?f=45 (1080x1350)
+var fmt = new URLSearchParams(location.search).get('f') || '916';
+var H = fmt === '45' ? 1350 : 1920, T = fmt === '45' ? 185 : 290;
+var F = document.getElementById('f');
+F.style.setProperty('--H', H + 'px'); F.style.setProperty('--T', T + 'px');
+
+var $ = function (id) { return document.getElementById(id); };
+var clamp = function (x, a, b) { return Math.min(b === undefined ? 1 : b, Math.max(a || 0, x)); };
+var p = function (t, a, d) { return clamp((t - a) / d); };
+var lerp = function (a, b, x) { return a + (b - a) * x; };
+var outBack = function (x) { var c = 1.9; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+var outExpo = function (x) { return x >= 1 ? 1 : 1 - Math.pow(2, -10 * x); };
+var inOut = function (x) { return x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2; };
+
+var words = Array.prototype.slice.call(document.querySelectorAll('.w'));
+var people = Array.prototype.slice.call(document.querySelectorAll('.pp'));
+
+// Scènes [début, fin]
+var S = { s1: [0, 2.07], s2: [2.07, 3.05], s3: [3.05, 5.56], s4: [5.56, 7.42], s5: [7.42, 9.88], s6: [9.88, 11.76], s7: [11.76, 13.4], s8: [13.4, 99] };
+// Impacts (secousses)
+var HITS = [[1.68, 14], [2.09, 22], [4.0, 8], [4.98, 12], [6.72, 16], [7.48, 34], [8.4, 8], [8.85, 8], [9.32, 8], [10.32, 12], [11.3, 18], [12.3, 26], [12.93, 10], [13.5, 14], [14.15, 8]];
+var BEAT = 60 / 128, DROP = 7.48;
+
+function pop(el, t, t0, d) {
+  d = d || .24;
+  var x = p(t, t0, d);
+  el.style.opacity = t < t0 ? 0 : Math.min(1, x * 4);
+  el.style.transform = 'translateY(' + ((1 - outExpo(x)) * 36) + 'px) scale(' + lerp(1.45, 1, outBack(x)) + ')';
+}
+function fade(el, t, t0, d) { el.style.opacity = p(t, t0, d || .15); }
+
+function render(t) {
+  // Scènes visibles
+  for (var k in S) {
+    var a = S[k][0], b = S[k][1], el = $(k);
+    if (t < a || t >= b) { el.style.opacity = 0; el.style.visibility = 'hidden'; continue; }
+    el.style.visibility = 'visible';
+    el.style.opacity = Math.min(1, (t - a) / .07, (b - t) / .05);
+    el.style.transform = 'scale(' + lerp(1.07, 1, outExpo(p(t, a, .3))) + ')';
+  }
+  words.forEach(function (w) { pop(w, t, +w.dataset.t); });
+
+  // Secousse globale
+  var sx = 0, sy = 0, rot = 0;
+  HITS.forEach(function (h) {
+    var dt = t - h[0]; if (dt < 0 || dt > .6) return;
+    var e = h[1] * Math.exp(-dt * 13);
+    sx += e * Math.sin(dt * 75); sy += e * Math.cos(dt * 61) * .7; rot += e * .02 * Math.sin(dt * 50);
+  });
+  $('box').style.transform = 'translate(' + sx + 'px,' + sy + 'px) rotate(' + rot + 'deg)';
+
+  // Fond : la grille glisse, la lueur pulse sur le beat après le drop
+  $('bg').style.transform = 'translate(' + (-(t * 18) % 90) + 'px,' + (-(t * 30) % 90) + 'px)';
+  var pulse = t >= DROP ? Math.exp(-(((t - DROP) % BEAT) / BEAT) * 5) : 0;
+  $('glow').style.transform = 'scale(' + (1 + pulse * .12) + ')';
+  $('glow').style.opacity = t < 5.56 ? .9 : t < DROP ? .25 : .85 + pulse * .15;
+
+  // Flash vert « Voici pourquoi »
+  var fl = 0;
+  if (t >= 2.07 && t < 3.05) fl = 1;
+  $('flash').style.opacity = fl;
+  // Flash blanc du drop
+  $('white').style.opacity = t >= DROP ? Math.max(0, .75 - (t - DROP) * 5) : 0;
+  // Onde du drop
+  var bx = p(t, DROP, .55);
+  $('burst').style.opacity = t >= DROP && bx < 1 ? 1 - bx : 0;
+  $('burst').style.transform = 'scale(' + lerp(.2, 4.2, outExpo(bx)) + ')';
+
+  // --- Scène 1 : les clients traversent la rue ---
+  var shopGlow = .5 + .5 * Math.sin(t * 9);
+  $('shopb').style.boxShadow = '0 0 ' + (70 + shopGlow * 50) + 'px -10px rgba(198,255,61,.5)';
+  people.forEach(function (el, i) {
+    var t0 = .35 + i * .26, x = p(t, t0, .95);
+    el.style.opacity = t < t0 ? 0 : Math.min(1, x * 5);
+    var px = lerp(250, 870 + (i % 3) * 34, inOut(x));
+    var py = -Math.abs(Math.sin(x * Math.PI * 4)) * 16 * (1 - x);
+    el.style.transform = 'translate(' + px + 'px,' + py + 'px) scale(' + (i % 2 ? .9 : 1) + ')';
+  });
+
+  // --- Scène 3 : 2 clics ---
+  var ph3 = p(t, 3.05, .4);
+  $('ph3').style.transform = 'translateY(' + ((1 - outExpo(ph3)) * 500) + 'px) rotate(' + lerp(-8, -2, outExpo(ph3)) + 'deg)';
+  var f3 = $('fing3'), fx, fy;
+  if (t < 3.55) { fx = 330; fy = 820; }
+  else if (t < 4.0) { var m = inOut(p(t, 3.55, .4)); fx = lerp(330, 188, m); fy = lerp(820, 370, m); }
+  else if (t < 4.5) { fx = 188; fy = 370; }
+  else { var m2 = inOut(p(t, 4.5, .42)); fx = lerp(188, 188, m2); fy = lerp(370, 662, m2); }
+  var press = (t >= 4.0 && t < 4.12) || (t >= 4.98 && t < 5.1);
+  f3.style.left = fx + 'px'; f3.style.top = fy + 'px';
+  f3.style.opacity = t > 3.5 && t < 5.4 ? 1 : 0;
+  f3.style.transform = 'scale(' + (press ? .82 : 1) + ')';
+  var rp = t >= 4.98 ? p(t, 4.98, .45) : p(t, 4.0, .45);
+  var r3 = $('rip3');
+  r3.style.left = (t >= 4.98 ? 188 : 188) + 'px'; r3.style.top = (t >= 4.98 ? 662 : 370) + 'px';
+  r3.style.opacity = (t >= 4.0 && rp < 1) ? 1 - rp : 0;
+  r3.style.transform = 'scale(' + lerp(.6, 2.4, outExpo(rp)) + ')';
+  $('slot').classList.toggle('on', t >= 4.0);
+  var b3 = $('btn3');
+  b3.classList.toggle('ok', t >= 5.04);
+  b3.textContent = t >= 5.04 ? 'Réservé ✓' : 'Réserver';
+  fade($('arr3'), t, 4.5, .2);
+  pop($('pill3'), t, 5.1, .3);
+
+  // --- Scène 4 : appels manqués ---
+  var ph4 = p(t, 5.56, .35);
+  var vib = 0;
+  if (t > 5.75 && t < 7.3 && ((t - 5.75) % .55) < .38) vib = Math.sin(t * 95) * 2.2;
+  $('ph4').style.transform = 'translateY(' + ((1 - outExpo(ph4)) * 500) + 'px) rotate(' + (-2 + vib) + 'deg)';
+  document.querySelectorAll('#s4 .nt').forEach(function (n, i) {
+    var t0 = 5.9 + i * .3, x = p(t, t0, .3);
+    n.style.opacity = t < t0 ? 0 : Math.min(1, x * 3);
+    n.style.transform = 'translateY(' + ((1 - outBack(x)) * -60) + 'px) scale(' + lerp(.9, 1, outExpo(x)) + ')';
+  });
+
+  // --- Scène 5 : Wibzo + checklist ---
+  var lg = p(t, DROP, .32);
+  $('logo5').style.transform = 'scale(' + lerp(2.6, 1, outBack(lg)) + ')';
+  $('logo5').style.opacity = t >= DROP ? 1 : 0;
+  [['k1', 8.37], ['k2', 8.82], ['k3', 9.3]].forEach(function (k) {
+    var el = $(k[0]), x = p(t, k[1], .3);
+    el.style.opacity = t < k[1] ? 0 : Math.min(1, x * 4);
+    el.style.transform = 'translateX(' + ((1 - outExpo(x)) * -120) + 'px)';
+    el.querySelector('i').style.transform = 'scale(' + lerp(0, 1, outBack(x)) + ')';
+  });
+
+  // --- Scène 6 : 0 → 24H ---
+  var c6 = inOut(p(t, 10.85, .5));
+  $('num6').textContent = Math.round(c6 * 24) + 'H';
+  $('num6').style.color = c6 >= 1 ? '#C6FF3D' : '#F2F0EA';
+  $('arc6').setAttribute('stroke-dashoffset', 276.5 * (1 - c6));
+  var r6 = p(t, 9.94, .35);
+  $('ring6').style.transform = 'scale(' + lerp(.6, 1, outBack(r6)) * (c6 >= 1 ? 1 + .06 * Math.exp(-(t - 11.35) * 8) : 1) + ')';
+  $('ring6').style.opacity = Math.min(1, r6 * 3);
+
+  // --- Scène 7 : tampon 0 CHF ---
+  var st = p(t, 12.3, .22);
+  var stp = $('stamp');
+  stp.style.opacity = t < 12.3 ? 0 : 1;
+  stp.style.transform = 'rotate(-7deg) scale(' + lerp(2.4, 1, outExpo(st)) + ')';
+
+  // --- Scène 8 : WhatsApp ---
+  var wa = p(t, 13.55, .32);
+  $('wa').style.opacity = t < 13.55 ? 0 : 1;
+  var tap = t >= 14.15 && t < 14.27;
+  $('wa').style.transform = 'scale(' + (lerp(.4, 1, outBack(wa)) * (tap ? .95 : 1)) + ')';
+  var rg = ((t - 13.85) % .7) / .7;
+  $('waring').style.opacity = t > 13.85 ? (1 - rg) * .8 : 0;
+  $('waring').style.transform = 'scale(' + lerp(1, 1.18, rg) + ',' + lerp(1, 1.5, rg) + ')';
+  pop($('tel'), t, 13.95, .3);
+  fade($('sub'), t, 14.2, .25);
+  var f8 = $('fing8'), m8 = inOut(p(t, 13.8, .33));
+  f8.style.left = lerp(1040, 955, m8) + 'px'; f8.style.top = lerp(900, 425, m8) + 'px';
+  f8.style.opacity = t > 13.75 ? 1 : 0;
+  f8.style.transform = 'scale(' + (tap ? .82 : 1) + ')';
+  var r8 = p(t, 14.15, .45);
+  $('rip8').style.opacity = t >= 14.15 && r8 < 1 ? 1 - r8 : 0;
+  $('rip8').style.transform = 'scale(' + lerp(.6, 2.6, outExpo(r8)) + ')';
+}
+window.render = render;
+render(0);
+// Aperçu en direct si on ouvre le fichier dans le navigateur (sans ?render)
+if (!/render/.test(location.search)) {
+  var t0 = performance.now();
+  (function loop() { render(((performance.now() - t0) / 1000) % 15.4); requestAnimationFrame(loop); })();
+}
+</script>
+</body>
+</html>

@@ -69,4 +69,4 @@ Plan des 2 vidéos :
 
 ### Prochaine étape
 
-Les 4 pubs beauté sont faites : `wibzo/pubs-beaute/` (voir son A-LIRE.md). Reste : trancher le budget (CLAUDE.md), puis lancer la campagne.
+12.10.2026 : pubs refaites (v2) → `wibzo/pubs-v2/` (voir son A-LIRE.md). Nouvelle cible : tous les commerces de Suisse romande, message « maquette gratuite en moins de 24 h ». Les décisions « secteur beauté » ci-dessus et `scripts-videos.md` sont remplacées. Reste : trancher le budget (CLAUDE.md), puis lancer.

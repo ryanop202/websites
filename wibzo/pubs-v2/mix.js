@@ -4,7 +4,7 @@ const { execFileSync } = require('child_process');
 const path = require('path');
 const d = f => path.join(__dirname, f);
 
-const NAMES = { 1: 'Wibzo_beaute_meme-talent', 2: 'Wibzo_beaute_jai-cherche' };
+const NAMES = { 1: 'Wibzo_voir-avant-de-payer', 2: 'Wibzo_le-concurrent' };
 for (const v of ['1', '2']) {
   const audio = d(`out/mix_v${v}.m4a`);
   execFileSync(ffmpeg, ['-y', '-i', d(`out/music_v${v}.wav`), '-af', 'volume=0.8,atrim=0:14.9,loudnorm=I=-14:TP=-1.5:LRA=9',

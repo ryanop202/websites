@@ -1,3 +1,5 @@
+> ⚠️ Remplacé le 12.10.2026 par `wibzo/pubs-v2/A-LIRE.md` (pubs v2, tous commerces).
+
 # Scripts vidéo — pubs Meta secteur beauté
 
 Format : vertical 9:16, 15 s, sans visage, sans voix (texte à l'écran + musique). Sous-titres = le texte à l'écran.

@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Pubs Wibzo v2</title>
+<link rel="stylesheet" href="kit.css">
+<style>
+#f { position: relative; width: 1080px; height: var(--H); overflow: hidden; background: #0D0F0E; font-family: D; color: #F2F0EA; }
+.bg { position: absolute; inset: -120px; background-image: linear-gradient(rgba(255,255,255,.04) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,.04) 2px, transparent 2px); background-size: 90px 90px; }
+.glow { position: absolute; width: 1300px; height: 1300px; left: -110px; top: calc(var(--T) + 560px - 650px); border-radius: 50%; background: radial-gradient(closest-side, rgba(198,255,61,.16), transparent); }
+.vig { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, transparent 45%, rgba(0,0,0,.55)); pointer-events: none; }
+#box { position: absolute; left: 0; top: var(--T); width: 1080px; height: 980px; }
+.sc { position: absolute; inset: 0; opacity: 0; transform-origin: 50% 45%; }
+.w { display: inline-block; opacity: 0; transform-origin: 50% 70%; }
+#white { position: absolute; inset: 0; background: #fff; opacity: 0; }
+#burst { position: absolute; left: 540px; top: calc(var(--T) + 600px); width: 400px; height: 400px; margin: -200px 0 0 -200px; border-radius: 50%; border: 40px solid #C6FF3D; opacity: 0; }
+.lab { position: absolute; padding: 10px 22px; border-radius: 999px; font: 800 30px/1 D; text-transform: uppercase; letter-spacing: .04em; }
+.lab.me { background: #2a2d2b; color: #b9bcb5; }
+.lab.them { background: #C6FF3D; color: #0D0F0E; }
+.finger { position: absolute; width: 86px; height: 86px; margin: -43px 0 0 -43px; border-radius: 50%; background: rgba(255,255,255,.55); border: 4px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,.35); opacity: 0; z-index: 30; }
+.rip { position: absolute; width: 86px; height: 86px; margin: -43px 0 0 -43px; border-radius: 50%; border: 5px solid #fff; opacity: 0; z-index: 30; }
+.stamp { position: absolute; padding: 14px 30px 18px; border: 10px solid #C6FF3D; border-radius: 26px; color: #C6FF3D; background: rgba(13,15,14,.88); font: 800 74px/1 B; letter-spacing: -.03em; text-transform: uppercase; opacity: 0; }
+.stamp.red { border-color: #FF5A4F; color: #FF5A4F; }
+.ring { position: absolute; left: 290px; top: 380px; width: 500px; height: 500px; }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring b { position: absolute; inset: 0; display: grid; place-items: center; font: 800 190px/1 B; letter-spacing: -.05em; }
+.wa { position: absolute; left: 70px; top: 520px; width: 940px; height: 170px; border-radius: 999px; background: #25D366; color: #fff; display: flex; align-items: center; justify-content: center; gap: 26px; font: 800 62px/1 D; letter-spacing: -.02em; box-shadow: 0 30px 80px -20px rgba(37,211,102,.6); opacity: 0; }
+.wa svg { width: 88px; height: 88px; }
+.waring { position: absolute; left: 70px; top: 520px; width: 940px; height: 170px; border-radius: 999px; border: 6px solid #25D366; opacity: 0; }
+.tel { position: absolute; left: 0; right: 0; top: 740px; text-align: center; font: 800 104px/1 B; letter-spacing: -.03em; opacity: 0; }
+.sub { position: absolute; left: 0; right: 0; top: 870px; text-align: center; font: 600 44px/1 D; color: #b9bcb5; opacity: 0; }
+</style>
+</head>
+<body>
+<div id="f">
+  <div class="bg" id="bg"></div><div class="glow" id="glow"></div><div id="burst"></div>
+  <div id="box">
+
+  <!-- ============ VIDÉO 1 : VOIR AVANT DE PAYER ============ -->
+  <div class="v1">
+    <div class="sc" id="a1">
+      <div class="big" style="position:absolute;left:70px;top:0;font-size:100px">
+        <div><span class="w" data-t="-.4">Et si vous voyiez</span></div>
+        <div><span class="w" data-t=".25">votre site</span> <span class="w hl" data-t=".55">avant</span></div>
+        <div><span class="w" data-t=".95">de payer quoi</span></div>
+        <div><span class="w" data-t="1.2">que ce soit ?</span></div>
+      </div>
+      <div id="a1p"></div>
+    </div>
+
+    <div class="sc" id="a2">
+      <div class="big" style="position:absolute;left:70px;top:0;font-size:96px">
+        <div><span class="w" data-t="2.75">Je crée la maquette</span></div>
+        <div><span class="w" data-t="3.0">de votre</span></div>
+        <div style="height:100px"><span class="lime" id="metier" style="font-size:118px"></span></div>
+      </div>
+      <div id="a2ph"></div>
+    </div>
+
+    <div class="sc" id="a3">
+      <div class="big" style="position:absolute;left:70px;top:0;font-size:100px">
+        <div><span class="w" data-t="5.45">Elle vous plaît ?</span></div>
+        <div><span class="w lime" data-t="5.85">On continue.</span></div>
+        <div><span class="w" data-t="6.35">Sinon, on</span> <span class="w" data-t="6.6">en reste là.</span></div>
+      </div>
+      <div id="a3p"></div>
+      <div class="stamp" id="a3st" style="left:120px;top:640px">0 CHF</div>
+    </div>
+  </div>
+
+  <!-- ============ VIDÉO 2 : LE CONCURRENT ============ -->
+  <div class="v2">
+    <div class="sc" id="b1">
+      <div class="big" style="position:absolute;left:70px;top:0;font-size:96px">
+        <div><span class="w" data-t="-.4">Pendant que vous</span> <span class="w" data-t="-.3">lisez ça,</span></div>
+        <div><span class="w" data-t=".35">votre concurrent</span></div>
+        <div><span class="w red" data-t=".8">prend vos clients.</span></div>
+      </div>
+      <div id="b1ph"></div>
+      <div class="lab me" style="left:290px;top:935px">Vous</div>
+      <div class="lab them" style="left:570px;top:935px">Votre concurrent</div>
+    </div>
+
+    <div class="sc" id="b2">
+      <div class="big" style="position:absolute;left:70px;top:0;font-size:96px">
+        <div><span class="w" data-t="2.85">Lui, il a un site.</span></div>
+        <div><span class="w" data-t="3.25">Le client réserve</span></div>
+        <div><span class="w lime" data-t="3.6">en 2 clics.</span></div>
+      </div>
+      <div id="b2p"></div>
+      <div class="rip" id="b2r"></div><div class="finger" id="b2f"></div>
+    </div>
+
+    <div class="sc" id="b3">
+      <div class="big" style="position:absolute;left:70px;top:0;font-size:96px">
+        <div><span class="w" data-t="5.35">Vous ? Juste</span></div>
+        <div><span class="w" data-t="5.65">une fiche Google.</span></div>
+        <div><span class="w red" data-t="6.1">Il va voir ailleurs.</span></div>
+      </div>
+      <div id="b3p"></div>
+    </div>
+  </div>
+
+  <!-- ============ FIN COMMUNE ============ -->
+  <div class="sc" id="c1">
+    <div class="big" style="position:absolute;left:0;right:0;top:0;text-align:center;font-size:96px">
+      <div><span class="w" data-t="7.48">Maquette</span> <span class="w hl" data-t="7.75">gratuite</span></div>
+      <div style="font-size:84px;margin-top:22px"><span class="w" data-t="8.45">en moins de</span></div>
+    </div>
+    <div class="ring" id="ring"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" stroke="#2a2f2b" stroke-width="8"/><circle id="arc" cx="50" cy="50" r="44" fill="none" stroke="#C6FF3D" stroke-width="8" stroke-linecap="round" stroke-dasharray="276.5" stroke-dashoffset="276.5"/></svg><b id="num">0 H</b></div>
+  </div>
+
+  <div class="sc" id="c2">
+    <div class="logo" style="position:absolute;left:0;right:0;top:0;text-align:center;font-size:86px"><span class="w" data-t="11.95">Wibzo<span class="lime">.</span></span></div>
+    <div class="big" style="position:absolute;left:0;right:0;top:120px;text-align:center;font-size:100px">
+      <div><span class="w" data-t="12.05">Maquette gratuite</span></div>
+      <div><span class="w" data-t="12.35">en moins de</span> <span class="w hl" data-t="12.6">24 h</span></div>
+    </div>
+    <div class="waring" id="waring"></div>
+    <div class="wa" id="wa"><svg viewBox="0 0 24 24"><path fill="#fff" d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.47-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.5h-.01a9.4 9.4 0 0 1-4.8-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.4 9.4 0 0 1-1.44-5.01c0-5.2 4.23-9.43 9.43-9.43a9.37 9.37 0 0 1 9.42 9.44c0 5.2-4.23 9.42-9.43 9.42m8.02-17.44A11.27 11.27 0 0 0 12.05.75C5.8.75.71 5.84.7 12.1c0 2 .52 3.95 1.52 5.67L.6 23.25l5.6-1.47a11.3 11.3 0 0 0 5.85 1.49c6.25 0 11.34-5.09 11.35-11.35 0-3.03-1.18-5.88-3.32-8.02"/></svg>Écrivez-nous</div>
+    <div class="tel" id="tel">076 757 43 93</div>
+    <div class="sub" id="sub">Toute la Suisse romande</div>
+    <div class="rip" id="c2r" style="left:930px;top:605px"></div><div class="finger" id="c2f"></div>
+  </div>
+
+  </div>
+  <div class="vig"></div><div id="white"></div>
+</div>
+
+<script src="kit.js"></script>
+<script>
+var Q = new URLSearchParams(location.search);
+var fmt = Q.get('f') || '916', V = Q.get('v') || '1';
+var H = fmt === '45' ? 1350 : 1920, T = fmt === '45' ? 185 : 290;
+var F = document.getElementById('f');
+F.style.setProperty('--H', H + 'px'); F.style.setProperty('--T', T + 'px');
+document.querySelectorAll(V === '1' ? '.v2' : '.v1').forEach(function (e) { e.remove(); });
+var $ = function (id) { return document.getElementById(id); };
+function put(id, html) { $(id).outerHTML = html; }
+
+// ---------- Construction des téléphones ----------
+var CYCLE = [[3.25, 'coif', 'salon'], [3.7, 'garage', 'garage'], [4.15, 'boul', 'boulangerie'], [4.6, 'menu', 'atelier'], [5.0, 'cafe', 'restaurant']];
+if (V === '1') {
+  put('a1p', phoneHTML('a1p', 'coif', { on: true, tag: true, style: 'left:340px;top:520px;transform:scale(.8)' }));
+  put('a2ph', CYCLE.map(function (c, i) { return phoneHTML('cy' + i, c[1], { on: true, tag: true, style: 'left:340px;top:330px;transform:scale(.9)' }); }).join(''));
+  put('a3p', phoneHTML('a3p', 'inst', { on: true, tag: true, style: 'left:340px;top:330px;transform:scale(.9)' }));
+} else {
+  put('b1ph', phoneHTML('b1l', 'fiche', { style: 'left:150px;top:430px;transform:scale(.6)' }) +
+    phoneHTML('b1r', 'garage', { on: true, style: 'left:530px;top:430px;transform:scale(.6)', extra:
+      notifHTML('n1', 60, 'Nouvelle réservation', 'Service annuel · demain 8 h', 'maint.') +
+      notifHTML('n2', 150, 'Nouvelle réservation', 'Pneus · jeudi 14 h', 'maint.') +
+      notifHTML('n3', 240, 'Nouvelle demande', 'Devis freins', 'maint.') }));
+  put('b2p', phoneHTML('b2p', 'garage', { on: true, style: 'left:340px;top:340px;transform:scale(.88)' }));
+  put('b3p', phoneHTML('b3p', 'fiche', { style: 'left:340px;top:340px;transform:scale(.86)' }));
+}
+
+// ---------- Outils ----------
+var clamp = function (x, a, b) { return Math.min(b === undefined ? 1 : b, Math.max(a || 0, x)); };
+var p = function (t, a, d) { return clamp((t - a) / d); };
+var lerp = function (a, b, x) { return a + (b - a) * x; };
+var outBack = function (x) { var c = 1.9; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+var outExpo = function (x) { return x >= 1 ? 1 : 1 - Math.pow(2, -10 * x); };
+var inOut = function (x) { return x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2; };
+var words = Array.prototype.slice.call(document.querySelectorAll('.w'));
+var DROP = 7.48, BEAT = 60 / 128;
+var S = V === '1' ? { a1: [0, 2.7], a2: [2.7, 5.4], a3: [5.4, 7.48], c1: [7.48, 11.9], c2: [11.9, 99] }
+                  : { b1: [0, 2.8], b2: [2.8, 5.3], b3: [5.3, 7.48], c1: [7.48, 11.9], c2: [11.9, 99] };
+var HITS = (V === '1' ? [[.55, 16], [2.72, 12], [3.25, 6], [3.7, 6], [4.15, 6], [4.6, 6], [5.0, 6], [5.85, 10], [6.9, 18]]
+                      : [[.8, 16], [1.3, 6], [1.8, 6], [2.3, 6], [2.82, 12], [4.1, 6], [4.75, 10], [6.1, 12], [6.7, 12]])
+           .concat([[DROP, 34], [7.75, 14], [9.85, 24], [12.6, 16], [13.95, 8]]);
+
+function pop(el, t, t0, d) {
+  d = d || .24; var x = p(t, t0, d);
+  el.style.opacity = t < t0 ? 0 : Math.min(1, x * 4);
+  el.style.transform = 'translateY(' + ((1 - outExpo(x)) * 36) + 'px) scale(' + lerp(1.45, 1, outBack(x)) + ')';
+}
+function slideUp(el, t, t0, sc, rot) {
+  var x = outExpo(p(t, t0, .45));
+  el.style.transform = 'translateY(' + ((1 - x) * 700) + 'px) rotate(' + lerp(rot === undefined ? -6 : rot, 0, x) + 'deg) scale(' + sc + ')';
+}
+function scrollSite(el, y) { var m = el.querySelector('.site'); if (m) m.style.transform = 'translateY(' + (-y) + 'px)'; }
+function finger(f, r, t, pts) {
+  var x = pts[0][1], y = pts[0][2], pr = false;
+  for (var i = 0; i < pts.length; i++) {
+    if (t >= pts[i][0]) {
+      x = pts[i][1]; y = pts[i][2];
+      if (i + 1 < pts.length && t < pts[i + 1][0]) { var m = inOut(p(t, pts[i][0], Math.min(.35, pts[i + 1][0] - pts[i][0]))); x = lerp(pts[i][1], pts[i + 1][1], m); y = lerp(pts[i][2], pts[i + 1][2], m); }
+      if (pts[i][3] && t - pts[i][0] < .12) pr = true;
+    }
+  }
+  f.style.left = x + 'px'; f.style.top = y + 'px';
+  f.style.opacity = t >= pts[0][0] && t < pts[pts.length - 1][0] + .5 ? 1 : 0;
+  f.style.transform = 'scale(' + (pr ? .82 : 1) + ')';
+  var last = null; pts.forEach(function (q) { if (q[3] && t >= q[0]) last = q; });
+  if (last) { var rp = p(t, last[0], .45); r.style.left = last[1] + 'px'; r.style.top = last[2] + 'px'; r.style.opacity = rp < 1 ? 1 - rp : 0; r.style.transform = 'scale(' + lerp(.6, 2.4, outExpo(rp)) + ')'; }
+  else r.style.opacity = 0;
+}
+function notif(el, t, t0) {
+  var x = p(t, t0, .35);
+  el.style.opacity = t < t0 ? 0 : Math.min(1, x * 3);
+  el.style.transform = 'translateY(' + ((1 - outBack(x)) * -50) + 'px) scale(' + lerp(.92, 1, outExpo(x)) + ')';
+}
+
+function render(t) {
+  for (var k in S) {
+    var a = S[k][0], b = S[k][1], el = $(k);
+    if (t < a || t >= b) { el.style.opacity = 0; el.style.visibility = 'hidden'; continue; }
+    el.style.visibility = 'visible';
+    el.style.opacity = a === 0 ? 1 : Math.min(1, (t - a) / .07, (b - t) / .05);
+    el.style.transform = a === 0 ? 'none' : 'scale(' + lerp(1.07, 1, outExpo(p(t, a, .3))) + ')';
+  }
+  words.forEach(function (w) { pop(w, t, +w.dataset.t); });
+
+  var sx = 0, sy = 0, rot = 0;
+  HITS.forEach(function (h) { var dt = t - h[0]; if (dt < 0 || dt > .6) return; var e = h[1] * Math.exp(-dt * 13); sx += e * Math.sin(dt * 75); sy += e * Math.cos(dt * 61) * .7; rot += e * .02 * Math.sin(dt * 50); });
+  $('box').style.transform = 'translate(' + sx + 'px,' + sy + 'px) rotate(' + rot + 'deg)';
+  $('bg').style.transform = 'translate(' + (-(t * 18) % 90) + 'px,' + (-(t * 30) % 90) + 'px)';
+  var pulse = t >= DROP ? Math.exp(-(((t - DROP) % BEAT) / BEAT) * 5) : 0;
+  $('glow').style.transform = 'scale(' + (1 + pulse * .12) + ')';
+  $('glow').style.opacity = t < DROP ? .55 : .85 + pulse * .15;
+  $('white').style.opacity = t >= DROP ? Math.max(0, .75 - (t - DROP) * 5) : 0;
+  var bx = p(t, DROP, .55);
+  $('burst').style.opacity = t >= DROP && bx < 1 ? 1 - bx : 0;
+  $('burst').style.transform = 'scale(' + lerp(.2, 4.2, outExpo(bx)) + ')';
+
+  if (V === '1') {
+    // a1 : téléphone visible dès la 1re image, qui défile doucement
+    $('a1p').style.transform = 'translateY(' + (-t * 14) + 'px) rotate(' + (-3 + t * .8) + 'deg) scale(.8)';
+    scrollSite($('a1p'), lerp(0, 420, inOut(p(t, .6, 2.0))));
+    // a2 : les métiers défilent
+    var cur = 0; CYCLE.forEach(function (c, i) { if (t >= c[0]) cur = i; });
+    $('metier').textContent = t >= CYCLE[0][0] ? CYCLE[cur][2] + '.' : '';
+    var mx = p(t, CYCLE[cur][0], .2);
+    $('metier').style.display = 'inline-block';
+    $('metier').style.transform = 'translateY(' + ((1 - outExpo(mx)) * 40) + 'px) scale(' + lerp(1.3, 1, outBack(mx)) + ')';
+    CYCLE.forEach(function (c, i) {
+      var e = $('cy' + i), on = t >= 2.75 && (i === cur);
+      e.style.visibility = on ? 'visible' : 'hidden';
+      var x = p(t, i === 0 ? 2.75 : c[0], .3);
+      e.style.transform = 'translateX(' + ((1 - outExpo(x)) * 160) + 'px) rotate(' + lerp(5, 0, outExpo(x)) + 'deg) scale(.9)';
+      scrollSite(e, lerp(0, 180, p(t, c[0], .6)));
+    });
+    // a3 : institut + tampon 0 CHF
+    slideUp($('a3p'), t, 5.45, .9);
+    scrollSite($('a3p'), lerp(0, 380, inOut(p(t, 5.8, 1.4))));
+    var s3 = p(t, 6.9, .22);
+    $('a3st').style.opacity = t < 6.9 ? 0 : 1;
+    $('a3st').style.transform = 'rotate(-8deg) scale(' + lerp(2.4, 1, outExpo(s3)) + ')';
+  } else {
+    // b1 : vous vs concurrent, les réservations tombent chez lui
+    var bob = Math.sin(t * 2) * 6;
+    $('b1l').style.transform = 'translateY(' + bob + 'px) scale(.6)';
+    $('b1r').style.transform = 'translateY(' + (-bob) + 'px) scale(.6)';
+    scrollSite($('b1r'), 0);
+    notif($('n1'), t, 1.3); notif($('n2'), t, 1.8); notif($('n3'), t, 2.3);
+    $('b1l').style.filter = t > 1.2 ? 'grayscale(1) brightness(' + lerp(1, .55, p(t, 1.2, .8)) + ')' : 'none';
+    // b2 : réservation en 2 clics
+    slideUp($('b2p'), t, 2.85, .88, 4);
+    var b2 = $('b2p');
+    scrollSite(b2, lerp(0, 330, inOut(p(t, 3.25, .45))));
+    b2.querySelectorAll('.s-row').forEach(function (r, i) { r.classList.toggle('sel', i === 1 && t >= 4.1); });
+    var cta = b2.querySelector('[data-cta]');
+    cta.classList.toggle('ok', t >= 4.78); cta.textContent = t >= 4.78 ? 'Réservé ✓' : 'Prendre rendez-vous';
+    // positions : téléphone (left 340, top 300, scale .8) ; contenu décalé de 330 px
+    var Y0 = 340 + 11 * .88, SC = .88;
+    finger($('b2f'), $('b2r'), t, [[3.8, 700, 960], [4.1, 470, Y0 + (104 + 330 + 76 + 58 + 37 + 49 + 49 + 25 - 330) * SC, 1], [4.4, 470, 700], [4.75, 540, Y0 + (104 + 330 + 46 - 330) * SC, 1], [5.0, 540, 480]]);
+    // b3 : la fiche seule, balayée
+    var b3 = $('b3p'), sw = p(t, 6.7, .4), y3 = outExpo(p(t, 5.35, .45));
+    b3.style.transform = 'translate(' + (inOut(sw) * -1100) + 'px,' + ((1 - y3) * 700) + 'px) rotate(' + (inOut(sw) * -18) + 'deg) scale(.86)';
+  }
+
+  // c1 : 0 → 24 H
+  var r6 = p(t, 8.6, .35), c6 = inOut(p(t, 9.0, .8));
+  $('ring').style.opacity = Math.min(1, r6 * 3);
+  $('num').textContent = Math.round(c6 * 24) + ' H';
+  $('num').style.color = c6 >= 1 ? '#C6FF3D' : '#F2F0EA';
+  $('arc').setAttribute('stroke-dashoffset', 276.5 * (1 - c6));
+  var hit = t >= 9.85 ? 1 + .1 * Math.exp(-(t - 9.85) * 7) : 1;
+  $('ring').style.transform = 'scale(' + lerp(.6, 1, outBack(r6)) * hit + ')';
+
+  // c2 : WhatsApp
+  var wa = p(t, 13.2, .32), tap = t >= 13.95 && t < 14.07;
+  $('wa').style.opacity = t < 13.2 ? 0 : 1;
+  $('wa').style.transform = 'scale(' + (lerp(.4, 1, outBack(wa)) * (tap ? .95 : 1)) + ')';
+  var rg = ((t - 13.5) % .7) / .7;
+  $('waring').style.opacity = t > 13.5 ? (1 - rg) * .8 : 0;
+  $('waring').style.transform = 'scale(' + lerp(1, 1.18, rg) + ',' + lerp(1, 1.5, rg) + ')';
+  pop($('tel'), t, 13.45, .3);
+  $('sub').style.opacity = p(t, 13.75, .25);
+  finger($('c2f'), $('c2r'), t, [[13.6, 1040, 980], [13.95, 930, 605, 1], [14.4, 930, 605]]);
+}
+window.render = render;
+render(0);
+if (!/render/.test(location.search)) {
+  var t0 = performance.now();
+  (function loop() { render(((performance.now() - t0) / 1000) % 15.4); requestAnimationFrame(loop); })();
+}
+</script>
+</body>
+</html>

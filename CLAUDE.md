@@ -69,7 +69,7 @@ Maximum environ 100 CHF dépensés par test.
 Temps disponible :
 10–20 heures par semaine.
 
-Pas de publicité payante pour le moment.
+Publicité payante : un seul test Meta autorisé (décidé le 12.10.2026) : 100 CHF sur 8 jours (12,50 CHF/jour), 1 campagne, 1 ensemble de pubs, budget automatique, objectif messages WhatsApp. Pubs : `wibzo/pubs-v2/`. Pas d'autre dépense pub sans nouvelle décision de Ryan.
 
 Avant de lancer réellement l'activité, vérifier :
 

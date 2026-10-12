@@ -35,9 +35,14 @@ Description : Vous payez seulement si elle vous plaît
 Bouton : Envoyer un message (WhatsApp)
 Message pré-rempli : « Bonjour ! Je veux ma maquette gratuite. »
 
+## Budget du test (décidé le 12.10.2026)
+- 100 CHF sur 8 jours = 12,50 CHF/jour, budget automatique (Advantage+), 1 ensemble de pubs avec les 4 pubs.
+- Ciblage large : Suisse romande, 25–60 ans, sans intérêts. Objectif : Messages → WhatsApp.
+- Ne rien modifier pendant 7 jours.
+- Bilan après 8 jours : ≥ 1 client = rentable, on continue · conversations sans client = corriger la maquette / le prix / la relance · presque aucune conversation = nouveaux hooks/visuels.
+
 ## À vérifier avant de lancer
 - [ ] ElevenLabs : le compte gratuit a été bloqué pendant la génération (« Unusual activity… Free Tier access has been disabled »). Pour refaire une voix, il faudra un abonnement payant (ou vérifier le compte).
-- [ ] Budget : CLAUDE.md dit encore « pas de publicité payante » et ~100 CHF max par test.
 - [ ] Les maquettes montrent réservation en ligne / commande / devis : être sûr de pouvoir les livrer.
 - [ ] Tenir le délai « moins de 24 h » pour chaque demande reçue.
 

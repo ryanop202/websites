@@ -302,6 +302,7 @@ vérifier les sources avant de les présenter comme des faits.
 À chaque nouvelle session, commencer par lire :
 
 * CLAUDE.md
+* LANCEMENT.md (état du lancement Wibzo et prochaines étapes)
 * PROSPECTS.md
 * PROCESS.md si nécessaire
 

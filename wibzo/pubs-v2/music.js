@@ -121,7 +121,7 @@ impact(DROP, 1.0);
 const wrapT = f => (t0, ...a) => f(W(t0), ...a);
 pop = wrapT(pop); whoosh = wrapT(whoosh); thud = wrapT(thud); tap = wrapT(tap); ding = wrapT(ding); tick = wrapT(tick); blip = wrapT(blip);
 if (V === '1') {
-  pop(0, .14, 700); pop(.25, .14, 800); pop(.55, .22, 500); thud(.55, .4); pop(.95, .14); pop(1.2, .16, 900);
+  pop(0, .14, 700); pop(.6, .14, 800); pop(.95, .22, 500); thud(1.35, .7);
   whoosh(2.6, .25, .3); pop(2.75, .14); pop(3.0, .14);
   [3.25, 3.7, 4.15, 4.6, 5.0].forEach((t, i) => { whoosh(t - .08, .14, .18); pop(t, .18, 700 + i * 120); });
   whoosh(5.35, .22, .3); pop(5.45, .14); ding(5.85, .16); pop(6.35, .14); pop(6.6, .14);

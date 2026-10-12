@@ -2,7 +2,7 @@
 const puppeteer = require('puppeteer-core');
 const path = require('path');
 const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
-const OUT = { a: 'Wibzo_affiche_maquette-gratuite_4x5.png', b: 'Wibzo_affiche_voir-avant-de-payer_4x5.png' };
+const OUT = { a: 'Wibzo_affiche_pas-de-site_4x5.png', b: 'Wibzo_affiche_peur-de-payer_4x5.png' };
 
 (async () => {
   const browser = await puppeteer.launch({ executablePath: CHROME, headless: true, args: ['--allow-file-access-from-files'] });

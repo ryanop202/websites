@@ -16,7 +16,9 @@ const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
   const browser = await puppeteer.launch({ executablePath: CHROME, headless: true, args: ['--allow-file-access-from-files', '--hide-scrollbars'] });
   const page = await browser.newPage();
   await page.setViewport({ width: W, height: H, deviceScaleFactor: 1 });
-  const url = 'file:///' + path.resolve(__dirname, 'ad.html').replace(/\\/g, '/') + `?render&v=${v}&f=${fmt}`;
+  let warp = '';
+  try { warp = '&warp=' + encodeURIComponent(require('fs').readFileSync(path.join(__dirname, 'out', `warp_v${v}.json`), 'utf8').trim()); } catch (e) {}
+  const url = 'file:///' + path.resolve(__dirname, 'ad.html').split(path.sep).join('/') + `?render&v=${v}&f=${fmt}` + warp;
   await page.goto(url, { waitUntil: 'load' });
   await page.evaluate(() => document.fonts.ready);
   const el = await page.$('#f');

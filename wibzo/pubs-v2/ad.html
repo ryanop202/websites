@@ -139,7 +139,7 @@ var $ = function (id) { return document.getElementById(id); };
 function put(id, html) { $(id).outerHTML = html; }
 
 // ---------- Construction des téléphones ----------
-var CYCLE = [[3.25, 'coif', 'salon'], [3.7, 'garage', 'garage'], [4.15, 'boul', 'boulangerie'], [4.6, 'menu', 'atelier'], [5.0, 'cafe', 'restaurant']];
+var CYCLE = [[3.6, 'coif', 'salon'], [3.94, 'garage', 'garage'], [4.3, 'boul', 'boulangerie'], [4.67, 'menu', 'atelier'], [5.0, 'cafe', 'restaurant']];
 if (V === '1') {
   put('a1p', phoneHTML('a1p', 'coif', { on: true, tag: true, style: 'left:340px;top:520px;transform:scale(.8)' }));
   put('a2ph', CYCLE.map(function (c, i) { return phoneHTML('cy' + i, c[1], { on: true, tag: true, style: 'left:340px;top:330px;transform:scale(.9)' }); }).join(''));
@@ -201,7 +201,7 @@ function notif(el, t, t0) {
   el.style.transform = 'translateY(' + ((1 - outBack(x)) * -50) + 'px) scale(' + lerp(.92, 1, outExpo(x)) + ')';
 }
 
-function render(t) {
+function renderD(t) {
   for (var k in S) {
     var a = S[k][0], b = S[k][1], el = $(k);
     if (t < a || t >= b) { el.style.opacity = 0; el.style.visibility = 'hidden'; continue; }
@@ -289,7 +289,10 @@ function render(t) {
   $('sub').style.opacity = p(t, 13.75, .25);
   finger($('c2f'), $('c2r'), t, [[13.6, 1040, 980], [13.95, 930, 605, 1], [14.4, 930, 605]]);
 }
-window.render = render;
+// Recalage sur la voix : ?warp=[[design, réel], ...]
+var KN = JSON.parse(Q.get('warp') || '[[0,0],[14.9,14.9]]');
+function D(r) { for (var i = 0; i < KN.length - 1; i++) { var a = KN[i], b = KN[i + 1]; if (r <= b[1] || i === KN.length - 2) return a[0] + (r - a[1]) * (b[0] - a[0]) / (b[1] - a[1]); } return r; }
+window.render = function (tr) { renderD(D(tr)); };
 render(0);
 if (!/render/.test(location.search)) {
   var t0 = performance.now();

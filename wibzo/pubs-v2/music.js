@@ -5,8 +5,13 @@ const path = require('path');
 
 const SR = 44100, DUR = 14.9, N = Math.round(SR * DUR);
 const L = new Float32Array(N), R = new Float32Array(N);
-const BEAT = 60 / 128, DROP = 7.48;
-const GAP0 = 7.22; // silence juste avant le drop
+// Recalage sur la voix : out/warp_vN.json = [[temps design, temps réel], ...]
+const V = process.argv[2] || '1';
+let KN = [[0, 0], [14.9, 14.9]];
+try { KN = JSON.parse(fs.readFileSync(path.join(__dirname, 'out', `warp_v${V}.json`), 'utf8')); } catch (e) {}
+const W = x => { for (let i = 0; i < KN.length - 1; i++) { const [d0, r0] = KN[i], [d1, r1] = KN[i + 1]; if (x <= d1 || i === KN.length - 2) return r0 + (x - d0) * (r1 - r0) / (d1 - d0); } return x; };
+const BEAT = 60 / 128, DROP = W(7.48);
+const GAP0 = DROP - .26; // silence juste avant le drop
 let seed = 7;
 const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647) * 2 - 1;
 const midi = m => 440 * Math.pow(2, (m - 69) / 12);
@@ -89,15 +94,15 @@ function thud(t0, g = .8) {
 const am = [57, 60, 64, 69], arp = [69, 72, 76, 72, 69, 76, 72, 79];
 for (let b = 0; b * BEAT < GAP0; b++) {
   const t = b * BEAT;
-  if (t < 2.07 || t >= 3.05) kick(t, .45);
+  kick(t, .45);
   hat(t + BEAT / 2, .12);
   bass(t + BEAT / 2, 45, BEAT * .45, .32);
-  for (let s = 0; s < 2; s++) { const tt = t + s * BEAT / 2; if (tt < GAP0) pluck(tt, arp[(b * 2 + s) % 8], t > 5.5 ? .07 : .1, s ? .3 : -.3); }
+  for (let s = 0; s < 2; s++) { const tt = t + s * BEAT / 2; if (tt < GAP0) pluck(tt, arp[(b * 2 + s) % 8], t > DROP - 2 ? .07 : .1, s ? .3 : -.3); }
 }
-chord(0, am, 2.07, .1, .05);
-chord(3.05, [53, 57, 60, 65], 2.5, .09, .05);
-chord(5.56, [52, 55, 59, 64], 1.66, .08, .03);
-riser(5.9, GAP0, .32);
+chord(0, am, DROP * .33, .1, .05);
+chord(DROP * .33, [53, 57, 60, 65], DROP * .33, .09, .05);
+chord(DROP * .66, [52, 55, 59, 64], DROP * .34 - .26, .08, .03);
+riser(DROP - 1.58, GAP0, .32);
 
 // --- Drop (7,48 → fin) ---
 const prog = [[57, 60, 64, 69, 45], [53, 57, 60, 65, 41], [48, 52, 55, 60, 48], [55, 59, 62, 67, 43]];
@@ -111,8 +116,10 @@ for (let b = 0; DROP + b * BEAT < DUR; b++) {
   chord(t + BEAT / 2, c.slice(0, 4), BEAT * .42, .2, .22);
 }
 
-// --- Bruitages calés sur l'image (node music.js 1|2) ---
-const V = process.argv[2] || '1';
+// --- Bruitages calés sur l'image (node music.js 1|2), en temps « design » recalés par W ---
+impact(DROP, 1.0);
+const wrapT = f => (t0, ...a) => f(W(t0), ...a);
+pop = wrapT(pop); whoosh = wrapT(whoosh); thud = wrapT(thud); tap = wrapT(tap); ding = wrapT(ding); tick = wrapT(tick); blip = wrapT(blip);
 if (V === '1') {
   pop(0, .14, 700); pop(.25, .14, 800); pop(.55, .22, 500); thud(.55, .4); pop(.95, .14); pop(1.2, .16, 900);
   whoosh(2.6, .25, .3); pop(2.75, .14); pop(3.0, .14);
@@ -127,7 +134,6 @@ if (V === '1') {
   whoosh(5.2, .22, .3); pop(5.35, .14); pop(5.65, .14); thud(6.1, .5);
   whoosh(6.7, .35, .4);
 }
-impact(DROP, 1.0);
 pop(7.75, .22, 1100);
 pop(8.45, .14, 800);
 for (let i = 0; i < 20; i++) tick(9.0 + i * .04, .1);

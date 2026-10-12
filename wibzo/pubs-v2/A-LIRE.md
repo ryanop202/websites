@@ -10,7 +10,10 @@ Créées le 12.10.2026. Remplacent les pubs « beauté » (supprimées à la dem
 
 ## Fichiers à publier
 
-Vidéos (14,9 s, musique originale, texte + téléphone visibles dès la 1re image) :
+Vidéos (14,9 s, voix Théo d'ElevenLabs + musique originale qui baisse sous la voix, texte + téléphone visibles dès la 1re image) :
+- Voix vidéo 1 : « Et si vous voyiez votre site avant de payer quoi que ce soit ? Je crée la maquette de votre salon, garage, boulangerie, atelier, restaurant… Elle vous plaît ? On continue. Sinon, on en reste là. Maquette gratuite, en moins de vingt-quatre heures. Écrivez-nous sur WhatsApp ! »
+- Voix vidéo 2 : « Pendant que vous lisez ça, votre concurrent prend vos clients. Lui, il a un site : le client réserve en deux clics. Vous ? Juste une fiche Google. Il va voir ailleurs. Maquette gratuite, en moins de vingt-quatre heures. Écrivez-nous sur WhatsApp ! »
+- Fichiers voix : `audio/voix_v1.mp3`, `audio/voix_v2.mp3`. Calage animation/musique sur la voix : `out/warp_vN.json` (copie dans `calage_vN.json`).
 - `Wibzo_voir-avant-de-payer_9x16.mp4` / `_4x5.mp4` — hook « Et si vous voyiez votre site AVANT de payer quoi que ce soit ? » → les métiers défilent (salon, garage, boulangerie, atelier, restaurant) → « Elle vous plaît ? On continue. Sinon, on en reste là. » → compteur 24 H → WhatsApp.
 - `Wibzo_le-concurrent_9x16.mp4` / `_4x5.mp4` — hook « Pendant que vous lisez ça, votre concurrent prend vos clients. » (réservations qui tombent chez lui) → « Lui, il a un site. Le client réserve en 2 clics. » → « Vous ? Juste une fiche Google. Il va voir ailleurs. » → compteur 24 H → WhatsApp.
 
@@ -33,11 +36,13 @@ Bouton : Envoyer un message (WhatsApp)
 Message pré-rempli : « Bonjour ! Je veux ma maquette gratuite. »
 
 ## À vérifier avant de lancer
+- [ ] ElevenLabs : le compte gratuit a été bloqué pendant la génération (« Unusual activity… Free Tier access has been disabled »). Pour refaire une voix, il faudra un abonnement payant (ou vérifier le compte).
 - [ ] Budget : CLAUDE.md dit encore « pas de publicité payante » et ~100 CHF max par test.
 - [ ] Les maquettes montrent réservation en ligne / commande / devis : être sûr de pouvoir les livrer.
 - [ ] Tenir le délai « moins de 24 h » pour chaque demande reçue.
 
 ## Modifier ou refaire (après `npm install`)
 - Aperçu animé : ouvrir `ad.html?v=1` ou `ad.html?v=2` dans Chrome. Maquettes : `kit.js` / `kit.css`.
+- Calage : copier `calage_vN.json` dans `out/warp_vN.json` avant le rendu.
 - Vidéos : `node render.js 1 916`, `node render.js 1 45`, `node render.js 2 916`, `node render.js 2 45`, puis `node music.js 1`, `node music.js 2`, `node mix.js`
 - Affiches : `node affiches.js`

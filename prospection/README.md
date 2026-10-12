@@ -69,4 +69,4 @@ Plan des 2 vidéos :
 
 ### Prochaine étape
 
-Écrire les 2 scripts vidéo seconde par seconde avec les sous-titres, puis créer les maquettes beauté et les 4 visuels.
+Scripts vidéo faits : voir `scripts-videos.md`. Reste : créer les maquettes beauté fictives, monter les 2 vidéos, faire les 2 images.

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Images Wibzo beauté</title>
+<style>
+@font-face { font-family: B; src: url(fonts/bricolage-800-latin.woff2) format("woff2"); font-weight: 800; }
+@font-face { font-family: D; src: url(fonts/dmsans-latin.woff2) format("woff2"); font-weight: 100 1000; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #000; }
+#f { position: relative; width: 1080px; height: var(--H); overflow: hidden; background: #0D0F0E; font-family: D; color: #F2F0EA; }
+.bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,.04) 2px, transparent 2px); background-size: 90px 90px; }
+.glow { position: absolute; width: 1200px; height: 1200px; left: -60px; top: 200px; border-radius: 50%; background: radial-gradient(closest-side, rgba(198,255,61,.16), transparent); }
+.big { font-family: B; font-weight: 800; text-transform: uppercase; letter-spacing: -.035em; line-height: .94; }
+.lime { color: #C6FF3D; }
+.hl { background: #C6FF3D; color: #0D0F0E; padding: 0 .12em .02em; border-radius: .08em; }
+.logo { font-family: B; font-weight: 800; letter-spacing: -.05em; line-height: 1; }
+.num { position: absolute; right: 60px; top: 60px; font: 700 30px/1 D; color: #6d726c; }
+.lab { position: absolute; left: 70px; top: 60px; font: 700 30px/1 D; letter-spacing: .14em; text-transform: uppercase; color: #C6FF3D; }
+.tagx { position: absolute; left: 50%; transform: translateX(-50%); padding: 10px 20px; border-radius: 999px; background: rgba(255,255,255,.1); color: #b9bcb5; font: 600 24px/1 D; white-space: nowrap; }
+
+.ph { position: absolute; width: 400px; height: 780px; padding: 12px; border-radius: 58px; background: #1d201e; border: 2px solid #C6FF3D; box-shadow: 0 0 90px -10px rgba(198,255,61,.45), 0 60px 100px -40px rgba(0,0,0,.9); transform-origin: 50% 0; }
+.scr { position: relative; width: 100%; height: 100%; border-radius: 46px; overflow: hidden; background: var(--bgc); color: var(--fg); }
+.st { position: absolute; left: 0; right: 0; z-index: 3; display: flex; justify-content: space-between; padding: 20px 32px 0; font: 700 18px/1 D; }
+.mq-hero { height: 330px; position: relative; overflow: hidden; background: var(--hero); }
+.mq-hero:before { content: ""; position: absolute; width: 260px; height: 260px; border-radius: 50%; right: -60px; top: 40px; background: var(--acc); opacity: .55; }
+.mq-hero:after { content: ""; position: absolute; width: 180px; height: 180px; border-radius: 40% 60% 55% 45%; left: -40px; bottom: -50px; background: var(--acc2); opacity: .5; }
+.mq-nav { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; padding: 64px 26px 0; font: 600 16px/1 D; letter-spacing: .1em; text-transform: uppercase; }
+.mq-logo { font: var(--logof); letter-spacing: 0; text-transform: none; }
+.mq-t { position: relative; z-index: 2; padding: 50px 26px 0; font: var(--titf); }
+.mq-b { margin: 20px 22px 0; height: 66px; border-radius: var(--rad); background: var(--fg); color: var(--bgc); display: grid; place-items: center; font: 800 22px/1 D; }
+.mq-h { padding: 30px 26px 12px; font: 700 15px/1 D; letter-spacing: .14em; text-transform: uppercase; opacity: .6; }
+.mq-row { display: flex; justify-content: space-between; align-items: center; margin: 0 22px; padding: 18px 4px; border-bottom: 1px solid var(--line); font: 600 21px/1 D; }
+.mq-row small { font: 500 16px/1 D; opacity: .6; }
+
+.wa { display: inline-flex; align-items: center; gap: 22px; padding: 30px 56px; border-radius: 999px; background: #25D366; color: #fff; font: 800 54px/1 D; letter-spacing: -.02em; box-shadow: 0 30px 80px -20px rgba(37,211,102,.6); }
+.wa svg { width: 70px; height: 70px; }
+</style>
+</head>
+<body>
+<div id="f"><div class="bg"></div><div class="glow"></div><div id="c"></div></div>
+<script>
+var Q = new URLSearchParams(location.search), K = Q.get('k') || 'c1';
+var H = K === 'img2' ? 1350 : 1080;
+document.getElementById('f').style.setProperty('--H', H + 'px');
+
+var THEMES = {
+  coif: { name: 'Salon Mélanie', title: 'Coiffure<br>&amp; couleur<br>à Payerne', bgc: '#f6ede6', fg: '#2b1d1a', hero: 'linear-gradient(160deg,#e9cfc0,#c98f78)', acc: '#f6ede6', acc2: '#8a4b3a', line: '#e2d0c6', rad: '16px', logof: 'italic 400 26px/1 Georgia,serif', titf: 'italic 400 46px/1.02 Georgia,serif', rows: [['Coupe femme', '45 min'], ['Coupe homme', '30 min'], ['Couleur', '1 h 30'], ['Balayage', '2 h']] },
+  ongl: { name: 'Studio Nacre', title: 'Ongles<br>&amp; regard<br>à Payerne', bgc: '#f7f3f8', fg: '#3b2a45', hero: 'linear-gradient(160deg,#eadff0,#c7a6d6)', acc: '#fff', acc2: '#9b6fb3', line: '#e5dcea', rad: '999px', logof: '800 24px/1 D', titf: '800 50px/1 D', rows: [['Pose gel', '1 h 15'], ['Semi-permanent', '45 min'], ['Remplissage', '1 h'], ['Rehaussement de cils', '1 h']] },
+  barb: { name: 'Barber Le 21', title: 'Coupe,<br>barbe<br>&amp; rasage', bgc: '#151515', fg: '#f0e6d2', hero: 'linear-gradient(160deg,#2b2b2b,#111)', acc: '#c79a4a', acc2: '#6b5a3a', line: '#2e2e2e', rad: '4px', logof: '800 26px/1 B', titf: '800 54px/.98 B', rows: [['Coupe', '30 min'], ['Barbe', '20 min'], ['Coupe + barbe', '45 min'], ['Rasage traditionnel', '30 min']] }
+};
+function phone(key, left, top, scale) {
+  var th = THEMES[key], st = '';
+  ['bgc', 'fg', 'hero', 'acc', 'acc2', 'line', 'rad', 'logof', 'titf'].forEach(function (k) { st += '--' + k + ':' + th[k] + ';'; });
+  var h = '<div class="ph" style="left:' + left + 'px;top:' + top + 'px;transform:scale(' + scale + ')"><div class="scr" style="' + st + '"><div class="st"><span>9:41</span><span>●●●</span></div>' +
+    '<div class="mq-hero"><div class="mq-nav"><span class="mq-logo">' + th.name + '</span><span>Menu</span></div><div class="mq-t">' + th.title + '</div></div>' +
+    '<div class="mq-b">Réserver en ligne</div><div class="mq-h">Prestations</div>';
+  th.rows.forEach(function (r) { h += '<div class="mq-row">' + r[0] + '<small>' + r[1] + '</small></div>'; });
+  return h + '</div></div>';
+}
+var WA = '<svg viewBox="0 0 24 24"><path fill="#fff" d="M12.05 21.5a9.4 9.4 0 0 1-4.8-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.4 9.4 0 0 1-1.44-5.01c0-5.2 4.23-9.43 9.43-9.43a9.37 9.37 0 0 1 9.42 9.44c0 5.2-4.23 9.42-9.43 9.42m8.02-17.44A11.27 11.27 0 0 0 12.05.75C5.8.75.71 5.84.7 12.1c0 2 .52 3.95 1.52 5.67L.6 23.25l5.6-1.47a11.3 11.3 0 0 0 5.85 1.49c6.25 0 11.34-5.09 11.35-11.35 0-3.03-1.18-5.88-3.32-8.02"/></svg>';
+var C = document.getElementById('c'), html = '';
+var cards = { c1: ['coif', 'Coiffure', 'Votre<br>salon de<br>coiffure'], c2: ['ongl', 'Onglerie', 'Votre<br>onglerie'], c3: ['barb', 'Barbier', 'Votre<br>barbier'] };
+if (cards[K]) {
+  var c = cards[K];
+  html = '<div class="lab">' + c[1] + '</div><div class="num">' + K.slice(1) + ' / 4</div>' +
+    '<div class="big" style="position:absolute;left:70px;top:140px;font-size:88px">' + c[2] + '<br><span class="hl">en site.</span></div>' +
+    phone(c[0], 600, 110, 1.08) +
+    '<div class="tagx" style="left:270px;top:960px">Exemple de maquette</div>' +
+    '<div style="position:absolute;left:70px;top:620px;font:600 34px/1.35 D;color:#b9bcb5;width:450px">Prestations, galerie, horaires et <b style="color:#F2F0EA">réservation en ligne</b>.</div>';
+} else if (K === 'c4') {
+  html = '<div class="num">4 / 4</div><div class="logo" style="position:absolute;left:0;right:0;top:150px;text-align:center;font-size:96px">Wibzo<span class="lime">.</span></div>' +
+    '<div class="big" style="position:absolute;left:0;right:0;top:300px;text-align:center;font-size:120px">La vôtre<br><span class="hl">ensuite ?</span></div>' +
+    '<div style="position:absolute;left:0;right:0;top:600px;text-align:center;font:600 44px/1.3 D;color:#b9bcb5">Maquette gratuite, prête aujourd’hui.<br>Sans engagement.</div>' +
+    '<div style="position:absolute;left:0;right:0;top:800px;text-align:center"><span class="wa">' + WA + 'Écrivez-nous</span></div>';
+} else {
+  html = '<div class="logo" style="position:absolute;left:70px;top:70px;font-size:64px">Wibzo<span class="lime">.</span></div>' +
+    '<div class="big" style="position:absolute;left:70px;top:190px;font-size:92px">Coiffeurs,<br>esthéticiennes,<br>ongleries<br>de la Broye :</div>' +
+    '<div style="position:absolute;left:70px;top:600px;font:800 58px/1.12 D;letter-spacing:-.02em;width:540px">votre site en <span class="hl" style="font-family:B;text-transform:uppercase">maquette gratuite</span>, prête aujourd’hui.</div>' +
+    '<div style="position:absolute;left:70px;top:900px;font:600 36px/1.35 D;color:#b9bcb5;width:520px">Rien à préparer de votre côté.<br>Si elle ne vous plaît pas, on en reste là.</div>' +
+    '<div style="position:absolute;left:70px;top:1130px"><span class="wa" style="font-size:44px;padding:24px 44px">' + WA + 'Écrivez-nous</span></div>' +
+    phone('coif', 640, 600, .8) +
+    '<div class="tagx" style="left:840px;top:1250px;font-size:20px">Exemple de maquette</div>';
+}
+C.innerHTML = html;
+</script>
+</body>
+</html>

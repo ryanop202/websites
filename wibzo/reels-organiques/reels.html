@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <title>Reels organiques Wibzo</title>
 <link rel="stylesheet" href="kit.css">
+<link rel="stylesheet" href="kit2.css">
 <style>
 #f { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: D; }
 .R { position: absolute; inset: 0; display: none; }
@@ -15,28 +16,62 @@
 .follow { position: absolute; left: 50%; width: 560px; margin-left: -280px; height: 120px; border-radius: 999px; display: flex; align-items: center; justify-content: center; gap: 18px; font: 800 50px/1 D; opacity: 0; }
 .tagf { position: absolute; padding: 8px 16px; border-radius: 999px; font: 700 24px/1 D; }
 
-/* ===== R1 : speedrun (sombre) ===== */
+/* ===== R1 : speedrun v2 (sombre, compte à rebours) ===== */
 #r1 { background: #0D0F0E; color: #F2F0EA; }
 #r1 .grid { background-image: linear-gradient(rgba(255,255,255,.04) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,.04) 2px, transparent 2px); }
-#r1 .glow { position: absolute; width: 1300px; height: 1300px; left: -110px; top: 300px; border-radius: 50%; background: radial-gradient(closest-side, rgba(198,255,61,.17), transparent); }
-#timer { position: absolute; right: 70px; top: 345px; font: 800 64px/1 B; letter-spacing: -.02em; padding: 14px 24px; border-radius: 18px; background: #1b1e1c; border: 3px solid #2f3330; }
-#timer.done { background: #C6FF3D; color: #0D0F0E; border-color: #C6FF3D; }
-#r1 .lab { background: #C6FF3D; color: #0D0F0E; }
-#rate { position: absolute; left: 70px; right: 70px; top: 1050px; display: flex; justify-content: space-between; opacity: 0; }
-#rate span { width: 80px; height: 80px; border-radius: 18px; background: #1b1e1c; border: 3px solid #2f3330; display: grid; place-items: center; font: 800 40px/1 B; }
+#r1 .glow { position: absolute; width: 1400px; height: 1400px; left: -160px; top: 380px; border-radius: 50%; background: radial-gradient(closest-side, rgba(226,178,90,.20), transparent); }
+.cam { position: absolute; left: 0; top: 0; width: 400px; height: 820px; transform-origin: 0 0; }
+.cam .ph { left: 0; top: 0; }
+#hook1 { position: absolute; left: 60px; right: 120px; top: 130px; font-size: 88px; }
+#rw1 { position: absolute; left: 60px; right: 140px; top: 150px; font-size: 92px; opacity: 0; }
+#hud1 { position: absolute; left: 60px; right: 140px; top: 110px; height: 270px; opacity: 0; }
+#stepn { font: 800 30px/1 B; letter-spacing: .02em; text-transform: uppercase; color: #8b8f88; }
+#stepn b { color: #C6FF3D; }
+#stept { position: absolute; left: 0; top: 70px; font: 800 96px/.95 B; letter-spacing: -.035em; text-transform: uppercase; white-space: nowrap; transform-origin: 0 60%; }
+#tm1 { position: absolute; right: 140px; top: 104px; padding: 12px 20px 10px; border-radius: 16px; background: #1b1e1c; border: 3px solid #2f3330; font: 800 58px/1 B; color: #F2F0EA; display: flex; align-items: center; gap: 12px; }
+#tm1 .d { display: inline-block; width: .6em; text-align: center; }
+#tm1 .c { display: inline-block; width: .26em; text-align: center; }
+#tm1 svg { width: 40px; height: 40px; }
+#tm1.hot { color: #FF5A4F; border-color: #FF5A4F; }
+#tm1.done { background: #C6FF3D; border-color: #C6FF3D; color: #0D0F0E; }
+.scan { position: absolute; inset: 0; z-index: 24; background: repeating-linear-gradient(180deg, rgba(0,0,0,.28) 0 3px, transparent 3px 7px); opacity: 0; pointer-events: none; }
+#go1 { position: absolute; left: 0; right: 0; top: 860px; text-align: center; font: 800 300px/1 B; letter-spacing: -.05em; color: #C6FF3D; opacity: 0; text-shadow: 0 20px 60px rgba(0,0,0,.6); }
+.card { position: absolute; left: 48px; width: 196px; padding: 16px 16px 14px; border-radius: 14px; background: #F2F0EA; color: #0D0F0E; box-shadow: 0 30px 60px -20px rgba(0,0,0,.8); opacity: 0; }
+.card small { display: block; font: 700 21px/1.15 D; color: #555; margin-top: 8px; }
+.chip { position: absolute; left: 44px; width: 200px; height: 150px; border-radius: 10px; background: #fff; box-shadow: 0 30px 50px -20px rgba(0,0,0,.85); overflow: hidden; opacity: 0; }
+.chip i { display: block; height: 88px; }
+.chip b { display: block; padding: 10px 14px 0; font: 800 26px/1 D; color: #141614; }
+.chip em { display: block; padding: 4px 14px 0; font: 600 18px/1 D; font-style: normal; color: #777; }
+#done1 { position: absolute; left: 0; right: 0; top: 760px; text-align: center; opacity: 0; z-index: 40; }
+#done1 span { display: inline-block; padding: 18px 40px 16px; border: 10px solid #C6FF3D; border-radius: 26px; background: rgba(13,15,14,.92); color: #C6FF3D; font: 800 120px/1 B; letter-spacing: -.03em; text-transform: uppercase; }
+#done1 small { display: block; margin-top: 18px; font: 800 44px/1 B; color: #F2F0EA; text-transform: uppercase; letter-spacing: -.01em; }
+#end1a, #end1b { position: absolute; left: 60px; right: 140px; top: 120px; font-size: 84px; opacity: 0; }
+#rate { position: absolute; left: 60px; right: 140px; top: 340px; display: flex; justify-content: space-between; }
+#rate span { width: 74px; height: 80px; border-radius: 14px; background: #1b1e1c; border: 3px solid #2f3330; display: grid; place-items: center; font: 800 38px/1 B; opacity: 0; }
 #rate span.on { background: #C6FF3D; color: #0D0F0E; border-color: #C6FF3D; }
+#sugg { position: absolute; left: 60px; right: 140px; top: 330px; display: flex; flex-wrap: wrap; gap: 14px; }
+#sugg span { padding: 16px 24px 14px; border-radius: 14px; border: 3px solid #2f3330; background: #1b1e1c; font: 700 36px/1 D; opacity: 0; }
+#sugg span.q { border-color: #C6FF3D; color: #C6FF3D; }
 #r1 .follow { background: #F2F0EA; color: #0D0F0E; }
+#fic1 { position: absolute; left: 60px; top: 1612px; font: 600 24px/1 D; color: #6f736c; opacity: 0; }
 
-/* ===== R2 : avant / après (clair) ===== */
+/* ===== R2 : avant / après v2 (clair) + démo de réservation ===== */
 #r2 { background: #F2F0EA; color: #141614; }
 #r2 .grid { background-image: linear-gradient(rgba(0,0,0,.045) 2px, transparent 2px), linear-gradient(90deg, rgba(0,0,0,.045) 2px, transparent 2px); }
-#r2 .big { color: #141614; }
+#r2 .hd { position: absolute; left: 60px; right: 140px; top: 118px; font-size: 82px; color: #141614; opacity: 0; }
+#r2 .hd .ok { background: #141614; color: #C6FF3D; padding: 0 .12em; border-radius: .08em; }
 #wipe { position: absolute; left: 0; top: 0; bottom: 0; width: 0; overflow: hidden; z-index: 15; }
-#wipe .inner { position: absolute; left: 0; top: 0; width: 378px; height: 798px; }
-#wline { position: absolute; top: -20px; bottom: -20px; width: 8px; margin-left: -4px; background: #C6FF3D; box-shadow: 0 0 0 3px #141614; z-index: 16; opacity: 0; }
+#wipe .inner { position: absolute; left: 0; top: 0; width: 400px; height: 820px; }
+#wline { position: absolute; top: -24px; bottom: -24px; width: 8px; margin-left: -4px; background: #C6FF3D; box-shadow: 0 0 0 3px #141614; z-index: 16; opacity: 0; }
+#r2 .lab { z-index: 30; }
 #r2 .lab.av { background: #141614; color: #F2F0EA; }
 #r2 .lab.ap { background: #C6FF3D; color: #141614; }
 #r2 .follow { background: #141614; color: #F2F0EA; }
+#toast { position: absolute; left: 30px; right: 30px; top: 470px; z-index: 22; padding: 16px 18px; border-radius: 14px; background: #202124; color: #fff; font: 600 17px/1.25 D; opacity: 0; }
+.fi2 .f-name2 { font: 700 26px/1.1 D; color: #202124; }
+.fi2 .f-noav { margin-top: 10px; font: 500 15px/1 D; color: #9aa0a6; }
+#p2b { box-shadow: inset 0 0 0 2px #55595e !important; }
+#fic2 { position: absolute; left: 60px; top: 1612px; font: 600 24px/1 D; color: #8a8a84; }
 
 /* ===== R3 : 3 raisons (lime) ===== */
 #r3 { background: #C6FF3D; color: #0D0F0E; }
@@ -59,54 +94,56 @@
 <body>
 <div id="f">
 
-<!-- ================= R1 : SPEEDRUN BOULANGERIE ================= -->
+<!-- ================= R1 : SPEEDRUN BOULANGERIE (v2) ================= -->
 <div class="R" id="r1">
   <div class="grid" id="g1"></div><div class="glow"></div>
-  <div class="big bigt" style="top:150px;font-size:88px">
-    <div><span class="w" data-t="-.3">Site d'une</span> <span class="w lime" data-t="-.2">boulangerie</span></div>
-    <div><span class="w" data-t="-.1">en</span> <span class="w hl" data-t="0">15 secondes</span></div>
+  <div class="big" id="hook1">
+    <div><span class="w" data-t="-.5">J'ai</span> <span class="w hl" data-t="-.5">15 secondes</span></div>
+    <div><span class="w" data-t=".22">pour faire</span> <span class="w" data-t=".36">ce site.</span></div>
   </div>
-  <div id="timer">00:00</div>
-  <div id="p1"></div>
-  <div class="lab" id="l1" style="left:70px;top:560px">✓ Le nom</div>
-  <div class="lab" id="l2" style="left:690px;top:720px">✓ La photo</div>
-  <div class="lab" id="l3" style="left:60px;top:1010px">✓ Le bouton</div>
-  <div class="lab" id="l4" style="left:700px;top:1150px">✓ Les prix</div>
-  <div class="lab" id="l5" style="left:60px;top:1290px">✓ Les horaires</div>
-  <div class="sc1" id="end1" style="position:absolute;inset:0;opacity:0">
-    <div class="big" style="top:560px;text-align:center;font-size:104px;color:#F2F0EA">
-      <div><span class="w" data-t="9.9">Tu lui mets</span></div>
-      <div><span class="w lime" data-t="10.15">combien</span> <span class="w" data-t="10.3">sur 10 ?</span></div>
-    </div>
-    <div id="rate"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div>
-    <div class="big" style="top:1220px;text-align:center;font: 600 46px/1.3 D;color:#b9bcb5"><span class="w" data-t="11.9">Le prochain, c'est <b style="color:#C6FF3D">toi</b> qui choisis le commerce 👇</span></div>
-    <div class="follow" id="fo1" style="top:1390px">+ S'abonner</div>
-  </div>
+  <div class="big" id="rw1"><div>◀◀ On repart</div><div class="lime">de zéro.</div></div>
+  <div id="hud1"><div id="stepn">Étape <b id="stepi">01</b> / 08</div><div id="stept">La palette</div></div>
+  <div id="tm1"><svg viewBox="0 0 40 40"><circle cx="20" cy="23" r="14" fill="none" stroke="currentColor" stroke-width="4"/><path d="M15 4 h10 M20 4 v5" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M20 23 L20 14" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" id="tmh"/></svg><span id="tmv"></span></div>
+  <div class="cam" id="cam1"><div id="p1"></div></div>
+  <div class="chip" id="ch0" style="top:520px"><i style="background:#F4ECDF"></i><b>Farine</b><em>fond</em></div>
+  <div class="chip" id="ch1" style="top:700px"><i style="background:#7A3E17"></i><b>Croûte</b><em>titres</em></div>
+  <div class="chip" id="ch2" style="top:880px"><i style="background:#E2B25A"></i><b>Blé</b><em>accent</em></div>
+  <div class="chip" id="ch3" style="top:1060px"><i style="background:#B23A27"></i><b>Encre</b><em>tampon</em></div>
+  <div class="card" id="cd1" style="top:560px"><div style="font:400 112px/1 YS;color:#2B1A0F">Aa</div><small>Young Serif<br>+ Hanken Grotesk</small></div>
+  <div class="card" id="cd2" style="top:600px"><div style="font:800 34px/1 B;text-transform:uppercase;letter-spacing:-.02em">Tampon<br>+ sachet<br>kraft</div><small>la signature<br>de la boutique</small></div>
+  <div class="card" id="cd3" style="top:1000px"><div style="font:800 34px/1 B;text-transform:uppercase;letter-spacing:-.02em">1 tap</div><small>pour commander<br>la veille</small></div>
+  <div id="go1">GO</div>
+  <div id="done1"><span>Terminé</span><small id="done1s"></small></div>
+  <div class="big" id="end1a"><div><span class="w" data-t="12.15">Tu lui mets</span></div><div><span class="w lime" data-t="12.35">combien</span> <span class="w" data-t="12.5">sur 10 ?</span></div></div>
+  <div id="rate"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span></div>
+  <div class="big" id="end1b"><div><span class="w" data-t="14.35">Je fais quel</span></div><div><span class="w lime" data-t="14.55">commerce</span> <span class="w" data-t="14.7">après ?</span></div></div>
+  <div id="sugg"><span>Barbier</span><span>Garage</span><span>Fleuriste</span><span>Pizzeria</span><span class="q">Dis-le en commentaire 👇</span></div>
+  <div class="follow" id="fo1" style="top:1420px">+ S'abonner</div>
+  <div id="fic1">Commerce fictif · maquette Wibzo</div>
+  <div class="touch" id="touch1"></div>
 </div>
 
-<!-- ================= R2 : AVANT / APRÈS ================= -->
+<!-- ================= R2 : AVANT / APRÈS + RÉSERVATION (v2) ================= -->
 <div class="R" id="r2">
   <div class="grid"></div>
-  <div class="big bigt" style="top:150px;font-size:84px">
-    <div><span class="w" data-t="-.3">Ce salon n'avait</span></div>
-    <div><span class="w" data-t="-.2">qu'une</span> <span class="w red" data-t=".9">fiche Google.</span></div>
-  </div>
-  <div class="big bigt" id="h2b" style="top:150px;font-size:84px">
-    <div><span class="w" data-t="6.13">Voilà ce</span></div>
-    <div><span class="w" data-t="6.3">qu'on en a</span> <span class="w hl" data-t="6.45">fait.</span></div>
-  </div>
-  <div id="p2wrap" style="position:absolute;left:330px;top:440px;width:420px;height:860px;transform-origin:50% 0">
+  <div class="big hd" id="h2a"><div><span class="w" data-t="-.5">Ce salon n'avait</span></div><div><span class="w" data-t="-.5">qu'une</span> <span class="w red" data-t="1.2">fiche Google.</span></div></div>
+  <div class="big hd" id="h2b"><div><span class="w" data-t="6.1">Voilà ce</span></div><div><span class="w" data-t="6.25">qu'on en a</span> <span class="w hl" data-t="6.4">fait.</span></div></div>
+  <div class="big hd" id="h2c"><div><span class="w" data-t="8.3">Et là, le client</span></div><div><span class="w hl" data-t="8.5">réserve seul.</span></div></div>
+  <div class="big hd" id="h2d"><div><span class="w" data-t="11.7">Réservé ✓</span></div><div><span class="w" data-t="11.85">sans un</span> <span class="w hl" data-t="11.95">appel.</span></div></div>
+  <div class="big hd" id="h2e"><div><span class="w" data-t="12.47">Abonne-toi</span> <span class="w" data-t="13.08">pour</span></div><div><span class="w" data-t="13.35">la prochaine</span></div><div><span class="w hl" data-t="13.6">transformation.</span></div></div>
+  <div class="cam" id="cam2">
     <div id="p2a"></div>
     <div id="wipe"><div class="inner" id="p2bwrap"></div></div>
     <div id="wline"></div>
   </div>
-  <div class="stamp" id="s1" style="left:600px;top:560px">Pas de photos</div>
-  <div class="stamp" id="s2" style="left:60px;top:900px">Pas de prix</div>
-  <div class="stamp" id="s3" style="left:420px;top:1180px">Pas de réservation</div>
-  <div class="lab av" id="la" style="left:120px;top:1360px">Avant</div>
-  <div class="lab ap" id="lb" style="left:780px;top:1360px">Après</div>
-  <div class="tagf" style="left:70px;top:1440px;background:rgba(0,0,0,.08);color:#555">Exemple fictif · maquette Wibzo</div>
-  <div class="follow" id="fo2" style="top:1500px">+ S'abonner</div>
+  <div class="stamp" id="s1" style="left:470px;top:560px">Pas de photos</div>
+  <div class="stamp" id="s2" style="left:70px;top:980px">Pas de prix</div>
+  <div class="stamp" id="s3" style="left:150px;top:1300px">Pas de réservation</div>
+  <div class="lab av" id="la" style="left:210px;top:372px">Avant</div>
+  <div class="lab ap" id="lb" style="left:720px;top:372px">Après</div>
+  <div class="follow" id="fo2" style="top:1450px">+ S'abonner</div>
+  <div id="fic2">Exemple fictif · maquette Wibzo</div>
+  <div class="touch" id="touch2"></div>
 </div>
 
 <!-- ================= R3 : 3 RAISONS ================= -->
@@ -134,6 +171,7 @@
 </div>
 
 <script src="kit.js"></script>
+<script src="kit2.js"></script>
 <script>
 var Q = new URLSearchParams(location.search), RR = Q.get('r') || '1';
 var $ = function (id) { return document.getElementById(id); };
@@ -155,68 +193,168 @@ function scrollSite(el, y) { var m = el.querySelector('.site'); if (m) m.style.t
 var words = Array.prototype.slice.call(document.querySelectorAll('#r' + RR + ' .w'));
 function hide(el, t, t1, d) { if (t > t1) el.style.opacity = Math.max(0, 1 - (t - t1) / (d || .2)); }
 
-// ---------- R1 ----------
-var B1 = [];
-if (RR === '1') {
-  put('p1', phoneHTML('p1', 'boul', { on: true, tag: true, style: 'left:340px;top:470px;transform:scale(1.08)' }));
-  var site = $('p1').querySelector('.site');
-  var q = function (s) { return Array.prototype.slice.call(site.querySelectorAll(s)); };
-  var h2 = q('.s-h2'), rows = q('.s-row'), gal = q('.s-gal i');
-  // [élément, temps d'apparition]
-  B1 = [[q('.s-head')[0], .15], [q('.s-hero')[0], 1.5], [q('.s-kick')[0], 2.2], [q('.s-h1')[0], 2.5], [q('.s-cta')[0], 3.3], [q('.s-info')[0], 4.0],
-        [h2[0], 4.7], [rows[0], 4.9], [rows[1], 5.1], [rows[2], 5.3], [rows[3], 5.5], [h2[1], 6.3], [gal[0], 6.5], [gal[1], 6.65], [gal[2], 6.8], [gal[3], 6.95],
-        [h2[2], 7.6], [q('.s-open')[0], 7.8], [q('.s-hrs')[0], 8.0]];
+// ---------- outils v2 ----------
+function rel(el) { var r = el.getBoundingClientRect(), f = $('f').getBoundingClientRect(); return { x: r.left - f.left + r.width / 2, y: r.top - f.top + r.height / 2 }; }
+function mix(c1, c2, x) { var a = [1, 3, 5].map(function (i) { return parseInt(c1.substr(i, 2), 16); }), b = [1, 3, 5].map(function (i) { return parseInt(c2.substr(i, 2), 16); });
+  return 'rgb(' + a.map(function (v, i) { return Math.round(lerp(v, b[i], x)); }).join(',') + ')'; }
+function vis(el, on) { el.style.opacity = on ? 1 : 0; }
+function camT(el, x, y, s) { el.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(' + s + ')'; }
+// doigt : [temps du tap, élément cible]
+function touch(dot, t, taps) {
+  var cur = null;
+  taps.forEach(function (k) { if (t >= k[0] - .32 && t <= k[0] + .38) cur = k; });
+  if (!cur) { dot.style.opacity = 0; return; }
+  var c = rel(cur[1]), a = outExpo(p(t, cur[0] - .32, .3)), d = t - cur[0];
+  var sc = d < 0 ? 1 : (d < .1 ? lerp(1, .78, d / .1) : lerp(.78, 1, Math.min(1, (d - .1) / .15)));
+  var ring = d > 0 ? d * 160 : 0, ra = d > 0 ? Math.max(0, .7 - d * 2) : 0;
+  dot.style.left = (c.x + (1 - a) * 60) + 'px'; dot.style.top = (c.y + (1 - a) * 90) + 'px';
+  dot.style.opacity = Math.min(a * 1.5, d > .25 ? Math.max(0, 1 - (d - .25) / .13) : 1);
+  dot.style.transform = 'scale(' + sc + ')';
+  dot.style.boxShadow = '0 6px 18px rgba(0,0,0,.25), 0 0 0 ' + ring + 'px rgba(255,255,255,' + ra + ')';
 }
-var STEPS1 = [.5, 1.5, 2.5, 3.3, 4.0, 4.9, 5.1, 5.3, 5.5, 6.5, 6.65, 6.8, 6.95, 7.8, 8.0];
+
+// ---------- R1 : speedrun v2 ----------
+var R1 = {};
+var ON1 = [['head', 2.95], ['eye', 3.02], ['h1', 3.1], ['photo', 4.0], ['stamp', 4.95], ['kraft', 5.12], ['cta', 5.95],
+  ['f1', 7.2], ['f2', 7.38], ['f3', 7.56], ['f4', 7.74], ['comptoir', 8.3], ['g1', 8.45], ['g2', 8.6], ['g3', 8.75], ['cmd', 8.95], ['hours', 9.5]];
+var STEPS1 = [[1.75, 'La palette'], [2.85, 'La typo'], [3.95, 'La photo'], [4.85, 'La signature'], [5.85, 'Le bouton'], [6.85, 'Sorties du four'], [8.1, 'Le comptoir'], [9.3, 'Les horaires']];
+var GO1 = 1.55, END1 = 11.0;
+if (RR === '1') {
+  put('p1', phone2('p1', siteBoul(), { tag: 'Exemple de maquette', extra: '<div class="scan" id="scan1"></div>' }));
+  R1.site = $('p1').querySelector('.site'); R1.sb = $('p1').querySelector('.sb');
+  R1.el = {}; Array.prototype.forEach.call(R1.site.querySelectorAll('.el'), function (e) { R1.el[e.dataset.k] = e; });
+  R1.kY = R1.el.kraft.offsetTop; R1.cY = R1.el.comptoir.offsetTop; R1.max = R1.site.offsetHeight - 798;
+  R1.btn = R1.site.querySelector('.bq-btn');
+}
+function fmt(sec) { var s = Math.floor(sec), c = Math.floor((sec - s) * 100); var str = (s < 10 ? '0' : '') + s + '.' + (c < 10 ? '0' : '') + c;
+  return str.split('').map(function (ch) { return ch === '.' ? '<span class="c">.</span>' : '<span class="d">' + ch + '</span>'; }).join(''); }
 function r1(t) {
-  B1.forEach(function (b) { var x = p(t, b[1], .28); b[0].style.opacity = t < b[1] ? 0 : Math.min(1, x * 3); b[0].style.transform = 'translateY(' + ((1 - outExpo(x)) * 40) + 'px) scale(' + lerp(.85, 1, outBack(x)) + ')'; });
-  var y = lerp(0, 300, inOut(p(t, 5.8, .7))) + lerp(0, 260, inOut(p(t, 7.2, .6))) - lerp(0, 560, inOut(p(t, 8.6, .6)));
-  scrollSite($('p1'), y);
-  var sec = Math.min(15, t * 15 / 8.6);
-  $('timer').textContent = '00:' + (sec < 10 ? '0' : '') + Math.floor(Math.max(0, sec));
-  $('timer').classList.toggle('done', t >= 8.6);
-  var th = t >= 8.6 ? 1 + .15 * Math.exp(-(t - 8.6) * 8) : 1; $('timer').style.transform = 'scale(' + th + ')';
-  [['l1', .15, 2.4], ['l2', 1.5, 3.3], ['l3', 3.3, 5.0], ['l4', 4.9, 6.6], ['l5', 7.8, 9.3]].forEach(function (l) {
-    var e = $(l[0]); popIn(e, t, l[1], 'rotate(-3deg)'); hide(e, t, l[2]);
+  var S = 1.5, Y = 385;
+  // --- éléments du site ---
+  var nOn = ON1.length;
+  ON1.forEach(function (o, i) {
+    var e = R1.el[o[0]];
+    if (t < 1.05) { e.style.opacity = 1; e.style.transform = o[0] === 'stamp' ? 'rotate(-12deg)' : 'none'; e.style.clipPath = 'none'; return; }
+    if (t < GO1) { var off = 1.05 + (nOn - 1 - i) * (.42 / nOn); e.style.opacity = t < off ? 1 : 0; return; }
+    var x = p(t, o[1], .28);
+    e.style.opacity = t < o[1] ? 0 : Math.min(1, x * 3);
+    if (o[0] === 'stamp') { var xs = p(t, o[1], .22); e.style.opacity = t < o[1] ? 0 : 1; e.style.transform = 'rotate(' + lerp(-40, -12, outExpo(xs)) + 'deg) scale(' + lerp(2.6, 1, outExpo(xs)) + ')'; }
+    else if (o[0] === 'photo') { e.style.opacity = t < o[1] ? 0 : 1; var xc = p(t, o[1], .35); e.style.clipPath = xc >= 1 ? 'none' : 'inset(0 0 ' + ((1 - outExpo(xc)) * 100) + '% 0)'; e.style.transform = 'none'; }
+    else e.style.transform = 'translateY(' + ((1 - outExpo(x)) * 40) + 'px) scale(' + lerp(.86, 1, outBack(x)) + ')';
   });
-  // fin : note sur 10
-  var e = p(t, 9.6, .3);
-  $('end1').style.opacity = e;
-  $('p1').style.opacity = 1 - e * .88;
-  $('p1').style.transform = 'scale(' + lerp(1.08, .9, outExpo(e)) + ')';
-  document.querySelector('#r1 .bigt').style.opacity = 1 - e;
-  $('timer').style.opacity = 1 - e;
-  $('rate').style.opacity = p(t, 10.6, .2);
-  var lit = Math.floor(lerp(0, 10, inOut(p(t, 10.8, 1.0))));
-  Array.prototype.forEach.call($('rate').children, function (s, i) { s.classList.toggle('on', i < lit); s.style.transform = i === lit - 1 ? 'scale(1.15)' : 'none'; });
-  popIn($('fo1'), t, 12.4); if (t > 12.7) $('fo1').style.transform = 'scale(' + (1 + .04 * Math.sin((t - 12.7) * 9)) + ')';
+  // fond : farine (crochet) → blanc (départ) → farine (palette)
+  var bg = t < GO1 ? '#F4ECDF' : (t < 1.85 ? '#FFFFFF' : mix('#FFFFFF', '#F4ECDF', inOut(p(t, 1.85, .35))));
+  R1.site.style.background = bg; R1.sb.style.background = bg;
+  // appui sur le bouton
+  var pr = t > 6.35 && t < 6.55 ? .95 : 1; R1.btn.style.transform = 'scale(' + pr + ')';
+  touch($('touch1'), t, [[6.35, R1.btn]]);
+  // défilement
+  var y = lerp(0, R1.kY - 70, inOut(p(t, 6.85, .4))) + lerp(0, R1.cY - R1.kY, inOut(p(t, 8.1, .4))) + lerp(0, R1.max - R1.cY + 70, inOut(p(t, 9.3, .4))) - lerp(0, R1.max, inOut(p(t, 10.45, .5)));
+  R1.site.style.transform = 'translateY(' + (-y) + 'px)';
+  // caméra
+  if (t < .4) S = lerp(1.78, 1.5, outExpo(p(t, 0, .4)));
+  var st = -1; STEPS1.forEach(function (s, i) { if (t >= s[0]) st = i; });
+  if (st >= 0 && t < END1) S *= 1 + .03 * Math.exp(-(t - STEPS1[st][0]) * 9);
+  var dx = 0;
+  if (t >= 4.95 && t < 5.4) dx += Math.sin(t * 80) * 10 * Math.exp(-(t - 4.95) * 9);
+  if (t >= 1.05 && t < GO1) dx += Math.sin(t * 95) * 9;
+  if (t >= END1 && t < 12) S = 1.5 * (1 + .06 * Math.exp(-(t - END1) * 7)) + .05 * p(t, END1, 1);
+  var e = inOut(p(t, 12.0, .45));
+  if (t >= 12) { S = lerp(1.55, 1.08, e); Y = lerp(385, 520, e); }
+  camT($('cam1'), 540 - 200 * S + dx, Y, S);
+  $('scan1').style.opacity = t >= 1.05 && t < GO1 ? .7 : 0;
+  // textes
+  $('hook1').style.opacity = t < 1.05 ? 1 : 0;
+  $('rw1').style.opacity = t >= 1.05 && t < GO1 ? 1 : 0;
+  $('rw1').style.transform = 'translateX(' + (t >= 1.05 && t < GO1 ? Math.sin(t * 70) * 6 : 0) + 'px)';
+  $('hud1').style.opacity = t >= GO1 && t < END1 + .9 ? (t < END1 ? 1 : 1 - p(t, END1 + .6, .3)) : 0;
+  if (st >= 0) {
+    $('stepi').textContent = '0' + (st + 1); $('stept').textContent = STEPS1[st][1];
+    $('stept').style.fontSize = STEPS1[st][1].length > 12 ? '84px' : '96px';
+    var xs = p(t, STEPS1[st][0], .22); $('stept').style.transform = 'translateX(' + ((1 - outExpo(xs)) * -60) + 'px)'; $('stept').style.opacity = Math.min(1, xs * 3);
+  }
+  // chrono (compte à rebours)
+  var el = clamp(t - GO1, 0, END1 - GO1), rem = 15 - el;
+  $('tmv').innerHTML = fmt(rem);
+  $('tm1').classList.toggle('hot', t > 9.55 && t < END1);
+  $('tm1').classList.toggle('done', t >= END1);
+  $('tmh').setAttribute('transform', 'rotate(' + (el * 360) + ' 20 23)');
+  var tb = t >= END1 ? 1 + .18 * Math.exp(-(t - END1) * 8) : 1;
+  $('tm1').style.transform = 'scale(' + tb + ')'; $('tm1').style.transformOrigin = '100% 0';
+  $('tm1').style.opacity = t < 1.05 ? 0 : (t < 12 ? 1 : 1 - p(t, 12, .2));
+  // GO
+  var g = p(t, GO1, .2); $('go1').style.opacity = t >= GO1 && t < 2.1 ? 1 - p(t, 1.85, .25) : 0;
+  $('go1').style.transform = 'scale(' + lerp(1.8, 1, outBack(g)) + ')';
+  // cartes « choix de design »
+  ['ch0', 'ch1', 'ch2', 'ch3'].forEach(function (c, i) { var e2 = $(c); popIn(e2, t, 1.85 + i * .12, 'rotate(' + [-6, 4, -3, 5][i] + 'deg)'); hide(e2, t, 2.8, .12); });
+  popIn($('cd1'), t, 2.9, 'rotate(-4deg)'); hide($('cd1'), t, 3.9, .12);
+  popIn($('cd2'), t, 5.0, 'rotate(3deg)'); hide($('cd2'), t, 5.8, .12);
+  popIn($('cd3'), t, 6.4, 'rotate(-3deg)'); hide($('cd3'), t, 6.85, .12);
+  // terminé
+  popIn($('done1'), t, END1); hide($('done1'), t, 11.85, .2);
+  $('done1s').textContent = 'avec ' + (15 - (END1 - GO1)).toFixed(2).replace('.', ',') + ' s d’avance';
+  // fin : note puis commerce suivant
+  $('end1a').style.opacity = t >= 12 && t < 14.25 ? 1 : 0;
+  Array.prototype.forEach.call($('rate').children, function (s, i) {
+    popIn(s, t, 12.75 + i * .05); if (t >= 14.25) s.style.opacity = 0;
+    var w = Math.exp(-Math.pow((t - 13.4 - i * .07) * 9, 2)); if (t > 13.1) s.style.transform = 'translateY(' + (-w * 18) + 'px)';
+    s.style.borderColor = w > .4 ? '#C6FF3D' : ''; s.style.color = w > .4 ? '#C6FF3D' : '';
+  });
+  $('end1b').style.opacity = t >= 14.25 ? 1 : 0;
+  Array.prototype.forEach.call($('sugg').children, function (s, i) { popIn(s, t, 14.95 + i * .09, 'rotate(' + [-2, 1.5, -1, 2, -1.5][i] + 'deg)'); });
+  popIn($('fo1'), t, 15.5); if (t > 15.8) $('fo1').style.transform = 'scale(' + (1 + .04 * Math.sin((t - 15.8) * 9)) + ')';
+  $('fic1').style.opacity = t >= 12.2 ? 1 : 0;
   $('g1').style.transform = 'translate(' + (-(t * 18) % 90) + 'px,' + (-(t * 30) % 90) + 'px)';
 }
 
-// ---------- R2 ----------
+// ---------- R2 : avant / après + réservation ----------
+var R2 = {};
+var TAPS2 = [];
 if (RR === '2') {
-  put('p2a', phoneHTML('p2a', 'fiche', { style: 'left:10px;top:0' }));
-  $('p2bwrap').innerHTML = phoneHTML('p2b', 'coif', { tag: true, style: 'left:10px;top:0' });
+  put('p2a', phone2('p2a', ficheHTML2(), { extra: '<div id="toast">Ce commerce n’a pas de site web.</div>' }));
+  $('p2bwrap').innerHTML = phone2('p2b', siteSalon() + bookingSheet(), { tag: 'Exemple de maquette', sb: 'rgba(243,238,231,.97)' });
+  R2.dis = $('p2a').querySelector('.f-btns .dis');
+  TAPS2 = [[.4, R2.dis], [8.75, $('smcta')], [9.55, $('op0')], [10.45, $('dy1')], [10.95, $('sl3')], [11.45, $('go')]];
 }
 function r2(t) {
-  var wrap = $('p2wrap');
-  var bob = Math.sin(t * 2.2) * 5;
-  wrap.style.transform = 'translateY(' + bob + 'px) scale(' + lerp(1.0, 1.04, inOut(p(t, 0, 6))) + ')';
+  var Y = 400 + Math.sin(t * 2.2) * 4;
+  var z = inOut(p(t, 8.55, .45)), e = inOut(p(t, 12.3, .4));
+  var S = lerp(lerp(1.42, 1.62, z), 1.12, e); Y = lerp(lerp(Y, 318, z), 470, e);
+  camT($('cam2'), 540 - 200 * S, Y, S);
+  // titres
+  [['h2a', -1, 6.05], ['h2b', 6.05, 8.25], ['h2c', 8.25, 11.65], ['h2d', 11.65, 12.4], ['h2e', 12.4, 99]].forEach(function (h) { vis($(h[0]), t >= h[1] && t < h[2]); });
+  // fiche Google : tap sur « Site Web » → rien
+  var sh = t > .4 && t < .8 ? Math.sin(t * 70) * 7 * (1 - p(t, .4, .4)) : 0;
+  R2.dis.style.transform = 'translateX(' + sh + 'px)';
+  popIn($('toast'), t, .52); hide($('toast'), t, 1.95, .2);
   pop($('s1'), t, 2.4, .25); $('s1').style.transform += ' rotate(6deg)';
   pop($('s2'), t, 3.85, .25); $('s2').style.transform += ' rotate(-5deg)';
   pop($('s3'), t, 4.94, .25); $('s3').style.transform += ' rotate(4deg)';
   ['s1', 's2', 's3'].forEach(function (s) { hide($(s), t, 6.05, .15); });
-  document.querySelector('#r2 .bigt').style.opacity = t < 6.05 ? 1 : Math.max(0, 1 - (t - 6.05) / .1);
-  $('h2b').style.display = t >= 6.05 ? 'block' : 'none';
-  $('p2a').style.filter = t > 2.4 && t < 7.5 ? 'grayscale(' + p(t, 2.4, 1) + ')' : 'none';
-  popIn($('la'), t, 6.83); popIn($('lb'), t, 7.5);
-  // balayage avant → après
-  var wp = inOut(p(t, 7.5, .65)), W = 420;
-  $('wipe').style.width = (wp * W) + 'px';
-  $('wline').style.left = (wp * W) + 'px';
-  $('wline').style.opacity = t >= 7.45 && wp < 1 ? 1 : 0;
-  scrollSite($('p2b'), lerp(0, 420, inOut(p(t, 8.2, 1.6))));
-  popIn($('fo2'), t, 8.7); if (t > 9) $('fo2').style.transform = 'scale(' + (1 + .04 * Math.sin((t - 9) * 9)) + ')';
+  $('p2a').style.filter = t > 2.4 ? 'grayscale(' + p(t, 2.4, 1) + ')' : 'none';
+  popIn($('la'), t, 6.83); popIn($('lb'), t, 7.56); hide($('la'), t, 8.25); hide($('lb'), t, 8.25);
+  // balayage avant → après (« Après » à 7,56 s)
+  var wp = inOut(p(t, 7.56, .55));
+  $('wipe').style.width = (wp * 400) + 'px'; $('wline').style.left = (wp * 400) + 'px';
+  $('wline').style.opacity = t >= 7.5 && wp < 1 ? 1 : 0;
+  // réservation
+  $('smcta').classList.toggle('press', t > 8.75 && t < 8.95);
+  $('smcta').style.transform = 'scale(' + (t > 8.75 && t < 8.95 ? .97 : 1) + ')';
+  var sy = 1 - outExpo(p(t, 8.92, .4)); $('sheet').style.transform = 'translateY(' + (sy * 105) + '%)';
+  $('op0').classList.toggle('sel', t >= 9.55);
+  var pb = inOut(p(t, 9.95, .32));
+  $('paneA').style.transform = 'translateX(' + (-pb * 100) + '%)'; $('paneA').style.opacity = 1 - pb;
+  $('paneB').style.transform = 'translateX(' + ((1 - pb) * 100) + '%)'; $('paneB').style.opacity = pb;
+  $('st1').classList.toggle('on', t >= 9.95); $('st2').classList.toggle('on', t >= 10.95);
+  $('dy1').classList.toggle('sel', t >= 10.45); $('sl3').classList.toggle('sel', t >= 10.95);
+  $('go').classList.toggle('on', (t >= 9.55 && t < 9.95) || t >= 10.95);
+  $('go').textContent = t < 9.95 ? 'Continuer' : (t < 10.95 ? 'Confirmer' : 'Confirmer · jeu. 15 à 14:00');
+  $('go').style.transform = 'scale(' + (t > 11.45 && t < 11.62 ? .97 : 1) + ')';
+  var ok = p(t, 11.6, .22); $('ok').style.opacity = ok;
+  $('ok').querySelector('.sm-ring').style.transform = 'scale(' + (t < 11.6 ? .3 : lerp(.3, 1, outBack(p(t, 11.6, .4)))) + ')';
+  touch($('touch2'), t, TAPS2);
+  $('fic2').style.opacity = t > 8.5 && t < 12.5 ? 0 : 1;
+  popIn($('fo2'), t, 12.6); if (t > 12.9) $('fo2').style.transform = 'scale(' + (1 + .04 * Math.sin((t - 12.9) * 9)) + ')';
 }
 
 // ---------- R3 ----------
@@ -267,7 +405,7 @@ window.render = function (t) {
   ({ 1: r1, 2: r2, 3: r3 })[RR](t);
 };
 render(0);
-if (!/render/.test(location.search)) { var t0 = performance.now(); (function loop() { render(((performance.now() - t0) / 1000) % 14.5); requestAnimationFrame(loop); })(); }
+if (!/render/.test(location.search)) { var t0 = performance.now(); (function loop() { render(((performance.now() - t0) / 1000) % ({ 1: 16.8, 2: 15.2, 3: 12.6 })[RR]); requestAnimationFrame(loop); })(); }
 </script>
 </body>
 </html>

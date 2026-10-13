@@ -1,0 +1,145 @@
+/* Maquettes v2 (Reels 1 et 2) : deux directions artistiques distinctes.
+   Commerces 100 % fictifs, photos générées par IA, contenus d'exemple. */
+@font-face { font-family: YS; src: url(fonts/youngserif-400.woff2) format("woff2"); }
+@font-face { font-family: HG; src: url(fonts/hankengrotesk-var.woff2) format("woff2"); font-weight: 100 900; }
+@font-face { font-family: CV; src: url(fonts/caveat-600.woff2) format("woff2"); }
+@font-face { font-family: BM; src: url(fonts/bodonimoda-italic.woff2) format("woff2"); font-style: italic; }
+@font-face { font-family: JO; src: url(fonts/jost-var.woff2) format("woff2"); font-weight: 100 900; }
+
+/* =========================================================
+   BOULANGERIE DU BOURG — « sachet kraft & farine »
+   Signature : bord dentelé du sachet à pain + tampon encreur
+   ========================================================= */
+.bq { --farine: #F4ECDF; --mie: #FBF6EE; --croute: #7A3E17; --brule: #2B1A0F; --kraft: #C99B67; --kraft2: #B8875A; --ble: #E2B25A; --encre: #B23A27; --trait: #E3D5C0;
+  position: absolute; left: 0; top: 0; width: 100%; background: var(--farine); color: var(--brule); font-family: HG; }
+.bq .el { will-change: transform, opacity; }
+.bq-head { height: 112px; padding: 60px 22px 0; display: flex; justify-content: space-between; align-items: center; }
+.bq-mark { font: 400 15px/1 HG; letter-spacing: .02em; color: var(--croute); }
+.bq-mark b { display: block; font: 400 27px/1 YS; letter-spacing: -.01em; color: var(--brule); margin-top: 3px; }
+.bq-menu { font: 700 13px/1 HG; letter-spacing: .12em; text-transform: uppercase; padding: 9px 0 7px; border-bottom: 2px solid var(--brule); }
+.bq-eye { margin: 10px 22px 0; font: 700 12px/1 HG; letter-spacing: .16em; text-transform: uppercase; color: var(--croute); display: flex; align-items: center; gap: 10px; }
+.bq-eye:before { content: ""; width: 26px; height: 2px; background: var(--croute); }
+.bq-h1 { margin: 14px 22px 0; font: 400 47px/1.0 YS; letter-spacing: -.025em; color: var(--brule); }
+.bq-h1 em { font-style: normal; color: var(--croute); position: relative; white-space: nowrap; }
+.bq-h1 em:after { content: ""; position: absolute; left: -2px; right: -2px; bottom: 2px; height: 10px; background: var(--ble); opacity: .55; z-index: -1; border-radius: 2px; }
+.bq-photo { position: relative; margin: 22px 0 0 22px; height: 268px; background-size: 175%; background-position: 8% 18%; border-radius: 3px 0 0 3px; }
+.bq-photo:after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 12px; background: var(--farine); -webkit-mask: var(--zigm) repeat-x 0 0 / 16px 12px; mask: var(--zigm) repeat-x 0 0 / 16px 12px; }
+.bq-stamp { position: absolute; right: 14px; top: -118px; width: 118px; height: 118px; z-index: 3; color: var(--encre); transform: rotate(-12deg); }
+.bq-stamp svg { width: 100%; height: 100%; display: block; }
+.bq-ctas { margin: 20px 22px 0; }
+.bq-btn { height: 60px; padding: 0 18px; background: var(--brule); color: var(--mie); display: flex; align-items: center; justify-content: space-between; font: 700 17px/1 HG; border-radius: 4px; }
+.bq-btn i { font-style: normal; font-size: 22px; }
+.bq-links { display: flex; gap: 22px; margin-top: 14px; font: 700 15px/1 HG; }
+.bq-links span { padding-bottom: 4px; border-bottom: 2px solid var(--kraft); }
+.bq-note { margin: 12px 22px 0; font: 500 13px/1.3 HG; color: #7d6650; }
+/* bande kraft (sachet) */
+.bq-kraft { position: relative; margin-top: 34px; background: var(--kraft); padding: 34px 22px 30px; color: var(--brule);
+  background-image: repeating-linear-gradient(90deg, rgba(0,0,0,.025) 0 2px, transparent 2px 7px); }
+.bq-kraft:before { content: ""; position: absolute; left: 0; right: 0; top: -12px; height: 12px; background: var(--kraft); -webkit-mask: var(--zigm) repeat-x 0 0 / 16px 12px; mask: var(--zigm) repeat-x 0 0 / 16px 12px; }
+.bq-h2 { font: 400 32px/1 YS; letter-spacing: -.02em; }
+.bq-h2 small { display: block; font: 700 12px/1 HG; letter-spacing: .16em; text-transform: uppercase; color: var(--croute); margin-bottom: 10px; }
+.bq-four { margin-top: 18px; position: relative; }
+.bq-four:before { content: ""; position: absolute; left: 88px; top: 8px; bottom: 8px; width: 2px; background: repeating-linear-gradient(180deg, var(--brule) 0 4px, transparent 4px 9px); opacity: .45; }
+.bq-f { display: grid; grid-template-columns: 88px 1fr; align-items: baseline; padding: 11px 0; position: relative; }
+.bq-f b { font: 400 22px/1 YS; color: var(--brule); }
+.bq-f span { padding-left: 20px; font: 600 17px/1.2 HG; position: relative; }
+.bq-f span:before { content: ""; position: absolute; left: -6px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--kraft); border: 2px solid var(--brule); }
+.bq-f.now span:before { background: var(--encre); border-color: var(--encre); box-shadow: 0 0 0 5px rgba(178,58,39,.2); }
+.bq-f small { display: block; font: 500 13px/1.3 HG; color: #5b3d22; margin-top: 3px; }
+.bq-hand { position: absolute; right: 24px; top: 30px; font: 600 25px/1 CV; color: var(--encre); transform: rotate(-6deg); text-align: center; }
+.bq-hand svg { display: block; margin: 2px 0 0 18px; }
+/* comptoir */
+.bq-comptoir { padding: 34px 22px 8px; }
+.bq-grid { display: grid; grid-template-columns: 1.25fr 1fr; grid-template-rows: 150px 120px; gap: 10px; margin-top: 18px; }
+.bq-grid figure { position: relative; background-size: 300%; border-radius: 3px; overflow: hidden; }
+.bq-grid figure:first-child { grid-row: span 2; }
+.bq-grid figcaption { position: absolute; left: 0; bottom: 0; padding: 7px 10px 6px; background: var(--farine); font: 600 13px/1.2 HG; border-radius: 0 3px 0 0; }
+.bq-cmd { margin: 18px 22px 0; padding: 18px 18px 16px; border: 2px dashed var(--croute); border-radius: 4px; background: var(--mie); }
+.bq-cmd b { display: block; font: 400 22px/1.1 YS; }
+.bq-cmd p { margin-top: 6px; font: 500 14px/1.35 HG; color: #6b5440; }
+/* horaires */
+.bq-hours { margin-top: 30px; background: var(--brule); color: var(--farine); padding: 28px 22px 140px; }
+.bq-hours .bq-h2 small { color: var(--ble); }
+.bq-open { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; font: 700 14px/1 HG; color: var(--ble); }
+.bq-open:before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: #8fd18a; box-shadow: 0 0 0 4px rgba(143,209,138,.18); }
+.bq-hrow { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(244,236,223,.15); font: 500 16px/1 HG; }
+.bq-hrow b { font-weight: 700; }
+
+/* =========================================================
+   SALON MÉLANIE — « miroir rond, laiton & cuir cognac »
+   Signature : le miroir rond (photo cerclée de laiton)
+   ========================================================= */
+.sm, .sm-sheet { --platre: #F3EEE7; --blanc: #FBF8F4; --espresso: #2A201B; --cognac: #9A5632; --laiton: #B4935C; --sauge: #7A8468; --trait: #E0D6C9; --gris: #7E7168;
+}
+.sm { position: absolute; left: 0; top: 0; width: 100%; background: var(--platre); color: var(--espresso); font-family: JO; }
+.sm-head { height: 108px; padding: 60px 22px 0; display: flex; justify-content: space-between; align-items: center; }
+.sm-mark { font: italic 500 31px/1 BM; letter-spacing: -.01em; }
+.sm-mark small { font: 500 10px/1 JO; letter-spacing: .28em; text-transform: uppercase; color: var(--gris); margin-left: 6px; vertical-align: 5px; }
+.sm-menu { display: flex; gap: 5px; flex-direction: column; width: 26px; }
+.sm-menu i { height: 1.5px; background: var(--espresso); }
+.sm-menu i:last-child { width: 16px; margin-left: auto; }
+.sm-hero { position: relative; height: 486px; }
+.sm-mirror { position: absolute; right: -46px; top: 0; width: 284px; height: 284px; border-radius: 50%; padding: 7px; background: linear-gradient(140deg, #d9bf8c, var(--laiton) 45%, #8a6c3d); box-shadow: 0 24px 40px -22px rgba(42,32,27,.55); }
+.sm-mirror div { width: 100%; height: 100%; border-radius: 50%; background-size: 330%; background-position: 50% 28%; }
+.sm-h1 { position: absolute; left: 22px; top: 246px; font: italic 500 50px/.98 BM; letter-spacing: -.02em; }
+.sm-h1 span { display: block; }
+.sm-h1 .amp { color: var(--cognac); }
+.sm-lead { position: absolute; left: 22px; top: 404px; font: 400 16px/1.4 JO; color: var(--gris); }
+.sm-cta { margin: 0 22px; height: 58px; background: var(--espresso); color: var(--blanc); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; font: 500 17px/1 JO; letter-spacing: .02em; border-radius: 2px; }
+.sm-cta i { font-style: normal; width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--laiton); display: grid; place-items: center; font-size: 16px; color: var(--laiton); }
+.sm-cta.press { background: #000; }
+.sm-sec { padding: 40px 22px 0; }
+.sm-h2 { display: flex; align-items: baseline; justify-content: space-between; font: italic 500 30px/1 BM; }
+.sm-h2 small { font: 500 11px/1 JO; letter-spacing: .24em; text-transform: uppercase; color: var(--gris); font-style: normal; }
+.sm-list { margin-top: 14px; }
+.sm-it { display: grid; grid-template-columns: 26px 1fr auto; align-items: baseline; gap: 6px; padding: 15px 0; border-bottom: 1px solid var(--trait); }
+.sm-it em { font: italic 500 15px/1 BM; color: var(--laiton); }
+.sm-it b { font: 500 18px/1.15 JO; }
+.sm-it b small { display: block; font: 400 13px/1.3 JO; color: var(--gris); margin-top: 3px; }
+.sm-it span { font: 500 17px/1 JO; }
+.sm-arch { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; }
+.sm-arch div { height: 200px; border-radius: 160px 160px 2px 2px; background-size: 320%; }
+.sm-arch div:nth-child(2) { margin-top: 36px; }
+.sm-foot { margin-top: 36px; background: var(--espresso); color: var(--platre); padding: 26px 22px 140px; font: 400 15px/1.6 JO; }
+
+/* --- Réservation (feuille qui monte dans le téléphone) --- */
+.sm-sheet { position: absolute; left: 0; right: 0; bottom: 0; height: 640px; background: var(--blanc); border-radius: 26px 26px 0 0; box-shadow: 0 -20px 50px rgba(42,32,27,.28); z-index: 17; overflow: hidden; color: var(--espresso); font-family: JO; transform: translateY(105%); }
+.sm-grab { width: 44px; height: 5px; border-radius: 3px; background: #d8cfc4; margin: 10px auto 0; }
+.sm-steps { display: flex; gap: 6px; padding: 16px 22px 0; }
+.sm-steps i { flex: 1; height: 3px; background: var(--trait); border-radius: 2px; }
+.sm-steps i.on { background: var(--cognac); }
+.sm-pane { position: absolute; left: 0; top: 40px; width: 100%; padding: 0 22px; }
+.sm-q { margin-top: 18px; font: italic 500 30px/1.05 BM; }
+.sm-q small { display: block; font: 500 11px/1 JO; letter-spacing: .22em; text-transform: uppercase; color: var(--gris); font-style: normal; margin-bottom: 9px; }
+.sm-opt { display: flex; align-items: center; gap: 14px; margin-top: 10px; padding: 15px 14px; border: 1.5px solid var(--trait); border-radius: 4px; }
+.sm-opt u { flex: none; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid #bfb3a6; text-decoration: none; position: relative; }
+.sm-opt b { flex: 1; font: 500 17px/1.15 JO; }
+.sm-opt b small { display: block; font: 400 13px/1.2 JO; color: var(--gris); }
+.sm-opt span { font: 500 16px/1 JO; }
+.sm-opt.sel { border-color: var(--espresso); background: #F4EDE4; }
+.sm-opt.sel u { border-color: var(--espresso); background: var(--espresso); box-shadow: inset 0 0 0 5px #F4EDE4; }
+.sm-days { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 16px; }
+.sm-day { height: 74px; border: 1.5px solid var(--trait); border-radius: 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
+.sm-day small { font: 500 11px/1 JO; letter-spacing: .16em; text-transform: uppercase; color: var(--gris); }
+.sm-day b { font: italic 500 26px/1 BM; }
+.sm-day.sel { background: var(--espresso); border-color: var(--espresso); color: var(--blanc); }
+.sm-day.sel small { color: #cbbfb2; }
+.sm-sl { margin-top: 18px; font: 500 11px/1 JO; letter-spacing: .22em; text-transform: uppercase; color: var(--gris); }
+.sm-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+.sm-slot { height: 50px; border: 1.5px solid var(--trait); border-radius: 4px; display: grid; place-items: center; font: 500 17px/1 JO; }
+.sm-slot.off { color: #c4b8ab; text-decoration: line-through; background: #f5f1ec; }
+.sm-slot.sel { background: var(--cognac); border-color: var(--cognac); color: #fff; }
+.sm-go { position: absolute; left: 22px; right: 22px; bottom: 54px; height: 60px; background: var(--espresso); color: var(--blanc); border-radius: 2px; display: flex; align-items: center; justify-content: center; font: 500 17px/1 JO; letter-spacing: .02em; opacity: .35; }
+.sm-go.on { opacity: 1; }
+.sm-ok { position: absolute; inset: 0; background: var(--blanc); display: flex; flex-direction: column; align-items: center; padding-top: 70px; opacity: 0; }
+.sm-ring { width: 150px; height: 150px; border-radius: 50%; padding: 6px; background: linear-gradient(140deg, #d9bf8c, var(--laiton) 45%, #8a6c3d); }
+.sm-ring div { width: 100%; height: 100%; border-radius: 50%; background: var(--sauge); display: grid; place-items: center; color: #fff; font: 400 70px/1 JO; }
+.sm-ok h4 { margin-top: 26px; font: italic 500 40px/1 BM; }
+.sm-ok p { margin-top: 12px; font: 400 17px/1.45 JO; color: var(--gris); text-align: center; }
+.sm-recap { margin-top: 22px; width: 300px; border-top: 1px solid var(--trait); }
+.sm-recap div { display: flex; justify-content: space-between; padding: 13px 0; border-bottom: 1px solid var(--trait); font: 400 16px/1 JO; }
+.sm-recap div b { font-weight: 500; }
+
+/* Doigt (point de contact) */
+.touch { position: absolute; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: rgba(25,25,25,.32); border: 4px solid #fff; box-shadow: 0 6px 18px rgba(0,0,0,.25); z-index: 30; opacity: 0; pointer-events: none; }
+.touch:after { content: ""; position: absolute; inset: -3px; border-radius: 50%; border: 3px solid rgba(255,255,255,.9); opacity: 0; }

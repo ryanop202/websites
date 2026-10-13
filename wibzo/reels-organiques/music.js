@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const V = process.argv[2] || '1';
-const DUR = { 1: 14, 2: 10.8, 3: 12.6 }[V];
+const DUR = { 1: 16.8, 2: 15.2, 3: 12.6 }[V];
 const SR = 44100, N = Math.round(SR * DUR);
 const L = new Float32Array(N), R = new Float32Array(N);
 let seed = 7;
@@ -84,52 +84,79 @@ function thud(t0, g = .8) {
   add(t0, .5, (t) => { ph += (60 + 140 * Math.exp(-t * 30)) / SR; y += (rnd() - y) * .15; return Math.sin(2 * Math.PI * ph) * env(t, .001, .12) + y * env(t, .001, .05); }, g);
 }
 
+function rewind(t0, len, g = .35) {
+  // bande qu'on rembobine : bruit filtré + sifflement qui descend
+  let y = 0, ph = 0;
+  add(t0, len, (t) => { const x = t / len; y += (rnd() - y) * (.25 - .2 * x); ph += (2400 - 2000 * x) / SR; return (y * .7 + Math.sin(2 * Math.PI * ph) * .18 * (1 + Math.sin(t * 90))) * Math.sin(Math.PI * Math.min(1, x * 1.2)); }, g);
+}
+function beep(t0, m, len = .12, g = .2) { const f = midi(m); add(t0, len, (t) => Math.sin(2 * Math.PI * f * t) * (t < len - .01 ? 1 : (len - t) / .01) * Math.min(1, t / .003), g); }
+
 if (V === '1') {
-  // R1 : groove léger et « satisfaisant », la majeur, 118 BPM ; drop quand le site est fini (8,6 s)
-  const BEAT = 60 / 118, DROP = 8.6;
-  const prog = [[57, 61, 64, 69, 45], [54, 57, 61, 66, 42], [50, 54, 57, 62, 38], [52, 56, 59, 64, 40]];
-  const arp = [69, 73, 76, 81, 76, 73];
-  for (let b = 0; b * BEAT < DUR; b++) {
-    const t = b * BEAT, c = prog[Math.floor(b / 4) % 4], after = t >= DROP;
-    if (t > DROP - .3 && t < DROP) continue;
-    kick(t, after ? .9 : .55);
-    if (b % 2 === 1) clap(t, after ? .45 : .25);
-    hat(t + BEAT / 2, after ? .2 : .13);
-    bass(t + BEAT / 2, c[4], BEAT * .45, after ? .48 : .32);
-    if (b % 2 === 0) chord(t, c.slice(0, 4), BEAT * 1.8, after ? .2 : .12, after ? .22 : .08);
-    for (let s = 0; s < 2; s++) pluck(t + s * BEAT / 2, arp[(b * 2 + s) % 6], .08, s ? .3 : -.3);
+  // R1 v2 : nerveux (la mineur → do majeur au final), 132 BPM. Crochet 0–1,05 / rembobinage 1,05–1,55 / course 1,55–11 / final.
+  const BEAT = 60 / 132, GO = 1.55, END = 11.0;
+  const prog = [[57, 60, 64, 69, 45], [53, 57, 60, 65, 41], [55, 59, 62, 67, 43], [52, 55, 59, 64, 40]];
+  const fin = [[60, 64, 67, 72, 48], [57, 60, 64, 69, 45], [53, 57, 60, 65, 41], [55, 59, 62, 67, 43]];
+  // crochet : ça démarre fort dès la 1re image
+  impact(0, .7); for (let b = 0; b * BEAT < 1.0; b++) { const t = b * BEAT; kick(t, .8); hat(t + BEAT / 2, .16); bass(t + BEAT / 2, 45, BEAT * .45, .4); if (b % 2 === 1) clap(t, .4); }
+  chord(0, [57, 60, 64, 69], 1.0, .14, .2);
+  pop(.22, .2, 900); pop(.36, .22, 1100);
+  rewind(1.05, .5, .4);
+  // course
+  impact(GO, .85); beep(GO, 93, .18, .22);
+  for (let b = 0; GO + b * BEAT < END - .05; b++) {
+    const t = GO + b * BEAT, c = prog[Math.floor(b / 4) % 4], hot = t > 9.5;
+    kick(t, .75); if (b % 2 === 1) clap(t, .42);
+    hat(t + BEAT / 2, .17); hat(t + BEAT / 4, .07); hat(t + 3 * BEAT / 4, .07);
+    bass(t + BEAT / 2, c[4], BEAT * .42, .44); bass(t + 3 * BEAT / 4, c[4] + 12, BEAT * .2, .2);
+    if (b % 2 === 0) chord(t, c.slice(0, 4), BEAT * 1.6, .13, hot ? .25 : .15);
+    tick(t, hot ? .2 : .13); tick(t + BEAT / 2, hot ? .14 : .08);
   }
-  riser(DROP - 1.4, DROP - .3, .28); impact(DROP, .9);
-  [.15, 1.5, 2.2, 2.5, 3.3, 4.0, 4.7, 4.9, 5.1, 5.3, 5.5, 6.3, 6.5, 6.65, 6.8, 6.95, 7.6, 7.8, 8.0].forEach((t, i) => pop(t, .2, 600 + (i % 6) * 110));
-  [1.5, 5.8, 7.2, 8.6].forEach(t => whoosh(t - .1, .25, .25));
-  ding(8.65, .2);
-  pop(9.9, .2, 900); pop(10.15, .2, 1100); pop(10.3, .2, 800);
-  for (let i = 0; i < 10; i++) tick(10.8 + i * .1, .14);
-  thud(11.85, .6); pop(12.4, .22, 1200); tap(13.2); ding(13.25, .14);
+  riser(9.4, END - .05, .3);
+  [1.75, 2.85, 3.95, 4.85, 5.85, 6.85, 8.1, 9.3].forEach(t => { thud(t, .55); whoosh(t - .12, .18, .2); });
+  [1.85, 1.97, 2.09, 2.21, 2.9, 2.95, 3.02, 3.1, 4.0, 5.12, 5.95, 6.4, 7.2, 7.38, 7.56, 7.74, 8.3, 8.45, 8.6, 8.75, 8.95, 9.5].forEach((t, i) => pop(t, .17, 600 + (i % 7) * 120));
+  impact(4.95, .6); tap(6.35, .4);
+  [6.85, 8.1, 9.3].forEach(t => whoosh(t, .4, .22)); whoosh(10.45, .5, .3);
+  // terminé
+  impact(END, 1.0); ding(END + .03, .24);
+  for (let b = 0; END + .3 + b * BEAT < DUR; b++) {
+    const t = END + .3 + b * BEAT, c = fin[Math.floor(b / 4) % 4];
+    if (b % 2 === 0) kick(t, .6); if (b % 4 === 2) clap(t, .3);
+    hat(t + BEAT / 2, .1); if (b % 2 === 0) bass(t, c[4], BEAT * .9, .35);
+    if (b % 4 === 0) chord(t, c.slice(0, 4), BEAT * 3.6, .14, .1);
+    pluck(t + BEAT / 2, c[(b % 3) + 1] + 12, .06, b % 2 ? .3 : -.3);
+  }
+  pop(12.15, .18, 900); pop(12.35, .2, 1100); pop(12.5, .18, 800);
+  for (let i = 0; i < 10; i++) tick(12.75 + i * .05, .14);
+  pop(14.35, .18, 900); pop(14.55, .2, 1100); pop(14.7, .18, 800);
+  for (let i = 0; i < 5; i++) pop(14.95 + i * .09, .14, 700 + i * 120);
+  pop(15.5, .22, 1200); tap(16.1); ding(16.15, .12);
 } else if (V === '2') {
-  // R2 : calme et doux (ré mineur, 96 BPM) puis éclaircie sur « Après » (7,5 s)
-  const BEAT = 60 / 96, DROP = 7.5;
+  // R2 v2 : calme (ré mineur, 96 BPM) jusqu'à « Après » (7,56 s), puis groove clair pendant la réservation
+  const BEAT = 60 / 96, DROP = 7.56;
   const pre = [[50, 53, 57, 62], [46, 50, 53, 58], [48, 52, 55, 60], [45, 49, 52, 57]];
   const post = [[53, 57, 60, 65, 41], [48, 52, 55, 60, 48], [50, 53, 57, 62, 38], [46, 50, 53, 58, 46]];
   for (let b = 0; b * BEAT < DROP - .2; b++) {
     const t = b * BEAT;
     if (b % 2 === 0) chord(t, pre[Math.floor(b / 2) % 4], BEAT * 2, .14, .04);
-    hat(t + BEAT / 2, .07);
-    if (b % 2 === 0) kick(t, .35);
+    hat(t + BEAT / 2, .07); if (b % 2 === 0) kick(t, .35);
   }
-  riser(DROP - 1.2, DROP - .05, .3); impact(DROP, .75);
+  tap(.4, .4); buzz(.45, .1, .09); buzz(.6, .1, .09); pop(.52, .14, 500);
+  [2.4, 3.85, 4.94].forEach(t => { thud(t, .75); buzz(t, .12, .08); });
+  whoosh(6.0, .2, .3); pop(6.1, .16); pop(6.4, .2, 1100);
+  pop(6.83, .18, 600); riser(DROP - 1.2, DROP - .05, .3); impact(DROP, .75); whoosh(DROP - .05, .55, .35); ding(DROP + .05, .18);
   for (let b = 0; DROP + b * BEAT < DUR; b++) {
     const t = DROP + b * BEAT, c = post[Math.floor(b / 2) % 4];
-    kick(t, .8); if (b % 2 === 1) clap(t, .4);
-    hat(t + BEAT / 2, .18); bass(t + BEAT / 2, c[4], BEAT * .45, .45);
-    chord(t, c.slice(0, 4), BEAT * .9, .18, .2);
-    pluck(t + BEAT / 4, c[3] + 12, .07, .3); pluck(t + 3 * BEAT / 4, c[2] + 12, .07, -.3);
+    kick(t, .75); if (b % 2 === 1) clap(t, .36);
+    hat(t + BEAT / 2, .16); bass(t + BEAT / 2, c[4], BEAT * .45, .42);
+    chord(t, c.slice(0, 4), BEAT * .9, .16, .18);
+    pluck(t + BEAT / 4, c[3] + 12, .06, .3); pluck(t + 3 * BEAT / 4, c[2] + 12, .06, -.3);
   }
-  pop(0, .14, 700); thud(.9, .5);
-  [2.4, 3.85, 4.94].forEach(t => { thud(t, .75); buzz(t, .12, .08); });
-  whoosh(6.0, .2, .3); pop(6.13, .16); pop(6.45, .2, 1100);
-  pop(6.83, .18, 600); whoosh(7.45, .6, .35); ding(7.55, .2);
-  pop(8.7, .2, 1200); tap(9.6); ding(9.65, .14);
+  pop(8.3, .14, 800); pop(8.5, .16, 1000);
+  [8.75, 9.55, 10.45, 10.95, 11.45].forEach((t, i) => { tap(t, .45); pop(t + .02, .14, 900 + i * 110); });
+  whoosh(8.88, .35, .28); whoosh(9.95, .3, .22);
+  impact(11.6, .55); ding(11.62, .24);
+  pop(11.7, .16, 900); pop(11.95, .18, 1100);
+  pop(12.6, .2, 1200); tap(13.9, .3);
 } else {
   // R3 : énergique (mi mineur, 128 BPM), un coup sec à chaque raison
   const BEAT = 60 / 128;

@@ -8,7 +8,7 @@ const { spawn } = require('child_process');
 
 const r = process.argv[2] || '1';
 const stills = process.argv[3];
-const DUR = { 1: 14, 2: 10.8, 3: 12.6 }[r];
+const DUR = { 1: 16.8, 2: 15.2, 3: 12.6 }[r];
 const W = 1080, H = 1920, FPS = 30;
 const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 
@@ -17,6 +17,7 @@ const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
   const page = await browser.newPage();
   await page.setViewport({ width: W, height: H, deviceScaleFactor: 1 });
   const url = 'file:///' + path.resolve(__dirname, 'reels.html').split(path.sep).join('/') + `?render&r=${r}`;
+  page.on('pageerror', e => console.log('ERR', e.message));
   await page.goto(url, { waitUntil: 'load' });
   await page.evaluate(() => document.fonts.ready);
   const el = await page.$('#f');

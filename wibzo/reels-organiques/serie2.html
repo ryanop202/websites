@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Reels Wibzo — série 2 (vraies maquettes)</title>
+<link rel="stylesheet" href="kit.css">
+<link rel="stylesheet" href="kit2.css">
+<style>
+/* Série 2 (à partir du 15.10.2026) : chaque Reel montre une VRAIE maquette (../maquettes-demo/<nom>/),
+   capturée en image par shoot.js (maquettes/<nom>.png) puis défilée dans le téléphone.
+   Zone visible Instagram : rien d'important au-dessus de y = 270 ni en dessous de y = 1500. */
+#f { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: D; }
+.R { position: absolute; inset: 0; display: none; }
+.w { display: inline-block; opacity: 0; transform-origin: 50% 70%; }
+.big { position: absolute; left: 70px; right: 70px; font-family: B; font-weight: 800; text-transform: uppercase; letter-spacing: -.035em; line-height: .94; }
+.grid { position: absolute; inset: -120px; background-size: 90px 90px; }
+.cam { position: absolute; left: 0; top: 0; width: 400px; height: 820px; transform-origin: 0 0; }
+.cam .ph { left: 0; top: 0; }
+/* page de la maquette dans l'écran (sous la barre d'état) */
+.pg { position: absolute; left: 0; top: 50px; width: 378px; }
+.pg img { display: block; width: 378px; }
+.mk { position: absolute; pointer-events: none; }
+.fic { position: absolute; left: 60px; top: 1484px; font: 600 25px/1 D; z-index: 50; }
+.touch { position: absolute; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: rgba(25,25,25,.32); border: 4px solid #fff; z-index: 30; opacity: 0; pointer-events: none; }
+
+/* ===== R-007 : « Tu vois le détail ? » — Café Tiercelin ===== */
+#r7 { background: #F1ECE4; color: #1E1713; }
+#r7 .grid { background-image: linear-gradient(rgba(42,31,25,.05) 2px, transparent 2px), linear-gradient(90deg, rgba(42,31,25,.05) 2px, transparent 2px); }
+#r7 .glow { position: absolute; width: 1300px; height: 1300px; left: -110px; top: 420px; border-radius: 50%; background: radial-gradient(closest-side, rgba(180,97,47,.16), transparent); }
+#r7 .big { top: 292px; font-size: 64px; opacity: 0; }
+#r7 .hl { background: #1E1713; color: #F1ECE4; padding: 0 .12em; border-radius: .08em; }
+#r7 .red { color: #D2442F; }
+#r7 .ok { background: #3F7A45; color: #fff; padding: 0 .12em; border-radius: .08em; }
+#cd7 { position: absolute; left: 812px; top: 700px; width: 190px; height: 190px; border-radius: 50%; background: #1E1713; color: #F1ECE4; display: grid; place-items: center; font: 800 130px/1 B; opacity: 0; box-shadow: 0 20px 50px -18px rgba(0,0,0,.5); }
+#ring7 { border: 5px solid #D2442F; border-radius: 50%; opacity: 0; }
+.okr { border: 5px solid #3F7A45; border-radius: 14px; opacity: 0; }
+#route7 { opacity: 0; }
+#stamp7 { position: absolute; left: 70px; top: 1290px; padding: 12px 26px 14px; border: 8px solid #D2442F; border-radius: 22px; color: #D2442F; background: rgba(255,255,255,.96); font: 800 54px/1 B; letter-spacing: -.02em; text-transform: uppercase; white-space: nowrap; opacity: 0; z-index: 40; }
+#chip7 { position: absolute; left: 70px; top: 520px; padding: 14px 24px 12px; border-radius: 14px; border: 3px solid #1E1713; font: 700 36px/1 D; opacity: 0; background: #fff; }
+#fic7 { color: #8a7d72; }
+/* ===== I-001 (r8) : « Envoie ça à un commerçant… » — Atelier Sève ===== */
+#r8 { background: #F4F1EA; color: #22261F; }
+#r8 .grid { background-image: linear-gradient(rgba(62,74,53,.06) 2px, transparent 2px), linear-gradient(90deg, rgba(62,74,53,.06) 2px, transparent 2px); }
+#r8 .big { top: 292px; font-size: 64px; opacity: 0; }
+#r8 .hl { background: #3E4A35; color: #F4F1EA; padding: 0 .12em; border-radius: .08em; }
+#r8 .red { color: #C8452F; }
+#r8 .lime { background: #C6FF3D; color: #22261F; padding: 0 .12em; border-radius: .08em; }
+/* liste de résultats de recherche (style carte, sans logo de marque) */
+.gl { position: absolute; left: 0; top: 50px; width: 378px; height: 760px; background: #fff; font-family: D; color: #202124; }
+.gl .sbx { margin: 10px 12px 0; height: 46px; border-radius: 23px; box-shadow: 0 1px 6px rgba(0,0,0,.18); display: flex; align-items: center; gap: 10px; padding: 0 16px; font-size: 15px; color: #202124; }
+.gl .sbx i { width: 16px; height: 16px; border: 2.5px solid #5f6368; border-radius: 50%; position: relative; flex: none; }
+.gl .sbx i:after { content: ''; position: absolute; width: 7px; height: 2.5px; background: #5f6368; right: -6px; bottom: -3px; transform: rotate(45deg); }
+.gl .chips { display: flex; gap: 8px; padding: 10px 12px; }
+.gl .chips span { padding: 7px 12px; border: 1px solid #dadce0; border-radius: 16px; font-size: 13px; color: #3c4043; }
+.gl .map { height: 150px; position: relative; overflow: hidden; }
+.gl .res { display: flex; gap: 12px; padding: 14px 14px 12px; border-top: 1px solid #ebebeb; position: relative; }
+.gl .res .tx { flex: 1; min-width: 0; }
+.gl .res h4 { font: 600 17px/1.2 D; }
+.gl .res p { font-size: 13px; color: #70757a; margin-top: 3px; }
+.gl .res .op { color: #188038; }
+.gl .res .nr { color: #9aa0a6; font-style: italic; }
+.gl .res .ph2 { width: 92px; height: 92px; border-radius: 10px; background-size: cover; background-position: center; flex: none; }
+.gl .res .nop { background: #f1f3f4; color: #9aa0a6; font-size: 11px; display: grid; place-items: center; text-align: center; }
+.gl .acts { display: flex; gap: 6px; margin-top: 10px; }
+.gl .acts span { padding: 6px 10px; border-radius: 16px; border: 1px solid #dadce0; font: 600 12.5px/1 D; color: #1a73e8; white-space: nowrap; }
+.gl .acts span.web { background: #e8f0fe; border-color: #e8f0fe; }
+#ring8 { position: absolute; left: 4px; right: 4px; border: 5px solid #C8452F; border-radius: 14px; opacity: 0; pointer-events: none; }
+#stamp8 { position: absolute; left: 60px; top: 1170px; padding: 12px 24px 14px; border: 8px solid #C8452F; border-radius: 22px; color: #C8452F; background: rgba(255,255,255,.96); font: 800 52px/1 B; text-transform: uppercase; white-space: nowrap; opacity: 0; z-index: 40; }
+#arrow8 { position: absolute; left: 600px; top: 1130px; width: 380px; height: 420px; opacity: 0; z-index: 45; }
+#chip8 { position: absolute; left: 70px; top: 470px; padding: 14px 24px 12px; border-radius: 14px; background: #fff; border: 3px solid #22261F; font: 700 36px/1 D; opacity: 0; }
+#fic8 { color: #8E927F; }
+/* ===== Module SPEEDRUN (r9…) ===== */
+.sp { position: absolute; left: 0; top: 0; width: 378px; }
+#r9 .grid { background-image: linear-gradient(rgba(255,255,255,.04) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,.04) 2px, transparent 2px); }
+.sph { top: 292px; font-size: 80px; opacity: 0; }
+.sph .acc, .acc { color: var(--acc); }
+#spGo { position: absolute; left: 0; right: 0; top: 820px; text-align: center; font: 800 300px/1 B; letter-spacing: -.05em; color: var(--acc); opacity: 0; text-shadow: 0 20px 60px rgba(0,0,0,.6); z-index: 40; }
+#spHud { position: absolute; left: 60px; right: 330px; top: 285px; opacity: 0; }
+#spN { font: 800 40px/1 B; text-transform: uppercase; color: rgba(255,255,255,.55); }
+#spN b { color: var(--acc); }
+#spT { margin-top: 14px; font: 800 84px/.95 B; text-transform: uppercase; letter-spacing: -.035em; white-space: nowrap; }
+#spTm { position: absolute; right: 70px; top: 285px; padding: 12px 22px 10px; border-radius: 16px; background: rgba(255,255,255,.08); border: 3px solid rgba(255,255,255,.2); font: 800 60px/1 B; opacity: 0; font-variant-numeric: tabular-nums; }
+#spTm.hot { color: #FF6B5B; border-color: #FF6B5B; }
+#spTm.done { background: #C6FF3D; border-color: #C6FF3D; color: #0D0F0E; }
+.spchip { position: absolute; left: 40px; width: 210px; height: 150px; border-radius: 10px; background: #fff; box-shadow: 0 30px 50px -20px rgba(0,0,0,.85); overflow: hidden; opacity: 0; z-index: 30; }
+.spchip i { display: block; height: 88px; }
+.spchip b { display: block; padding: 10px 14px 0; font: 800 30px/1 D; color: #141614; }
+.spchip em { display: block; padding: 4px 14px 0; font: 600 22px/1 D; font-style: normal; color: #777; }
+.spcard { position: absolute; left: 36px; top: 620px; width: 240px; padding: 16px 16px 14px; border-radius: 14px; background: #F2F0EA; color: #0D0F0E; box-shadow: 0 30px 60px -20px rgba(0,0,0,.8); opacity: 0; z-index: 30; }
+.spcard small { display: block; font: 700 26px/1.15 D; color: #555; margin-top: 8px; }
+#spDone { position: absolute; left: 0; right: 0; top: 820px; text-align: center; opacity: 0; z-index: 40; }
+#spDone span { display: inline-block; padding: 18px 40px 16px; border: 10px solid #C6FF3D; border-radius: 26px; background: rgba(13,15,14,.92); color: #C6FF3D; font: 800 120px/1 B; text-transform: uppercase; }
+#spDone small { display: block; margin-top: 18px; font: 800 44px/1 B; color: #F2F0EA; text-transform: uppercase; }
+#spRate { position: absolute; left: 60px; right: 70px; top: 500px; display: flex; justify-content: space-between; }
+#spRate span { width: 78px; height: 84px; border-radius: 14px; background: rgba(255,255,255,.08); border: 3px solid rgba(255,255,255,.2); display: grid; place-items: center; font: 800 40px/1 B; opacity: 0; }
+#spRate span.on { background: var(--acc); color: #0D0F0E; border-color: var(--acc); }
+#spSugg { position: absolute; left: 60px; right: 70px; top: 490px; display: flex; flex-wrap: wrap; gap: 14px; }
+#spSugg span { padding: 16px 24px 14px; border-radius: 14px; border: 3px solid rgba(255,255,255,.25); background: rgba(255,255,255,.08); font: 700 38px/1 D; opacity: 0; }
+#spSugg span.q { border-color: var(--acc); color: var(--acc); }
+#spFic { color: rgba(255,255,255,.5); }
+/* @CSS */
+</style>
+</head>
+<body>
+<div id="f">
+
+<!-- ================= R-007 : TU VOIS LE DÉTAIL ? (Café Tiercelin) ================= -->
+<div class="R" id="r7">
+  <div class="grid"></div><div class="glow"></div>
+  <div class="big" id="t7a"><div><span class="w" data-t=".15">Ce site cache</span> <span class="w" data-t=".6">un détail</span></div><div><span class="w red" data-t="1.53">qui fait fuir</span> <span class="w" data-t="1.95">les clients.</span></div><div><span class="w hl" data-t="2.58">Tu le vois ?</span></div></div>
+  <div class="big" id="t7b"><div><span class="w red" data-t="6.95">Pas d'adresse.</span></div><div><span class="w" data-t="8.24">Le client</span> <span class="w" data-t="8.6">ne te trouve pas…</span></div><div><span class="w" data-t="9.81">il va</span> <span class="w hl" data-t="10.15">ailleurs.</span></div></div>
+  <div class="big" id="t7c"><div><span class="w" data-t="11.14">Une adresse.</span></div><div><span class="w" data-t="11.85">Une carte.</span></div><div><span class="w ok" data-t="12.4">Un bouton.</span></div></div>
+  <div class="big" id="t7d"><div><span class="w" data-t="14.58">Tu l'avais</span> <span class="w hl" data-t="14.85">vu ?</span></div></div>
+  <div id="chip7">Dis-le en commentaire 👀</div>
+  <div class="cam" id="cam7"><div id="p7"></div></div>
+  <div id="cd7"></div>
+  <div id="stamp7">Pas d'adresse</div>
+  <div class="fic" id="fic7">Exemple fictif · maquette Wibzo</div>
+  <div class="touch" id="touch7"></div>
+</div>
+
+<!-- ================= I-001 (r8) : ENVOIE ÇA À UN COMMERÇANT (Atelier Sève) ================= -->
+<div class="R" id="r8">
+  <div class="grid"></div>
+  <div class="big" id="t8a"><div><span class="w" data-t=".2">Envoie ça</span> <span class="w" data-t=".55">à un commerçant</span></div><div><span class="w" data-t="1.15">qui n'a toujours</span></div><div><span class="w lime" data-t="1.75">pas de site.</span></div></div>
+  <div class="big" id="t8b"><div><span class="w" data-t="2.67">Ses clientes</span> <span class="w" data-t="3.0">la cherchent</span></div><div><span class="w" data-t="3.9">sur Google…</span></div></div>
+  <div class="big" id="t8c"><div><span class="w" data-t="4.63">…et tombent</span> <span class="w" data-t="5.0">sur l'institut</span></div><div><span class="w red" data-t="5.7">d'à côté.</span></div></div>
+  <div class="big" id="t8d"><div><span class="w" data-t="6.72">Avec un site,</span></div><div><span class="w" data-t="7.4">c'est elle</span></div><div><span class="w hl" data-t="7.75">qu'on trouve.</span></div></div>
+  <div class="big" id="t8e" style="font-size:96px"><div><span class="w" data-t="8.6">Envoie-lui.</span> <span class="w" data-t="8.85">📩</span></div></div>
+  <div id="chip8">Tu connais quelqu'un qui devrait voir ça ?</div>
+  <div class="cam" id="cam8"><div id="p8"></div></div>
+  <div id="stamp8">Pas de site</div>
+  <svg id="arrow8" viewBox="0 0 380 420"><path id="ap8" d="M40 20 C 230 40, 330 160, 320 360" fill="none" stroke="#22261F" stroke-width="14" stroke-linecap="round"/><path d="M270 320 L 320 380 L 365 315" fill="none" stroke="#22261F" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="fic" id="fic8">Exemple fictif · maquette Wibzo</div>
+  <div class="touch" id="touch8"></div>
+</div>
+
+<!-- ================= R-006 (r9) : SPEEDRUN #2 BARBIER (Maison Faucon) — construit par le module SPEEDRUN ================= -->
+<div class="R" id="r9"></div>
+
+<!-- @REELS -->
+
+</div>
+
+<script src="kit2.js"></script>
+<script>
+var Q = new URLSearchParams(location.search), RR = Q.get('r') || '7';
+var $ = function (id) { return document.getElementById(id); };
+$('r' + RR).style.display = 'block';
+function put(id, html) { $(id).outerHTML = html; }
+var clamp = function (x, a, b) { return Math.min(b === undefined ? 1 : b, Math.max(a || 0, x)); };
+var p = function (t, a, d) { return clamp((t - a) / d); };
+var lerp = function (a, b, x) { return a + (b - a) * x; };
+var outBack = function (x) { var c = 1.9; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+var outExpo = function (x) { return x >= 1 ? 1 : 1 - Math.pow(2, -10 * x); };
+var inOut = function (x) { return x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2; };
+function pop(el, t, t0, d) { d = d || .24; var x = p(t, t0, d); el.style.opacity = t < t0 ? 0 : Math.min(1, x * 4);
+  el.style.transform = 'translateY(' + ((1 - outExpo(x)) * 36) + 'px) scale(' + lerp(1.45, 1, outBack(x)) + ')'; }
+function popIn(el, t, t0, base) { var x = p(t, t0, .3); el.style.opacity = t < t0 ? 0 : Math.min(1, x * 3); el.style.transform = (base || '') + ' scale(' + lerp(.4, 1, outBack(x)) + ')'; }
+function vis(el, on) { el.style.opacity = on ? 1 : 0; }
+function camT(el, x, y, s) { el.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(' + s + ')'; }
+function rel(el) { var r = el.getBoundingClientRect(), f = $('f').getBoundingClientRect(); return { x: r.left - f.left + r.width / 2, y: r.top - f.top + r.height / 2 }; }
+function touch(dot, t, taps) {
+  var cur = null; taps.forEach(function (k) { if (t >= k[0] - .32 && t <= k[0] + .38) cur = k; });
+  if (!cur) { dot.style.opacity = 0; return; }
+  var c = rel(cur[1]), a = outExpo(p(t, cur[0] - .32, .3)), d = t - cur[0];
+  var sc = d < 0 ? 1 : (d < .1 ? lerp(1, .78, d / .1) : lerp(.78, 1, Math.min(1, (d - .1) / .15)));
+  dot.style.left = (c.x + (1 - a) * 60) + 'px'; dot.style.top = (c.y + (1 - a) * 90) + 'px';
+  dot.style.opacity = Math.min(a * 1.5, d > .25 ? Math.max(0, 1 - (d - .25) / .13) : 1);
+  dot.style.transform = 'scale(' + sc + ')';
+  dot.style.boxShadow = '0 6px 18px rgba(0,0,0,.25), 0 0 0 ' + (d > 0 ? d * 160 : 0) + 'px rgba(255,255,255,' + (d > 0 ? Math.max(0, .7 - d * 2) : 0) + ')';
+}
+// ---------- Module SPEEDRUN (réutilisable : r9, puis les speedruns suivants) ----------
+// La maquette est capturée étape par étape (shoot.js <nom> stepN → maquettes/<nom>_stepN.png, mêmes hauteurs).
+var SPD = {
+  9: { name: 'maison-faucon', go: 2.4, end: 10.0, bg: '#0F1F1B', fg: '#F3EBDD', acc: '#C9A15B',
+       steps: [2.9, 3.9, 4.9, 5.9, 6.9, 8.0, 9.0],
+       labels: ['La palette', 'La typo', 'La photo', 'Les prestations', 'Le bouton RDV', 'Les horaires', 'La signature'],
+       scroll: [0, 0, 0, 300, 260, 854, 420],
+       chips: [['#183A32', 'Vert', 'carreaux'], ['#C9A15B', 'Laiton', 'accent'], ['#F3EBDD', 'Crème', 'texte'], ['#B3372B', 'Rouge', 'enseigne']],
+       cards: { 1: '<div style="font:900 64px/1 \'Big Shoulders Display\',Impact,sans-serif;text-transform:uppercase">Aa</div><small>Big Shoulders<br>+ Libre Franklin</small>',
+                6: '<div style="font:800 30px/1 B;text-transform:uppercase">Enseigne<br>+ tampon</div><small>la signature<br>du barbier</small>' },
+       q: 10.77, cta: 12.16, sugg: ['Fleuriste', 'Pizzeria', 'Garage', 'Food truck'] }
+};
+if (SPD[RR]) (function () {
+  var c = SPD[RR], R = $('r' + RR), n = c.steps.length;
+  var imgs = '<img class="sp" id="spF" src="maquettes/' + c.name + '.png">';
+  for (var i = 0; i <= n; i++) imgs += '<img class="sp" id="sp' + i + '" src="maquettes/' + c.name + '_step' + i + '.png" style="opacity:0">';
+  var chips = c.chips.map(function (k, i) { return '<div class="spchip" id="spc' + i + '" style="top:' + (560 + i * 170) + 'px"><i style="background:' + k[0] + '"></i><b>' + k[1] + '</b><em>' + k[2] + '</em></div>'; }).join('');
+  var cards = Object.keys(c.cards).map(function (k) { return '<div class="spcard" id="spk' + k + '">' + c.cards[k] + '</div>'; }).join('');
+  var rate = ''; for (var r = 1; r <= 10; r++) rate += '<span>' + r + '</span>';
+  R.innerHTML = '<div class="grid"></div>' +
+    '<div class="big sph" id="spHook"><div><span class="w" data-t=".1">15 secondes</span></div><div><span class="w" data-t=".94">pour faire</span> <span class="w" data-t="1.3">ce site.</span></div></div>' +
+    '<div id="spGo">GO</div>' +
+    '<div id="spHud"><div id="spN">Étape <b id="spI">01</b> / 0' + n + '</div><div id="spT"></div></div>' +
+    '<div id="spTm"><span id="spTv"></span></div>' +
+    '<div class="cam" id="spCam"><div id="spP"></div></div>' + chips + cards +
+    '<div id="spDone"><span>Terminé</span><small id="spDs"></small></div>' +
+    '<div class="big sph" id="spQ"><div><span class="w" data-t="' + c.q + '">Tu lui mets</span></div><div><span class="w acc" data-t="' + (c.q + .3) + '">combien</span> <span class="w" data-t="' + (c.q + .6) + '">sur 10 ?</span></div></div>' +
+    '<div id="spRate">' + rate + '</div>' +
+    '<div class="big sph" id="spC"><div><span class="w" data-t="' + c.cta + '">Le prochain,</span></div><div><span class="w acc" data-t="' + (c.cta + .5) + '">tu choisis.</span> <span class="w" data-t="' + (c.cta + .8) + '">👇</span></div></div>' +
+    '<div id="spSugg">' + c.sugg.map(function (s) { return '<span>' + s + '</span>'; }).join('') + '<span class="q">Dis-le en commentaire</span></div>' +
+    '<div class="fic" id="spFic">Exemple fictif · maquette Wibzo</div>';
+  R.style.background = c.bg; R.style.color = c.fg; R.style.setProperty('--acc', c.acc);
+  put('spP', phone2('spP', '<div class="pg" id="spPg">' + imgs + '</div>', { sb: c.bg === '#fff' ? 'rgba(255,255,255,.97)' : 'rgba(255,255,255,.97)' }));
+})();
+function spdRun(t) {
+  var c = SPD[RR], n = c.steps.length;
+  var st = -1; c.steps.forEach(function (s, i) { if (t >= s) st = i; });
+  // image affichée : finie avant GO, puis étape par étape, puis finie
+  var cur = t < c.go ? 'F' : (t >= c.end ? 'F' : String(st + 1));
+  if (t >= c.go && st < 0) cur = '0';
+  $('spF').style.opacity = cur === 'F' ? 1 : 0;
+  for (var i = 0; i <= n; i++) $('sp' + i).style.opacity = cur === String(i) ? 1 : 0;
+  // défilement
+  var y = 0; if (t >= c.go && t < c.end) { var target = st >= 0 ? c.scroll[st] : 0, prev = st > 0 ? c.scroll[st - 1] : 0; y = lerp(prev, target, inOut(p(t, st >= 0 ? c.steps[st] : 0, .35))); }
+  if (t >= c.end) y = lerp(c.scroll[n - 1], 0, inOut(p(t, c.end, .5)));
+  $('spPg').style.transform = 'translateY(' + (-y) + 'px)';
+  // caméra : petite secousse à chaque étape, rétrécit pour la fin
+  var S = 1.2, Y = 460, bump = st >= 0 && t < c.end ? .03 * Math.exp(-(t - c.steps[st]) * 9) : 0;
+  if (t < .4) S = lerp(1.35, 1.2, outExpo(p(t, 0, .4)));
+  var e = inOut(p(t, c.end + .7, .45)); S = lerp(S * (1 + bump), .98, e); Y = lerp(Y, 640, e);
+  camT($('spCam'), 540 - 200 * S, Y, S);
+  // titres
+  vis($('spHook'), t < c.go);
+  var g = p(t, c.go, .2); $('spGo').style.opacity = t >= c.go && t < c.go + .55 ? 1 - p(t, c.go + .35, .2) : 0; $('spGo').style.transform = 'scale(' + lerp(1.8, 1, outBack(g)) + ')';
+  $('spHud').style.opacity = t >= c.go + .4 && t < c.end + .3 ? 1 : 0;
+  if (st >= 0) { $('spI').textContent = '0' + (st + 1); $('spT').textContent = c.labels[st];
+    var xs = p(t, c.steps[st], .22); $('spT').style.transform = 'translateX(' + ((1 - outExpo(xs)) * -60) + 'px)'; $('spT').style.opacity = Math.min(1, xs * 3); }
+  else { $('spT').textContent = ''; }
+  // chrono 15:00 → arrêt à la fin
+  var el = clamp(t - c.go, 0, c.end - c.go), rem = 15 - el, s = Math.floor(rem), cc = Math.floor((rem - s) * 100);
+  $('spTv').textContent = (s < 10 ? '0' : '') + s + '.' + (cc < 10 ? '0' : '') + cc;
+  $('spTm').style.opacity = t >= c.go && t < c.end + .7 ? 1 : 0;
+  $('spTm').className = t >= c.end ? 'done' : (rem < 8.5 ? 'hot' : '');
+  // cartes « choix de design »
+  c.chips.forEach(function (k, i) { var el2 = $('spc' + i); popIn(el2, t, c.steps[0] + .05 + i * .12, 'rotate(' + [-5, 4, -3, 5][i % 4] + 'deg)'); if (t > c.steps[1] - .1) el2.style.opacity = Math.max(0, 1 - (t - c.steps[1] + .1) / .12); });
+  Object.keys(c.cards).forEach(function (k) { var el3 = $('spk' + k), t0 = c.steps[+k] + .05, t1 = (c.steps[+k + 1] || c.end) - .1;
+    popIn(el3, t, t0, 'rotate(-4deg)'); if (t > t1) el3.style.opacity = Math.max(0, 1 - (t - t1) / .12); });
+  // terminé
+  popIn($('spDone'), t, c.end); if (t > c.end + .65) $('spDone').style.opacity = Math.max(0, 1 - (t - c.end - .65) / .15);
+  $('spDs').textContent = 'avec ' + (15 - (c.end - c.go)).toFixed(2).replace('.', ',') + ' s d’avance';
+  // fin : note puis prochain commerce
+  vis($('spQ'), t >= c.q - .05 && t < c.cta - .05);
+  Array.prototype.forEach.call($('spRate').children, function (sp, i) {
+    popIn(sp, t, c.q + .3 + i * .04); if (t >= c.cta - .05) sp.style.opacity = 0;
+    var w = Math.exp(-Math.pow((t - c.q - .9 - i * .06) * 9, 2)); if (t > c.q + .6) sp.style.transform = 'translateY(' + (-w * 18) + 'px)';
+    sp.classList.toggle('on', w > .4); });
+  vis($('spC'), t >= c.cta - .05);
+  Array.prototype.forEach.call($('spSugg').children, function (sp, i) { popIn(sp, t, c.cta + .5 + i * .1, 'rotate(' + [-2, 1.5, -1, 2, -1.5][i % 5] + 'deg)'); });
+}
+window.r9 = function (t) { spdRun(t); };
+
+var DURS = { 7: 16.2, 8: 11.0, 9: 15.4 };
+var words = Array.prototype.slice.call(document.querySelectorAll('#r' + RR + ' .w'));
+
+// ---------- R-007 ----------
+// Positions mesurées par shoot.js (maquettes/cafe-tiercelin*.json), en px CSS de la maquette.
+var M7 = { flawH: 1837, fixH: 2150, view: 748, vague: { y: 1633, h: 23 }, lieuFlaw: 1553, lieuFix: 1568,
+  map: { y: 1650, h: 170 }, addr: { y: 1834, h: 67 }, btn: { y: 1915, h: 54 } };
+if (RR === '7') {
+  put('p7', phone2('p7',
+    '<div class="pg" id="pgA"><img src="maquettes/cafe-tiercelin_sans-adresse.png">' +
+      '<div class="mk" id="ring7" style="left:8px;top:' + (M7.vague.y - 16) + 'px;width:300px;height:' + (M7.vague.h + 32) + 'px"></div></div>' +
+    '<div class="pg" id="pgB" style="opacity:0"><img src="maquettes/cafe-tiercelin.png">' +
+      '<div class="mk okr" id="ok1" style="left:14px;top:' + (M7.addr.y - 8) + 'px;width:350px;height:' + (M7.addr.h + 16) + 'px"></div>' +
+      '<div class="mk okr" id="ok2" style="left:14px;top:' + (M7.map.y - 8) + 'px;width:350px;height:' + (M7.map.h + 16) + 'px"></div>' +
+      '<div class="mk okr" id="ok3" style="left:14px;top:' + (M7.btn.y - 8) + 'px;width:350px;height:' + (M7.btn.h + 16) + 'px"></div>' +
+      '<svg class="mk" id="route7" style="left:22px;top:' + M7.map.y + 'px" width="334" height="170" viewBox="0 0 334 170"><path id="rp7" d="M20 160 C 70 150, 60 110, 120 105 S 160 80, 167 60" fill="none" stroke="#2A1F19" stroke-width="5" stroke-linecap="round" stroke-dasharray="9 9"/></svg>' +
+      '<div class="mk" id="btn7" style="left:22px;top:' + M7.btn.y + 'px;width:334px;height:' + M7.btn.h + 'px"></div>' +
+    '</div>', { sb: 'rgba(239,234,226,.97)' }));
+}
+function r7(t) {
+  // caméra : téléphone dans la zone visible (y 520 → 1463), sous les titres de 3 lignes
+  var S = 1.15, Y = 520 + Math.sin(t * 2) * 4;
+  if (t < .4) S = lerp(1.27, 1.15, outExpo(p(t, 0, .4)));
+  camT($('cam7'), 540 - 200 * S, Y, S);
+  // titres
+  vis($('t7a'), t < 6.85); vis($('t7b'), t >= 6.85 && t < 11.05); vis($('t7c'), t >= 11.05 && t < 14.5); vis($('t7d'), t >= 14.5);
+  popIn($('chip7'), t, 15.0); $('chip7').style.top = '400px';
+  // défilement de la version « avec le défaut » pendant la recherche, puis arrêt sur « Nous trouver »
+  var maxA = M7.flawH - M7.view;
+  var yA = lerp(0, maxA, inOut(p(t, 3.0, 3.4)));
+  $('pgA').style.transform = 'translateY(' + (-yA) + 'px)';
+  // compte à rebours 3-2-1
+  var n = t >= 5.6 ? 1 : t >= 4.8 ? 2 : t >= 4.0 ? 3 : 0;
+  $('cd7').textContent = n || '';
+  var tn = [4.0, 4.8, 5.6][3 - n] || 4.0;
+  $('cd7').style.opacity = t >= 4.0 && t < 6.5 ? 1 : 0;
+  $('cd7').style.transform = 'scale(' + lerp(1.4, 1, outBack(p(t, tn, .25))) + ')';
+  // réponse : cercle rouge + tampon
+  var rg = p(t, 7.0, .3); $('ring7').style.opacity = t >= 7.0 && t < 11.1 ? 1 : 0;
+  $('ring7').style.transform = 'scale(' + lerp(1.6, 1, outExpo(rg)) + ') rotate(-3deg)';
+  popIn($('stamp7'), t, 7.25, 'rotate(-5deg)'); if (t >= 10.95) $('stamp7').style.opacity = Math.max(0, 1 - (t - 10.95) / .15);
+  // correction : la vraie version apparaît au même endroit, puis descend jusqu'au bouton
+  var fx = p(t, 11.05, .3);
+  $('pgB').style.opacity = fx; $('pgA').style.opacity = 1 - fx;
+  var maxB = M7.fixH - M7.view, startB = M7.lieuFix - (M7.lieuFlaw - maxA);
+  var yB = lerp(startB, maxB, inOut(p(t, 11.1, .7)));
+  $('pgB').style.transform = 'translateY(' + (-yB) + 'px)';
+  [['ok1', 11.14], ['ok2', 11.85], ['ok3', 12.4]].forEach(function (k) {
+    var e = $(k[0]), x = p(t, k[1], .25); e.style.opacity = t >= k[1] && t < 14.5 ? 1 : 0; e.style.transform = 'scale(' + lerp(1.08, 1, outBack(x)) + ')'; });
+  // « et il arrive chez toi » : tap sur le bouton, l'itinéraire se dessine
+  touch($('touch7'), t, [[13.45, $('btn7')]]);
+  var rp = p(t, 13.6, .7); $('route7').style.opacity = t >= 13.6 ? 1 : 0;
+  $('rp7').style.strokeDashoffset = 0; $('rp7').style.clipPath = 'inset(0 ' + ((1 - rp) * 100) + '% 0 0)';
+}
+
+// ---------- I-001 (r8) : envoie ça à un commerçant ----------
+// Positions de la maquette atelier-seve (maquettes/atelier-seve.json) : hauteur 1698, dispo y 1023.
+if (RR === '8') {
+  var gmap = '<svg viewBox="0 0 378 150" width="378" height="150"><rect width="378" height="150" fill="#E8EAED"/>' +
+    '<path d="M-10 100 C 90 80, 200 120, 390 90" stroke="#fff" stroke-width="14" fill="none"/><path d="M120 -10 L 150 160" stroke="#fff" stroke-width="10" fill="none"/>' +
+    '<path d="M260 -10 C 250 60, 280 110, 270 160" stroke="#fff" stroke-width="9" fill="none"/><rect x="20" y="16" width="70" height="50" rx="4" fill="#DADCE0"/><rect x="180" y="20" width="60" height="44" rx="4" fill="#DADCE0"/>' +
+    '<g transform="translate(205 84)"><path d="M0 0 C -12 -14 -12 -30 0 -34 C 12 -30 12 -14 0 0Z" fill="#EA4335"/><circle cy="-22" r="5" fill="#fff"/></g>' +
+    '<g transform="translate(96 112)"><path d="M0 0 C -10 -12 -10 -26 0 -29 C 10 -26 10 -12 0 0Z" fill="#9AA0A6"/><circle cy="-19" r="4" fill="#fff"/></g></svg>';
+  put('p8', phone2('p8',
+    '<div class="gl" id="gl8"><div class="sbx"><i></i><span id="q8"></span></div>' +
+      '<div class="chips"><span>Ouvert maintenant</span><span>À proximité</span><span>Prix</span></div>' +
+      '<div class="map">' + gmap + '</div>' +
+      '<div class="res" id="iris8"><div class="tx"><h4>Institut Les Iris</h4><p>Institut de beauté · 450 m</p><p class="op">Ouvert · Ferme à 19:00</p>' +
+        '<div class="acts"><span class="web" id="web8">Site Web</span><span>Itinéraire</span><span>Appeler</span></div></div>' +
+        '<div class="ph2" style="background-image:url(photos/coiffure.jpg)"></div></div>' +
+      '<div class="res" id="seve8"><div class="tx"><h4>Atelier Sève</h4><p>Institut de beauté · 300 m</p><p class="nr">Horaires non renseignés</p>' +
+        '<div class="acts"><span>Itinéraire</span><span>Appeler</span></div></div>' +
+        '<div class="ph2 nop">Aucune<br>photo</div><div id="ring8" style="top:2px;bottom:2px"></div></div>' +
+    '</div>' +
+    '<div class="pg" id="pg8" style="opacity:0"><img src="maquettes/atelier-seve.png"></div>', { sb: 'rgba(255,255,255,.97)' }));
+}
+function r8(t) {
+  var S = 1.15, Y = 520 + Math.sin(t * 2) * 4;
+  if (t < .4) S = lerp(1.27, 1.15, outExpo(p(t, 0, .4)));
+  camT($('cam8'), 540 - 200 * S, Y, S);
+  vis($('t8a'), t < 2.6); vis($('t8b'), t >= 2.6 && t < 4.58); vis($('t8c'), t >= 4.58 && t < 6.68); vis($('t8d'), t >= 6.68 && t < 8.55); vis($('t8e'), t >= 8.55);
+  popIn($('chip8'), t, 9.1);
+  // la recherche se tape
+  var q = 'institut de beauté près de moi', n = Math.floor(clamp((t - .3) / 1.1) * q.length);
+  $('q8').textContent = q.slice(0, n) + (t < 1.5 && Math.floor(t * 3) % 2 ? '|' : '');
+  // Atelier Sève : cercle rouge + tampon, puis il s'efface quand le client va ailleurs
+  $('ring8').style.opacity = t >= 2.9 && t < 6.7 ? 1 : 0;
+  popIn($('stamp8'), t, 3.2, 'rotate(-5deg)'); if (t >= 6.6) $('stamp8').style.opacity = Math.max(0, 1 - (t - 6.6) / .15);
+  $('seve8').style.opacity = t >= 5.5 ? lerp(1, .4, p(t, 5.5, .3)) : 1;
+  $('iris8').style.background = t >= 5.3 && t < 6.7 ? 'rgba(26,115,232,' + (.1 * (1 - p(t, 5.6, .8))) + ')' : 'transparent';
+  touch($('touch8'), t, [[5.3, $('web8')]]);
+  // avec un site : la maquette d'Atelier Sève apparaît et défile jusqu'aux disponibilités
+  var f = p(t, 6.7, .3); $('pg8').style.opacity = f; $('gl8').style.opacity = 1 - f;
+  $('pg8').style.transform = 'translateY(' + (-lerp(0, 1023 - 140, inOut(p(t, 7.0, 1.4)))) + 'px)';
+  // flèche vers le bouton « envoyer » d'Instagram
+  var a = p(t, 8.85, .35); $('arrow8').style.opacity = t >= 8.85 ? 1 : 0;
+  $('ap8').style.strokeDasharray = 700; $('ap8').style.strokeDashoffset = 700 * (1 - outExpo(a));
+  $('arrow8').style.transform = 'translate(' + (Math.sin(t * 7) * 6 * (t > 9.3 ? 1 : 0)) + 'px,' + (Math.sin(t * 7) * 8 * (t > 9.3 ? 1 : 0)) + 'px)';
+}
+
+// @JS
+
+window.render = function (t) {
+  words.forEach(function (w) { pop(w, t, +w.dataset.t); });
+  window['r' + RR](t);
+};
+render(0);
+if (!/render/.test(location.search)) { var t0 = performance.now(); (function loop() { render(((performance.now() - t0) / 1000) % DURS[RR]); requestAnimationFrame(loop); })(); }
+</script>
+</body>
+</html>

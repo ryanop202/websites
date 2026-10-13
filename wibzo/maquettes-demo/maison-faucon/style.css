@@ -1,0 +1,60 @@
+/* Maison Faucon — maquette de démonstration Wibzo (commerce fictif)
+   DA : barbier moderne-classique. Carreaux verts, laiton, crème. Typo haute et serrée.
+   Signature : bande « enseigne de barbier » (rayures rouge / crème / vert) + tampon « Fait main ». */
+:root {
+  --vert: #183A32;
+  --vert-2: #24503F;
+  --creme: #F3EBDD;
+  --laiton: #C9A15B;
+  --rouge: #B3372B;
+  --nuit: #0F1F1B;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--vert); color: var(--creme); font: 400 16px/1.5 'Libre Franklin', system-ui, sans-serif; }
+a { color: inherit; text-decoration: none; }
+img { display: block; width: 100%; }
+
+.top { display: flex; justify-content: space-between; align-items: flex-end; padding: 18px 20px 12px; }
+.logo { font: 900 30px/.9 'Big Shoulders Display', Impact, sans-serif; text-transform: uppercase; letter-spacing: .01em; }
+.logo b { display: block; color: var(--laiton); font-weight: 900; }
+.since { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #BFCFC6; padding-bottom: 3px; }
+
+.hero { position: relative; padding: 0 20px; }
+.photo { height: 330px; border-radius: 4px; overflow: hidden; border: 2px solid var(--laiton); }
+.photo img { height: 100%; object-fit: cover; object-position: 40% 60%; }
+.hero h1 { margin-top: 18px; font: 900 46px/.92 'Big Shoulders Display', Impact, sans-serif; text-transform: uppercase; letter-spacing: .005em; }
+.hero h1 span { color: var(--laiton); }
+.pole { position: absolute; right: 30px; top: -6px; width: 26px; height: 120px; border-radius: 13px; border: 3px solid var(--laiton);
+  background: repeating-linear-gradient(135deg, var(--rouge) 0 12px, var(--creme) 12px 24px, var(--vert-2) 24px 36px, var(--creme) 36px 48px); box-shadow: 0 8px 18px rgba(0,0,0,.35); }
+
+.rdv { display: flex; justify-content: space-between; align-items: center; margin: 20px 20px 0; padding: 17px 20px; background: var(--laiton); color: var(--nuit); font: 700 17px/1 'Libre Franklin', sans-serif; border-radius: 4px; }
+.rdv i { font-style: normal; font-size: 22px; }
+
+h2 { font: 900 30px/1 'Big Shoulders Display', Impact, sans-serif; text-transform: uppercase; color: var(--laiton); }
+.tarifs { padding: 30px 20px 0; }
+.tarifs ul { list-style: none; margin-top: 12px; }
+.tarifs li { display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; padding: 13px 0; border-bottom: 1px solid rgba(243,235,221,.18); }
+.tarifs li span { font-weight: 600; font-size: 17px; }
+.tarifs li em { grid-row: 2; font-style: normal; font-size: 13px; color: #BFCFC6; }
+.tarifs li b { grid-row: 1 / 3; grid-column: 2; align-self: center; font: 900 24px/1 'Big Shoulders Display', sans-serif; color: var(--creme); }
+
+.outils { position: relative; margin: 28px 20px 0; height: 180px; border-radius: 4px; overflow: hidden; }
+.outils img { height: 100%; object-fit: cover; }
+.stamp { position: absolute; right: 14px; bottom: 14px; width: 84px; height: 84px; border-radius: 50%; border: 3px solid var(--creme); display: grid; place-items: center; text-align: center;
+  font: 900 20px/.95 'Big Shoulders Display', sans-serif; text-transform: uppercase; color: var(--creme); background: rgba(179,55,43,.88); transform: rotate(-12deg); }
+
+.horaires { padding: 30px 20px 0; }
+.hgrid { display: grid; grid-template-columns: 1fr auto; gap: 10px 0; margin-top: 14px; font-size: 15px; }
+.hgrid span { color: #BFCFC6; }
+.hgrid b { font-weight: 600; }
+.hgrid .off { color: #8FA39A; font-weight: 500; }
+.addr { margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(243,235,221,.18); font-size: 14.5px; }
+
+.foot { margin-top: 34px; padding: 24px 20px 28px; background: var(--nuit); font-size: 13.5px; color: #BFCFC6; }
+.foot .logo { font-size: 24px; color: var(--creme); margin-bottom: 8px; display: block; }
+.fic { margin-top: 10px; font-size: 11.5px; color: #6F837A; }
+
+/* Construction étape par étape (Reel speedrun) */
+.build body { background: #fff; color: #222; }
+.build.pal body { background: var(--vert); color: var(--creme); }
+.hide { visibility: hidden; }

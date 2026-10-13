@@ -21,12 +21,12 @@ Fabrication : même pipeline que `reels.html` (voix seulement si ElevenLabs est 
 ## Calendrier
 | Date | 12:00 | 18:00 | 20:30 | 09:00 carrousel |
 |---|---|---|---|---|
-| Mar 14.10 | **POV** « POV : tu cherches les horaires d'un resto un dimanche » (site sans horaires → tu abandonnes) | **AB** « Garage A ou garage B : chez qui tu vas ? » (fiche vide vs site) | **SPD** Speedrun #2 : le commerce le plus demandé en commentaires (sinon : barbier) | « 5 choses que ton client cherche en premier sur ton site » |
-| Mer 15.10 | **DEF** « Ce site cache un détail qui fait fuir les clients. Tu le vois ? » (bouton appeler introuvable) | **LIS** « 3 erreurs sur le site des petits commerces » | **AVA** Avant/après #2 : menuisier (photos floues → galerie propre + devis) | — |
-| Jeu 16.10 | **NOT** « Note ce site de pizzeria sur 10 » | **POV** « POV : le site de ton coiffeur sur téléphone » (illisible, zoom, abandon) | **SPD** Speedrun #3 (commentaires) | « Avant / après : 3 transformations » |
-| Ven 17.10 | **AB** « Tu réserves où : appel ou en 2 clics ? » | **LIS** « Ce qu'un bon site de resto montre en 3 secondes » | **AVA** Avant/après #3 : physio (réservation en ligne) | — |
-| Sam 18.10 | **DEF** « Trouve l'erreur » (prix cachés, pas d'adresse) | **SPD** Speedrun #4 en 10 s (plus rapide) | **NOT** « Note ce site de barbier sur 10 » | « Ton site en 24 h : comment ça marche » (rappel offre) |
-| Dim 19.10 | **POV** « POV : il est 22 h, tu veux réserver chez ton coiffeur » | **AVA** Avant/après #4 : boulangerie (commande en ligne) | **Bilan** : on reposte la vidéo n°1 de la semaine avec une nouvelle accroche | — |
+| Mer 14.10 | **POV** « POV : tu cherches les horaires d'un resto un dimanche » (site sans horaires → tu abandonnes) | **AB** « Garage A ou garage B : chez qui tu vas ? » (fiche vide vs site) | **SPD** Speedrun #2 : le commerce le plus demandé en commentaires (sinon : barbier) | « 5 choses que ton client cherche en premier sur ton site » |
+| Jeu 15.10 | **DEF** « Ce site cache un détail qui fait fuir les clients. Tu le vois ? » (bouton appeler introuvable) | **LIS** « 3 erreurs sur le site des petits commerces » | **AVA** Avant/après #2 : menuisier (photos floues → galerie propre + devis) | — |
+| Ven 16.10 | **NOT** « Note ce site de pizzeria sur 10 » | **POV** « POV : le site de ton coiffeur sur téléphone » (illisible, zoom, abandon) | **SPD** Speedrun #3 (commentaires) | « Avant / après : 3 transformations » |
+| Sam 17.10 | **AB** « Tu réserves où : appel ou en 2 clics ? » | **LIS** « Ce qu'un bon site de resto montre en 3 secondes » | **AVA** Avant/après #3 : physio (réservation en ligne) | — |
+| Dim 18.10 | **DEF** « Trouve l'erreur » (prix cachés, pas d'adresse) | **SPD** Speedrun #4 en 10 s (plus rapide) | **NOT** « Note ce site de barbier sur 10 » | « Ton site en 24 h : comment ça marche » (rappel offre) |
+| Lun 19.10 | **POV** « POV : il est 22 h, tu veux réserver chez ton coiffeur » | **AVA** Avant/après #4 : boulangerie (commande en ligne) | **Bilan** : on reposte la vidéo n°1 de la semaine avec une nouvelle accroche | — |
 
 ## Légendes types (à adapter)
 - SPD : « Site d'un·e <commerce> en 15 secondes ⏱️ Tu lui mets combien sur 10 ? Dis-moi en commentaire le prochain commerce 👇 »

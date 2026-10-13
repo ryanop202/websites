@@ -3,7 +3,8 @@
 const fs = require('fs');
 const path = require('path');
 const V = process.argv[2] || '1';
-const DUR = { 1: 16.8, 2: 15.2, 3: 12.6 }[V];
+const CFG = require('./config');
+const DUR = CFG[V] ? CFG[V].dur : { 1: 15.6, 2: 15.2, 3: 12.6 }[V];
 const SR = 44100, N = Math.round(SR * DUR);
 const L = new Float32Array(N), R = new Float32Array(N);
 let seed = 7;
@@ -91,7 +92,28 @@ function rewind(t0, len, g = .35) {
 }
 function beep(t0, m, len = .12, g = .2) { const f = midi(m); add(t0, len, (t) => Math.sin(2 * Math.PI * f * t) * (t < len - .01 ? 1 : (len - t) / .01) * Math.min(1, t / .003), g); }
 
-if (V === '1') {
+if (CFG[V] && CFG[V].music) {
+  // Musique générique série 2 : calme jusqu'à « drop », puis groove. Bruitages listés dans config.js.
+  const M = CFG[V].music, BEAT = 60 / (M.bpm || 104), DROP = M.drop == null ? 0 : M.drop;
+  const MIN = [[57, 60, 64, 69, 45], [53, 57, 60, 65, 41], [55, 59, 62, 67, 43], [52, 55, 59, 64, 40]];
+  const MAJ = [[60, 64, 67, 72, 48], [57, 60, 64, 69, 45], [53, 57, 60, 65, 41], [55, 59, 62, 67, 43]];
+  const pre = M.pre === 'maj' ? MAJ : MIN, post = M.post === 'min' ? MIN : MAJ;
+  for (let b = 0; b * BEAT < DROP - .05; b++) {
+    const t = b * BEAT, c = pre[Math.floor(b / 2) % 4];
+    if (b % 2 === 0) chord(t, c.slice(0, 3), BEAT * 2, .12, .05);
+    hat(t + BEAT / 2, .07); if (b % 2 === 0) kick(t, .4);
+  }
+  for (let b = 0; DROP + b * BEAT < DUR; b++) {
+    const t = DROP + b * BEAT, c = post[Math.floor(b / 2) % 4];
+    kick(t, .72); if (b % 2 === 1) clap(t, .34);
+    hat(t + BEAT / 2, .15); bass(t + BEAT / 2, c[4], BEAT * .45, .4);
+    chord(t, c.slice(0, 4), BEAT * .9, .14, .16);
+    if (M.pluck !== false) pluck(t + BEAT / 4, c[3] + 12, .05, b % 2 ? .3 : -.3);
+  }
+  const FX = { pop: t => pop(t, .18, 900), tap: t => tap(t, .45), ding: t => ding(t, .2), whoosh: t => whoosh(t, .4, .3),
+    impact: t => impact(t, .75), buzz: t => buzz(t, .16, .12), tick: t => tick(t, .2), thud: t => thud(t, .6), blip: t => blip(t, .1) };
+  (M.sfx || []).forEach(s => { if (s[0] === 'riser') riser(s[1], s[2], .28); else if (s[0] === 'beep') beep(s[1], s[2] || 81, .16, .22); else FX[s[0]](s[1]); });
+} else if (V === '1') {
   // R1 v2 : nerveux (la mineur → do majeur au final), 132 BPM. Crochet 0–1,05 / rembobinage 1,05–1,55 / course 1,55–11 / final.
   const BEAT = 60 / 132, GO = 1.55, END = 11.0;
   const prog = [[57, 60, 64, 69, 45], [53, 57, 60, 65, 41], [55, 59, 62, 67, 43], [52, 55, 59, 64, 40]];
@@ -125,11 +147,12 @@ if (V === '1') {
     if (b % 4 === 0) chord(t, c.slice(0, 4), BEAT * 3.6, .14, .1);
     pluck(t + BEAT / 2, c[(b % 3) + 1] + 12, .06, b % 2 ? .3 : -.3);
   }
-  pop(12.15, .18, 900); pop(12.35, .2, 1100); pop(12.5, .18, 800);
-  for (let i = 0; i < 10; i++) tick(12.75 + i * .05, .14);
-  pop(14.35, .18, 900); pop(14.55, .2, 1100); pop(14.7, .18, 800);
-  for (let i = 0; i < 5; i++) pop(14.95 + i * .09, .14, 700 + i * 120);
-  pop(15.5, .22, 1200); tap(16.1); ding(16.15, .12);
+  // fin raccourcie (13.10.2026), calée sur la voix
+  pop(11.64, .18, 900); pop(11.95, .2, 1100); pop(12.25, .18, 800);
+  for (let i = 0; i < 10; i++) tick(11.85 + i * .04, .14);
+  pop(13.0, .18, 900); pop(13.9, .2, 1100); pop(14.4, .18, 800);
+  for (let i = 0; i < 5; i++) pop(13.3 + i * .1, .14, 700 + i * 120);
+  pop(14.3, .22, 1200); tap(14.9); ding(14.95, .12);
 } else if (V === '2') {
   // R2 v2 : calme (ré mineur, 96 BPM) jusqu'à « Après » (7,56 s), puis groove clair pendant la réservation
   const BEAT = 60 / 96, DROP = 7.56;

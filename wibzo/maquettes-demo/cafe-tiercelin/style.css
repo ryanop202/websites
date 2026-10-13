@@ -1,0 +1,83 @@
+/* Café Tiercelin — maquette de démonstration Wibzo (commerce fictif)
+   DA : café de quartier dans une salle en pierre. Chaleureux, simple, « ardoise » comme signature.
+   Palette : pierre (fond), espresso (texte), lait (cartes), cuivre (accent), ardoise (bloc du jour). */
+:root {
+  --pierre: #EFEAE2;
+  --pierre-2: #E3DCD0;
+  --lait: #FBF8F3;
+  --espresso: #2A1F19;
+  --gris: #6E6259;
+  --cuivre: #B4612F;
+  --ardoise: #2E3431;
+  --craie: #F1EFE8;
+  --ok: #4F7A4A;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body { background: var(--pierre); color: var(--espresso); font: 400 16px/1.5 Figtree, system-ui, sans-serif; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+.top { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px 10px; }
+.mark { font: 400 30px/1 Gloock, Georgia, serif; letter-spacing: -.01em; }
+.mark small { display: block; margin-top: 4px; font: 600 10.5px/1 Figtree, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--cuivre); }
+.burger { width: 40px; height: 40px; border: 1.5px solid var(--espresso); border-radius: 10px; background: none; display: grid; place-content: center; gap: 6px; }
+.burger i { display: block; width: 16px; height: 1.5px; background: var(--espresso); }
+
+.hero { padding: 6px 22px 8px; }
+.status { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 6px; background: var(--lait); font: 600 13px/1 Figtree, sans-serif; color: var(--ok); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px rgba(79,122,74,.15); }
+.hero h1 { margin: 16px 0 18px; font: 400 40px/1.02 Gloock, Georgia, serif; letter-spacing: -.015em; }
+.hero h1 em { font-style: normal; color: var(--cuivre); }
+.arch { height: 300px; border-radius: 170px 170px 14px 14px; overflow: hidden; border: 6px solid var(--lait); box-shadow: 0 18px 40px -22px rgba(42,31,25,.55); }
+.arch img { width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; }
+
+.quick { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 16px; }
+.q { padding: 12px 10px 11px; border-radius: 10px; background: var(--lait); border: 1px solid var(--pierre-2); }
+.q b { display: block; font: 700 14px/1.1 Figtree, sans-serif; }
+.q span { display: block; margin-top: 3px; font-size: 11.5px; line-height: 1.25; color: var(--gris); }
+.q:first-child { background: var(--espresso); border-color: var(--espresso); color: var(--lait); }
+.q:first-child span { color: #CDBFB3; }
+
+.ardoise { margin: 22px 14px 0; padding: 22px 22px 18px; border-radius: 6px; background: var(--ardoise); color: var(--craie);
+  background-image: radial-gradient(rgba(255,255,255,.05) 1px, transparent 1.4px); background-size: 7px 7px; border: 7px solid #8A6A4D; }
+.ardoise .kick { font: 600 11px/1 Figtree, sans-serif; letter-spacing: .18em; text-transform: uppercase; color: #E5B78E; }
+.ardoise ul { list-style: none; margin-top: 12px; }
+.ardoise li { display: flex; justify-content: space-between; gap: 12px; padding: 5px 0; font: 600 26px/1.15 Caveat, cursive; }
+.ardoise li b { font-weight: 600; color: #FFE7C2; white-space: nowrap; }
+.chalk-note { margin-top: 8px; font: 600 18px/1.2 Caveat, cursive; color: #BFC6C0; }
+
+h2 { font: 400 32px/1 Gloock, Georgia, serif; letter-spacing: -.01em; }
+.carte, .horaires, .lieu { padding: 34px 22px 0; }
+.carte h3 { margin: 18px 0 6px; font: 700 11px/1 Figtree, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--cuivre); }
+.list { list-style: none; }
+.list li { display: flex; align-items: baseline; gap: 8px; padding: 7px 0; font-size: 15.5px; }
+.list li i { flex: 1; border-bottom: 1.5px dotted #B9AC9C; transform: translateY(-4px); }
+.list li b { font-weight: 600; }
+
+.horaires table { width: 100%; margin-top: 14px; border-collapse: collapse; background: var(--lait); border-radius: 10px; overflow: hidden; }
+.horaires th, .horaires td { padding: 12px 14px; font-size: 14.5px; text-align: left; border-bottom: 1px solid var(--pierre-2); }
+.horaires th { font-weight: 500; color: var(--gris); }
+.horaires td { text-align: right; font-weight: 600; }
+.horaires .off { color: #A0948A; font-weight: 500; }
+.horaires tr.today th, .horaires tr.today td { color: var(--espresso); background: #F4E6D8; }
+.horaires tr:last-child th, .horaires tr:last-child td { border-bottom: 0; }
+
+.map { position: relative; height: 170px; margin-top: 16px; border-radius: 10px; overflow: hidden; }
+.map svg { width: 100%; height: 100%; display: block; }
+.pin { position: absolute; left: 50%; top: 42%; width: 34px; height: 34px; margin: -34px 0 0 -17px; border-radius: 50% 50% 50% 0; background: var(--cuivre); transform: rotate(-45deg); box-shadow: 0 6px 14px rgba(0,0,0,.25); }
+.pin i { position: absolute; left: 11px; top: 11px; width: 12px; height: 12px; border-radius: 50%; background: var(--lait); }
+.addr { margin-top: 14px; font-size: 15px; line-height: 1.45; color: var(--gris); }
+.addr b { color: var(--espresso); font-weight: 700; font-size: 16px; }
+.addr-vague { display: none; margin-top: 14px; font-size: 15px; color: var(--gris); }
+.btn { display: block; margin-top: 14px; padding: 15px; border-radius: 10px; background: var(--cuivre); color: #fff; text-align: center; font-weight: 700; }
+
+.foot { margin-top: 40px; padding: 26px 22px 30px; background: var(--espresso); color: #D9CCC0; font-size: 13.5px; }
+.foot .mark { color: var(--lait); font-size: 26px; margin-bottom: 8px; }
+.foot .fic { margin-top: 14px; font-size: 11.5px; color: #9C8C80; }
+
+/* Version « avec le défaut » (Reel R-007) : pas d'adresse, pas de carte, pas d'itinéraire */
+.sans-adresse .map, .sans-adresse .addr, .sans-adresse .btn { display: none; }
+.sans-adresse .addr-vague { display: block; }
+.sans-adresse .q-route { display: none; }
+.sans-adresse .quick { grid-template-columns: 1fr 1fr; }

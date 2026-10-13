@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maison Faucon — barbier</title>
+<meta name="description" content="Maison Faucon, barbier : coupe, barbe, rasage à l'ancienne. Exemple fictif, maquette Wibzo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- data-s = étape de construction (Reel speedrun) : ?v=step3 n'affiche que les étapes 1 à 3 -->
+<header class="top s" data-s="2">
+  <span class="logo">Maison<b>Faucon</b></span>
+  <span class="since">Barbier · depuis 2019</span>
+</header>
+
+<section class="hero">
+  <div class="photo s" data-s="3"><img src="img/salon.jpg" alt="Le fauteuil de barbier, mur de carreaux verts"></div>
+  <h1 class="s" data-s="2">Coupe nette.<br>Barbe soignée.<br><span>Sans attendre.</span></h1>
+  <div class="pole s" data-s="7" aria-hidden="true"></div>
+</section>
+
+<a class="rdv s" data-s="5" href="#">Prendre rendez-vous <i>→</i></a>
+
+<section class="tarifs s" data-s="4">
+  <h2>Prestations</h2>
+  <ul>
+    <li><span>Coupe homme</span><em>30 min</em><b>35.–</b></li>
+    <li><span>Taille de barbe</span><em>20 min</em><b>25.–</b></li>
+    <li><span>Coupe + barbe</span><em>45 min</em><b>55.–</b></li>
+    <li><span>Rasage à l'ancienne</span><em>serviette chaude</em><b>40.–</b></li>
+  </ul>
+</section>
+
+<section class="outils s" data-s="7"><img src="img/outils.jpg" alt="Rasoir, ciseaux et blaireau sur le comptoir"><p class="stamp">Fait<br>main.</p></section>
+
+<section class="horaires s" data-s="6">
+  <h2>Horaires</h2>
+  <div class="hgrid">
+    <span>Mar – Ven</span><b>9:00 – 19:00</b>
+    <span>Samedi</span><b>8:00 – 15:00</b>
+    <span>Dim – Lun</span><b class="off">Fermé</b>
+  </div>
+  <p class="addr">Rue du Moulin 3 · Bourg-sur-Broye</p>
+</section>
+
+<footer class="foot s" data-s="6">
+  <span class="logo">Maison<b>Faucon</b></span>
+  <p>026 000 00 02</p>
+  <p class="fic">Exemple fictif · maquette Wibzo</p>
+</footer>
+
+<script>
+  var v = new URLSearchParams(location.search).get('v') || '';
+  var m = v.match(/^step(\d+)$/);
+  if (m) {
+    var n = +m[1];
+    document.documentElement.classList.add('build');
+    if (n >= 1) document.documentElement.classList.add('pal');
+    document.querySelectorAll('.s').forEach(function (e) { if (+e.dataset.s > n) e.classList.add('hide'); });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Café Tiercelin — café de quartier</title>
+<meta name="description" content="Café Tiercelin : café, ardoise du jour et pâtisseries maison. Exemple fictif, maquette Wibzo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <a class="mark" href="#">Tiercelin<small>café de quartier</small></a>
+  <button class="burger" aria-label="Menu"><i></i><i></i></button>
+</header>
+
+<main>
+  <section class="hero">
+    <p class="status"><span class="dot"></span>Ouvert · jusqu'à 18 h 30</p>
+    <h1>Le café du matin,<br><em>la tarte</em><br>de l'après-midi.</h1>
+    <figure class="arch"><img src="img/salle.jpg" alt="La salle du café, mur en pierre et tables en bois"></figure>
+    <nav class="quick">
+      <a href="tel:+41260000000" class="q"><b>Appeler</b><span>026 000 00 00</span></a>
+      <a href="#lieu" class="q q-route"><b>Itinéraire</b><span>Rue des Arcades 12</span></a>
+      <a href="#carte" class="q"><b>La carte</b><span>du jour</span></a>
+    </nav>
+  </section>
+
+  <section class="ardoise" aria-label="Ardoise du jour">
+    <p class="kick">L'ardoise du jour</p>
+    <ul>
+      <li><span>Quiche poireaux &amp; gruyère</span><b>14.–</b></li>
+      <li><span>Soupe de courge</span><b>9.50</b></li>
+      <li><span>Tarte aux pruneaux</span><b>5.80</b></li>
+    </ul>
+    <p class="chalk-note">servie dès 11 h 30, tant qu'il y en a</p>
+  </section>
+
+  <section class="carte" id="carte">
+    <h2>La carte</h2>
+    <div class="cols">
+      <div>
+        <h3>Au comptoir</h3>
+        <ul class="list">
+          <li><span>Espresso</span><i></i><b>3.80</b></li>
+          <li><span>Cappuccino</span><i></i><b>4.90</b></li>
+          <li><span>Chocolat chaud maison</span><i></i><b>5.20</b></li>
+          <li><span>Thé en vrac</span><i></i><b>4.50</b></li>
+        </ul>
+      </div>
+      <div>
+        <h3>À côté</h3>
+        <ul class="list">
+          <li><span>Croissant au beurre</span><i></i><b>2.40</b></li>
+          <li><span>Tartine du matin</span><i></i><b>7.50</b></li>
+          <li><span>Brunch du dimanche</span><i></i><b>26.–</b></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="horaires">
+    <h2>Horaires</h2>
+    <table>
+      <tr><th>Lundi</th><td class="off">Fermé</td></tr>
+      <tr class="today"><th>Mardi – vendredi</th><td>7 h – 18 h 30</td></tr>
+      <tr><th>Samedi</th><td>8 h – 17 h</td></tr>
+      <tr><th>Dimanche</th><td>9 h – 14 h · brunch</td></tr>
+    </table>
+  </section>
+
+  <section class="lieu" id="lieu">
+    <h2>Nous trouver</h2>
+    <div class="map" aria-hidden="true">
+      <svg viewBox="0 0 340 190" preserveAspectRatio="xMidYMid slice">
+        <rect width="340" height="190" fill="#E9E2D6"/>
+        <path d="M-10 128 C 80 112, 150 150, 350 118" stroke="#fff" stroke-width="16" fill="none"/>
+        <path d="M96 -10 L 128 200" stroke="#fff" stroke-width="12" fill="none"/>
+        <path d="M230 -10 C 220 60, 252 120, 236 200" stroke="#fff" stroke-width="10" fill="none"/>
+        <rect x="140" y="30" width="70" height="52" rx="4" fill="#D9CFBF"/>
+        <rect x="20" y="22" width="58" height="70" rx="4" fill="#D9CFBF"/>
+        <rect x="256" y="140" width="70" height="40" rx="4" fill="#D9CFBF"/>
+        <path d="M-10 175 C 90 160, 200 196, 350 170 L 350 200 L -10 200 Z" fill="#BFD3D9"/>
+      </svg>
+      <span class="pin"><i></i></span>
+    </div>
+    <p class="addr"><b>Rue des Arcades 12</b><br>Bourg-sur-Broye · sous les arcades, à côté de la fontaine</p>
+    <p class="addr-vague">Au centre-ville, à deux pas de la place.</p>
+    <a class="btn" href="#">Ouvrir l'itinéraire</a>
+  </section>
+</main>
+
+<footer class="foot">
+  <p class="mark">Tiercelin</p>
+  <p>Café de quartier · 026 000 00 00</p>
+  <p class="fic">Exemple fictif · maquette Wibzo</p>
+</footer>
+
+<script>
+  // ?v=sans-adresse : version « avec le défaut » utilisée dans le Reel R-007
+  if (new URLSearchParams(location.search).get('v') === 'sans-adresse') document.documentElement.classList.add('sans-adresse');
+</script>
+</body>
+</html>

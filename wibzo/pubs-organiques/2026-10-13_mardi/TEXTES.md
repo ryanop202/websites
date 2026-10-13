@@ -14,17 +14,19 @@ Un site vous tente, mais vous avez peur de payer pour rien ? Voyez d'abord votre
 #siteweb #suisseromande #commercelocal
 ```
 
-## 18:00 — Reel `18h00_reel_3-raisons.mp4`
+## 18:00 — Reel `18h00_reel_3-raisons.mp4` (refait le 13.10 : « POV : tu cherches un garage », fin avec réservation)
 ```
-3 raisons pour lesquelles tu quittes un site en quelques secondes 👇
-Laquelle t'énerve le plus ? Dis-le en commentaire.
-#webdesign #siteweb #astuce #ux #suisseromande
+POV : tu cherches un garage… et c'est la galère 😅
+Ton garage, il est dans quelle catégorie : 1, 2, 3 ou ✓ ? Dis-le en commentaire 👇
+(Exemple fictif, maquette Wibzo)
+#garage #siteweb #suisseromande #commercelocal #webdesign
 ```
 
-## 20:30 — Reel `20h30_reel_speedrun-boulangerie.mp4`
+## 20:30 — Reel `20h30_reel_coiffeur-clients-toute-la-journee.mp4` (refait le 13.10 au soir)
 ```
-Site d'une boulangerie en 15 secondes 🥐 Tu lui mets combien sur 10 ?
-Dis-moi en commentaire quel commerce je fais ensuite 👇
+Ce coiffeur a des clients toute la journée… sans décrocher son téléphone 📅
+Son secret : un site où ses clients réservent tout seuls.
+Tu veux le même ? Ta maquette est gratuite : écris-moi MAQUETTE 👇
 (Exemple fictif, maquette Wibzo)
-#webdesign #speedrun #boulangerie #siteweb #suisseromande
+#coiffeur #reservationenligne #suisseromande #commercelocal #siteweb
 ```

@@ -14,9 +14,9 @@ Pour chaque Reel : ne PAS ajouter de musique Instagram (il y a déjà la nôtre)
 
 | Jour | 09:00 | 12:00 — 🎯 PRÊT POUR LA PUB | 18:00 | 20:30 |
 |---|---|---|---|---|
-| **Mar 13.10** | ✅ Carrousel présentation (2 images) | ✅ **PUB 1/4 « Voir avant de payer »** | ✅ 3 raisons | ✅ Speedrun #1 boulangerie |
-| **Mer 14.10** | — | ✅ **PUB 2/4 « Le concurrent »** | ✅ Café : « Tu vois le détail ? » | ✅ Speedrun #2 barbier |
-| **Jeu 15.10** | — | ⏳ **PUB 3/4 « Vous n'avez qu'une fiche Google ? »** (garage) | ✅ « Envoie ça à un commerçant » (institut) | ✅ Avant/après salon |
+| **Mar 13.10** | ✅ Carrousel présentation (2 images) | ✅ **PUB 1/4 « Voir avant de payer »** | ✅ 3 raisons | ✅ Coiffeur : des clients toute la journée |
+| **Mer 14.10** | — | ✅ **PUB 2/4 « Le concurrent »** | ✅ Ton idée → ton site (lavage auto, guitare, gâteaux) | ✅ Tape ton nom sur Google (script B) |
+| **Jeu 15.10** | — | ✅ **PUB 3/4 « Toujours gratuite »** (voix de femme) | ✅ « Envoie ça à un commerçant » (institut) | ✅ Avant/après salon |
 | **Ven 16.10** | ⏳ Carrousel check-list 10 points | ⏳ **PUB 4/4 « Coiffeur ? Voici votre futur site »** | ⏳ Devanture → site | ⏳ Speedrun #3 |
 | **Sam 17.10** | — | ⏳ PUB « Vous voyez votre site AVANT de payer » (physio) | ⏳ 5 erreurs, tu en trouves combien ? | ⏳ Si les sites étaient des personnes |
 | **Dim 18.10** | ⏳ Carrousel « Les questions qu'on nous pose » | ⏳ PUB « Vous êtes ouverts ? » | ⏳ Carte de visite → site (fin avec l'offre) | ⏳ Speedrun #4 en 10 s |

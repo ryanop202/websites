@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Wibzo — explainer « Où sont passés tes clients ? »</title>
+<link rel="stylesheet" href="kit.css">
+<link rel="stylesheet" href="kit2.css">
+<style>
+/* Explainer plein écran (13.10.2026), d'après la vidéo de référence de Ryan (animation orange « Claude cooked ») :
+   fond gris clair + billes orange brillantes, boule 3D qui fond, monstres qui la croquent, scène de nuit, CTA en pilule. */
+* { box-sizing: border-box; }
+#f { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: D; color: #1d1d1f;
+  background: radial-gradient(120% 70% at 50% 45%, #fbfbfc 0%, #eef0f3 55%, #e2e5ea 100%); }
+.sc { position: absolute; inset: 0; opacity: 0; }
+.lab { position: absolute; left: 50px; right: 50px; top: 440px; text-align: center; font: 500 60px/1.2 D; color: #2b2b2e; letter-spacing: -.01em; }
+.lab b { font-weight: 800; }
+.lab em, .it { font: italic 500 1.35em/1 BM; color: #f05d10; }
+.fic { position: absolute; left: 0; right: 0; top: 1450px; text-align: center; font: 600 24px/1 D; color: #9a9ca3; letter-spacing: .02em; }
+/* billes d'ambiance */
+.amb { position: absolute; border-radius: 50%; background: radial-gradient(circle at 32% 28%, #ffc08f 0%, #ff7a2a 35%, #e0560c 75%, #b74203 100%); box-shadow: 0 8px 18px -6px rgba(200,80,10,.45); }
+/* la boule */
+.ball { position: absolute; left: 540px; top: 1000px; width: 560px; height: 560px; margin: -280px 0 0 -280px; border-radius: 50%;
+  background: radial-gradient(circle at 33% 27%, #ffbf8a 0%, #ff8436 22%, #f4661a 50%, #dd5209 78%, #b94202 100%);
+  box-shadow: 0 60px 90px -40px rgba(190,70,0,.55), inset -30px -46px 70px rgba(120,30,0,.22); }
+.ball:before { content: ""; position: absolute; left: 22%; top: 12%; width: 34%; height: 20%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,255,255,.75), rgba(255,255,255,0)); transform: rotate(-24deg); }
+.ball .n { position: absolute; inset: 0; display: grid; place-items: center; font: 800 200px/1 D; color: #3a1705; letter-spacing: -.04em; padding-top: 10px; }
+.ball .eyes { position: absolute; left: 0; right: 0; top: 24%; display: flex; justify-content: center; gap: 70px; opacity: 0; }
+.ball .eyes i { width: 66px; height: 66px; border-radius: 50%; background: #fff; position: relative; box-shadow: inset 0 -6px 0 rgba(0,0,0,.06); }
+.ball .eyes i:after { content: ""; position: absolute; left: 22px; top: 24px; width: 26px; height: 26px; border-radius: 50%; background: #1d1d1f; }
+.ball .eyes.lid i { height: 34px; margin-top: 32px; border-radius: 0 0 40px 40px; }
+.drip { position: absolute; width: 70px; border-radius: 0 0 40px 40px; background: linear-gradient(90deg, #e45a0e, #ff7d2c 45%, #d14f08); }
+.puddle { position: absolute; left: 540px; top: 1330px; height: 60px; border-radius: 50%; background: radial-gradient(closest-side, #ff7d2c, #e0560c 70%, rgba(224,86,12,0)); }
+.sigh { position: absolute; left: 790px; top: 760px; font: italic 500 54px/1 BM; color: #a3a5ab; }
+/* point d'interrogation en billes */
+.qd { position: absolute; border-radius: 50%; background: radial-gradient(circle at 32% 28%, #ffc08f 0%, #ff7a2a 35%, #e0560c 75%, #b74203 100%); box-shadow: 0 10px 20px -8px rgba(200,80,10,.5); }
+/* monstres */
+.mon { position: absolute; width: 300px; height: 330px; }
+.pill { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); padding: 12px 22px; border-radius: 999px; background: #fff; box-shadow: 0 8px 22px rgba(0,0,0,.12); font: 700 26px/1 D; white-space: nowrap; }
+.minus { position: absolute; font: 800 120px/1 D; letter-spacing: -.04em; }
+.streak { position: absolute; height: 4px; border-radius: 2px; background: linear-gradient(90deg, rgba(150,150,160,0), rgba(150,150,160,.55), rgba(150,150,160,0)); }
+/* nuit */
+.night { background: radial-gradient(90% 60% at 50% 40%, #121a33 0%, #070a16 70%, #03040a 100%); }
+.star { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: #fff; }
+.clock { position: absolute; left: 540px; top: 960px; width: 400px; height: 400px; margin: -200px 0 0 -200px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #ffffff, #e9ecf3 70%, #cfd5e2);
+  box-shadow: 0 0 120px 30px rgba(190,210,255,.35), 0 0 40px rgba(255,255,255,.6); }
+.clock i { position: absolute; left: 50%; bottom: 50%; width: 10px; margin-left: -5px; border-radius: 5px; background: #1d1d1f; transform-origin: 50% 100%; }
+.clock .dig { position: absolute; left: 0; right: 0; top: 56%; text-align: center; font: 600 54px/1 D; color: #1d1d1f; font-variant-numeric: tabular-nums; }
+.mist { position: absolute; left: -200px; right: -200px; height: 420px; border-radius: 50%; filter: blur(60px); }
+.aw { position: absolute; left: 0; right: 0; top: 1240px; text-align: center; font: italic 500 150px/1 BM; color: #ff7a2a; text-shadow: 0 0 40px rgba(255,122,42,.4); }
+.night .lab { color: #fff; }
+/* téléphone + site */
+.phw { position: absolute; left: 540px; top: 1010px; width: 400px; height: 820px; margin: -410px 0 0 -200px; }
+.chip { position: absolute; padding: 18px 28px; border-radius: 999px; background: #1d1d1f; color: #fff; font: 700 32px/1 D; white-space: nowrap; box-shadow: 0 14px 30px rgba(0,0,0,.25); }
+.chip em { font: italic 500 40px/1 BM; color: #ff8a3d; }
+.mini { position: absolute; width: 170px; height: 170px; margin: -85px 0 0 -85px; border-radius: 50%; background: radial-gradient(circle at 33% 27%, #ffbf8a 0%, #ff8436 22%, #f4661a 50%, #dd5209 78%, #b94202 100%); box-shadow: 0 24px 40px -18px rgba(190,70,0,.6); display: grid; place-items: center; font: 800 70px/1 D; color: #3a1705; }
+.plus { position: absolute; font: 800 90px/1 D; color: #16a34a; }
+/* fin orange */
+.og { background: radial-gradient(110% 70% at 50% 40%, #ff8c45 0%, #f26a1b 50%, #d9540b 100%); color: #fff; text-align: center; }
+.ws { position: absolute; border-radius: 50%; background: radial-gradient(circle at 32% 28%, #ffffff 0%, #fbe7da 45%, #e9c3a9 100%); box-shadow: 0 20px 40px -14px rgba(120,40,0,.45); }
+.og .lg { position: absolute; left: 0; right: 0; top: 520px; font: 800 210px/1 B; letter-spacing: -.05em; }
+.og .t1 { position: absolute; left: 0; right: 0; top: 800px; font: 700 70px/1.1 D; }
+.og .t2 { position: absolute; left: 0; right: 0; top: 880px; font: italic 500 170px/1 BM; }
+.og .cta { position: absolute; left: 50%; top: 1150px; transform: translateX(-50%); padding: 34px 56px; border-radius: 999px; background: #1d1d1f; font: 800 62px/1 D; white-space: nowrap; box-shadow: 0 30px 60px -20px rgba(0,0,0,.55); }
+.og .cta span { color: #ff7a2a; }
+.og .ft { position: absolute; left: 0; right: 0; top: 1350px; font: 600 30px/1.3 D; opacity: .92; }
+.spark { position: absolute; width: 14px; height: 14px; border-radius: 50%; }
+</style>
+</head>
+<body>
+<div id="f">
+  <!-- billes d'ambiance (scènes claires) -->
+  <div id="ambW"></div>
+
+  <!-- scène 1 : la boule 30 → 18, elle fond -->
+  <div class="sc" id="s1">
+    <div class="lab" id="l1"></div>
+    <div id="drips"></div><div class="puddle" id="pud"></div>
+    <div class="ball" id="ball"><div class="eyes" id="eyes"><i></i><i></i></div><div class="n" id="bn">30</div></div>
+    <div class="sigh" id="sigh">(soupir)</div>
+    <!-- point d'interrogation -->
+    <div id="qm"></div>
+    <svg id="qtxt" width="1080" height="1920" style="position:absolute;left:0;top:0;opacity:0"><defs><path id="qarc" d="M 270 900 A 300 300 0 1 1 810 900"/></defs>
+      <text font-family="D" font-weight="600" font-size="40" fill="#7d7f86" letter-spacing="4"><textPath href="#qarc" startOffset="50%" text-anchor="middle">où sont passés les 12 autres ?</textPath></text></svg>
+    <!-- monstres -->
+    <div id="mons"></div>
+    <div class="minus" id="minus"></div>
+    <div id="streaks"></div>
+    <div class="fic">exemple fictif</div>
+  </div>
+
+  <!-- scène nuit -->
+  <div class="sc night" id="s2">
+    <div id="stars"></div>
+    <div class="mist" id="mist1" style="top:1500px;background:rgba(80,200,170,.35)"></div>
+    <div class="mist" id="mist2" style="top:1600px;background:rgba(120,140,255,.3)"></div>
+    <div class="lab" id="l2"></div>
+    <div class="clock" id="clock"><i id="hh" style="height:110px"></i><i id="mm" style="height:160px;width:7px;margin-left:-3.5px"></i><div class="dig" id="dig">22:47</div></div>
+    <div class="aw" id="aw">ailleurs.</div>
+  </div>
+
+  <!-- scène site -->
+  <div class="sc" id="s3">
+    <div class="lab" id="l3"></div>
+    <div class="phw" id="phw"><div id="ph27"></div></div>
+    <div class="chip" id="c1" style="left:40px;top:800px">tes <em>horaires</em></div>
+    <div class="chip" id="c2" style="left:700px;top:960px">tes <em>prix</em></div>
+    <div class="chip" id="c3" style="left:120px;top:1300px">un bouton pour <em>réserver</em></div>
+    <div class="mini" id="mini" style="left:880px;top:700px">18</div>
+    <div class="plus" id="plus" style="left:760px;top:520px">+12</div>
+    <div id="fly"></div>
+    <div class="fic">exemple fictif</div>
+  </div>
+
+  <!-- fin -->
+  <div class="sc og" id="s4">
+    <div id="wsp"></div>
+    <div class="lg">Wibzo.</div>
+    <div class="t1">Ta maquette,</div>
+    <div class="t2">gratuite.</div>
+    <div class="cta" id="cta">Écris <span>MAQUETTE</span></div>
+    <div class="ft">Tu vois ton site avant de payer.<br>Exemple fictif · maquette en 24 h</div>
+    <div id="sparks"></div>
+  </div>
+</div>
+
+<script src="kit.js"></script>
+<script src="kit2.js"></script>
+<script>
+var $ = function (id) { return document.getElementById(id); };
+var clamp = function (x, a, b) { return Math.min(b === undefined ? 1 : b, Math.max(a || 0, x)); };
+var p = function (t, a, d) { return clamp((t - a) / d); };
+var lerp = function (a, b, x) { return a + (b - a) * x; };
+var outExpo = function (x) { return x >= 1 ? 1 : 1 - Math.pow(2, -10 * x); };
+var outBack = function (x) { var c = 1.6; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+var inOut = function (x) { return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+var outElastic = function (x) { if (x <= 0) return 0; if (x >= 1) return 1; return Math.pow(2, -10 * x) * Math.sin((x * 10 - .75) * (2 * Math.PI / 3)) + 1; };
+function setTxt(el, h) { if (el.innerHTML !== h) el.innerHTML = h; }
+function mk(parent, cls, n, fn) { var a = []; for (var i = 0; i < n; i++) { var e = document.createElement('div'); e.className = cls; fn && fn(e, i); parent.appendChild(e); a.push(e); } return a; }
+var rnd = (function () { var s = 11; return function () { s = (s * 16807) % 2147483647; return s / 2147483647; }; })();
+
+// voix : audio/voix_r27.mp3 (Sara, x 1,12). Repères mesurés : « 30 personnes » 1,81 · « 18 sont venues » 4,0 · « où sont passées les 12 » 5,38 ·
+// fiche −4 : 7,03 / 8,6 · téléphone −5 : 12,77 / 14,8 · message −3 : 15,95 / 18,53 · « jamais su » 19,58 · « ailleurs » 22,6 ·
+// « Un site » 24,3 · horaires 24,9 · prix 25,98 · bouton 26,63 · « même quand tu dors » 28,09 · maquette gratuite 29,39 · « Écris-moi maquette » 33,82
+var DUR = 36.5;
+
+// ---- billes d'ambiance
+var AMB = mk($('ambW'), 'amb', 9, function (e, i) { var s = 12 + rnd() * 22; e.style.width = e.style.height = s + 'px';
+  e.dataset.x = (i % 2 ? 20 + rnd() * 110 : 930 + rnd() * 110); e.dataset.y = 300 + rnd() * 1250; e.dataset.ph = rnd() * 6; e.dataset.b = rnd() < .3 ? 3 : 0; });
+// ---- coulures
+var DR = mk($('drips'), 'drip', 4, function (e, i) { e.style.left = (540 - 170 + i * 105) + 'px'; });
+// ---- point d'interrogation en billes
+var QPTS = []; (function () { for (var k = 0; k <= 14; k++) { var a = Math.PI * (1.05 + k * 0.105); QPTS.push([540 + Math.cos(a) * 150, 860 + Math.sin(a) * 150]); }
+  for (var k2 = 1; k2 <= 3; k2++) QPTS.push([540 + 10, 1010 + k2 * 44]); QPTS.push([550, 1220]); })();
+var QD = mk($('qm'), 'qd', QPTS.length, function (e, i) { var s = i === QPTS.length - 1 ? 64 : 52; e.style.width = e.style.height = s + 'px'; });
+// ---- monstres (SVG)
+var MON = {
+  A: '<svg viewBox="0 0 300 280" width="300" height="280"><defs><radialGradient id="ga" cx="35%" cy="30%"><stop offset="0" stop-color="#b8a8ff"/><stop offset=".55" stop-color="#6b55f0"/><stop offset="1" stop-color="#4632c4"/></radialGradient></defs>' +
+     '<path d="M40 230 C 20 120, 90 40, 150 40 C 210 40, 280 120, 260 230 C 230 250, 70 250, 40 230 Z" fill="url(#ga)"/><ellipse cx="110" cy="85" rx="40" ry="18" fill="#fff" opacity=".45" transform="rotate(-25 110 85)"/>' +
+     '<circle cx="118" cy="140" r="30" fill="#fff"/><circle cx="188" cy="140" r="30" fill="#fff"/><circle class="pu" cx="112" cy="142" r="13" fill="#17113d"/><circle class="pu" cx="182" cy="142" r="13" fill="#17113d"/>' +
+     '<path d="M120 196 q30 22 60 0" stroke="#17113d" stroke-width="9" fill="none" stroke-linecap="round"/><rect x="138" y="196" width="12" height="14" rx="3" fill="#fff"/><rect x="152" y="196" width="12" height="14" rx="3" fill="#fff"/></svg>',
+  B: '<svg viewBox="0 0 300 280" width="300" height="280"><defs><linearGradient id="gb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7cc8ff"/><stop offset=".6" stop-color="#2f8cf0"/><stop offset="1" stop-color="#1c5fc4"/></linearGradient></defs>' +
+     '<rect x="85" y="20" width="130" height="240" rx="34" fill="url(#gb)"/><rect x="100" y="48" width="100" height="160" rx="18" fill="#dff1ff"/><ellipse cx="120" cy="40" rx="22" ry="8" fill="#fff" opacity=".5"/>' +
+     '<circle cx="128" cy="110" r="20" fill="#fff"/><circle cx="174" cy="110" r="20" fill="#fff"/><circle class="pu" cx="124" cy="112" r="9" fill="#0b2a55"/><circle class="pu" cx="170" cy="112" r="9" fill="#0b2a55"/>' +
+     '<ellipse cx="151" cy="160" rx="16" ry="20" fill="#0b2a55"/><path d="M50 90 q-22 40 0 80 M250 90 q22 40 0 80 M26 70 q-34 60 0 120 M274 70 q34 60 0 120" stroke="#2f8cf0" stroke-width="9" fill="none" stroke-linecap="round" opacity=".8"/></svg>',
+  C: '<svg viewBox="0 0 300 280" width="300" height="280"><defs><radialGradient id="gc" cx="35%" cy="30%"><stop offset="0" stop-color="#ffc2e4"/><stop offset=".55" stop-color="#ff5fae"/><stop offset="1" stop-color="#d82f86"/></radialGradient></defs>' +
+     '<path d="M40 90 a50 50 0 0 1 50 -50 h120 a50 50 0 0 1 50 50 v70 a50 50 0 0 1 -50 50 h-90 l-50 44 l10 -44 a50 50 0 0 1 -40 -50 z" fill="url(#gc)"/><ellipse cx="100" cy="62" rx="40" ry="14" fill="#fff" opacity=".5" transform="rotate(-12 100 62)"/>' +
+     '<path d="M105 128 q20 14 40 0 M165 128 q20 14 40 0" stroke="#5a1236" stroke-width="9" fill="none" stroke-linecap="round"/><ellipse cx="155" cy="166" rx="13" ry="9" fill="#5a1236"/>' +
+     '<text x="232" y="34" font-family="B" font-weight="800" font-size="46" fill="#ff5fae">z</text><text x="262" y="6" font-family="B" font-weight="800" font-size="34" fill="#ff5fae">z</text></svg>'
+};
+// [clé, entrée, bouchée, sortie, côté (-1 gauche / 1 droite), étiquette, couleur, moins]
+var M = [['A', 7.03, 8.6, 12.6, -1, 'fiche Google vide', '#5b45e6', 4], ['B', 12.77, 14.8, 15.9, 1, 'appel manqué', '#2f8cf0', 5], ['C', 15.95, 18.53, 19.5, -1, 'message de 22 h', '#e8338f', 3]];
+var MEL = M.map(function (m) { var e = document.createElement('div'); e.className = 'mon'; e.innerHTML = MON[m[0]] + '<div class="pill" style="color:' + m[6] + '">' + m[5] + '</div>'; $('mons').appendChild(e); return e; });
+var STK = mk($('streaks'), 'streak', 9, function (e, i) { e.dataset.y = 760 + i * 60 + rnd() * 30; e.dataset.w = 200 + rnd() * 380; });
+// ---- étoiles, billes blanches, étincelles, clients qui reviennent
+var ST = mk($('stars'), 'star', 60, function (e) { e.style.left = (rnd() * 1080) + 'px'; e.style.top = (200 + rnd() * 1500) + 'px'; e.dataset.ph = rnd() * 6; var s = 2 + rnd() * 5; e.style.width = e.style.height = s + 'px'; });
+var WS = mk($('wsp'), 'ws', 9, function (e, i) { var s = 50 + rnd() * 110; e.style.width = e.style.height = s + 'px'; e.dataset.x = [60, 860, 120, 900, 40, 780, 200, 940, 500][i]; e.dataset.y = [300, 380, 1500, 1580, 900, 760, 1700, 1180, 1750][i]; e.dataset.ph = rnd() * 6; });
+var SP = mk($('sparks'), 'spark', 18, function (e, i) { e.style.background = i % 2 ? '#ff7a2a' : '#fff'; e.dataset.a = rnd() * Math.PI * 2; e.dataset.v = 220 + rnd() * 260; });
+var FL = mk($('fly'), 'qd', 12, function (e) { e.style.width = e.style.height = '40px'; e.dataset.a = rnd() * Math.PI * 2; });
+$('ph27').innerHTML = phone2('ph27i', siteSalon(), { tag: 'Exemple de maquette', sb: 'rgba(243,238,231,.97)' });
+
+function count(t) {
+  if (t < 4.0) return 30;
+  if (t < 7.03) return Math.round(lerp(30, 18, outExpo(p(t, 4.2, .7))));
+  var n = 30; M.forEach(function (m) { if (t >= m[2] + .05) n -= m[7]; }); return n;
+}
+function vis(id, on, t0, t1, t) { var o = 1; if (t0 != null) o = Math.min(o, p(t, t0, .3)); if (t1 != null) o = Math.min(o, 1 - p(t, t1 - .25, .25)); $(id).style.opacity = on ? o : 0; $(id).style.display = on ? 'block' : 'none'; }
+
+window.render = function (t) {
+  var S1 = t < 19.58, S2 = t >= 19.4 && t < 24.45, S3 = t >= 24.2 && t < 29.55, S4 = t >= 29.3;
+  vis('s1', S1, null, 19.58, t); vis('s2', S2, 19.4, 24.45, t); vis('s3', S3, 24.2, 29.55, t); vis('s4', S4, 29.3, null, t);
+  // billes d'ambiance (dérive lente)
+  AMB.forEach(function (e) { var ph = +e.dataset.ph; e.style.left = (+e.dataset.x + Math.sin(t * .6 + ph) * 26) + 'px'; e.style.top = (+e.dataset.y + Math.cos(t * .5 + ph) * 34) + 'px';
+    e.style.filter = 'blur(' + e.dataset.b + 'px)'; e.style.opacity = (S1 || S3) && !S4 ? 1 : 0; });
+
+  // ===== scène 1 =====
+  var lab1 = t < 1.81 ? 'Cette semaine,' : (t < 4.0 ? '<b>30 personnes</b> voulaient venir.' : (t < 5.38 ? 'Elles sont <em>vraiment</em> venues :' :
+    (t < 7.03 ? '' : (t < 12.77 ? 'Ta fiche Google vide a <em>mangé</em>' : (t < 15.95 ? 'Le téléphone pendant que tu <em>coupes</em>' : 'Le message de 22 h, <em>sans réponse</em>')))));
+  setTxt($('l1'), lab1);
+  var ball = $('ball'), n = count(t); setTxt($('bn'), String(n));
+  var inQ = t >= 5.38 && t < 7.03;
+  var sc = 1, bx = 0, by = 0, sqx = 1, sqy = 1;
+  // entrée en rebond
+  var e0 = p(t, 0, .7); sc = lerp(.2, 1, outElastic(e0));
+  // fonte : 4,0 → 4,9 la boule s'écrase, coule, puis se reforme plus petite
+  var mel = p(t, 4.0, .5), ref = p(t, 4.55, .5);
+  if (t >= 4.0 && t < 7.03) { sqy = lerp(1, .78, Math.sin(Math.min(1, mel) * Math.PI / 2)) * lerp(1, 1 / .78, outBack(ref)); sqx = lerp(1, 1.12, Math.sin(Math.min(1, mel) * Math.PI / 2)) * lerp(1, 1 / 1.12, outBack(ref)); sc = lerp(1, .78, outBack(ref)); by = lerp(0, 60, Math.sin(Math.min(1, mel) * Math.PI / 2)) * (1 - outBack(ref)); }
+  // point d'interrogation : la boule part en mini en haut à gauche
+  if (t >= 5.38 && t < 7.03) { var q = inOut(p(t, 5.38, .45)), qb = inOut(p(t, 6.6, .43)); sc = lerp(.78, .2, q); bx = lerp(0, -400, q); by = lerp(0, -560, q);
+    sc = lerp(sc, 1, qb); bx = lerp(bx, 0, qb); by = lerp(by, 0, qb); }
+  if (t >= 7.03) sc = Math.sqrt(n / 30) * .95 + .05;
+  // bouchées : secousse + bouche Pac-Man orientée vers le monstre
+  var mask = 'none';
+  M.forEach(function (m) { var d = t - m[2]; if (d > -.15 && d < .55) { var o = d < .12 ? p(d, -.15, .27) : 1 - p(d, .12, .4), a = 75 * o, c = m[4] < 0 ? 270 : 90;
+      mask = 'conic-gradient(from ' + (c - a / 2) + 'deg, transparent 0deg ' + a + 'deg, #000 ' + a + 'deg 360deg)'; bx += Math.sin(d * 70) * 14 * Math.max(0, 1 - d / .5); } });
+  ball.style.webkitMaskImage = mask; ball.style.maskImage = mask;
+  ball.style.transform = 'translate(' + bx + 'px,' + by + 'px) scale(' + (sc * sqx) + ',' + (sc * sqy) + ')';
+  ball.style.opacity = S1 ? 1 : 0;
+  // yeux + (soupir) quand il ne reste que 18
+  var ey = p(t, 4.95, .25); $('eyes').style.opacity = t >= 4.95 && t < 5.5 ? ey : 0;
+  $('eyes').classList.toggle('lid', t > 5.2 && t < 5.32);
+  $('bn').style.transform = 'translateY(' + (t >= 4.95 && t < 5.5 ? 70 : 0) + 'px)';
+  var sg = p(t, 5.05, .3); $('sigh').style.opacity = t >= 5.05 && t < 5.5 ? sg : 0; $('sigh').style.transform = 'translateY(' + ((1 - sg) * 20) + 'px)';
+  // coulures + flaque
+  DR.forEach(function (d, i) { var g = Math.sin(Math.min(1, p(t, 4.05 + i * .05, .45)) * Math.PI) * (t < 4.95 ? 1 : 1 - p(t, 4.95, .3));
+    d.style.top = (1170) + 'px'; d.style.height = (g * [150, 230, 190, 120][i]) + 'px'; d.style.opacity = t >= 4.0 && t < 5.3 ? 1 : 0; });
+  var pw = Math.sin(Math.min(1, p(t, 4.2, .9)) * Math.PI); $('pud').style.width = (pw * 620) + 'px'; $('pud').style.marginLeft = (-pw * 310) + 'px'; $('pud').style.opacity = t >= 4.1 && t < 5.4 ? pw : 0;
+  // ? en billes
+  QD.forEach(function (d, i) { var a = p(t, 5.45 + i * .035, .3), z = 1 - p(t, 6.75, .25), pt = QPTS[i];
+    d.style.left = (pt[0] - 26) + 'px'; d.style.top = (pt[1] - 26 - (1 - outBack(a)) * 60) + 'px'; d.style.opacity = inQ ? a * z : 0; d.style.transform = 'scale(' + outBack(a) + ')'; });
+  $('qtxt').style.opacity = inQ ? p(t, 5.7, .4) * (1 - p(t, 6.75, .25)) : 0;
+  $('qtxt').style.transform = 'rotate(' + (t * 6) + 'deg)'; $('qtxt').style.transformOrigin = '540px 900px';
+  // monstres
+  var minusOn = null;
+  M.forEach(function (m, i) { var e = MEL[i], on = t >= m[1] && t < m[3], xin = outBack(p(t, m[1], .55)), xout = inOut(p(t, m[3] - .35, .35));
+    var homeX = m[4] < 0 ? 40 : 740, x = homeX + m[4] * ((1 - xin) * 700 + xout * 700);
+    var lunge = t > m[2] - .15 && t < m[2] + .4 ? Math.sin(p(t, m[2] - .15, .55) * Math.PI) * 90 * -m[4] : 0;
+    var bob = Math.sin(t * 4 + i) * 10, wig = m[0] === 'B' ? Math.sin(t * 60) * 5 : 0;
+    e.style.display = on ? 'block' : 'none'; e.style.left = (x + lunge + wig) + 'px'; e.style.top = (850 + bob) + 'px';
+    e.style.transform = 'scale(' + (1 + .06 * Math.sin(p(t, m[2] - .1, .4) * Math.PI)) + ')';
+    if (t >= m[2] && t < m[3]) minusOn = m; });
+  var mn = $('minus');
+  if (minusOn) { var xm = p(t, minusOn[2], .45); setTxt(mn, '−' + minusOn[7]); mn.style.color = minusOn[6]; mn.style.opacity = Math.min(1, xm * 3) * (1 - p(t, minusOn[3] - .3, .3));
+    mn.style.left = (minusOn[4] < 0 ? 90 : 760) + 'px'; mn.style.top = (1240 + (1 - outBack(xm)) * 60) + 'px'; } else mn.style.opacity = 0;
+  // traînées de vitesse aux entrées / sorties des monstres
+  var sw = 0, dir = 1; M.forEach(function (m) { [m[1], m[3] - .35].forEach(function (ts) { var d = t - ts; if (d >= 0 && d < .45) { sw = Math.max(sw, Math.sin(d / .45 * Math.PI)); dir = m[4]; } }); });
+  STK.forEach(function (e, i) { var w = +e.dataset.w; e.style.width = w + 'px'; e.style.top = e.dataset.y + 'px'; e.style.left = (540 - w / 2 + dir * (i % 3 - 1) * 160 + Math.sin(t * 30 + i) * 30) + 'px'; e.style.opacity = sw * .9; });
+
+  // ===== scène nuit =====
+  var lab2 = t < 21.08 ? 'Et tu ne l’as <em>jamais</em> su.' : (t < 22.33 ? 'Elles ne t’ont rien dit…' : '… elles ont réservé');
+  setTxt($('l2'), lab2);
+  ST.forEach(function (e) { e.style.opacity = .35 + .65 * Math.abs(Math.sin(t * 1.6 + +e.dataset.ph)); });
+  $('mist1').style.transform = 'translateX(' + (Math.sin(t * .7) * 120) + 'px)'; $('mist2').style.transform = 'translateX(' + (Math.cos(t * .6) * 140) + 'px)';
+  var ck = p(t, 19.6, .6), mins = lerp(22 * 60 + 47, 23 * 60 + 58, inOut(p(t, 20.0, 2.6)));
+  $('clock').style.transform = 'scale(' + lerp(.6, 1, outBack(ck)) + ')';
+  $('hh').style.transform = 'rotate(' + (mins / 720 * 360) + 'deg)'; $('mm').style.transform = 'rotate(' + (mins % 60 * 6) + 'deg)';
+  setTxt($('dig'), Math.floor(mins / 60) + ':' + ('0' + Math.floor(mins % 60)).slice(-2));
+  var aw = p(t, 22.6, .6); $('aw').style.opacity = aw; $('aw').style.transform = 'translateY(' + ((1 - outExpo(aw)) * 50) + 'px)'; $('aw').style.filter = 'blur(' + ((1 - aw) * 8) + 'px)';
+
+  // ===== scène site =====
+  var lab3 = t < 28.09 ? 'Un site, c’est <em>simple</em> :' : '… <em>même</em> quand tu dors.';
+  setTxt($('l3'), lab3);
+  var ph = p(t, 24.3, .7); $('phw').style.transform = 'perspective(1600px) rotateY(' + lerp(-28, -8, outExpo(ph)) + 'deg) rotateX(' + lerp(10, 4, outExpo(ph)) + 'deg) translateY(' + ((1 - outExpo(ph)) * 160) + 'px) scale(.95)';
+  $('phw').style.opacity = ph;
+  [['c1', 24.9], ['c2', 25.98], ['c3', 26.63]].forEach(function (c) { var x = p(t, c[1], .4), e = $(c[0]); e.style.opacity = x; e.style.transform = 'scale(' + lerp(.5, 1, outBack(x)) + ') translateY(' + (Math.sin(t * 2 + c[1]) * 8) + 'px)'; });
+  var btn = document.querySelector('#ph27 .sm-cta'); if (btn) btn.style.transform = 'scale(' + (t > 26.63 && t < 26.9 ? 1.06 : 1) + ')';
+  var mi = p(t, 27.7, .4), nM = Math.round(lerp(18, 30, p(t, 28.3, .9))); $('mini').style.opacity = mi; setTxt($('mini'), String(t < 28.3 ? 18 : nM));
+  $('mini').style.transform = 'scale(' + (lerp(.4, 1, outBack(mi)) * (1 + .12 * Math.sin(p(t, 28.3, .9) * Math.PI))) + ')';
+  var pl = p(t, 29.0, .35); $('plus').style.opacity = t < 29.4 ? pl : 0; $('plus').style.transform = 'translateY(' + ((1 - outBack(pl)) * 40) + 'px)';
+  FL.forEach(function (e, i) { var x = p(t, 28.25 + i * .05, .55), a = +e.dataset.a, sx = 880 + Math.cos(a) * 520, sy = 700 + Math.sin(a) * 520;
+    e.style.left = (lerp(sx, 880, inOut(x)) - 20) + 'px'; e.style.top = (lerp(sy, 700, inOut(x)) - 20) + 'px'; e.style.opacity = t >= 28.25 + i * .05 && x < 1 ? 1 : 0; });
+
+  // ===== fin orange =====
+  WS.forEach(function (e) { var ph2 = +e.dataset.ph; e.style.left = (+e.dataset.x + Math.sin(t * .8 + ph2) * 30) + 'px'; e.style.top = (+e.dataset.y + Math.cos(t * .7 + ph2) * 40) + 'px'; });
+  var cta = p(t, 33.82, .45); $('cta').style.transform = 'translateX(-50%) scale(' + lerp(.6, 1, outElastic(cta)) + ')'; $('cta').style.opacity = t >= 33.6 ? 1 : p(t, 31.3, .4);
+  SP.forEach(function (e) { var d = t - 33.85, a = +e.dataset.a, v = +e.dataset.v; e.style.opacity = d > 0 && d < .9 ? 1 - d / .9 : 0;
+    e.style.left = (540 + Math.cos(a) * v * Math.min(d, .9)) + 'px'; e.style.top = (1210 + Math.sin(a) * v * .55 * Math.min(d, .9)) + 'px'; });
+};
+render(0);
+if (!/render/.test(location.search)) { var t0 = performance.now(); (function loop() { render(((performance.now() - t0) / 1000) % DUR); requestAnimationFrame(loop); })(); }
+</script>
+</body>
+</html>

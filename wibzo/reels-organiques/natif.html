@@ -1,0 +1,1041 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Reels natifs Wibzo</title>
+<link rel="stylesheet" href="kit.css">
+<link rel="stylesheet" href="kit2.css">
+<style>
+/* Format « capture d'écran native » (13.10.2026) : l'écran du téléphone remplit toute la vidéo,
+   textes au style Instagram (bulles blanches) + sous-titres de la voix. Pas de fond, pas de grille. */
+#f { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #111312; font-family: D; }
+/* v2 propre (13.10.2026) : texte seul en haut, écran en dessous, rien par-dessus l'écran */
+.tz { position: absolute; left: 70px; right: 70px; top: 285px; height: 170px; text-align: center; z-index: 80; display: flex; flex-direction: column; justify-content: center; }
+.tz .lb { font: 600 32px/1 D; color: #8f948f; letter-spacing: .01em; margin-bottom: 14px; min-height: 32px; font-variant-numeric: tabular-nums; }
+.tz .lb b { color: #C6FF3D; font-weight: 700; }
+#l11 { font: 600 40px/1 D; margin-bottom: 16px; } #l11 b { font-weight: 800; }
+.tz .bg { font: 700 58px/1.1 D; color: #fff; letter-spacing: -.015em; text-wrap: balance; }
+.R { position: absolute; inset: 0; display: none; }
+/* écran : 378 x 672 px CSS, agrandi x 2,857 → 1080 x 1920 */
+.S { position: absolute; left: 152px; top: 470px; width: 378px; height: 672px; overflow: hidden; background: #fff; transform-origin: 0 0; transform: scale(2.053571); border-radius: 22px; box-shadow: 0 0 0 1px rgba(255,255,255,.08); }
+.pg { position: absolute; inset: 0; overflow: hidden; background: #fff; }
+.S .sb { z-index: 60; font: 600 15px/1 D; padding: 4px 26px 0 30px; height: 44px; }
+.S .island { display: none; }
+/* bulle de texte Instagram (style « Classique ») */
+.cap { position: absolute; left: 70px; right: 70px; top: 300px; text-align: center; opacity: 0; z-index: 80; }
+.cap span { display: inline; background: #fff; color: #000; font: 600 56px/1.52 D; padding: 6px 22px; border-radius: 14px;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone; box-shadow: 0 2px 10px rgba(0,0,0,.12); }
+.cap.dark span { background: #000; color: #fff; }
+/* sous-titres de la voix */
+.sub { position: absolute; left: 60px; right: 60px; top: 1235px; text-align: center; font: 800 64px/1.12 D; color: #fff; letter-spacing: -.01em;
+  -webkit-text-stroke: 12px #000; paint-order: stroke fill; z-index: 81; }
+.fic { position: absolute; left: 50%; top: 1460px; transform: translateX(-50%); padding: 10px 20px; border-radius: 999px; background: rgba(0,0,0,.55); color: #fff; font: 600 26px/1 D; white-space: nowrap; z-index: 82; opacity: 0; }
+/* doigt (cercle gris comme l'affichage des touches iOS) */
+.tch { position: absolute; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%; background: rgba(120,120,120,.42); border: 4px solid rgba(255,255,255,.75); z-index: 79; opacity: 0; pointer-events: none; }
+
+/* ---------- R13 : 3 raisons ---------- */
+.res { padding: 50px 0 0; color: #202124; }
+.res .q { margin: 8px 14px 0; height: 44px; border-radius: 22px; background: #f1f3f4; display: flex; align-items: center; padding: 0 16px; gap: 10px; font: 500 16px/1 D; }
+.res .q svg { width: 18px; height: 18px; flex: none; }
+.res .q .cur { display: inline-block; width: 2px; height: 20px; background: #1a73e8; margin-left: 1px; }
+.res .tabs { display: flex; gap: 18px; margin: 14px 18px 0; font: 600 13px/1 D; color: #5f6368; border-bottom: 1px solid #e8eaed; padding-bottom: 10px; }
+.res .tabs b { color: #1a73e8; }
+.r { margin: 16px 18px 0; padding-bottom: 16px; border-bottom: 1px solid #ececec; opacity: 0; }
+.r .src { display: flex; align-items: center; gap: 9px; font: 500 12.5px/1.25 D; color: #4d5156; }
+.r .src i { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; color: #fff; font: 800 12px/1 D; font-style: normal; flex: none; }
+.r h3 { margin-top: 8px; font: 500 19px/1.25 D; color: #1a0dab; }
+.r p { margin-top: 5px; font: 400 13.5px/1.4 D; color: #4d5156; }
+/* page 1 : chargement interminable */
+.ld .bar { position: absolute; left: 0; top: 44px; height: 3px; background: #0a84ff; z-index: 61; }
+.ld .hd { position: absolute; left: 0; right: 0; top: 44px; height: 64px; display: flex; align-items: center; padding: 0 18px; font: 800 20px/1 D; color: #222; border-bottom: 1px solid #eee; }
+.ld .img { position: absolute; left: 0; right: 0; top: 108px; height: 250px; background: #e9e9e9; overflow: hidden; }
+.ld .img div { position: absolute; left: 0; right: 0; top: 0; height: 250px; background-size: cover; background-position: center 40%; }
+.ld .sk { position: absolute; left: 18px; height: 14px; border-radius: 7px; background: #ececec; }
+.ld .spin { position: absolute; left: 50%; top: 214px; width: 38px; height: 38px; margin-left: -19px; z-index: 3; }
+/* page 2 : site d'ordinateur en tout petit */
+.dk { position: absolute; left: 0; top: 44px; width: 1200px; transform-origin: 0 0; background: #fff; color: #333; font: 400 16px/1.5 Georgia, serif; }
+.dk .nav { height: 70px; background: #23395d; color: #fff; display: flex; align-items: center; gap: 34px; padding: 0 40px; font: 400 17px/1 Arial, sans-serif; }
+.dk .nav b { font: 700 26px/1 Georgia, serif; margin-right: 80px; }
+.dk .ban { height: 300px; background: #bfc5cc center/cover; position: relative; }
+.dk .ban span { position: absolute; left: 40px; bottom: 30px; color: #fff; font: 700 40px/1.1 Georgia, serif; text-shadow: 0 2px 8px rgba(0,0,0,.5); }
+.dk .cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; padding: 30px 40px; }
+.dk h4 { font: 700 20px/1.2 Georgia, serif; color: #23395d; margin-bottom: 10px; }
+.dk .im { height: 120px; background: #d9d9d9 center/cover; margin-bottom: 10px; }
+/* pages 3 et 4 : site de garage (kit.css) */
+.gx .site { top: 0; }
+.gx .s-head { height: 96px; padding-top: 44px; }
+
+/* réservation (fin du Reel 13) */
+.bk { position: absolute; left: 0; right: 0; bottom: 0; height: 430px; z-index: 50; background: #fff; border-radius: 20px 20px 0 0; box-shadow: 0 -10px 40px rgba(0,0,0,.25); padding: 10px 18px 0; color: #111827; font-family: D; transform: translateY(105%); }
+.bk .gr { width: 40px; height: 5px; border-radius: 3px; background: #d1d5db; margin: 0 auto 12px; }
+.bk h5 { font: 800 21px/1 D; margin-bottom: 12px; }
+.bk .sl { font: 700 11px/1 D; letter-spacing: .12em; text-transform: uppercase; color: #1d4ed8; margin: 12px 0 8px; }
+.bk .op { display: flex; justify-content: space-between; align-items: center; padding: 12px 12px; border: 1.5px solid #e5e7eb; border-radius: 10px; margin-bottom: 7px; font: 600 16px/1 D; }
+.bk .op small { font: 500 13px/1 D; color: #6b7280; }
+.bk .op.sel { border-color: #1d4ed8; background: #eff4ff; }
+.bk .ch { display: flex; gap: 7px; }
+.bk .ch span { flex: 1; text-align: center; padding: 11px 0; border-radius: 10px; border: 1.5px solid #e5e7eb; font: 700 15px/1 D; }
+.bk .ch span.off { color: #c4c7cc; text-decoration: line-through; }
+.bk .ch span.sel { background: #1d4ed8; border-color: #1d4ed8; color: #fff; }
+.bk .go { margin-top: 14px; height: 52px; border-radius: 10px; background: #1d4ed8; color: #fff; display: grid; place-items: center; font: 800 17px/1 D; opacity: .45; }
+.bk .go.on { opacity: 1; }
+.ok { position: absolute; inset: 0; z-index: 55; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; opacity: 0; color: #111827; }
+.ok .ring { width: 96px; height: 96px; border-radius: 50%; background: #16a34a; color: #fff; display: grid; place-items: center; font: 800 52px/1 D; }
+.ok h4 { margin-top: 18px; font: 800 26px/1.1 D; }
+.ok p { margin-top: 10px; font: 500 15px/1.45 D; color: #4b5563; }
+.ok .rc { margin-top: 18px; width: 300px; border: 1.5px solid #e5e7eb; border-radius: 12px; padding: 4px 14px; text-align: left; }
+.ok .rc div { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; font: 500 14px/1 D; color: #6b7280; }
+.ok .rc div:last-child { border-bottom: 0; }
+.ok .rc b { color: #111827; font-weight: 700; }
+
+/* ---------- R15 : devine le commerce ---------- */
+.qz { position: absolute; left: 0; top: 44px; width: 378px; transform-origin: 0 0; will-change: transform, filter; }
+.qz img { display: block; width: 378px; }
+.cd { position: absolute; left: 50%; top: 1560px; width: 190px; height: 190px; margin-left: -95px; border-radius: 50%; background: #fff; color: #111;
+  display: grid; place-items: center; font: 800 110px/1 D; box-shadow: 0 10px 40px rgba(0,0,0,.35); z-index: 85; opacity: 0; }
+
+/* ---------- R17 : conversation coiffeur ---------- */
+.wa { background: #efeae2; font-family: D; color: #111b21; }
+.wa .wh { position: absolute; left: 0; right: 0; top: 0; height: 104px; padding: 48px 12px 0; background: #f0f2f5; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #e2e2e2; z-index: 3; }
+.wa .wh .bk2 { font: 400 34px/1 D; color: #027eb5; margin-top: -4px; }
+.wa .wh .av { width: 38px; height: 38px; border-radius: 50%; background: #9A5632; color: #fff; display: grid; place-items: center; font: 700 14px/1 D; }
+.wa .wh b { display: block; font: 700 16px/1.1 D; }
+.wa .wh small { display: block; font: 500 12px/1.2 D; color: #667781; margin-top: 2px; }
+.wa .day { position: absolute; left: 50%; top: 116px; transform: translateX(-50%); background: #fff; color: #54656f; font: 600 11.5px/1 D; padding: 6px 10px; border-radius: 7px; box-shadow: 0 1px 1px rgba(0,0,0,.08); }
+.wa .msgs { position: absolute; left: 0; right: 0; top: 146px; padding: 0 12px; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.wa .msg { max-width: 290px; background: #d9fdd3; border-radius: 10px 2px 10px 10px; padding: 8px 10px 7px; font: 400 18.5px/1.3 D; box-shadow: 0 1px 1px rgba(0,0,0,.08); opacity: 0; transform-origin: 100% 0; }
+.wa .msg i { float: right; margin: 8px 0 -2px 10px; font: 500 12px/1 D; font-style: normal; color: #667781; display: flex; align-items: center; gap: 3px; }
+.wa .msg svg { width: 16px; height: 11px; }
+.wa .gap { align-self: center; background: #fff; color: #54656f; font: 600 13px/1 D; padding: 6px 10px; border-radius: 7px; opacity: 0; margin: 6px 0; }
+.wa .inp { position: absolute; left: 0; right: 0; bottom: 0; height: 62px; background: #f0f2f5; display: flex; align-items: center; gap: 8px; padding: 0 10px 8px; }
+.wa .inp span { flex: 1; height: 38px; border-radius: 19px; background: #fff; display: flex; align-items: center; padding: 0 14px; font: 400 15px/1 D; color: #8696a0; }
+.wa .inp u { width: 38px; height: 38px; border-radius: 50%; background: #1f8f6a; }
+.lk { z-index: 10; background: linear-gradient(170deg, #151a33 0%, #2a2346 55%, #3c2a3e 100%); color: #fff; font-family: D; text-align: center; }
+.lk .dt { margin-top: 92px; font: 600 16px/1 D; opacity: .85; }
+.lk .hh { margin-top: 6px; font: 300 84px/1 D; letter-spacing: -.02em; }
+.lk .dnd { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; padding: 6px 12px; border-radius: 99px; background: rgba(255,255,255,.14); font: 600 13px/1 D; }
+.lk .dnd svg { width: 14px; height: 14px; }
+.lk .nt2 { position: absolute; left: 12px; right: 12px; border-radius: 18px; background: rgba(245,245,247,.88); color: #111; text-align: left; padding: 12px 14px; display: flex; gap: 10px; align-items: flex-start; opacity: 0; }
+.lk .nt2 .ic { flex: none; width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; color: #fff; font: 800 13px/1 D; }
+.lk .nt2 b { display: block; font: 700 14px/1.2 D; }
+.lk .nt2 span { display: block; font: 400 13.5px/1.3 D; color: #333; margin-top: 2px; }
+.lk .nt2 em { position: absolute; right: 12px; top: 12px; font: 500 11px/1 D; color: #777; font-style: normal; }
+
+/* R17 v2 : réveil avec une journée pleine */
+.lk .nt3 { position: absolute; left: 10px; right: 10px; height: 56px; border-radius: 15px; background: rgba(245,245,247,.9); color: #111; text-align: left; padding: 9px 12px; display: flex; gap: 9px; align-items: center; opacity: 0; }
+.lk .nt3 .ic { flex: none; width: 30px; height: 30px; border-radius: 8px; background: #9A5632; color: #fff; display: grid; place-items: center; font: 800 11px/1 D; }
+.lk .nt3 b { display: block; font: 700 13px/1.2 D; }
+.lk .nt3 span { display: block; font: 400 12.5px/1.25 D; color: #333; }
+.lk .nt3 em { position: absolute; right: 11px; top: 10px; font: 500 10.5px/1 D; color: #777; font-style: normal; }
+#lk19 .nt3 { height: 46px; }
+.ag { z-index: 14; background: #fff; font-family: D; color: #111; }
+.ag .ah { padding: 56px 18px 10px; border-bottom: 1px solid #eee; }
+.ag .ah small { display: block; font: 700 12px/1 D; color: #9A5632; letter-spacing: .1em; text-transform: uppercase; }
+.ag .ah b { display: block; font: 800 27px/1.1 D; margin-top: 6px; }
+.ag .full { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; padding: 7px 12px; border-radius: 99px; background: #16a34a; color: #fff; font: 700 13px/1 D; opacity: 0; }
+.ag .rw { display: flex; gap: 12px; align-items: stretch; padding: 0 16px; margin-top: 8px; opacity: 0; }
+.ag .rw .h { width: 44px; font: 600 13px/1 D; color: #6b7280; padding-top: 10px; text-align: right; }
+.ag .rw .bl { flex: 1; border-radius: 10px; background: #f6efe8; border-left: 4px solid #9A5632; padding: 8px 10px; }
+.ag .rw .bl b { display: block; font: 700 14.5px/1.2 D; }
+.ag .rw .bl span { display: block; font: 500 12px/1.3 D; color: #7a6a5f; margin-top: 2px; }
+
+/* ---------- R19 : ton idée → ton site ---------- */
+.no { background: #fff; font-family: D; color: #111; }
+.no .nb { position: absolute; left: 0; right: 0; top: 44px; height: 44px; display: flex; justify-content: space-between; align-items: center; padding: 0 14px; font: 500 17px/1 D; color: #d99a00; }
+.no h2 { position: absolute; left: 18px; top: 100px; font: 800 30px/1 D; }
+.no .nd { position: absolute; left: 18px; top: 140px; font: 500 12.5px/1 D; color: #9a9a9a; }
+.no .li { position: absolute; left: 14px; right: 14px; display: flex; align-items: center; gap: 12px; font: 500 22px/1.2 D; padding: 8px 8px; border-radius: 10px; }
+.no .li u { flex: none; width: 22px; height: 22px; border-radius: 50%; border: 2px solid #c9c9c9; }
+.no .li.on { background: #fff3c4; }
+.no .li.done u { background: #d99a00; border-color: #d99a00; }
+.no .cur { display: inline-block; width: 2px; height: 24px; background: #d99a00; margin-left: 2px; vertical-align: middle; }
+.ms { position: absolute; inset: 0; z-index: 20; padding: 52px 20px 0; background: var(--bg); color: var(--fg); font-family: D; opacity: 0; }
+.ms .mh { display: flex; justify-content: space-between; align-items: center; font: var(--lf); }
+.ms .mh i { width: 22px; height: 14px; border-top: 2.5px solid var(--fg); border-bottom: 2.5px solid var(--fg); }
+.ms .mk { margin-top: 26px; font: 700 12px/1 D; letter-spacing: .14em; text-transform: uppercase; color: var(--ac); }
+.ms h1 { margin-top: 12px; font: var(--hf); }
+.ms .ill { margin: 18px 0 0; height: 150px; border-radius: 18px; background: var(--soft); display: grid; place-items: center; }
+.ms .ill svg { width: 150px; height: 120px; }
+.ms .mb { margin-top: 16px; height: 54px; border-radius: var(--r); background: var(--ac); color: var(--bt); display: flex; align-items: center; justify-content: center; gap: 8px; font: 800 17px/1 D; }
+.ms .mr { display: flex; justify-content: space-between; padding: 13px 2px; border-bottom: 1px solid var(--ln); font: 600 16px/1 D; }
+.ms .mr:first-of-type { margin-top: 10px; }
+.ms .mr small { font: 500 14px/1 D; opacity: .6; }
+.sk19 { position: absolute; left: 18px; right: 18px; top: 412px; height: 210px; border-radius: 16px; border: 2px dashed #e0b84a; background: #fffaf0; overflow: hidden; opacity: 0; }
+.sk19 div { position: absolute; left: 16px; border-radius: 8px; background: linear-gradient(90deg, #f3e6c4 0%, #fff6dc 50%, #f3e6c4 100%); background-size: 300% 100%; }
+.sk19 .a { top: 16px; width: 120px; height: 14px; } .sk19 .b { top: 42px; width: 250px; height: 26px; } .sk19 .c { top: 80px; right: 16px; height: 62px; } .sk19 .d { top: 152px; width: 180px; height: 22px; background: #e0b84a; opacity: .5; }
+.sk19 span { position: absolute; left: 0; right: 0; bottom: 10px; text-align: center; font: 700 13px/1 D; color: #b8860b; }
+.bn { position: absolute; left: 10px; right: 10px; top: 50px; z-index: 40; height: 64px; border-radius: 18px; background: rgba(245,245,247,.95); box-shadow: 0 8px 30px rgba(0,0,0,.25); display: flex; align-items: center; gap: 10px; padding: 0 12px; color: #111; font-family: D; opacity: 0; }
+.bn .ic { flex: none; width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center; color: #fff; font: 800 15px/1 D; }
+.bn b { display: block; font: 700 14px/1.2 D; }
+.bn span { display: block; font: 400 13.5px/1.25 D; color: #333; }
+.bn em { position: absolute; right: 12px; top: 11px; font: 500 11px/1 D; color: #777; font-style: normal; }
+
+/* ---------- R21 : tape ton nom sur Google (script B) ---------- */
+.gs { background: #fff; font-family: D; color: #202124; }
+.gs .q { position: absolute; left: 14px; right: 14px; top: 54px; height: 44px; border-radius: 22px; background: #f1f3f4; display: flex; align-items: center; gap: 10px; padding: 0 16px; font: 500 17px/1 D; z-index: 3; }
+.gs .q svg { width: 18px; height: 18px; flex: none; }
+.gs .q .cur { display: inline-block; width: 2px; height: 20px; background: #1a73e8; }
+.gs .gsc { position: absolute; left: 0; right: 0; top: 108px; }
+.gs .fw { position: relative; height: 560px; margin: 0 10px; border-radius: 16px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,.12); }
+.gs .f-line { transition: none; }
+.gs .f-line.hot { background: #fde7e7; margin: 0 -20px; padding-left: 20px; padding-right: 20px; font-weight: 700; }
+.gs .f-btns span.dis.hot { box-shadow: 0 0 0 3px #e53935; }
+.cp { margin: 18px 10px 0; padding: 16px; border-radius: 16px; box-shadow: 0 1px 6px rgba(0,0,0,.12); }
+.cp .cph { display: flex; gap: 12px; align-items: center; }
+.cp .cph i { width: 44px; height: 44px; border-radius: 50%; background: #3b5b4c; color: #fff; display: grid; place-items: center; font: 800 15px/1 D; font-style: normal; }
+.cp .cph b { display: block; font: 700 19px/1.1 D; }
+.cp .cph small { display: block; margin-top: 3px; font: 500 14px/1 D; color: #188038; }
+.cp .cpb { display: flex; gap: 8px; margin-top: 14px; }
+.cp .cpb span { flex: 1; text-align: center; padding: 11px 0; border-radius: 999px; background: #e8f0fe; color: #1a73e8; font: 700 14px/1 D; }
+.cp .cpb span.rv { background: #1a73e8; color: #fff; }
+.wa .msg.in { align-self: flex-start; background: #fff; border-radius: 2px 10px 10px 10px; transform-origin: 0 0; }
+.wa .msg .mq { width: 230px; height: 150px; border-radius: 8px; border: 2px dashed #e0b84a; background: #fffaf0; margin-bottom: 6px; position: relative; overflow: hidden; }
+.wa .msg .mq u { position: absolute; left: 12px; border-radius: 6px; background: #f1e4bf; text-decoration: none; }
+.wa .inp span.typ { color: #111b21; }
+
+/* ---------- R23 : pub « toujours gratuite » (voix de femme) ---------- */
+.pc { position: absolute; left: 12px; right: 12px; bottom: 14px; z-index: 30; border-radius: 22px; background: #fff; box-shadow: 0 -6px 40px rgba(0,0,0,.28); padding: 22px 20px 18px; font-family: D; color: #111; text-align: center; transform: translateY(120%); }
+.pc small { display: block; font: 700 13px/1 D; letter-spacing: .14em; text-transform: uppercase; color: #6b7280; }
+.pc .pr { margin-top: 10px; font: 800 64px/1 B; letter-spacing: -.03em; }
+.pc .pr span { font: 800 26px/1 D; color: #6b7280; margin-left: 6px; }
+.pc .tg { display: inline-block; margin-top: 12px; padding: 8px 14px; border-radius: 999px; background: #C6FF3D; color: #0D0F0E; font: 800 16px/1 D; opacity: 0; }
+.pc .ch { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+.pc .ch div { padding: 13px 14px; border-radius: 12px; border: 1.5px solid #e5e7eb; font: 700 15.5px/1.2 D; text-align: left; display: flex; justify-content: space-between; opacity: 0; }
+.pc .ch div b { font-weight: 800; }
+.pc .ch div.on { border-color: #16a34a; background: #effaf2; }
+.pc .ch div.on2 { border-color: #111; background: #f6f6f6; }
+.ec { background: #fff; font-family: D; color: #111; text-align: center; z-index: 40; }
+.ec .lg { margin-top: 170px; font: 800 86px/1 B; letter-spacing: -.05em; }
+.ec .lg i { font-style: normal; color: #9ACD32; }
+.ec .t1 { margin-top: 18px; font: 700 24px/1.25 D; }
+.ec .t2 { margin-top: 6px; font: 500 18px/1.3 D; color: #6b7280; }
+.ec .wa2 { display: inline-flex; align-items: center; gap: 10px; margin-top: 30px; padding: 16px 24px; border-radius: 999px; background: #1f8f6a; color: #fff; font: 800 21px/1 D; white-space: nowrap; }
+.ec .wa2 u { width: 26px; height: 26px; border-radius: 50%; background: rgba(255,255,255,.25); text-decoration: none; display: grid; place-items: center; font: 800 14px/1 D; }
+.ec .nb { margin-top: 14px; font: 700 20px/1 D; letter-spacing: .01em; }
+
+/* ---------- R25 : « ce coiffeur a des clients toute la journée » ---------- */
+.ag .ck { position: absolute; right: 18px; top: 58px; font: 800 30px/1 D; color: #111; font-variant-numeric: tabular-nums; }
+.ag .call { display: inline-flex; align-items: center; gap: 6px; margin: 10px 0 0 10px; padding: 7px 12px; border-radius: 99px; background: #f3f4f6; color: #111; font: 700 13px/1 D; opacity: 0; }
+.ag .call svg { width: 14px; height: 14px; }
+
+/* ---------- R27 : « où sont passés tes clients ? » (style explainer laptop, d'après la vidéo de référence de Ryan) ---------- */
+#r27 { background: radial-gradient(120% 60% at 50% 18%, #2a1a5e 0%, #140d2c 45%, #07060c 100%); }
+.lap { position: absolute; left: 50px; top: 560px; width: 980px; }
+.lap .bz { position: relative; height: 640px; border-radius: 26px 26px 6px 6px; background: #0c0c10; padding: 14px; box-shadow: 0 0 120px rgba(120,80,255,.25); }
+.lap .sc { position: relative; width: 100%; height: 100%; border-radius: 14px; overflow: hidden; background: #f4f5f7; font-family: D; color: #111; }
+.lap .dock { position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%); display: flex; gap: 7px; padding: 6px 10px; border-radius: 12px; background: rgba(255,255,255,.55); z-index: 30; }
+.lap .dock i { width: 22px; height: 22px; border-radius: 6px; display: block; }
+.lap .deck { height: 300px; margin: 0 -30px; background: linear-gradient(180deg, #2b2b33 0%, #1a1a20 100%); clip-path: polygon(2% 0, 98% 0, 100% 100%, 0 100%); position: relative; overflow: hidden; }
+.lap .deck:before { content: ""; position: absolute; left: 9%; right: 9%; top: 26px; height: 160px; background-image: linear-gradient(90deg, rgba(150,120,255,.22) 0 46px, transparent 46px 54px), linear-gradient(180deg, rgba(150,120,255,.22) 0 30px, transparent 30px 38px); background-size: 54px 38px; border-radius: 6px; filter: blur(.4px); }
+.lap .deck:after { content: ""; position: absolute; left: 33%; right: 33%; top: 200px; height: 90px; border-radius: 10px; background: rgba(255,255,255,.06); }
+.sc .scn { position: absolute; inset: 0; display: none; }
+.sc .kl { position: absolute; left: 0; right: 0; top: 60px; text-align: center; font: 600 26px/1 D; color: #6b7280; }
+.sc .kl em { font: italic 500 40px/1 BM; color: #f05a1a; }
+.ball { position: absolute; left: 50%; top: 50%; width: 300px; height: 300px; margin: -150px 0 0 -150px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ff9a52 0%, #f26a1b 45%, #d24e0a 100%);
+  box-shadow: inset -18px -24px 40px rgba(0,0,0,.18), 0 30px 60px -20px rgba(210,78,10,.6); display: grid; place-items: center; color: #fff; font: 800 110px/1 B; letter-spacing: -.04em; }
+.ball small { position: absolute; bottom: 62px; left: 0; right: 0; text-align: center; font: 700 20px/1 D; letter-spacing: .02em; opacity: .9; }
+.bite { position: absolute; width: 130px; height: 130px; border-radius: 50%; background: #f4f5f7; }
+.mon { position: absolute; width: 170px; height: 170px; }
+.minus { position: absolute; font: 800 64px/1 B; color: #e53935; letter-spacing: -.02em; }
+.qm27 { position: absolute; left: 50%; top: 50%; font: 800 320px/1 B; color: #f26a1b; transform: translate(-50%, -50%); }
+.dot { position: absolute; width: 26px; height: 26px; border-radius: 50%; background: #f26a1b; }
+.dark { background: #0b0b12; color: #fff; }
+.dark .clk { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); font: 300 150px/1 D; letter-spacing: -.02em; }
+.dark .aw { position: absolute; left: 0; right: 0; top: 64%; text-align: center; font: italic 500 90px/1 BM; color: #f26a1b; }
+.ms27 { position: absolute; left: 90px; top: 110px; width: 360px; height: 420px; border-radius: 18px; background: #fbf8f4; box-shadow: 0 20px 50px rgba(0,0,0,.18); overflow: hidden; }
+.ms27 .h { padding: 22px 20px 0; font: italic 500 30px/1 BM; color: #2a201b; }
+.ms27 .r { margin: 14px 20px 0; height: 14px; border-radius: 7px; background: #eadfd4; }
+.ms27 .b { position: absolute; left: 20px; right: 20px; bottom: 22px; height: 58px; border-radius: 4px; background: #2a201b; color: #fff; display: grid; place-items: center; font: 600 19px/1 D; }
+.og { background: #f26a1b; color: #fff; text-align: center; }
+.og .lg { margin-top: 120px; font: 800 120px/1 B; letter-spacing: -.05em; }
+.og .t { margin-top: 18px; font: 700 34px/1.2 D; }
+.og .t em { font: italic 500 46px/1 BM; }
+.og .bt { display: inline-block; margin-top: 30px; padding: 20px 34px; border-radius: 999px; background: #fff; color: #f26a1b; font: 800 30px/1 D; }
+.og .ft { margin-top: 16px; font: 600 20px/1 D; opacity: .9; }
+
+/* ---------- R11 : speedrun boulangerie ---------- */
+.tim { position: absolute; left: 50%; top: 300px; transform: translateX(-50%); display: flex; align-items: center; gap: 16px; padding: 16px 30px 14px; border-radius: 22px; background: #fff; color: #000;
+  font: 800 66px/1 D; letter-spacing: -.01em; box-shadow: 0 4px 18px rgba(0,0,0,.18); z-index: 80; opacity: 0; font-variant-numeric: tabular-nums; }
+.tim svg { width: 54px; height: 54px; }
+.tim.done { background: #34c759; color: #fff; }
+.step { position: absolute; left: 70px; right: 70px; top: 1250px; text-align: center; z-index: 80; }
+.step span { display: inline; background: #000; color: #fff; font: 700 60px/1.5 D; padding: 8px 26px; border-radius: 16px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.step span small { font: 600 40px/1 D; color: #aaa; margin-right: 14px; }
+#pal { position: absolute; left: 0; right: 0; top: 44px; bottom: 0; z-index: 40; display: flex; flex-direction: column; pointer-events: none; }
+#pal i { flex: 1; display: flex; align-items: flex-end; padding: 0 18px 12px; font: 800 22px/1 D; font-style: normal; transform-origin: 0 50%; }
+</style>
+</head>
+<body>
+<div id="f">
+
+<!-- ================= R13 : 3 RAISONS (capture d'écran) ================= -->
+<div class="R" id="r13">
+  <div class="S" id="S13">
+    <div class="sb"><span>17:48</span><i>●●● ▮</i></div>
+    <div class="pg res" id="res">
+      <div class="q"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="7" fill="none" stroke="#5f6368" stroke-width="2.4"/><path d="M15 15l6 6" stroke="#5f6368" stroke-width="2.4" stroke-linecap="round"/></svg><span id="qtx"></span><span class="cur" id="qcur"></span></div>
+      <div class="tabs"><b>Tous</b><span>Maps</span><span>Images</span><span>Actualités</span></div>
+      <div class="r" id="ra"><div class="src"><i style="background:#8d6e63">G</i><div>Garage du Pont<br><span style="color:#777">Garage automobile</span></div></div><h3>Garage du Pont – Entretien et réparations</h3><p>Bienvenue sur notre site. Découvrez nos services d'entretien…</p></div>
+      <div class="r" id="rb"><div class="src"><i style="background:#23395d">A</i><div>Auto Lambert<br><span style="color:#777">Garage automobile</span></div></div><h3>Auto Lambert – Site officiel</h3><p>Entreprise familiale. Vente, réparation, pneus, expertise…</p></div>
+      <div class="r" id="rc"><div class="src"><i style="background:#1d4ed8">M</i><div>Garage Mercier<br><span style="color:#777">Garage automobile</span></div></div><h3>Garage Mercier – Entretien, pneus &amp; réparations</h3><p>Toutes marques. Service annuel, changement de pneus, freins…</p></div>
+    </div>
+    <div class="pg ld" id="pg1">
+      <div class="bar" id="bar1"></div>
+      <div class="hd">Garage du Pont</div>
+      <div class="img"><div id="img1" style="background-image:url(photos/garage_pneus.jpg)"></div>
+        <svg class="spin" id="spin1" viewBox="0 0 40 40"></svg></div>
+      <div class="sk" style="top:380px;width:250px"></div><div class="sk" style="top:406px;width:300px"></div><div class="sk" style="top:432px;width:200px"></div>
+      <div class="sk" style="top:480px;width:330px;height:46px;border-radius:10px"></div><div class="sk" style="top:546px;width:280px"></div><div class="sk" style="top:572px;width:310px"></div>
+    </div>
+    <div class="pg" id="pg2">
+      <div class="dk" id="dk">
+        <div class="nav"><b>Auto Lambert</b><span>Accueil</span><span>L'entreprise</span><span>Nos services</span><span>Actualités</span><span>Contact</span></div>
+        <div class="ban" style="background-image:url(photos/garage.jpg)"><span>Bienvenue sur le site officiel de notre entreprise</span></div>
+        <div class="cols">
+          <div><h4>Qui sommes-nous ?</h4>Entreprise familiale, nous vous accueillons depuis de nombreuses années dans un cadre agréable. N'hésitez pas à nous contacter pour toute demande d'information ou de devis.</div>
+          <div><div class="im" style="background-image:url(photos/garage_pneus.jpg)"></div><h4>Nos services</h4>Entretien, réparation, conseil, vente, location et bien plus encore pour tous vos besoins au quotidien.</div>
+          <div><h4>Actualités</h4>Horaires et informations pratiques disponibles sur demande. Merci de votre visite et à bientôt dans nos locaux. Consultez régulièrement cette page pour nos offres.</div>
+        </div>
+        <div class="cols">
+          <div><div class="im" style="background-image:url(photos/garage.jpg)"></div>Texte de présentation de nos prestations et de notre savoir-faire.</div>
+          <div><h4>Contact</h4>Pour nous joindre, merci d'utiliser le formulaire de contact disponible sur la page Contact.</div>
+          <div><h4>Liens</h4>Accueil · Plan du site · Mentions</div>
+        </div>
+      </div>
+    </div>
+    <div class="pg gx" id="pg3"></div>
+    <div class="pg gx" id="pg4"></div>
+    <div class="bk" id="bk"><div class="gr"></div><h5>Prendre rendez-vous</h5>
+      <div class="sl">Service</div>
+      <div class="op" id="o0">Service annuel <small>dès 1 h</small></div>
+      <div class="op" id="o1">Changement de pneus <small>30 min</small></div>
+      <div class="sl">Jeudi 15 octobre</div>
+      <div class="ch"><span class="off">8:30</span><span id="k1">10:00</span><span class="off">11:30</span><span>14:00</span></div>
+      <div class="go" id="bgo">Confirmer</div></div>
+    <div class="ok" id="okp"><div class="ring">✓</div><h4>C’est réservé.</h4><p>Confirmation envoyée par SMS.</p>
+      <div class="rc"><div><span>Service</span><b>Changement de pneus</b></div><div><span>Date</span><b>Jeudi 15 octobre</b></div><div><span>Heure</span><b>10:00</b></div></div></div>
+  </div>
+  <div class="tz"><div class="lb" id="l13"></div><div class="bg" id="b13"></div></div>
+  <div class="tch" id="tA"></div><div class="tch" id="tB"></div>
+</div>
+
+<!-- ================= R11 : SPEEDRUN BOULANGERIE (capture d'écran) ================= -->
+<div class="R" id="r11">
+  <div class="S" id="S11">
+    <div class="sb" id="sb11"><span>20:14</span><i>●●● ▮</i></div>
+    <div class="pg" id="bw"></div>
+    <div id="pal"><i style="background:#F4ECDF;color:#7A3E17">Farine</i><i style="background:#7A3E17;color:#F4ECDF">Croûte</i><i style="background:#E2B25A;color:#2B1A0F">Blé</i><i style="background:#B23A27;color:#F4ECDF">Encre</i></div>
+  </div>
+  <div class="tz"><div class="lb" id="l11"></div><div class="bg" id="b11"></div></div>
+  <div class="tim" id="tim" style="display:none"><svg viewBox="0 0 40 40"><circle cx="20" cy="23" r="14" fill="none" stroke="currentColor" stroke-width="4"/><path d="M15 4 h10 M20 4 v5" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M20 23 L20 14" stroke="currentColor" stroke-width="4" stroke-linecap="round" fill="none" id="tmh"/></svg><span id="tmv"></span></div>
+
+  <div class="tch" id="tC"></div>
+</div>
+
+<!-- ================= R15 : DEVINE LE COMMERCE ================= -->
+<div class="R" id="r15">
+  <div class="S" id="S15">
+    <div class="sb"><span>20:31</span><i>●●● ▮</i></div>
+    <div class="pg" id="q0"><div class="qz"><img src="maquettes/maison-faucon.png"></div></div>
+    <div class="pg" id="q1"><div class="qz"><img src="maquettes/cafe-tiercelin.png"></div></div>
+    <div class="pg" id="q2"><div class="qz"><img src="maquettes/atelier-seve.png"></div></div>
+  </div>
+  <div class="tz"><div class="lb" id="l15"></div><div class="bg" id="b15"></div></div>
+  <div class="cd" id="cd15"></div>
+</div>
+
+<!-- ================= R17 : CONVERSATION COIFFEUR ================= -->
+<div class="R" id="r17">
+  <div class="S" id="S17">
+    <div class="sb" id="sb17"><span id="clk17">22:04</span><i>●●● ▮</i></div>
+    <div class="pg wa" id="wa">
+      <div class="wh"><span class="bk2">‹</span><span class="av">SM</span><div><b>Salon Mélanie</b><small>Compte professionnel</small></div></div>
+      <div class="day">Aujourd’hui</div>
+      <div class="msgs"><div class="msg" id="m1">Bonsoir ! Vous auriez une place demain pour une coupe ?<i>22:04 <svg viewBox="0 0 16 11"><path d="M1 6l3 3 6-7M6 9l1 1 6-8" fill="none" stroke="#8696a0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i></div><div class="msg" id="m2">N’importe quelle heure, je suis flexible<i>22:05 <svg viewBox="0 0 16 11"><path d="M1 6l3 3 6-7M6 9l1 1 6-8" fill="none" stroke="#8696a0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i></div><div class="gap" id="g1">Toujours pas de réponse…</div><div class="msg" id="m3">Allô ?<i>22:31 <svg viewBox="0 0 16 11"><path d="M1 6l3 3 6-7M6 9l1 1 6-8" fill="none" stroke="#8696a0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i></div><div class="msg" id="m4">Bon… je vais voir ailleurs<i>23:12 <svg viewBox="0 0 16 11"><path d="M1 6l3 3 6-7M6 9l1 1 6-8" fill="none" stroke="#8696a0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i></div></div>
+      <div class="inp"><span>Message</span><u></u></div>
+    </div>
+    <div class="pg lk" id="lk">
+      <div class="dt" id="lkd">mardi 13 octobre</div><div class="hh" id="lkh">23:12</div>
+      <div class="dnd" id="dnd"><svg viewBox="0 0 16 16"><path d="M12.5 10.5A6 6 0 0 1 5.5 3.5a6 6 0 1 0 7 7z" fill="#c9b8ff"/></svg>Ne pas déranger</div>
+      <div class="nt2" id="n1" style="top:300px"><div class="ic" style="background:#1f8f6a">✉</div><div><b>4 nouveaux messages</b><span>« Bon… je vais voir ailleurs »</span></div><em>23:12</em></div>
+      <div class="nt3" id="nn0" style="top:250px"><div class="ic">SM</div><div><b>Nouveau rendez-vous en ligne</b><span>Coupe homme · 9:00</span></div><em>22:41</em></div><div class="nt3" id="nn1" style="top:312px"><div class="ic">SM</div><div><b>Nouveau rendez-vous en ligne</b><span>Balayage · 10:45</span></div><em>23:18</em></div><div class="nt3" id="nn2" style="top:374px"><div class="ic">SM</div><div><b>Nouveau rendez-vous en ligne</b><span>Couleur · 15:00</span></div><em>00:07</em></div><div class="nt3" id="nn3" style="top:436px"><div class="ic">SM</div><div><b>Nouveau rendez-vous en ligne</b><span>Coupe homme · 16:30</span></div><em>06:52</em></div><div class="nt3" id="nn4" style="top:498px"><div class="ic">SM</div><div><b>Nouveau rendez-vous en ligne</b><span>Coupe femme · 17:15</span></div><em>07:14</em></div><div class="nt3" id="nn5" style="top:560px"><div class="ic">SM</div><div><b>Nouveau rendez-vous en ligne</b><span>Coupe femme · 14:00</span></div><em>22:05</em></div>
+    </div>
+    <div class="pg" id="sal" style="z-index:12"></div>
+    <div class="pg ag" id="ag"><div class="ah"><small>Agenda · Salon Mélanie</small><b>Mercredi 14 octobre</b><div class="full" id="agf">✓ Journée complète</div></div><div class="rw" id="ar0"><div class="h">09:00</div><div class="bl"><b>Coupe homme</b><span>30 min · réservé en ligne</span></div></div><div class="rw" id="ar1"><div class="h">09:45</div><div class="bl"><b>Coupe femme</b><span>45 min · réservé en ligne</span></div></div><div class="rw" id="ar2"><div class="h">10:45</div><div class="bl"><b>Balayage</b><span>2 h · réservé en ligne</span></div></div><div class="rw" id="ar3"><div class="h">14:00</div><div class="bl"><b>Coupe femme</b><span>45 min · réservé en ligne</span></div></div><div class="rw" id="ar4"><div class="h">15:00</div><div class="bl"><b>Couleur</b><span>1 h 30 · réservé en ligne</span></div></div><div class="rw" id="ar5"><div class="h">16:30</div><div class="bl"><b>Coupe homme</b><span>30 min · réservé en ligne</span></div></div><div class="rw" id="ar6"><div class="h">17:15</div><div class="bl"><b>Coupe femme</b><span>45 min · réservé en ligne</span></div></div></div>
+  </div>
+  <div class="tz"><div class="lb" id="l17"></div><div class="bg" id="b17"></div></div>
+  <div class="tch" id="tD"></div>
+</div>
+
+<!-- ================= R19 : TON IDÉE → TON SITE ================= -->
+<div class="R" id="r19">
+  <div class="S" id="S19">
+    <div class="sb" id="sb19"><span>18:42</span><i>●●● ▮</i></div>
+    <div class="pg no" id="no">
+      <div class="nb"><span>‹ Notes</span><span>OK</span></div>
+      <h2>Mes idées</h2><div class="nd">13 octobre 2026 à 18:42</div>
+      <div class="li" id="li0" style="top:176px"><u></u><span>Lavage de voitures</span></div>
+      <div class="li" id="li1" style="top:234px"><u></u><span>Cours de guitare</span></div>
+      <div class="li" id="li2" style="top:292px"><u></u><span>Gâteaux d’anniversaire</span></div>
+      <div class="li" id="li3" style="top:350px"><u></u><span id="li3t"></span><i class="cur" id="cur19"></i></div>
+      <div class="sk19" id="sk19"><div class="a"></div><div class="b"></div><div class="c"></div><div class="d"></div><span>ta maquette · gratuite · en 24 h</span></div>
+    </div>
+    <div class="ms" id="ms0" style="--bg:#0f172a;--fg:#f8fafc;--ac:#38bdf8;--bt:#0f172a;--soft:#16213a;--ln:#24324f;--r:12px;--lf:800 22px/1 B;--hf:800 33px/1.02 B;"><div class="mh"><span>Brillant.</span><i></i></div><div class="mk">Lavage auto à domicile</div><h1>Ta voiture comme neuve, sans bouger de chez toi.</h1><div class="ill"><svg viewBox="0 0 150 120" fill="none" stroke="#38bdf8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 78h110v-14l-12-6-14-20H50L34 58l-14 6z"/><circle cx="46" cy="80" r="11" fill="#0f172a"/><circle cx="106" cy="80" r="11" fill="#0f172a"/><path d="M56 42h40l10 16H44z"/><path d="M30 24c4-6 8-6 12 0M112 20c4-6 8-6 12 0M70 14c4-6 8-6 12 0" stroke-width="4"/></svg></div><div class="mb" id="mb0">Réserver un lavage <span>→</span></div><div class="mr">Extérieur<small>45 min</small></div><div class="mr">Intérieur<small>1 h</small></div><div class="mr">Complet<small>1 h 30</small></div></div><div class="ms" id="ms1" style="--bg:#f5efe6;--fg:#2b2118;--ac:#d9622b;--bt:#fff;--soft:#ece2d3;--ln:#e3d6c4;--r:999px;--lf:400 23px/1 YS;--hf:400 34px/1.05 YS;"><div class="mh"><span>Léo · guitare</span><i></i></div><div class="mk">Cours de guitare</div><h1>Apprends la guitare, à ton rythme.</h1><div class="ill"><svg viewBox="0 0 150 120" fill="none" stroke="#d9622b" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M88 36l36-30M118 4l8 8"/><path d="M84 40c-10-4-22 0-26 10-14 0-26 10-26 26 0 18 16 32 34 32 16 0 28-12 28-26 10-4 14-16 10-26z"/><circle cx="66" cy="72" r="8"/><path d="M50 92l18-18"/></svg></div><div class="mb" id="mb1">Réserver un cours d’essai <span>→</span></div><div class="mr">Débutants<small>bienvenus</small></div><div class="mr">Ados &amp; adultes<small>45 min</small></div><div class="mr">Chez toi<small>ou en ligne</small></div></div><div class="ms" id="ms2" style="--bg:#fff1f2;--fg:#3b0d1a;--ac:#e11d48;--bt:#fff;--soft:#ffe4e6;--ln:#fbd0d6;--r:16px;--lf:italic 500 26px/1 BM;--hf:italic 500 38px/1.02 BM;"><div class="mh"><span>Les gâteaux de Lina</span><i></i></div><div class="mk">Gâteaux sur commande</div><h1>Ton gâteau d’anniversaire, fait maison.</h1><div class="ill"><svg viewBox="0 0 150 120" fill="none" stroke="#e11d48" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M30 104h90V70H30z"/><path d="M40 70V50h70v20"/><path d="M30 86c10 6 20 6 30 0s20-6 30 0 20 6 30 0"/><path d="M75 50V34"/><path d="M75 26c-5-6 0-12 0-14 0 2 5 8 0 14z" fill="#e11d48"/></svg></div><div class="mb" id="mb2">Commander un gâteau <span>→</span></div><div class="mr">Chocolat<small>8–12 parts</small></div><div class="mr">Fraisier<small>de saison</small></div><div class="mr">Sur mesure<small>48 h avant</small></div></div>
+    <div class="bn" id="bk0" style="top:50px"><div class="ic" style="background:#0ea5e9">B</div><div><b>Brillant · Nouvelle réservation</b><span>Lavage complet · samedi 10:00</span></div><em>maintenant</em></div><div class="bn" id="bk1" style="top:120px"><div class="ic" style="background:#0ea5e9">B</div><div><b>Brillant · Nouvelle réservation</b><span>Lavage extérieur · vendredi 17:30</span></div><em>maintenant</em></div><div class="bn" id="bk2" style="top:190px"><div class="ic" style="background:#0ea5e9">B</div><div><b>Brillant · Nouvelle réservation</b><span>Lavage intérieur · lundi 8:00</span></div><em>maintenant</em></div><div class="bn" id="bk3" style="top:50px"><div class="ic" style="background:#d9622b">L</div><div><b>Léo guitare · Nouvelle réservation</b><span>Cours d’essai · jeudi 18:00</span></div><em>maintenant</em></div><div class="bn" id="bk4" style="top:50px"><div class="ic" style="background:#e11d48">L</div><div><b>Les gâteaux de Lina · Nouvelle réservation</b><span>Gâteau chocolat · dimanche</span></div><em>maintenant</em></div>
+    <div class="pg lk" id="lk19" style="z-index:30;display:none"><div class="dt" id="lk19d">mercredi</div><div class="hh" id="lk19h">02:14</div><div class="nt3" id="lq0" style="top:200px"><div class="ic" style="background:#0ea5e9">B</div><div><b>Brillant · Nouvelle réservation</b><span>Lavage complet · samedi 10:00</span></div><em>02:14</em></div><div class="nt3" id="lq1" style="top:250px"><div class="ic" style="background:#d9622b">L</div><div><b>Léo guitare · Nouvelle réservation</b><span>Cours d’essai · jeudi 18:00</span></div><em>02:31</em></div><div class="nt3" id="lq2" style="top:300px"><div class="ic" style="background:#e11d48">L</div><div><b>Les gâteaux de Lina · Nouvelle réservation</b><span>Fraisier · dimanche 14:00</span></div><em>03:05</em></div><div class="nt3" id="lq3" style="top:350px"><div class="ic" style="background:#0ea5e9">B</div><div><b>Brillant · Nouvelle réservation</b><span>Lavage intérieur · lundi 8:00</span></div><em>14:30</em></div><div class="nt3" id="lq4" style="top:400px"><div class="ic" style="background:#d9622b">L</div><div><b>Léo guitare · Nouvelle réservation</b><span>Cours débutant · mardi 19:00</span></div><em>14:52</em></div><div class="nt3" id="lq5" style="top:450px"><div class="ic" style="background:#e11d48">L</div><div><b>Les gâteaux de Lina · Nouvelle réservation</b><span>Gâteau sur mesure · samedi</span></div><em>15:10</em></div><div class="nt3" id="lq6" style="top:500px"><div class="ic" style="background:#0ea5e9">B</div><div><b>Brillant · Nouvelle réservation</b><span>Lavage extérieur · vendredi</span></div><em>11:05</em></div><div class="nt3" id="lq7" style="top:550px"><div class="ic" style="background:#e11d48">L</div><div><b>Les gâteaux de Lina · Nouvelle réservation</b><span>Gâteau chocolat · dimanche</span></div><em>11:20</em></div><div class="nt3" id="lq8" style="top:600px"><div class="ic" style="background:#d9622b">L</div><div><b>Léo guitare · Nouvelle réservation</b><span>Cours d’essai · samedi 10:00</span></div><em>11:41</em></div></div>
+    <div class="bn" id="bn19"><div class="ic" id="bni"></div><div><b id="bnb"></b><span id="bns"></span></div><em>maintenant</em></div>
+  </div>
+  <div class="tz"><div class="lb" id="l19"></div><div class="bg" id="b19"></div></div>
+  <div class="tch" id="tE"></div>
+</div>
+
+<!-- ================= R21 : TAPE TON NOM SUR GOOGLE (script B) ================= -->
+<div class="R" id="r21">
+  <div class="S" id="S21">
+    <div class="sb" id="sb21"><span>19:12</span><i>●●● ▮</i></div>
+    <div class="pg gs" id="gs">
+      <div class="q"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="7" fill="none" stroke="#5f6368" stroke-width="2.4"/><path d="M15 15l6 6" stroke="#5f6368" stroke-width="2.4" stroke-linecap="round"/></svg><span id="gq"></span><span class="cur" id="gcur"></span></div>
+      <div class="gsc" id="gsc">
+        <div class="fw" id="gfw"></div>
+        <div class="cp"><div class="cph"><i>SC</i><div><b>Studio Coupe</b><small>Salon de coiffure · Ouvert</small></div></div>
+          <div class="cpb"><span>Itinéraire</span><span>Site Web</span><span class="rv" id="cpr">Réserver</span></div></div>
+      </div>
+    </div>
+    <div class="pg" id="sal21" style="z-index:12"></div>
+    <div class="pg wa" id="wa21" style="z-index:20">
+      <div class="wh"><span class="bk2">‹</span><span class="av" style="background:#111;font-family:B">W.</span><div><b>Wibzo</b><small>Compte professionnel</small></div></div>
+      <div class="day">Aujourd’hui</div>
+      <div class="msgs">
+        <div class="msg in" id="w1"><div class="mq"><u style="top:12px;width:90px;height:10px"></u><u style="top:32px;width:180px;height:20px"></u><u style="top:62px;right:12px;height:46px"></u><u style="top:118px;width:120px;height:18px;background:#e0b84a;opacity:.55"></u></div>Ta maquette, gratuite, en 24 h 👇<i>19:12</i></div>
+        <div class="msg" id="w2">MAQUETTE<i>19:13 <svg viewBox="0 0 16 11"><path d="M1 6l3 3 6-7M6 9l1 1 6-8" fill="none" stroke="#53bdeb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i></div>
+      </div>
+      <div class="inp"><span id="winp">Message</span><u></u></div>
+    </div>
+  </div>
+  <div class="tz"><div class="lb" id="l21"></div><div class="bg" id="b21"></div></div>
+  <div class="tch" id="tF"></div>
+</div>
+
+<!-- ================= R23 : PUB « TOUJOURS GRATUITE » ================= -->
+<div class="R" id="r23">
+  <div class="S" id="S23">
+    <div class="sb" id="sb23"><span>12:04</span><i>●●● ▮</i></div>
+    <div class="pg gs" id="gs3">
+      <div class="q"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="7" fill="none" stroke="#5f6368" stroke-width="2.4"/><path d="M15 15l6 6" stroke="#5f6368" stroke-width="2.4" stroke-linecap="round"/></svg><span id="gq3"></span><span class="cur" id="gcur3"></span></div>
+      <div class="gsc" id="gsc3">
+        <div class="fw" id="gfw3"></div>
+        <div class="cp"><div class="cph"><i>SC</i><div><b>Studio Coupe</b><small>Salon de coiffure · Ouvert</small></div></div>
+          <div class="cpb"><span>Itinéraire</span><span>Site Web</span><span class="rv" id="cpr3">Réserver</span></div></div>
+      </div>
+    </div>
+    <div class="pg" id="sal23" style="z-index:12"></div>
+    <div class="pc" id="pc23"><small>Votre maquette</small><div class="pr">0.–<span>CHF</span></div><div class="tg" id="tg23">Toujours gratuite.</div>
+      <div class="ch"><div id="ch1">Elle vous plaît <b>→ on continue</b></div><div id="ch2">Elle ne vous plaît pas <b>→ 0.– CHF</b></div></div></div>
+    <div class="pg ec" id="ec23"><div class="lg">Wibzo<i>.</i></div><div class="t1">La maquette de votre site,<br>gratuite. Toujours.</div><div class="t2">Elle vous plaît, on continue. Sinon, rien à payer.</div>
+      <div class="wa2"><u>✆</u>Écrivez « MAQUETTE »</div><div class="nb">sur WhatsApp · 076 757 43 93</div></div>
+  </div>
+  <div class="tz"><div class="lb" id="l23"></div><div class="bg" id="b23"></div></div>
+  <div class="tch" id="tG"></div>
+</div>
+
+<!-- ================= R25 : CE COIFFEUR A DES CLIENTS TOUTE LA JOURNÉE ================= -->
+<div class="R" id="r25">
+  <div class="S" id="S25">
+    <div class="sb" id="sb25"><span id="sbk25">08:00</span><i>●●● ▮</i></div>
+    <div class="pg ag" id="ag25" style="display:block"><div class="ah"><small>Agenda · Salon Mélanie</small><b>Aujourd’hui</b><div class="full" id="agf25">✓ Journée complète</div>
+      <span class="call" id="call25"><svg viewBox="0 0 16 16"><path d="M4 2l2 3-1.5 1.5a8 8 0 0 0 5 5L11 10l3 2-1 2.5C7 15 1 9 1.5 3z" fill="#111"/><path d="M2 14L14 2" stroke="#e53935" stroke-width="2"/></svg> Appels décrochés : 0</span></div><div class="ck" id="ck25">08:00</div><div class="rw" id="a25r0"><div class="h">09:00</div><div class="bl"><b>Coupe homme</b><span>30 min · réservé en ligne</span></div></div><div class="rw" id="a25r1"><div class="h">09:45</div><div class="bl"><b>Coupe femme</b><span>45 min · réservé en ligne</span></div></div><div class="rw" id="a25r2"><div class="h">10:45</div><div class="bl"><b>Balayage</b><span>2 h · réservé en ligne</span></div></div><div class="rw" id="a25r3"><div class="h">14:00</div><div class="bl"><b>Coupe femme</b><span>45 min · réservé en ligne</span></div></div><div class="rw" id="a25r4"><div class="h">15:00</div><div class="bl"><b>Couleur</b><span>1 h 30 · réservé en ligne</span></div></div><div class="rw" id="a25r5"><div class="h">16:30</div><div class="bl"><b>Coupe homme</b><span>30 min · réservé en ligne</span></div></div><div class="rw" id="a25r6"><div class="h">17:15</div><div class="bl"><b>Coupe femme</b><span>45 min · réservé en ligne</span></div></div></div>
+    <div class="pg" id="sal25" style="z-index:16"></div>
+    <div class="pg ec" id="ec25"><div class="lg">Wibzo<i>.</i></div><div class="t1">Tu veux le même ?<br>Ta maquette est gratuite.</div><div class="t2">Tu vois ton site avant de payer.</div>
+      <div class="wa2"><u>✆</u>Écris « MAQUETTE »</div><div class="nb">en message ou sur WhatsApp</div></div>
+  </div>
+  <div class="tz"><div class="lb" id="l25"></div><div class="bg" id="b25"></div></div>
+  <div class="tch" id="tH"></div>
+</div>
+
+<!-- ================= R27 : OÙ SONT PASSÉS TES CLIENTS ? (style explainer laptop) ================= -->
+<div class="R" id="r27">
+  <div class="lap"><div class="bz"><div class="sc" id="sc27">
+    <div class="scn" id="z1"><div class="kl" id="k27"></div><div class="ball" id="ball27"><span id="bn27">30</span><small id="bs27">clients</small></div>
+      <div class="bite" id="bite27"></div><svg class="mon" id="mA" viewBox="0 0 170 170"><path d="M30 160V80a55 55 0 0 1 110 0v80l-18-14-18 14-19-14-18 14-19-14z" fill="#cfd4dc"/><rect x="48" y="62" width="74" height="40" rx="6" fill="#fff"/><rect x="56" y="70" width="40" height="7" rx="3" fill="#b8bec8"/><rect x="56" y="84" width="56" height="6" rx="3" fill="#dfe3e8"/><circle cx="66" cy="118" r="8" fill="#1f2937"/><circle cx="104" cy="118" r="8" fill="#1f2937"/><ellipse cx="85" cy="138" rx="9" ry="6" fill="#1f2937"/></svg><svg class="mon" id="mB" viewBox="0 0 170 170"><rect x="45" y="20" width="80" height="140" rx="16" fill="#6d5dfc"/><rect x="53" y="34" width="64" height="100" rx="8" fill="#a99eff"/><circle cx="72" cy="78" r="9" fill="#fff"/><circle cx="98" cy="78" r="9" fill="#fff"/><circle cx="74" cy="80" r="4.5" fill="#1f1b4d"/><circle cx="100" cy="80" r="4.5" fill="#1f1b4d"/><path d="M70 104q15 12 30 0" stroke="#1f1b4d" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M28 50q-10 20 0 40M142 50q10 20 0 40M16 40q-16 30 0 60M154 40q16 30 0 60" stroke="#6d5dfc" stroke-width="5" fill="none" stroke-linecap="round"/></svg><svg class="mon" id="mC" viewBox="0 0 170 170"><path d="M20 50a26 26 0 0 1 26-26h78a26 26 0 0 1 26 26v50a26 26 0 0 1-26 26H70l-30 26 6-26a26 26 0 0 1-26-26z" fill="#ff6fb5"/><path d="M58 76q8 6 16 0M96 76q8 6 16 0" stroke="#5a1236" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="85" cy="100" rx="7" ry="5" fill="#5a1236"/><text x="128" y="30" font-family="B" font-weight="800" font-size="26" fill="#ff6fb5">z</text><text x="146" y="14" font-family="B" font-weight="800" font-size="20" fill="#ff6fb5">z</text></svg><div class="minus" id="mn27"></div><i class="dot" id="d27_0"></i><i class="dot" id="d27_1"></i><i class="dot" id="d27_2"></i><i class="dot" id="d27_3"></i><i class="dot" id="d27_4"></i><i class="dot" id="d27_5"></i><i class="dot" id="d27_6"></i><i class="dot" id="d27_7"></i><i class="dot" id="d27_8"></i><i class="dot" id="d27_9"></i><i class="dot" id="d27_10"></i><i class="dot" id="d27_11"></i></div>
+    <div class="scn" id="z2"><div class="qm27" id="qm27">?</div></div>
+    <div class="scn dark" id="z3"><div class="clk" id="clk27">22:47</div><div class="aw" id="aw27">ailleurs.</div></div>
+    <div class="scn og" id="z4"><div class="lg">Wibzo.</div><div class="t">Ta maquette,<br><em>gratuite.</em></div><div class="bt">Écris « MAQUETTE »</div><div class="ft">tu vois ton site avant de payer · exemple fictif</div></div>
+    <div class="ms27" id="ms27" style="display:none"><div class="h">Mélanie coiffure</div><div class="r" style="width:70%"></div><div class="r" style="width:50%"></div><div class="r" style="width:80%"></div>
+      <div class="r" style="width:60%"></div><div class="b" id="msb27">Réserver un créneau →</div></div>
+    <div class="dock"><i style="background:#3b82f6"></i><i style="background:#22c55e"></i><i style="background:#f59e0b"></i><i style="background:#ef4444"></i><i style="background:#a855f7"></i><i style="background:#0ea5e9"></i><i style="background:#64748b"></i></div>
+  </div></div><div class="deck"></div></div>
+  <div class="tz"><div class="lb" id="l27"></div><div class="bg" id="b27"></div></div>
+</div>
+
+</div>
+
+<script src="kit.js"></script>
+<script src="kit2.js"></script>
+<script>
+var Q = new URLSearchParams(location.search), RR = Q.get('r') || '13';
+var $ = function (id) { return document.getElementById(id); };
+$('r' + RR).style.display = 'block';
+var K = 1080 / 378;
+var clamp = function (x, a, b) { return Math.min(b === undefined ? 1 : b, Math.max(a || 0, x)); };
+var p = function (t, a, d) { return clamp((t - a) / d); };
+var lerp = function (a, b, x) { return a + (b - a) * x; };
+var outExpo = function (x) { return x >= 1 ? 1 : 1 - Math.pow(2, -10 * x); };
+var outBack = function (x) { var c = 1.7; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+var inOut = function (x) { return x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2; };
+// position (dans la vidéo) du centre d'un élément de l'écran
+function at(el) { var r = el.getBoundingClientRect(), f = $('f').getBoundingClientRect(); return { x: r.left - f.left + r.width / 2, y: r.top - f.top + r.height / 2 }; }
+// texte qui change selon le temps : liste [début, fin, texte]
+function timed(t, list) { for (var i = 0; i < list.length; i++) if (t >= list[i][0] && t < list[i][1]) return list[i][2]; return null; }
+function setCap(box, span, txt) { box.style.opacity = txt ? 1 : 0; if (txt && span.innerHTML !== txt) span.innerHTML = txt; }
+// doigt : taps [[temps, élément ou {x,y}]] ; glissés [[début, fin, x, y0, y1]]
+function finger(dot, t, taps, drags) {
+  var on = false;
+  (taps || []).forEach(function (k) {
+    if (t >= k[0] - .22 && t <= k[0] + .3) {
+      var c = k[1].x != null ? k[1] : at(k[1]), d = t - k[0];
+      dot.style.left = c.x + 'px'; dot.style.top = c.y + 'px';
+      dot.style.opacity = d < 0 ? p(t, k[0] - .22, .1) : 1 - p(t, k[0] + .18, .12);
+      dot.style.transform = 'scale(' + (d < 0 ? 1 : (d < .1 ? lerp(1, .8, d / .1) : lerp(.8, 1, p(d, .1, .12)))) + ')'; on = true;
+    }
+  });
+  (drags || []).forEach(function (g) {
+    if (t >= g[0] - .1 && t <= g[1] + .1) {
+      var x = inOut(p(t, g[0], g[1] - g[0]));
+      dot.style.left = g[2] + 'px'; dot.style.top = lerp(g[3], g[4], x) + 'px';
+      dot.style.opacity = t < g[0] ? p(t, g[0] - .1, .1) : (t > g[1] ? 1 - p(t, g[1], .1) : 1);
+      dot.style.transform = 'scale(1)'; on = true;
+    }
+  });
+  if (!on) dot.style.opacity = 0;
+}
+// page qui arrive par la droite (push iOS) puis repart à droite (retour)
+function slide(el, t, tin, tout) {
+  var x = t < tin ? 1 : 1 - outExpo(p(t, tin, .38));
+  if (tout != null && t >= tout) x = inOut(p(t, tout, .3));
+  el.style.display = x >= 1 ? 'none' : 'block';
+  el.style.transform = 'translateX(' + (x * 100) + '%)';
+  el.style.boxShadow = x > 0 && x < 1 ? '-10px 0 30px rgba(0,0,0,.18)' : 'none';
+}
+// roue de chargement iOS
+function spinner(svg) { var h = ''; for (var i = 0; i < 8; i++) h += '<rect x="18.5" y="3" width="3" height="10" rx="1.5" fill="#8e8e93" transform="rotate(' + (i * 45) + ' 20 20)" opacity="' + (.25 + i * .1) + '"/>'; svg.innerHTML = h; }
+
+// ======================= R13 : « Tu cherches un garage » (POV) =======================
+// voix v3 (13.10.2026) : audio/voix_r13.mp3 = audio/p13_a.mp3 (Noah, eleven_v4) accélérée x 1,1. Repères mesurés sur les pauses.
+// L'ancienne version « 3 trucs » : audio/voix_r13_3raisons.mp3 + R-003b_3-raisons-natif_v2-avant-POV.mp4
+var SUB13 = [[0, 'Tu cherches un garage.'], [1.2, 'Premier site…'], [2.35, 'Ça charge…'], [3.8, 'Ça charge…'], [4.7, 'Allez, suivant.'],
+  [5.8, 'Deuxième :'], [6.55, 'Faut zoomer pour lire quoi que ce soit.'], [8.4, 'Suivant.'], [9.1, 'Troisième…'], [10.3, 'Et le bouton pour réserver ?'],
+  [11.55, 'Y en a pas.'], [12.4, 'Alors que ça :'], [13.3, 'un bouton,'], [14.0, 'deux clics…'], [14.7, 'et c’est réservé.'],
+  [15.6, 'Et ton garage, il est dans<br>quelle catégorie ?']];
+var LAB13 = [[0, 1.2, 'POV · exemple fictif'], [1.2, 5.75, 'site <b>1</b> · trop lent'], [5.75, 9.05, 'site <b>2</b> · illisible sur téléphone'],
+  [9.05, 12.4, 'site <b>3</b> · pas de réservation'], [12.4, 15.6, '<b>✓</b> même garage, version Wibzo · exemple fictif'], [15.6, 99, '<b>1, 2, 3</b> ou <b>✓</b> ? réponds en commentaire']];
+// phrase affichée : la dernière commencée (pas de trou entre deux phrases)
+function held(t, list) { var r = list[0][1]; list.forEach(function (x) { if (t >= x[0]) r = x[1]; }); return r; }
+function setTxt(el, h) { if (el.innerHTML !== h) el.innerHTML = h; }
+var R13 = {};
+if (RR === '13') {
+  spinner($('spin1'));
+  $('pg3').innerHTML = siteHTML('garage');
+  $('pg4').innerHTML = siteHTML('garage');
+  R13.s3 = $('pg3').querySelector('.site'); R13.s4 = $('pg4').querySelector('.site');
+  R13.s3.querySelectorAll('.s-cta, .s-info').forEach(function (e) { e.style.display = 'none'; });
+  R13.cta4 = R13.s4.querySelector('.s-cta');
+}
+function r13(t) {
+  // recherche déjà en cours dès la 1re image
+  var Qt = 'garage près de chez moi', n = Math.round(lerp(9, Qt.length, p(t, 0, .5)));
+  $('qtx').textContent = Qt.slice(0, n); $('qcur').style.opacity = t < .9 ? (Math.floor(t * 3) % 2 ? .2 : 1) : 0;
+  ['ra', 'rb', 'rc'].forEach(function (id, i) { var x = 1; $(id).style.opacity = x; $(id).style.transform = 'translateY(' + ((1 - outExpo(x)) * 14) + 'px)'; });
+  // site 1 : chargement bloqué
+  slide($('pg1'), t, 1.25, 4.85);
+  $('bar1').style.width = lerp(8, 34, outExpo(p(t, 1.3, 1.6))) + '%';
+  $('img1').style.clipPath = 'inset(0 0 ' + lerp(100, 78, p(t, 1.8, 2.8)) + '% 0)';
+  $('spin1').style.transform = 'rotate(' + (Math.floor(t * 12) * 45) + 'deg)';
+  // site 2 : site d'ordinateur, tout petit, puis zoom à deux doigts
+  slide($('pg2'), t, 5.85, 8.45);
+  var z = inOut(p(t, 6.85, .7)), base = 378 / 1200, zs = lerp(base, base * 2.6, z);
+  $('dk').style.transform = 'translate(' + lerp(0, -150, z) + 'px,' + lerp(0, -330, z) + 'px) scale(' + zs + ')';
+  // site 3 : on cherche un bouton qui n'existe pas
+  slide($('pg3'), t, 9.17, 12.4);
+  var y3 = lerp(0, 520, inOut(p(t, 9.6, .8))) - lerp(0, 380, inOut(p(t, 10.55, .55))) + lerp(0, 420, inOut(p(t, 11.2, .55)));
+  R13.s3.style.transform = 'translateY(' + (-y3) + 'px)';
+  // version Wibzo : bouton → feuille de réservation → c'est réservé
+  slide($('pg4'), t, 12.4, null);
+  R13.cta4.style.transform = 'scale(' + (t > 13.35 && t < 13.52 ? .96 : 1) + ')';
+  R13.cta4.style.boxShadow = t > 12.8 && t < 13.35 ? '0 0 0 ' + (4 + 3 * Math.sin(t * 9)) + 'px rgba(29,78,216,.25)' : 'none';
+  $('bk').style.transform = 'translateY(' + ((1 - outExpo(p(t, 13.45, .4))) * 105) + '%)';
+  $('o1').classList.toggle('sel', t >= 14.0); $('k1').classList.toggle('sel', t >= 14.35); $('bgo').classList.toggle('on', t >= 14.35);
+  $('bgo').style.transform = 'scale(' + (t > 14.65 && t < 14.8 ? .97 : 1) + ')';
+  $('okp').style.opacity = p(t, 14.75, .18);
+  $('okp').querySelector('.ring').style.transform = 'scale(' + (t < 14.75 ? .3 : lerp(.3, 1, outBack(p(t, 14.75, .4)))) + ')';
+  // doigts
+  var tapsA = [[1.1, $('ra')], [5.72, $('rb')], [9.05, $('rc')], [13.35, R13.cta4], [14.0, $('o1')], [14.35, $('k1')], [14.65, $('bgo')]];
+  var dragsA = [[9.6, 10.4, 620, 1500, 900], [10.55, 11.1, 620, 900, 1450], [11.2, 11.75, 620, 1500, 950]];
+  if (t >= 6.75 && t < 7.7) { // pincer pour zoomer
+    var zz = inOut(p(t, 6.85, .7)), o = t < 6.85 ? p(t, 6.75, .1) : 1 - p(t, 7.55, .15);
+    [$('tA'), $('tB')].forEach(function (d, i) { var sg = i ? 1 : -1; d.style.opacity = o; d.style.transform = 'none';
+      d.style.left = (540 + sg * lerp(60, 230, zz)) + 'px'; d.style.top = (1150 + sg * lerp(60, 230, zz)) + 'px'; });
+  } else { finger($('tA'), t, tapsA, dragsA); $('tB').style.opacity = 0; }
+  // textes
+  setTxt($('l13'), timed(t, LAB13) || '');
+  setTxt($('b13'), held(t, SUB13));
+}
+
+// ======================= R11 : speedrun boulangerie =======================
+// voix v2 (sans jargon, 13.10.2026) : audio/voix_r11.mp3 (Noah). « Go ! » 2,37 · le nom 2,98 · une belle photo 3,8 · le bouton 4,87 ·
+// ce qui sort du four 6,21 · les horaires 7,58 · « Terminé ! » 8,35 · « combien sur dix ? » 9,25 · « dis-moi en commentaire… » 10,59–12,54
+var GO = 2.37, END = 8.35;
+var STEP11 = [[2.95, 3.78, '1', 'le nom'], [3.78, 4.85, '2', 'une belle photo'], [4.85, 6.18, '3', 'le bouton pour commander'], [6.18, 7.55, '4', 'ce qui sort du four'], [7.55, 8.35, '5', 'les horaires']];
+var ON11 = [['head', 3.0], ['eye', 3.08], ['h1', 3.1], ['photo', 3.82], ['stamp', 4.25], ['cta', 4.9], ['kraft', 6.15],
+  ['f1', 6.35], ['f2', 6.45], ['f3', 6.55], ['f4', 6.65], ['comptoir', 7.4], ['g1', 7.45], ['g2', 7.5], ['g3', 7.55], ['cmd', 7.58], ['hours', 7.62]];
+var BIG11 = [[0, GO, 'Le site d’une boulangerie<br>en 15 secondes'], [GO, 2.95, 'Go !'], [8.35, 9.2, 'Terminé ✓'], [9.2, 10.55, 'Tu lui mets combien sur 10 ?'], [10.55, 99, 'Je fais quel commerce après ?<br>Dis-le en commentaire']];
+var R11 = {};
+if (RR === '11') {
+  $('bw').innerHTML = siteBoul();
+  R11.site = $('bw').querySelector('.site');
+  R11.el = {}; Array.prototype.forEach.call(R11.site.querySelectorAll('.el'), function (e) { R11.el[e.dataset.k] = e; });
+  R11.kY = R11.el.kraft.offsetTop; R11.hY = R11.el.hours.offsetTop; R11.btn = R11.site.querySelector('.bq-btn');
+}
+function r11(t) {
+  // éléments : visibles au début (aperçu), effacés juste avant « Go », puis construits un par un
+  var nOn = ON11.length;
+  ON11.forEach(function (o, i) {
+    var e = R11.el[o[0]];
+    if (t < GO) { var off = 1.95 + (nOn - 1 - i) * (.36 / nOn); e.style.opacity = t < off ? 1 : 0; e.style.transform = o[0] === 'stamp' ? 'rotate(-12deg)' : 'none'; e.style.clipPath = 'none'; return; }
+    if (t >= END + .1) { e.style.opacity = 1; e.style.transform = o[0] === 'stamp' ? 'rotate(-12deg)' : 'none'; e.style.clipPath = 'none'; return; }
+    var x = p(t, o[1], .26);
+    e.style.opacity = t < o[1] ? 0 : Math.min(1, x * 3);
+    if (o[0] === 'stamp') { var xs = p(t, o[1], .2); e.style.opacity = t < o[1] ? 0 : 1; e.style.transform = 'rotate(' + lerp(-40, -12, outExpo(xs)) + 'deg) scale(' + lerp(2.4, 1, outExpo(xs)) + ')'; }
+    else if (o[0] === 'h1') { e.style.opacity = t < o[1] ? 0 : 1; var xh = p(t, o[1], .5); e.style.clipPath = xh >= 1 ? 'none' : 'inset(0 ' + ((1 - xh) * 100) + '% 0 0)'; e.style.transform = 'none'; }
+    else if (o[0] === 'photo') { e.style.opacity = t < o[1] ? 0 : 1; var xc = p(t, o[1], .35); e.style.clipPath = xc >= 1 ? 'none' : 'inset(0 0 ' + ((1 - outExpo(xc)) * 100) + '% 0)'; e.style.transform = 'none'; }
+    else e.style.transform = 'translateY(' + ((1 - outExpo(x)) * 26) + 'px)';
+  });
+  // fond : farine → blanc (départ) → farine (couleurs)
+  var bg = t < GO ? '#F4ECDF' : (t < 2.95 ? '#FFFFFF' : mixC('#FFFFFF', '#F4ECDF', inOut(p(t, 2.95, .3))));
+  R11.site.style.background = bg; $('sb11').style.background = bg;
+  // couleurs : 4 bandes qui remplissent l'écran puis disparaissent
+  Array.prototype.forEach.call($('pal').children, function (b, i) { var a = outExpo(p(t, 3.0 + i * .1, .22)), zz = inOut(p(t, 3.95 + i * .03, .18)); b.style.transform = 'scaleX(' + (t < 3.0 ? 0 : a) + ')'; b.style.opacity = 1 - zz; });
+  $('pal').style.display = 'none'; // plus d'écran « couleurs » (jargon)
+  // défilement : aperçu lent au début, fournées, horaires, retour en haut, puis lente descente à la fin
+  var y = t < GO ? lerp(0, 60, inOut(p(t, .2, 1.6))) - lerp(0, 60, p(t, 1.9, .3)) : 0;
+  if (t >= GO) y = lerp(0, R11.kY - 120, inOut(p(t, 6.15, .35))) + lerp(0, R11.hY - R11.kY, inOut(p(t, 7.5, .35))) - lerp(0, R11.hY - 120, inOut(p(t, 8.5, .55)))
+    + lerp(0, R11.kY - 160, inOut(p(t, 9.4, 3.4)));
+  R11.site.style.transform = 'translateY(' + (-y) + 'px)';
+  // bouton pressé
+  R11.btn.style.transform = 'scale(' + (t > 5.55 && t < 5.72 ? .95 : 1) + ')';
+  finger($('tC'), t, [[5.55, R11.btn]]);
+  // chrono
+  var el = clamp(t - GO, 0, END - GO), rem = 15 - el;
+  $('tmv').textContent = rem.toFixed(1).replace('.', ',') + ' s';
+  $('tmh').setAttribute('transform', 'rotate(' + (el * 360) + ' 20 23)');
+  $('tim').classList.toggle('done', t >= END);
+  var tb = t >= END ? 1 + .14 * Math.exp(-(t - END) * 8) : 1;
+  $('tim').style.transform = 'translateX(-50%) scale(' + tb + ')';
+  $('tim').style.opacity = t >= GO - .05 && t < 10.3 ? 1 : 0;
+  // textes : libellé (étape + chrono) et grande phrase
+  var st = null; STEP11.forEach(function (s) { if (t >= s[0] && t < s[1]) st = s; });
+  var chrono = '⏱ ' + rem.toFixed(1).replace('.', ',') + ' s';
+  var lab = t < GO ? 'boulangerie fictive · maquette Wibzo' : (t < END ? (st ? 'étape ' + st[2] + '/5 · ' : '') + '<b>' + chrono + '</b>' : (t < 9.2 ? '<b>' + chrono + ' d’avance</b>' : 'boulangerie fictive · maquette Wibzo'));
+  setTxt($('l11'), lab);
+  setTxt($('b11'), st && t < END ? st[3].charAt(0).toUpperCase() + st[3].slice(1) : (timed(t, BIG11) || ''));
+}
+function mixC(c1, c2, x) { var a = [1, 3, 5].map(function (i) { return parseInt(c1.substr(i, 2), 16); }), b = [1, 3, 5].map(function (i) { return parseInt(c2.substr(i, 2), 16); });
+  return 'rgb(' + a.map(function (v, i) { return Math.round(lerp(v, b[i], x)); }).join(',') + ')'; }
+
+
+// ======================= R15 : devine le commerce =======================
+// voix : audio/voix_r15.mp3 (Noah), morceaux replacés par mix.js (config.js → seg). Maquettes : maquettes/*.png (shoot.js), commerces fictifs.
+// niveaux : [élément, point zoomé (x, y en px du site), zoom, début, compte à rebours, réponse, fin, réponse affichée, nom, hauteur page]
+var LV15 = [['q0', 290, 200, 3.0, 0, 3.6, 5.15, 6.55, 'Un barbier ✓', 'Maison Faucon', 1602],
+            ['q1', 185, 835, 2.4, 6.55, 7.6, 9.15, 10.55, 'Un café ✓', 'Café Tiercelin', 2150],
+            ['q2', 227, 190, 3.0, 10.55, 12.3, 13.85, 99, 'Un institut de beauté ✓', 'Atelier Sève', 1698]];
+var LAB15 = ['niveau <b>1/3</b> · facile', 'niveau <b>2/3</b> · moyen', 'niveau <b>3/3</b> · difficile'];
+function r15(t) {
+  var cur = 0; LV15.forEach(function (L, i) { if (t >= L[4]) cur = i; });
+  LV15.forEach(function (L, i) {
+    var pg = $(L[0]), qz = pg.querySelector('.qz');
+    pg.style.display = i === cur ? 'block' : 'none';
+    if (i !== cur) return;
+    var Z = L[3], tx = 189 - L[1] * Z, ty = 314 - L[2] * Z;
+    var drift = p(t, L[4], L[6] - L[4]);              // léger mouvement pendant qu'on devine
+    tx += lerp(6, -6, drift); ty += lerp(-8, 8, drift);
+    var r = inOut(p(t, L[6] - .1, .55));              // réponse : on dézoome
+    var sc = lerp(Z, 1, r), x = lerp(tx, 0, r), y = lerp(ty, 0, r);
+    var maxY = L[10] - 628;
+    y -= lerp(0, Math.min(maxY, 520), inOut(p(t, L[6] + .6, Math.max(.1, (i === 2 ? 4.5 : L[7] - L[6] - .6)))));
+    qz.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(' + sc + ')';
+    var b = t < L[6] ? lerp(5, 1.6, p(t, L[4], L[6] - L[4])) : lerp(1.6, 0, p(t, L[6] - .1, .3));
+    qz.style.filter = b > .05 ? 'blur(' + b + 'px)' : 'none';
+    // compte à rebours 3, 2, 1
+    var k = t >= L[5] && t < L[6] ? 3 - Math.floor((t - L[5]) / .5) : 0, cd = $('cd15');
+    if (i === cur) { cd.style.opacity = k > 0 ? 1 : 0; if (k > 0) { cd.textContent = k; var f = ((t - L[5]) % .5) / .5; cd.style.transform = 'scale(' + lerp(1.25, 1, outExpo(Math.min(1, f * 3))) + ')'; } }
+    // textes
+    var lab, big;
+    if (t < 2.55) { lab = 'juste avec un bout de son site'; big = 'Devine le commerce'; }
+    else if (t < L[6]) { lab = LAB15[i]; big = 'C’est quel commerce ?'; }
+    else if (i < 2 || t < 15.85) { lab = L[9] + ' · exemple fictif'; big = L[8]; }
+    else { lab = 'commerces fictifs · maquettes Wibzo'; big = t < 17.3 ? 'T’en as eu combien sur 3 ?' : 'Dis-le en commentaire'; }
+    setTxt($('l15'), lab); setTxt($('b15'), big);
+  });
+}
+
+
+// ======================= R17 : conversation avec le coiffeur =======================
+// voix : audio/voix_r17.mp3 = audio/c_a.mp3 (Noah). Repères : « Vingt-deux heures » 0 · « Tu veux une coupe… » 1,16 · « Rien. » 4,4 ·
+// « Allô ? » 5,11 · « Toujours rien. » 5,9 · « Normal : … il dort » 6,88 · « Alors que s'il avait un site » 9,67 · « tu choisis ton créneau » 11,35 ·
+// « deux clics » 12,56 · « et c'est réservé » 13,31 · « Ton coiffeur dormait. » 14,52 · « Son site, non. » 15,6
+var SUB17 = [[0, 'Il est 22 h.'], [1.16, 'Tu veux une coupe pour demain,<br>tu écris à ton coiffeur…'], [4.4, 'Rien.'], [5.11, 'Allô ?'], [5.9, 'Toujours rien.'],
+  [6.88, 'Normal : à 22 h,<br>ton coiffeur, il dort.'], [9.67, 'Alors que s’il avait un site :'], [11.35, 'tu choisis ton créneau,'], [12.56, 'deux clics…'],
+  [13.31, 'et c’est réservé.'], [14.45, 'Le lendemain matin,'], [15.52, 'il se réveille…'], [16.66, 'et regarde ça.'],
+  [17.97, 'Sa journée est pleine.'], [19.45, 'Pendant qu’il dormait, son site<br>lui a rempli sa journée.']];
+var R17 = {};
+if (RR === '17') {
+  $('sal').innerHTML = siteSalon() + bookingSheet();
+  R17.site = $('sal').querySelector('.site');
+  // demain = mercredi 14 (et pas jeudi 15)
+  Array.prototype.forEach.call($('sal').querySelectorAll('.sm-recap b'), function (b) { if (/Jeudi 15/.test(b.textContent)) b.textContent = 'Mercredi 14 octobre'; });
+}
+// v3 (13.10.2026) : accroche « on montre la fin d'abord » (4,6 s) puis rembobinage, puis l'histoire (voix x 1,05).
+var H17 = 4.6, K17 = 1.05;
+function r17(t) {
+  var lab, big;
+  if (t < 3.86) { r17core(lerp(16.2, 20.0, t / 3.86)); $('S17').style.filter = 'none';
+    lab = 'exemple fictif · le lendemain, 07:30'; big = t < 1.92 ? 'Ce coiffeur a dormi<br>toute la nuit…' : '… et sa journée s’est remplie<br>toute seule.'; }
+  else if (t < H17) { var r = inOut(p(t, 3.86, H17 - 3.86)); r17core(lerp(20.0, 0, r));
+    $('S17').style.filter = 'blur(' + (Math.sin(r * Math.PI) * 2.5) + 'px)';
+    lab = '◀◀ la veille, 22:04'; big = 'Rembobinons.'; }
+  else { $('S17').style.filter = 'none'; r17core((t - H17) * K17); return; }
+  setTxt($('l17'), lab); setTxt($('b17'), big);
+}
+function r17core(t) {
+  // 1. conversation
+  var MS = [['m1', 0], ['m2', 2.75], ['g1', 4.4], ['m3', 5.15], ['m4', 5.95]];
+  MS.forEach(function (m) { var e = $(m[0]), x = p(t, m[1], .22); e.style.opacity = t < m[1] ? 0 : 1; e.style.transform = 'scale(' + lerp(.85, 1, outBack(x)) + ')'; });
+  $('clk17').textContent = t < 2.75 ? '22:04' : (t < 5.15 ? (t < 4.4 ? '22:05' : '22:31') : (t < 5.95 ? '22:31' : '23:12'));
+  // 2. téléphone du coiffeur : 23:12, ne pas déranger → le lendemain : nouveau rendez-vous
+  var lkOn = (t >= 6.85 && t < 9.67) || (t >= 14.45 && t < 18.4);
+  $('lk').style.display = lkOn ? 'block' : 'none';
+  var morning = t >= 14.45;
+  setTxt($('lkh'), morning ? '07:30' : '23:12'); setTxt($('lkd'), morning ? 'mercredi 14 octobre' : 'mardi 13 octobre');
+  $('dnd').style.opacity = morning ? 0 : 1;
+  var x1 = p(t, 7.3, .3); $('n1').style.opacity = !morning && t >= 7.3 ? 1 : 0; $('n1').style.transform = 'translateY(' + ((1 - outExpo(x1)) * -20) + 'px)';
+  for (var ni = 0; ni < 6; ni++) { var tn = 15.6 + ni * .22, xn = p(t, tn, .3), en = $('nn' + ni);
+    en.style.opacity = morning && t >= tn ? 1 : 0; en.style.transform = 'translateY(' + ((1 - outExpo(xn)) * -24) + 'px) scale(' + lerp(.9, 1, outBack(xn)) + ')'; }
+  // agenda de la journée : complet
+  var agOn = t >= 17.85; $('ag').style.display = agOn ? 'block' : 'none';
+  $('ag').style.transform = 'translateY(' + ((1 - outExpo(p(t, 17.85, .45))) * 100) + '%)';
+  for (var ai = 0; ai < 7; ai++) { var xa = p(t, 18.1 + ai * .13, .25); $('ar' + ai).style.opacity = xa; $('ar' + ai).style.transform = 'translateX(' + ((1 - outExpo(xa)) * 30) + 'px)'; }
+  var xf = p(t, 19.15, .3); $('agf').style.opacity = xf; $('agf').style.transform = 'scale(' + lerp(.6, 1, outBack(xf)) + ')';
+  $('sb17').style.background = lkOn ? 'transparent' : (t >= 9.67 && t < 14.45 ? 'rgba(243,238,231,.97)' : (t >= 18.4 ? '#fff' : '#f0f2f5'));
+  $('sb17').style.color = lkOn ? '#fff' : '#111';
+  $('clk17').style.visibility = lkOn ? 'hidden' : 'visible'; if (t >= 18.4) $('clk17').textContent = '07:31';
+  // 3. le site du salon : réserver en deux clics
+  var salOn = t >= 9.67 && t < 14.45;
+  $('sal').style.display = salOn ? 'block' : 'none';
+  if (salOn) $('clk17').textContent = '22:04';
+  var yS = lerp(0, 120, inOut(p(t, 9.9, .8))) - lerp(0, 120, inOut(p(t, 10.85, .3)));
+  R17.site.style.transform = 'translateY(' + (-yS) + 'px)';
+  $('smcta').style.transform = 'scale(' + (t > 11.3 && t < 11.45 ? .97 : 1) + ')';
+  var sy = 1 - outExpo(p(t, 11.45, .38)); $('sheet').style.transform = 'translateY(' + (sy * 105) + '%)';
+  $('op0').classList.toggle('sel', t >= 11.85);
+  var pb = inOut(p(t, 12.05, .28));
+  $('paneA').style.transform = 'translateX(' + (-pb * 100) + '%)'; $('paneA').style.opacity = 1 - pb;
+  $('paneB').style.transform = 'translateX(' + ((1 - pb) * 100) + '%)'; $('paneB').style.opacity = pb;
+  $('st1').classList.toggle('on', t >= 12.05); $('st2').classList.toggle('on', t >= 12.75);
+  $('dy0').classList.toggle('sel', t >= 12.45); $('sl3').classList.toggle('sel', t >= 12.75);
+  $('go').classList.toggle('on', (t >= 11.85 && t < 12.05) || t >= 12.75);
+  $('go').textContent = t < 12.05 ? 'Continuer' : (t < 12.75 ? 'Confirmer' : 'Confirmer · mer. 14 à 14:00');
+  $('go').style.transform = 'scale(' + (t > 13.1 && t < 13.25 ? .97 : 1) + ')';
+  var ok = p(t, 13.3, .2); $('ok').style.opacity = ok;
+  $('ok').querySelector('.sm-ring').style.transform = 'scale(' + (t < 13.3 ? .3 : lerp(.3, 1, outBack(p(t, 13.3, .4)))) + ')';
+  finger($('tD'), t, [[11.3, $('smcta')], [11.85, $('op0')], [12.45, $('dy0')], [12.75, $('sl3')], [13.1, $('go')]]);
+  // textes
+  var lab = t < 6.85 ? (t < 5.95 ? (t < 4.4 ? '22:04 · exemple fictif' : '22:31') : '23:12') : (t < 9.67 ? 'pendant ce temps, chez ton coiffeur' :
+    (t < 14.45 ? 'avec un site · exemple fictif' : (t < 17.85 ? 'le lendemain matin, chez ton coiffeur' : 'son agenda · exemple fictif')));
+  setTxt($('l17'), lab);
+  setTxt($('b17'), held(t, SUB17));
+}
+
+
+// ======================= R19 : ton idée → ton site (v2, message direct) =======================
+// voix : audio/voix_r19.mp3 = audio/i2_a.mp3 (Noah). Repères : « T'as une idée… » 0 · « Il te faut juste un site » 2,27 ·
+// « réservations toutes seules » 3,73 · « Lavage… guitare… gâteaux » 5,74–8,67 · « Pendant que tu dors » 9,05 · « tu bosses » 10,06 ·
+// « en vacances » 11,0 · « les gens réservent » 12,11 · « plus besoin de répondre au téléphone » 13,37 · « Et le mieux ? » 15,47 ·
+// « Ta maquette, je te la fais gratuitement » 16,32 · « Écris-moi ton idée » 18,45
+var SUB19 = [[0, 'T’as une idée, un talent,<br>un projet ?'], [2.27, 'Il te faut juste un site…'], [3.73, '… et les réservations<br>se font toutes seules.'],
+  [5.74, 'Lavage de voitures…'], [6.75, 'cours de guitare…'], [7.8, 'gâteaux…'], [9.05, 'Pendant que tu dors,'], [10.06, 'pendant que tu bosses,'],
+  [11.0, 'même en vacances :'], [12.11, 'les gens réservent.'], [13.37, 'Toi, plus besoin de répondre<br>au téléphone.'], [15.47, 'Et le mieux ?'],
+  [16.32, 'Ta maquette, je te la fais<br>gratuitement.'], [18.45, 'Écris-moi ton idée.']];
+// sites : [début, fin]
+var SITES19 = [[2.3, 6.75], [6.75, 7.8], [7.8, 9.0]];
+// bannières : [élément, apparition, disparition]
+var BANS19 = [['bk0', 4.0, 6.6], ['bk1', 4.4, 6.6], ['bk2', 4.8, 6.6], ['bk3', 7.05, 7.7], ['bk4', 8.1, 8.95]];
+function r19(t) {
+  // la note
+  ['li0', 'li1', 'li2'].forEach(function (id, i) { var e = $(id);
+    e.classList.toggle('on', i === 0 && t >= 1.95 && t < 2.3); e.classList.toggle('done', t >= 15.3); });
+  $('no').style.display = t < 2.3 || t >= 15.3 ? 'block' : 'none';
+  // sites
+  SITES19.forEach(function (S, i) {
+    var e = $('ms' + i), on = t >= S[0] && t < S[1], x = p(t, S[0], .35);
+    e.style.opacity = on ? Math.min(1, x * 2.5) : 0;
+    e.style.transform = 'translateY(' + ((1 - outExpo(x)) * (i ? 0 : 60)) + 'px) translateX(' + (i ? (1 - outExpo(x)) * 100 : 0) + '%)';
+    $('mb' + i).style.transform = 'scale(1)';
+  });
+  BANS19.forEach(function (B) { var e = $(B[0]), x = p(t, B[1], .3), o = t >= B[2] ? 1 - p(t, B[2], .15) : 1;
+    e.style.opacity = t >= B[1] ? o : 0; e.style.transform = 'translateY(' + ((1 - outExpo(x)) * -70) + 'px)'; });
+  $('bn19').style.opacity = 0;
+  // écran verrouillé : les réservations arrivent la nuit, la journée, le week-end
+  var lkOn = t >= 9.0 && t < 15.3; $('lk19').style.display = lkOn ? 'block' : 'none';
+  var ph = t < 10.06 ? 0 : (t < 11.0 ? 1 : 2);
+  setTxt($('lk19h'), ['02:14', '14:30', '11:05'][ph]); setTxt($('lk19d'), ['mercredi', 'mercredi', 'samedi'][ph]);
+  for (var q = 0; q < 9; q++) { var tq = 9.2 + Math.floor(q / 3) * 1.0 + (q % 3) * .25, xq = p(t, tq, .3), eq = $('lq' + q);
+    eq.style.opacity = t >= tq ? 1 : 0; eq.style.transform = 'translateY(' + ((1 - outExpo(xq)) * -20) + 'px)'; }
+  $('sb19').style.background = lkOn ? 'transparent' : ''; $('sb19').style.color = lkOn ? '#fff' : '';
+  finger($('tE'), t, [[2.15, $('li0')]]);
+  // fin : « ton idée ? » + emplacement de la maquette gratuite
+  var T = 'Ton idée ?', n = Math.round(lerp(0, T.length, p(t, 15.5, .5)));
+  setTxt($('li3t'), t >= 15.5 ? T.slice(0, n) : '');
+  $('li3').classList.toggle('on', t >= 15.4); $('li3').style.opacity = t >= 15.3 ? 1 : 0;
+  $('cur19').style.opacity = t >= 15.3 && Math.floor(t * 2.5) % 2 === 0 ? 1 : 0;
+  var xk = p(t, 16.35, .4); $('sk19').style.opacity = xk; $('sk19').style.transform = 'translateY(' + ((1 - outExpo(xk)) * 30) + 'px)';
+  Array.prototype.forEach.call($('sk19').querySelectorAll('div'), function (d) { d.style.backgroundPosition = (100 - ((t * 60) % 300)) + '% 0'; });
+  // textes
+  var lab = t < 2.27 ? 'exemple fictif' : (t < 9.0 ? 'avec un site · exemples fictifs' :
+    (t < 15.3 ? ['02:14 · tu dors', '14:30 · tu bosses', 'samedi · t’es en vacances'][ph] + (t >= 13.37 ? ' · <b>9 réservations</b>' : '') : 'maquette <b>gratuite</b> · en 24 h'));
+  setTxt($('l19'), lab);
+  setTxt($('b19'), held(t, SUB19));
+}
+
+
+// ======================= R21 : tape ton nom sur Google (script B, messaging-architect) =======================
+// voix : audio/voix_r21.mp3 = audio/g_a.mp3 (Noah). Repères : « Tape le nom… » 0 · « Qu'est-ce que tu vois ? » 2,14 · « Pas de prix » 3,22 ·
+// « Pas d'horaires » 4,06 · « Pas de bouton pour réserver » 4,99 · « Ton client voit la même chose » 6,54 · « continue de scroller » 8,16 ·
+// « Voilà ce qu'il pourrait voir » 9,81 · « Tu veux voir le tien ? » 11,73 · « Je te le montre gratuitement, en 24 h » 12,74 · « Écris-moi maquette » 15,23
+var SUB21 = [[0, 'Tape le nom de ton commerce<br>sur Google.'], [2.14, 'Qu’est-ce que tu vois ?'], [3.22, 'Pas de prix.'], [4.06, 'Pas d’horaires.'],
+  [4.99, 'Pas de bouton pour réserver.'], [6.54, 'Ton client voit la même chose…'], [8.16, '… et il continue de scroller.'],
+  [9.81, 'Voilà ce qu’il pourrait voir<br>à la place.'], [11.73, 'Tu veux voir le tien ?'], [12.74, 'Je te le montre gratuitement,<br>en 24 heures.'],
+  [15.23, 'Écris-moi « MAQUETTE ».']];
+var R21 = {};
+if (RR === '21') {
+  $('gfw').innerHTML = ficheHTML2();
+  R21.lines = $('gfw').querySelectorAll('.f-line'); R21.dis = $('gfw').querySelector('.f-btns .dis');
+  $('sal21').innerHTML = siteSalon() + bookingSheet();
+  R21.site = $('sal21').querySelector('.site');
+  Array.prototype.forEach.call($('sal21').querySelectorAll('.sm-recap b'), function (b) { if (/Jeudi 15/.test(b.textContent)) b.textContent = 'Mercredi 14 octobre'; });
+}
+function r21(t) {
+  // recherche
+  var Q = 'Salon Mélanie', n = Math.round(lerp(0, Q.length, p(t, .05, .9)));
+  $('gq').textContent = Q.slice(0, n); $('gcur').style.opacity = t < 1.2 && Math.floor(t * 3) % 2 === 0 ? 1 : 0;
+  var xf = p(t, 1.1, .35); $('gfw').style.opacity = xf; $('gfw').style.transform = 'translateY(' + ((1 - outExpo(xf)) * 20) + 'px)';
+  // les manques s'allument : prix (ligne 2), horaires (ligne 0), réservation (ligne 3 + bouton Site Web)
+  [[2, 3.22], [0, 4.06], [3, 4.99]].forEach(function (k) { R21.lines[k[0]].classList.toggle('hot', t >= k[1] && t < 9.81); });
+  R21.dis.classList.toggle('hot', t >= 4.99 && t < 9.81);
+  // le client fait défiler et va chez le concurrent
+  var y = lerp(0, 330, inOut(p(t, 8.1, .8)));
+  $('gsc').style.transform = 'translateY(' + (-y) + 'px)';
+  $('cpr').style.transform = 'scale(' + (t > 9.0 && t < 9.15 ? .95 : 1) + ')';
+  // à la place : le site du salon, réservé en 2 clics
+  var salOn = t >= 9.81 && t < 12.74; $('sal21').style.display = salOn ? 'block' : 'none';
+  $('sal21').style.transform = 'translateX(' + ((1 - outExpo(p(t, 9.81, .4))) * 100) + '%)';
+  $('smcta').style.transform = 'scale(' + (t > 10.55 && t < 10.7 ? .97 : 1) + ')';
+  $('sheet').style.transform = 'translateY(' + ((1 - outExpo(p(t, 10.7, .3))) * 105) + '%)';
+  $('op0').classList.toggle('sel', t >= 11.0);
+  var pb = inOut(p(t, 11.15, .22));
+  $('paneA').style.transform = 'translateX(' + (-pb * 100) + '%)'; $('paneA').style.opacity = 1 - pb;
+  $('paneB').style.transform = 'translateX(' + ((1 - pb) * 100) + '%)'; $('paneB').style.opacity = pb;
+  $('st1').classList.toggle('on', t >= 11.15); $('st2').classList.toggle('on', t >= 11.75);
+  $('dy0').classList.toggle('sel', t >= 11.45); $('sl3').classList.toggle('sel', t >= 11.75);
+  $('go').classList.toggle('on', t >= 11.75); $('go').textContent = t < 11.15 ? 'Continuer' : 'Confirmer';
+  var ok = p(t, 12.0, .2); $('ok').style.opacity = ok;
+  $('ok').querySelector('.sm-ring').style.transform = 'scale(' + (t < 12.0 ? .3 : lerp(.3, 1, outBack(p(t, 12.0, .4)))) + ')';
+  // fin : conversation avec Wibzo
+  var waOn = t >= 12.74; $('wa21').style.display = waOn ? 'block' : 'none';
+  $('wa21').style.transform = 'translateY(' + ((1 - outExpo(p(t, 12.74, .4))) * 100) + '%)';
+  var x1 = p(t, 13.0, .25); $('w1').style.opacity = t >= 13.0 ? 1 : 0; $('w1').style.transform = 'scale(' + lerp(.85, 1, outBack(x1)) + ')';
+  var T = 'MAQUETTE', nT = Math.round(lerp(0, T.length, p(t, 14.9, .5)));
+  var sent = t >= 15.6;
+  $('winp').textContent = t >= 14.9 && !sent ? T.slice(0, nT) : 'Message'; $('winp').classList.toggle('typ', t >= 14.9 && !sent);
+  var x2 = p(t, 15.6, .25); $('w2').style.opacity = sent ? 1 : 0; $('w2').style.transform = 'scale(' + lerp(.85, 1, outBack(x2)) + ')';
+  $('sb21').style.background = waOn ? '#f0f2f5' : (salOn ? 'rgba(243,238,231,.97)' : '');
+  finger($('tF'), t, [[9.0, $('cpr')], [10.55, $('smcta')], [11.0, $('op0')], [11.45, $('dy0')], [11.75, $('sl3')], [11.95, $('go')], [15.5, $('winp')]],
+    [[8.1, 8.85, 620, 1550, 1000]]);
+  // textes
+  var lab = t < 2.14 ? 'exemple fictif' : (t < 6.54 ? 'sa fiche Google, sans site' : (t < 9.81 ? 'pendant ce temps, ton client' :
+    (t < 12.74 ? 'avec un site · exemple fictif' : 'maquette <b>gratuite</b> · en 24 h')));
+  setTxt($('l21'), lab);
+  setTxt($('b21'), held(t, SUB21));
+}
+
+
+// ======================= R23 : pub « La maquette est gratuite. Toujours gratuite. » =======================
+// voix : audio/voix_r23.mp3 = audio/f_a.mp3 (Clémence – Advertising, eleven_v4) accélérée x 1,12. Repères : « Avant de venir chez vous… » 0 ·
+// « vos horaires, vos prix, un bouton pour réserver » 3,1 · « S'ils ne trouvent rien… ils vont voir ailleurs » 5,76 · « Chez Wibzo… votre site » 8,06 ·
+// « La maquette est gratuite » 10,52 · « Toujours gratuite » 11,75 · « Elle vous plaît ? On continue » 12,91 · « Sinon, vous ne payez rien » 14,44 ·
+// « Wibzo » 15,93 · « Écrivez maquette sur WhatsApp » 16,66
+var SUB23 = [[0, 'Avant de venir chez vous, vos<br>clients regardent leur téléphone :'], [3.1, 'vos horaires, vos prix,<br>un bouton pour réserver.'],
+  [5.76, 'S’ils ne trouvent rien…'], [6.92, '… ils vont voir ailleurs.'], [8.06, 'Chez Wibzo, on vous montre<br>d’abord votre site.'],
+  [10.52, 'La maquette est gratuite.'], [11.75, 'Toujours gratuite.'], [12.91, 'Elle vous plaît ? On continue.'], [14.44, 'Sinon, vous ne payez rien.'],
+  [15.93, 'Wibzo.'], [16.66, 'Écrivez « MAQUETTE »<br>sur WhatsApp.']];
+var R23 = {};
+if (RR === '23') {
+  $('gfw3').innerHTML = ficheHTML2();
+  R23.lines = $('gfw3').querySelectorAll('.f-line'); R23.dis = $('gfw3').querySelector('.f-btns .dis');
+  $('sal23').innerHTML = siteSalon();
+  R23.site = $('sal23').querySelector('.site');
+}
+function r23(t) {
+  var Q = 'Salon Mélanie', n = Math.round(lerp(4, Q.length, p(t, 0, .6)));
+  $('gq3').textContent = Q.slice(0, n); $('gcur3').style.opacity = t < .9 && Math.floor(t * 3) % 2 === 0 ? 1 : 0;
+  var xf = p(t, 0, .25); $('gfw3').style.opacity = xf; $('gfw3').style.transform = 'translateY(' + ((1 - outExpo(xf)) * 20) + 'px)';
+  // horaires (ligne 0), prix (ligne 2), réservation (ligne 3)
+  [[0, 3.1], [2, 3.9], [3, 4.6]].forEach(function (k) { R23.lines[k[0]].classList.toggle('hot', t >= k[1] && t < 8.06); });
+  R23.dis.classList.toggle('hot', t >= 4.6 && t < 8.06);
+  $('gsc3').style.transform = 'translateY(' + (-lerp(0, 330, inOut(p(t, 5.8, .8)))) + 'px)';
+  $('cpr3').style.transform = 'scale(' + (t > 7.2 && t < 7.35 ? .95 : 1) + ')';
+  // le site Wibzo, puis la carte « 0.– CHF »
+  var salOn = t >= 8.06 && t < 15.9; $('sal23').style.display = salOn ? 'block' : 'none';
+  $('sal23').style.transform = 'translateX(' + ((1 - outExpo(p(t, 8.06, .45))) * 100) + '%)';
+  R23.site.style.transform = 'translateY(' + (-lerp(0, 160, inOut(p(t, 8.6, 1.6)))) + 'px)';
+  $('pc23').style.display = salOn ? 'block' : 'none';
+  $('pc23').style.transform = 'translateY(' + ((1 - outExpo(p(t, 10.45, .5))) * 120) + '%)';
+  var xt = p(t, 11.75, .3); $('tg23').style.opacity = t >= 11.75 ? 1 : 0; $('tg23').style.transform = 'scale(' + lerp(1.6, 1, outBack(xt)) + ') rotate(' + lerp(-8, -2, outExpo(xt)) + 'deg)';
+  var x1 = p(t, 12.91, .3); $('ch1').style.opacity = x1; $('ch1').classList.toggle('on', t >= 13.6);
+  var x2 = p(t, 14.2, .3); $('ch2').style.opacity = x2; $('ch2').classList.toggle('on2', t >= 14.45);
+  // carte de fin
+  var ecOn = t >= 15.85; $('ec23').style.display = ecOn ? 'block' : 'none'; $('ec23').style.opacity = p(t, 15.85, .3);
+  $('sb23').style.background = salOn ? 'rgba(243,238,231,.97)' : (ecOn ? '#fff' : '');
+  finger($('tG'), t, [[7.2, $('cpr3')], [13.6, $('ch1')], [14.45, $('ch2')]], [[5.8, 6.55, 620, 1550, 1000]]);
+  var lab = t < 3.1 ? 'exemple fictif' : (t < 5.76 ? 'votre fiche Google, sans site' : (t < 8.06 ? 'pendant ce temps, votre client' :
+    (t < 15.85 ? 'chez Wibzo · exemple fictif' : 'maquette <b>gratuite</b> · en 24 h')));
+  setTxt($('l23'), lab);
+  setTxt($('b23'), held(t, SUB23));
+}
+
+
+// ======================= R25 : « Ce coiffeur a des clients toute la journée » =======================
+// voix : audio/voix_r25.mp3 = audio/k_a.mp3 (Noah). Repères : « Ce coiffeur a des clients toute la journée » 0 · « jamais décroché son téléphone » 2,28 ·
+// « Son secret ? » 4,62 · « Un site où ses clients réservent tout seuls » 5,61 · « Tu veux le même ? » 7,96 · « Ta maquette est gratuite » 8,87 · « Écris-moi maquette » 10,03
+var SUB25 = [[0, 'Ce coiffeur a des clients<br>toute la journée…'], [2.28, '… et il n’a jamais décroché<br>son téléphone.'], [4.62, 'Son secret ?'],
+  [5.61, 'Un site où ses clients<br>réservent tout seuls.'], [7.96, 'Tu veux le même ?'], [8.87, 'Ta maquette est gratuite.'], [10.03, 'Écris-moi « MAQUETTE ».']];
+var R25 = {};
+if (RR === '25') {
+  $('sal25').innerHTML = siteSalon() + bookingSheet();
+  Array.prototype.forEach.call($('sal25').querySelectorAll('.sm-recap b'), function (b) { if (/Jeudi 15/.test(b.textContent)) b.textContent = 'Mercredi 14 octobre'; });
+}
+function hm(mins) { var h = Math.floor(mins / 60), m = Math.floor(mins % 60); return (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m; }
+function r25(t) {
+  // l'agenda se remplit en accéléré de 08:00 à 18:00 (2 rendez-vous déjà là à la 1re image)
+  var mins = lerp(8 * 60, 18 * 60, p(t, 0, 4.4)); setTxt($('ck25'), hm(mins)); setTxt($('sbk25'), hm(mins));
+  for (var i = 0; i < 7; i++) { var ti = i < 2 ? -1 : .4 + (i - 2) * .5, x = p(t, ti, .3), e = $('a25r' + i);
+    e.style.opacity = t >= ti ? 1 : 0; e.style.transform = 'translateX(' + ((1 - outExpo(x)) * 40) + 'px)'; }
+  var xc = p(t, 2.3, .3); $('call25').style.opacity = xc; $('call25').style.transform = 'scale(' + lerp(.6, 1, outBack(xc)) + ')';
+  var xf = p(t, 3.8, .3); $('agf25').style.opacity = xf; $('agf25').style.transform = 'scale(' + lerp(.6, 1, outBack(xf)) + ')';
+  // son secret : le site, réservé en 2 clics
+  var salOn = t >= 4.6 && t < 7.95; $('sal25').style.display = salOn ? 'block' : 'none';
+  $('sal25').style.transform = 'translateX(' + ((1 - outExpo(p(t, 4.6, .4))) * 100) + '%)';
+  if (salOn) setTxt($('sbk25'), '10:12');
+  $('smcta').style.transform = 'scale(' + (t > 5.9 && t < 6.05 ? .97 : 1) + ')';
+  $('sheet').style.transform = 'translateY(' + ((1 - outExpo(p(t, 6.05, .3))) * 105) + '%)';
+  $('op0').classList.toggle('sel', t >= 6.35);
+  var pb = inOut(p(t, 6.5, .22));
+  $('paneA').style.transform = 'translateX(' + (-pb * 100) + '%)'; $('paneA').style.opacity = 1 - pb;
+  $('paneB').style.transform = 'translateX(' + ((1 - pb) * 100) + '%)'; $('paneB').style.opacity = pb;
+  $('st1').classList.toggle('on', t >= 6.5); $('st2').classList.toggle('on', t >= 7.0);
+  $('dy0').classList.toggle('sel', t >= 6.75); $('sl3').classList.toggle('sel', t >= 7.0);
+  $('go').classList.toggle('on', t >= 7.0); $('go').textContent = t < 6.5 ? 'Continuer' : 'Confirmer';
+  var ok = p(t, 7.4, .2); $('ok').style.opacity = ok;
+  $('ok').querySelector('.sm-ring').style.transform = 'scale(' + (t < 7.4 ? .3 : lerp(.3, 1, outBack(p(t, 7.4, .4)))) + ')';
+  // fin : carte Wibzo
+  var ecOn = t >= 7.95; $('ec25').style.display = ecOn ? 'block' : 'none'; $('ec25').style.opacity = p(t, 7.95, .3);
+  $('sb25').style.background = salOn ? 'rgba(243,238,231,.97)' : '#fff';
+  finger($('tH'), t, [[5.9, $('smcta')], [6.35, $('op0')], [6.75, $('dy0')], [7.0, $('sl3')], [7.2, $('go')]]);
+  var lab = t < 4.6 ? 'exemple fictif · Salon Mélanie, aujourd’hui' : (t < 7.95 ? 'son secret · exemple fictif' : 'maquette <b>gratuite</b> · en 24 h');
+  setTxt($('l25'), lab);
+  setTxt($('b25'), held(t, SUB25));
+}
+
+
+// ======================= R27 : « Où sont passés tes clients ? » (style explainer laptop) =======================
+// voix : audio/voix_r27.mp3 = audio/s27.mp3 (Sara – Warm, ElevenLabs eleven_v4) accélérée x 1,12.
+// Repères : « Imagine : cette semaine, 30 personnes… » 0 · « 18 sont venues » 4,0 · « Où sont passées les 12 autres ? » 5,38 ·
+// fiche Google −4 : 7,03 / « quatre » ~8,6 · téléphone −5 : 12,77 / « cinq de plus » 14,78 · message 22 h −3 : 15,95 / « encore trois » 18,53 ·
+// « Et tu ne l'as jamais su… ailleurs » 19,58–23,67 · « Un site… même quand tu dors » 24,3–28,98 · « maquette gratuitement » 29,39 · « Écris-moi maquette » 33,82
+var DUR27 = 36.5;
+var SUB27 = [[0, 'Imagine : cette semaine,<br>30 personnes voulaient venir.'], [4.0, 'Seulement 18 sont venues.'], [5.38, 'Où sont passées<br>les 12 autres ?'],
+  [7.03, 'Ta fiche Google vide<br>en a fait fuir 4.'], [9.47, 'Pas de photo, pas de prix :<br>« c’est fermé ? »'], [12.77, 'Le téléphone qui sonne<br>pendant que tu coupes…'],
+  [14.78, '… 5 de plus.'], [15.95, 'Le message de 22 h,<br>sans réponse…'], [18.53, '… encore 3.'], [19.58, 'Et tu ne l’as jamais su.'],
+  [21.08, 'Elles ne t’ont rien dit…'], [22.33, '… elles ont réservé ailleurs.'], [24.3, 'Un site : tes horaires,<br>tes prix, un bouton…'],
+  [28.09, '… même quand tu dors.'], [29.39, 'Et ta maquette,<br>je te la fais gratuitement.'], [31.29, 'Tu vois ton site<br>avant de payer.'], [33.82, 'Écris-moi « MAQUETTE ».']];
+var BITES27 = [[8.6, 0, 4, 'mA'], [14.8, 4, 9, 'mB'], [18.53, 9, 12, 'mC']];
+function count27(t) {
+  if (t < 4.0) return 30;
+  if (t < 7.03) return Math.round(lerp(30, 18, outExpo(p(t, 4.0, .6))));
+  var n = 30; BITES27.forEach(function (b) { if (t >= b[0]) n -= (b[2] - b[1]); });
+  if (t >= 28.09) n = Math.round(lerp(18, 30, p(t, 28.09, .9)));
+  return n;
+}
+function r27(t) {
+  var sc = { z1: (t < 5.38) || (t >= 7.03 && t < 19.58) || (t >= 24.3 && t < 29.39), z2: t >= 5.38 && t < 7.03, z3: t >= 19.58 && t < 24.3, z4: t >= 29.39 };
+  for (var k in sc) $(k).style.display = sc[k] ? 'block' : 'none';
+  // la boule
+  var n = count27(t), ball = $('ball27');
+  setTxt($('bn27'), String(n));
+  var scl = Math.sqrt(n / 30), bx = 0;
+  if (t < .3) scl *= outBack(p(t, 0, .3)) * .2 + .8;
+  BITES27.forEach(function (b) { var d = t - b[0]; if (d > 0 && d < .4) bx += Math.sin(d * 60) * 12 * (1 - d / .4); });
+  if (t >= 24.3 && t < 29.39) bx += lerp(0, 190, inOut(p(t, 24.3, .5)));
+  var pulse = t >= 28.09 && t < 29.39 ? 1 + .06 * Math.sin((t - 28.09) * 9) : 1;
+  ball.style.transform = 'translateX(' + bx + 'px) scale(' + (scl * pulse) + ')';
+  setTxt($('bs27'), t < 4.0 ? 'voulaient venir' : (t < 7.03 ? 'sont venues' : (t >= 24.3 ? 'clients' : 'clients')));
+  var kl = t < 4.0 ? 'cette semaine · exemple fictif' : (t < 7.03 ? 'celles qui sont <em>vraiment</em> venues' : (t < 19.58 ? 'les fuites' : (t >= 28.09 ? '<em>même</em> la nuit' : 'avec un site')));
+  setTxt($('k27'), kl);
+  // les monstres
+  [['mA', 7.03, 12.6, -1, 40, 200], ['mB', 12.77, 15.9, 1, 742, 200], ['mC', 15.95, 19.5, -1, 40, 200]].forEach(function (m) {
+    var e = $(m[0]), on = t >= m[1] && t < m[2], xin = outBack(p(t, m[1], .5)), xout = p(t, m[2] - .3, .3);
+    e.style.display = on ? 'block' : 'none';
+    var x = m[4] + m[3] * (1 - xin) * 260 + m[3] * xout * 260, wob = Math.sin(t * 5) * 6;
+    var jit = m[0] === 'mB' ? Math.sin(t * 70) * 4 : 0;
+    e.style.left = (x + jit) + 'px'; e.style.top = (m[5] + wob) + 'px';
+    e.style.transform = 'scaleX(' + (m[3] > 0 ? -1 : 1) + ')';
+  });
+  // les clients qui s'envolent vers le monstre, puis reviennent à la fin
+  for (var i = 0; i < 12; i++) {
+    var d = $('d27_' + i), b = BITES27[i < 4 ? 0 : (i < 9 ? 1 : 2)], tgt = b[3] === 'mB' ? [827, 285] : [125, 285];
+    var t0 = b[0] + (i - b[1]) * .06, x = p(t, t0, .45), back = p(t, 28.09 + i * .05, .5);
+    var cx = 476 + bx, cy = 306, ang = i * 2.4, sx = cx + Math.cos(ang) * 60, sy = cy + Math.sin(ang) * 60;
+    var vis = (t >= t0 && x < 1) || (t >= 28.09 && back < 1 && t < 29.39);
+    d.style.display = vis ? 'block' : 'none';
+    if (t >= 28.09) { var fx = 476 + 190 + Math.cos(ang) * 420, fy = 306 + Math.sin(ang) * 320;
+      d.style.left = (lerp(fx, cx, inOut(back)) - 13) + 'px'; d.style.top = (lerp(fy, cy, inOut(back)) - 13) + 'px'; d.style.background = '#22c55e'; }
+    else { d.style.left = (lerp(sx, tgt[0], inOut(x)) - 13) + 'px'; d.style.top = (lerp(sy, tgt[1], inOut(x)) - 13 - Math.sin(x * Math.PI) * 90) + 'px'; d.style.background = '#f26a1b'; }
+  }
+  // le « −4 / −5 / −3 »
+  var mn = $('mn27'), cur = null; BITES27.forEach(function (b) { if (t >= b[0] && t < b[0] + 2.2) cur = b; });
+  if (t >= 28.09 && t < 29.39) cur = [28.09, 0, -12, 'plus'];
+  mn.style.display = cur ? 'block' : 'none';
+  if (cur) { var xm = p(t, cur[0], .4), plus = cur[3] === 'plus';
+    setTxt(mn, plus ? '+12' : '−' + (cur[2] - cur[1])); mn.style.color = plus ? '#16a34a' : '#e53935';
+    mn.style.left = (plus ? 640 : (cur[3] === 'mB' ? 600 : 270)) + 'px'; mn.style.top = (120 - outExpo(xm) * 40) + 'px'; mn.style.opacity = Math.min(1, xm * 3); }
+  // 22:47 … ailleurs
+  setTxt($('clk27'), t < 21.08 ? '22:47' : (t < 22.33 ? '23:12' : '23:58'));
+  var xa = p(t, 22.6, .5); $('aw27').style.opacity = xa; $('aw27').style.transform = 'translateY(' + ((1 - outExpo(xa)) * 30) + 'px)';
+  // ? qui tombe
+  var xq = p(t, 5.38, .5); $('qm27').style.transform = 'translate(-50%, -50%) rotate(' + lerp(-25, 0, outBack(xq)) + 'deg) scale(' + lerp(.4, 1, outBack(xq)) + ')';
+  // le site
+  var msOn = t >= 24.3 && t < 29.39, xs = p(t, 24.3, .5); $('ms27').style.display = msOn ? 'block' : 'none';
+  $('ms27').style.transform = 'translateY(' + ((1 - outExpo(xs)) * 80) + 'px)'; $('ms27').style.opacity = xs;
+  $('msb27').style.background = t >= 26.63 ? '#f26a1b' : '#2a201b';
+  $('msb27').style.transform = 'scale(' + (t >= 26.63 && t < 27.0 ? 1.06 : 1) + ')';
+  // carte de fin
+  var xe = p(t, 29.39, .4); $('z4').style.opacity = xe;
+  setTxt($('l27'), t < 29.39 ? 'exemple fictif' : 'maquette <b>gratuite</b> · en 24 h');
+  setTxt($('b27'), held(t, SUB27));
+}
+
+window.render = function (t) { ({ 11: r11, 13: r13, 15: r15, 17: r17, 19: r19, 21: r21, 23: r23, 25: r25, 27: r27 })[RR](t); };
+render(0);
+if (!/render/.test(location.search)) { var t0 = performance.now(); (function loop() { render(((performance.now() - t0) / 1000) % ({ 11: 13.2, 13: 18.3, 15: 19.0, 17: 26.2, 19: 20.0, 21: 17.4, 23: 18.9, 25: 13.0, 27: DUR27 })[RR]); requestAnimationFrame(loop); })(); }
+</script>
+</body>
+</html>

@@ -16,6 +16,7 @@ for (const k in CFG) DUR[k] = CFG[k].dur;
 // Reel 2 : plus besoin, audio/voix_r2.mp3 est déjà monté (13.10.2026, avec la phrase « Et là, le client réserve tout seul… »).
 // L'ancienne voix est dans audio/voix_r2_v1.mp3.
 const SEG = {};
+for (const k in CFG) if (CFG[k].seg) SEG[k] = CFG[k].seg; // morceaux de voix placés depuis config.js
 
 const list = process.argv.slice(2).length ? process.argv.slice(2) : ['1', '2', '3'];
 for (const r of list) {

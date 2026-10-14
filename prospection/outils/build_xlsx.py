@@ -1,3 +1,4 @@
+import re
 import sys
 from urllib.parse import quote
 from openpyxl import Workbook
@@ -13,6 +14,21 @@ MSG = ("Bonjour, je suis Ryan, créateur web dans la région.\n\n"
        "Je peux vous préparer une maquette gratuite en 24 h, sans rien à faire de votre côté. "
        "Si elle ne vous plaît pas, on en reste là.\n\n"
        "Je vous l'envoie ?")
+
+# Nouveau message (14.10.2026, après recherche Instagram) pour tous les commerces pas encore « Envoyé ».
+# Les messages déjà envoyés gardent MSG ci-dessus. Voir PROCESS.md.
+MSG_V2 = ("Bonjour, ici Ryan de Wibzo, je crée des sites pour les commerces de la région.\n\n"
+          "{line} Mais quand un nouveau client vous cherche sur Google, il ne trouve pas de site pour {benefit}, "
+          "et il risque d'aller ailleurs.\n\n"
+          "Je peux vous préparer la maquette de votre site, gratuitement, en 24 h. "
+          "Si elle ne vous plaît pas, on en reste là.\n\n"
+          "Je vous la prépare ?")
+BENEFIT_V2 = {
+    "rdv": "voir vos prestations et réserver",
+    "devis": "voir vos réalisations et demander un devis",
+    "resto": "voir votre carte et vos horaires",
+    "shop": "voir vos produits et vos horaires",
+}
 
 BENEFIT = {
     "rdv": "Avec un site, vos clients pourraient voir vos prestations et réserver directement, même quand vous travaillez.",
@@ -74,7 +90,15 @@ for name, metier, village, rating, reviews, phone in rows:
         detail = f"vos {n} avis Google à 5/5"
     else:
         detail = f"votre fiche Google à {village}"
-    msg = MSG.format(detail=detail, benefit=BENEFIT[kind(metier)])
+    if ST.get(phone, ("", ""))[0].startswith("Envoyé"):
+        msg = MSG.format(detail=detail, benefit=BENEFIT[kind(metier)])
+    else:
+        short = re.sub(r"\s*\(.*\)\s*$", "", name).strip()
+        if (n >= 5 and r >= 4.5) or (n >= 3 and r == 5):
+            line = f"J'ai vu que {short} a {n} avis à {fr(rating)}/5 sur Google, vos clients sont visiblement contents."
+        else:
+            line = f"J'ai vu la fiche Google de {short} à {village}."
+        msg = MSG_V2.format(line=line, benefit=BENEFIT_V2[kind(metier)])
     link = f"https://wa.me/41{phone[1:]}?text={quote(msg)}"
     mob = f"{phone[:3]} {phone[3:6]} {phone[6:8]} {phone[8:]}"
     ws.append([name, metier, village, 1, f"{fr(rating)} ({n} avis)", detail, mob,

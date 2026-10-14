@@ -34,6 +34,7 @@ Déjà existant à réutiliser : pubs-v2/Wibzo_le-concurrent_4x5.mp4 et _9x16.mp
 ## Affiches prêtes (14.10.2026) → `visuels/`
 - `Wibzo_A-concurrent_4x5.png` / `_9x16.png` : avec le **texte A** (sombre, « Pas de site ? Le commerce d'à côté en a un. », 3 maquettes, maquette gratuite en 24 h).
 - `Wibzo_B-google_4x5.png` / `_9x16.png` : avec le **texte B** (clair, « Vos clients vous cherchent sur Google », avant/après fiche Google → site, reçu 0 CHF). = visuel n°1 avant/après.
+  **v2 (14.10.2026)** : avant plus petit et grisé avec 3 étiquettes rouges lisibles (✕ Pas de photos / prix / réservation), après au premier plan avec halo + « ✓ Réservation en 1 clic », reçu sur une ligne, bouton 9:16 remonté hors de la zone cachée par Instagram.
 - Changements par rapport à pubs-v2 : plus de bouton WhatsApp ni de numéro (→ « Demandez votre maquette ↓ », vers le bouton Meta), moins de texte, ajout « Payez seulement si elle vous plaît » + « Suisse romande », format 9:16 en plus.
 - Dans le Gestionnaire : 4:5 pour le fil, 9:16 pour Stories/Reels (« Personnaliser les médias selon le placement »).
 - Refaire : `cd pubs-v2` puis `node affiches-v3.js` (source : `pubs-v2/affiches-v3.html`).
@@ -56,3 +57,12 @@ Voir `records-pubs-domaine.md` : meilleure image = Ugo (prix 500€ + téléphon
 Structure de l'image record Ugo Studio (1,57 M personnes) aux couleurs Wibzo : haut clair texturé, téléphone « Garage Mercier » (exemple de maquette) coupé à gauche, « votre site internet pour seulement 500 CHF », badge « Basé en Suisse romande », bas noir « puis 25 CHF / mois » + « Hébergement, nom de domaine .ch et petites modifications inclus » + « ✓ Vous payez seulement si la maquette vous plaît », bouton « Maquette gratuite en 24 h ↓ ».
 ⚠️ Avant de lancer : confirmer que 500 CHF et 25 CHF/mois sont des prix FIXES (wibzo.ch dit « ~500 CHF » / « ~25 CHF/mois »). Une pub avec un prix exact engage (LCD). Mettre wibzo.ch au même prix.
 Refaire seulement celle-ci : `cd pubs-v2` puis `node affiches-v3.js c`.
+
+## Décision du 14.10.2026 (Ryan) — 3 pubs pour le test
+- Prix **validés comme fixes** : 500 CHF + 25 CHF/mois → l'affiche C peut être utilisée (mettre wibzo.ch au même prix : enlever les « ~ »).
+- Les 3 pubs du test : **B – Google** (image), **C – prix** (image), **vidéo « Toujours gratuite »** (fin adaptée au formulaire : « Demandez votre maquette, juste en dessous »).
+- A – concurrent mise de côté (trop proche de B).
+- Vidéo prête : `visuels/Wibzo_D-video-toujours-gratuite_9x16.mp4` (Stories/Reels) et `_4x5.mp4` (fil), 19 s, voix de femme Clémence,
+  fin « Wibzo. Demandez votre maquette, juste en dessous. » + bouton noir « Demandez votre maquette ↓ » (plus de WhatsApp). Source : `reels-organiques/natif.html?r=29`.
+- **Décision finale (14.10.2026, Ryan)** : la vidéo n'est pas retenue. Ensemble de pubs = **2 images : B – Google et C – prix**
+  (même texte, même formulaire, 4:5 fil + 9:16 Stories/Reels via « Personnaliser les médias selon le placement »). Bilan après 3–4 jours sur le coût par prospect.

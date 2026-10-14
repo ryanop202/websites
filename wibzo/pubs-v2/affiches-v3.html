@@ -58,6 +58,17 @@
 .cta.pc { z-index: 6; }
 .pk { margin-top: 22px; font: 700 24px/1.2 D; color: #d6d8d2; }
 .pk b { color: #C6FF3D; margin-right: 10px; }
+/* B v2 (14.10.2026) : avant qui choque (étiquettes rouges), après au premier plan, reçu sur une ligne */
+.xp { position: absolute; z-index: 7; display: flex; align-items: center; gap: 12px; padding: 12px 22px 12px 12px; border-radius: 999px; background: #fff; color: #b3261e; font: 800 28px/1 D; box-shadow: 0 12px 28px -10px rgba(120,20,10,.35); white-space: nowrap; }
+.xp i { width: 38px; height: 38px; border-radius: 50%; background: #e0362b; color: #fff; display: grid; place-items: center; font: 800 22px/1 D; font-style: normal; }
+.vp { position: absolute; z-index: 7; display: flex; align-items: center; gap: 12px; padding: 14px 26px 14px 14px; border-radius: 999px; background: #141414; color: #fff; font: 800 30px/1 D; box-shadow: 0 16px 34px -12px rgba(0,0,0,.45); white-space: nowrap; }
+.vp i { width: 42px; height: 42px; border-radius: 50%; background: #C6FF3D; color: #141414; display: grid; place-items: center; font: 800 26px/1 D; font-style: normal; }
+.halo { position: absolute; width: 760px; height: 760px; margin: -380px 0 0 -380px; border-radius: 50%; background: radial-gradient(closest-side, rgba(198,255,61,.55), rgba(198,255,61,0)); z-index: 1; }
+.strip.one { padding: 20px 28px 22px; }
+.strip.one .cols { margin-top: 0; }
+.strip.one .cols div { font-size: 20px; }
+.strip.one .cols b { font-size: 34px; }
+.strip.one .cols b.s { font: 800 25px/1.1 B; }
 .strip .ft { margin-top: 14px; padding-top: 12px; border-top: 2px dashed #ccc; text-align: center; font: 700 22px/1.2 "Courier New", monospace; }
 </style>
 </head>
@@ -121,23 +132,25 @@ if (K === 'a') {
       '<div class="pk"><b>✓</b>Vous payez seulement si la maquette vous plaît</div></div>' +
     '<div class="cta pc" style="top:' + C.cta + 'px">Maquette gratuite en 24 h<i>↓</i></div>';
 } else {
-  // B — clair, accroche « Google » (texte B). Avant/après : fiche Google vide → site. Bande « reçu » 0 CHF.
+  // B v2 — clair, accroche « Google » (texte B). Avant (petit, grisé, 3 manques en rouge) → après (grand, halo, « réservation en 1 clic »).
   f.classList.add('light');
-  var v = F === "916", s = v ? .62 : .5, y0 = T + (v ? 530 : 505);
-  var cx1 = v ? 290 : 300, cx2 = v ? 790 : 780;
-  h = '<div class="abs" style="left:70px;top:' + (T + 66) + 'px"><span class="logo" style="font-size:52px;color:#141414">Wibzo<span style="color:#7fb800">.</span></span></div>' +
-    '<div class="abs big" style="left:70px;top:' + (T + 160) + 'px;font-size:84px;color:#141414">Vos clients vous<br>cherchent sur Google.</div>' +
-    '<div class="abs big" style="left:70px;top:' + (T + (v ? 345 : 335)) + 'px;font-size:' + (v ? 60 : 54) + 'px;color:#e0362b;line-height:1">Ils trouvent<br>votre concurrent.</div>' +
-    '<span class="lab av" style="left:' + cx1 + 'px;top:' + (y0 - 56) + 'px">Votre fiche</span>' +
-    '<span class="lab ap" style="left:' + cx2 + 'px;top:' + (y0 - 56) + 'px">Votre site Wibzo</span>' +
-    phoneHTML('pa', 'fiche', { style: 'left:' + (cx1 - 200) + 'px;top:' + y0 + 'px;transform:scale(' + s + ') rotate(-3deg);filter:saturate(.6)' }) +
-    phoneHTML('pb', 'garage', { tag: true, style: 'left:' + (cx2 - 200) + 'px;top:' + y0 + 'px;transform:scale(' + s + ') rotate(3deg)' }) +
-    '<div class="arrow" style="left:540px;top:' + (y0 + 820 * s / 2) + 'px">→</div>';
-  var st = y0 + 820 * s + 36;
-  h += '<div class="strip" style="top:' + st + 'px"><div class="hd">REÇU WIBZO · SUISSE ROMANDE</div>' +
-      '<div class="cols"><div>Maquette<b class="z">0 CHF</b></div><div>Délai<b>&lt; 24 h</b></div><div>Engagement<b>aucun</b></div></div>' +
-      '<div class="ft">Vous payez seulement si elle vous plaît</div></div>' +
-    CTA(v ? T + 1300 : 1176);
+  var v = F === '916';
+  var L = v ? { hd: T + 150, rd: T + 335, lab: T + 450, pa: T + 525, sa: .54, cxa: 255, pb: T + 500, sb: .6, cxb: 770, st: T + 1075, cta: T + 1205 }
+            : { hd: 150, rd: 330, lab: 440, pa: 510, sa: .46, cxa: 250, pb: 485, sb: .6, cxb: 775, st: 1010, cta: 1176 };
+  h = '<div class="abs" style="left:70px;top:' + (L.hd - 94) + 'px"><span class="logo" style="font-size:52px;color:#141414">Wibzo<span style="color:#7fb800">.</span></span></div>' +
+    '<div class="abs big" style="left:70px;top:' + L.hd + 'px;font-size:' + (v ? 88 : 84) + 'px;color:#141414">Vos clients vous<br>cherchent sur Google.</div>' +
+    '<div class="abs big" style="left:70px;top:' + L.rd + 'px;font-size:56px;color:#e0362b;line-height:1">Ils trouvent votre concurrent.</div>' +
+    '<span class="lab av" style="left:' + L.cxa + 'px;top:' + L.lab + 'px">Votre fiche</span>' +
+    '<span class="lab ap" style="left:' + L.cxb + 'px;top:' + L.lab + 'px">Votre site Wibzo</span>' +
+    phoneHTML('pa', 'fiche', { style: 'left:' + (L.cxa - 200) + 'px;top:' + L.pa + 'px;transform:scale(' + L.sa + ') rotate(-7deg);filter:saturate(.35) brightness(.97);z-index:2' }) +
+    '<div class="halo" style="left:' + L.cxb + 'px;top:' + (L.pb + 820 * L.sb / 2) + 'px"></div>' +
+    phoneHTML('pb', 'garage', { tag: true, style: 'left:' + (L.cxb - 200) + 'px;top:' + L.pb + 'px;transform:scale(' + L.sb + ') rotate(4deg);z-index:3' });
+  var xy = L.pa + 820 * L.sa * .34;
+  ['Pas de photos', 'Pas de prix', 'Pas de réservation'].forEach(function (t, i) {
+    h += '<div class="xp" style="left:' + (L.cxa - 30 + i * 18) + 'px;top:' + (xy + i * 78) + 'px"><i>✕</i>' + t + '</div>'; });
+  h += '<div class="vp" style="left:' + (L.cxb - 210) + 'px;top:' + (L.pb + 820 * L.sb - 40) + 'px"><i>✓</i>Réservation en 1 clic</div>';
+  h += '<div class="strip one" style="top:' + L.st + 'px"><div class="cols"><div>Maquette<b class="z">0 CHF</b></div><div>Délai<b>&lt; 24 h</b></div>' +
+      '<div>Vous payez<b class="s">si elle vous plaît</b></div></div></div>' + CTA(L.cta);
 }
 document.getElementById('c').innerHTML = h;
 </script>

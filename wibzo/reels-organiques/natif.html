@@ -474,6 +474,8 @@
 <script>
 var Q = new URLSearchParams(location.search), RR = Q.get('r') || '13';
 var $ = function (id) { return document.getElementById(id); };
+// r=29 : même pub que r=23, mais fin pour le formulaire Meta (« Demandez votre maquette, juste en dessous »)
+var FORM23 = RR === '29'; if (FORM23) RR = '23';
 $('r' + RR).style.display = 'block';
 var K = 1080 / 378;
 var clamp = function (x, a, b) { return Math.min(b === undefined ? 1 : b, Math.max(a || 0, x)); };
@@ -878,6 +880,13 @@ var SUB23 = [[0, 'Avant de venir chez vous, vos<br>clients regardent leur télé
   [10.52, 'La maquette est gratuite.'], [11.75, 'Toujours gratuite.'], [12.91, 'Elle vous plaît ? On continue.'], [14.44, 'Sinon, vous ne payez rien.'],
   [15.93, 'Wibzo.'], [16.66, 'Écrivez « MAQUETTE »<br>sur WhatsApp.']];
 var R23 = {};
+if (RR === '23' && FORM23) {
+  SUB23[SUB23.length - 1] = [16.64, 'Demandez votre maquette,<br>juste en dessous.'];
+  var ec = $('ec23');
+  ec.querySelector('.wa2').innerHTML = 'Demandez votre maquette <u>↓</u>';
+  ec.querySelector('.wa2').style.background = '#141414'; ec.querySelector('.wa2 u').style.background = '#C6FF3D'; ec.querySelector('.wa2 u').style.color = '#141414';
+  ec.querySelector('.nb').textContent = 'juste en dessous · gratuite, en 24 h';
+}
 if (RR === '23') {
   $('gfw3').innerHTML = ficheHTML2();
   R23.lines = $('gfw3').querySelectorAll('.f-line'); R23.dis = $('gfw3').querySelector('.f-btns .dis');

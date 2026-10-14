@@ -193,3 +193,8 @@ Classées par priorité. ⭐⭐⭐ = à produire en premier. « Signal visé » 
 - Avant/après et idées Reels pour entreprises : https://www.socialpilot.co/blog/instagram-reels-for-business · https://planable.io/blog/instagram-reels-ideas/
 - Carrousels vs Reels : https://metricool.com/press-release-instagram-study-2026/ · https://posteverywhere.ai/blog/instagram-carousel-vs-reels
 - Idées pour artisans / commerçants (FR) : https://www.blank.app/blog/instagram-artisan-commercant · https://audreytips.com/idees-reel-instagram-entreprise/
+
+
+## Veille concurrence (14.10.2026)
+
+Vidéos virales « vendre des sites » + conseils de @timeo_klein : `wibzo/veille-concurrence/`.

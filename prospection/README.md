@@ -70,3 +70,9 @@ Plan des 2 vidéos :
 ### Prochaine étape
 
 12.10.2026 : pubs refaites (v2) → `wibzo/pubs-v2/` (voir son A-LIRE.md). Nouvelle cible : tous les commerces de Suisse romande, message « maquette gratuite en moins de 24 h ». Les décisions « secteur beauté » ci-dessus et `scripts-videos.md` sont remplacées. Reste : trancher le budget (CLAUDE.md), puis lancer.
+
+## Exclus / canal différent (notes du 14.10.2026)
+- **Coiffeur & Barber Fatoss pour hommes** (Payerne) : a déjà un site → retiré de la liste (prospects_broye.txt).
+- **Le Bar à Tif'** (Payerne, 077 921 09 45) : pas sur WhatsApp → le contacter par **SMS** (même message), appel ou passage au salon. Reste dans la liste.
+- **Zéro'Un - Barbershop** (Payerne, 078 334 39 38) : pas sur WhatsApp → **SMS** (même message), appel ou passage. Reste dans la liste.
+- **Arwend barber** (Payerne, 078 208 69 80) : pas sur WhatsApp → **SMS** (même message), appel ou passage. Reste dans la liste.

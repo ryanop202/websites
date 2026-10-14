@@ -60,6 +60,7 @@ Le but est d'abord de tester le marché et d'obtenir des premiers clients, puis 
 Ces prix sont des hypothèses à tester, pas des prix définitifs.
 
 Offre Wibzo actuelle (affichée sur wibzo.ch, 14.10.2026) : maquette 0 CHF, ~500 CHF le site, ~25 CHF/mois. C'est elle qui fait foi pour les pubs et les messages.
+**Prix FIXES validés par Ryan le 14.10.2026 : 500 CHF le site + 25 CHF/mois** (hébergement, domaine .ch, petites modifications). À reporter sur wibzo.ch (qui dit encore « ~500 » / « ~25 »).
 
 ## CONTRAINTES
 

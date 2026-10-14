@@ -1,0 +1,13 @@
+# Suivi des envois (numéro ¦ statut ¦ date d'envoi). Lu par build_xlsx.py → colonnes Statut / Date d'envoi / Date de relance (+3 jours).
+0797629900 ¦ Envoyé WhatsApp ¦ 14.10.2026
+0768373065 ¦ Envoyé WhatsApp ¦ 14.10.2026
+0787470768 ¦ Envoyé WhatsApp ¦ 14.10.2026
+0791006966 ¦ Envoyé WhatsApp ¦ 14.10.2026
+0798843705 ¦ Envoyé WhatsApp ¦ 14.10.2026
+0779210945 ¦ Pas WhatsApp → SMS à faire ¦ 
+0767781353 ¦ Envoyé WhatsApp ¦ 14.10.2026
+0783343938 ¦ Pas WhatsApp → SMS à faire ¦ 
+0782086980 ¦ Pas WhatsApp → SMS à faire ¦ 
+0767981544 ¦ Envoyé WhatsApp ¦ 14.10.2026
+0783127512 ¦ Envoyé WhatsApp ¦ 14.10.2026
+0765875562 ¦ Envoyé WhatsApp ¦ 14.10.2026

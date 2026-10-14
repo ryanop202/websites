@@ -49,4 +49,8 @@ module.exports = {
         music: { bpm: 92, pre: 'min', post: 'maj', drop: 24.3, pluck: false, sfx: [['pop', .1], ['whoosh', 4.0], ['pop', 5.4], ['whoosh', 7.1], ['impact', 8.6], ['whoosh', 12.8],
           ['buzz', 13.2], ['impact', 14.8], ['whoosh', 16.0], ['impact', 18.53], ['whoosh', 19.55], ['tick', 21.1], ['tick', 22.35], ['whoosh', 24.3], ['tap', 26.63],
           ['pop', 28.1], ['pop', 28.3], ['pop', 28.5], ['ding', 28.9], ['whoosh', 29.35], ['ding', 30.0]] } },
+  // Pub « Toujours gratuite » version FORMULAIRE META (14.10.2026) : fin « Wibzo. Demandez votre maquette, juste en dessous. » (audio/voix_r29.mp3).
+  29: { code: 'P-003b', dur: 19.2, name: 'P-003b_toujours-gratuite-formulaire', file: 'natif.html', pub: '../pubs-meta-formulaire/visuels/Wibzo_D-video-toujours-gratuite_9x16.mp4',
+        music: { bpm: 96, pre: 'maj', post: 'maj', drop: 8.06, pluck: false, sfx: [['tick', .1], ['tick', .25], ['tick', .4], ['buzz', 3.1], ['buzz', 3.9], ['buzz', 4.6],
+          ['whoosh', 5.8], ['tap', 7.2], ['whoosh', 8.06], ['whoosh', 10.45], ['ding', 10.6], ['impact', 11.75], ['tap', 13.6], ['tap', 14.45], ['whoosh', 15.85], ['ding', 16.0], ['pop', 16.7]] } },
 };

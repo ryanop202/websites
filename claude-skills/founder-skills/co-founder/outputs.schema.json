@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["outputs", "bottleneck", "hard_truth", "verdict", "next_move"],
+  "properties": {
+    "outputs": {
+      "type": "array",
+      "allOf": [
+        { "contains": { "const": "truth-memo.md" } },
+        { "contains": { "const": "founder-context.md" } },
+        { "contains": { "const": "recommended-next-step.md" } }
+      ]
+    },
+    "bottleneck": { "type": "string" },
+    "hard_truth": { "type": "string" },
+    "verdict": {
+      "type": "string",
+      "enum": ["do-not-build-yet", "validate-first", "narrow-build", "proceed-with-confidence"]
+    },
+    "next_move": {
+      "type": "object",
+      "required": ["type", "name", "reason"],
+      "properties": {
+        "type": { "enum": ["skill", "sequence"] },
+        "name": { "type": "string" },
+        "reason": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

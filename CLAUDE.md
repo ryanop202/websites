@@ -59,6 +59,8 @@ Le but est d'abord de tester le marché et d'obtenir des premiers clients, puis 
 
 Ces prix sont des hypothèses à tester, pas des prix définitifs.
 
+Offre Wibzo actuelle (affichée sur wibzo.ch, 14.10.2026) : maquette 0 CHF, ~500 CHF le site, ~25 CHF/mois. C'est elle qui fait foi pour les pubs et les messages.
+
 ## CONTRAINTES
 
 Budget initial :
@@ -69,7 +71,7 @@ Maximum environ 100 CHF dépensés par test.
 Temps disponible :
 10–20 heures par semaine.
 
-Publicité payante : un seul test Meta autorisé (décidé le 12.10.2026) : 100 CHF sur 8 jours (12,50 CHF/jour), 1 campagne, 1 ensemble de pubs, budget automatique, objectif messages WhatsApp. Pubs : `wibzo/pubs-v2/`. Pas d'autre dépense pub sans nouvelle décision de Ryan.
+Publicité payante : un seul test Meta autorisé (décidé le 12.10.2026, mis à jour le 14.10.2026) : 100 CHF sur 7 jours, Suisse romande, 25-65 ans, ciblage large, objectif **Prospects** avec **formulaire Meta instantané** (plus WhatsApp direct). Arrêt si 40 CHF dépensés sans prospect. Détails : `wibzo/pubs-meta-formulaire/A-LIRE.md`. Pas d'autre dépense pub sans nouvelle décision de Ryan.
 
 Avant de lancer réellement l'activité, vérifier :
 
@@ -309,3 +311,9 @@ vérifier les sources avant de les présenter comme des faits.
 Ne jamais supposer que la conversation précédente est disponible.
 
 Le dossier et ses fichiers constituent la source de vérité du projet.
+
+
+## MISE À JOUR 14.10.2026 — PUBS META
+
+Décisions et fichiers du jour : `wibzo/pubs-meta-formulaire/A-LIRE.md` (lire en premier).
+Destination des pubs = formulaire Meta (objectif Prospects). Numéro Wibzo unique : 076 757 43 93.

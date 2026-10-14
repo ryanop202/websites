@@ -1,11 +1,11 @@
 # Lancement Wibzo — état et prochaines étapes
 
-Dernière mise à jour : 12.10.2026 (soir). À lire au début de chaque nouvelle session, après CLAUDE.md.
+Dernière mise à jour : 14.10.2026. À lire au début de chaque nouvelle session, après CLAUDE.md.
 
 ## Résumé en 5 lignes
 - Wibzo = activité de Ryan : maquette de site **gratuite en moins de 24 h**, puis site payant si elle plaît (brief : ~500 CHF + 25 CHF/mois, voir `wibzo/A-COMPLETER.md`).
 - Site en ligne : **https://wibzo.ch** (version `wibzo/site-v3`), hébergé sur Netlify.
-- Pubs Meta prêtes : `wibzo/pubs-v2/` (2 vidéos avec voix + 2 affiches). Budget validé : **100 CHF sur 8 jours**.
+- Pubs Meta prêtes : `wibzo/pubs-v2/` (2 vidéos avec voix + 2 affiches). Budget validé : **100 CHF sur 7 jours**. ⚠️ Depuis le 14.10.2026 : pubs vers un **formulaire Meta** (objectif Prospects), voir `wibzo/pubs-meta-formulaire/A-LIRE.md`.
 - Fichier de prospection : `prospection/prospects_sans_site.xlsx` (206 commerces de la Broye sans site, avec mobile + message + lien WhatsApp).
 - Il reste : mentions légales, e-mail, WhatsApp Business, Meta, organisation pour livrer, puis lancement.
 
@@ -21,7 +21,7 @@ Dernière mise à jour : 12.10.2026 (soir). À lire au début de chaque nouvelle
   - Vidéo 2 `Wibzo_le-concurrent` : « Pendant que vous lisez ça, votre concurrent prend vos clients… » → même fin.
   - Affiche `Wibzo_affiche_pas-de-site_4x5.png` (sombre) et `Wibzo_affiche_peur-de-payer_4x5.png` (claire, ticket de caisse 0 CHF).
   - Voix : Théo (ElevenLabs). Photos des maquettes : IA (Higgsfield, Z Image). Commerces fictifs, « Exemple de maquette ».
-- **Décisions pubs** : tous commerces de Suisse romande, vouvoiement, marque Wibzo, WhatsApp **076 757 43 93**, mot-clé **« MAQUETTE »** (aussi en message pré-rempli), 1 campagne / 1 ensemble / budget automatique (Advantage+), ciblage large 25–60 ans, objectif Messages WhatsApp, ne rien toucher 7 jours. CLAUDE.md mis à jour (test de 100 CHF autorisé).
+- **Décisions pubs** : tous commerces de Suisse romande, vouvoiement, marque Wibzo, WhatsApp **076 757 43 93**, mot-clé **« MAQUETTE »** (aussi en message pré-rempli), 1 campagne / 1 ensemble / budget automatique (Advantage+), ciblage large 25–60 ans, objectif Messages WhatsApp, ne rien toucher 7 jours. **Remplacé le 14.10.2026** : objectif Prospects + formulaire Meta, 25–65 ans (voir `wibzo/pubs-meta-formulaire/`). CLAUDE.md mis à jour (test de 100 CHF autorisé).
 - **Copie des skills Claude** dans `claude-skills/` (installation : voir `claude-skills/README.md`).
 
 ## Points bloquants / à savoir
@@ -48,5 +48,5 @@ Dernière mise à jour : 12.10.2026 (soir). À lire au début de chaque nouvelle
 6. [ ] **Pouvoir livrer en < 24 h** : base de maquette réutilisable (1–2 h par commerce), tableau de suivi des contacts (date, maquette envoyée, réponse, vendu), limite ~3 maquettes/jour (mettre les pubs en pause si débordé).
 6b. [ ] **Test organique 1 semaine AVANT les pubs** — 3 premiers Reels + carrousel prêts pour le 13.10 dans `wibzo/reels-organiques/` (voir A-LIRE.md : heures, textes, comment programmer). Programmation automatique impossible tant qu'Instagram n'est pas relié à la page Facebook. (décision de Ryan, 12.10.2026) : 2–3 Reels/jour sur Instagram, comparer surtout la durée de visionnage, puis mettre en pub les 2–3 meilleures vidéos (sans musique Instagram).
 6c. [ ] **Test organique des pubs (13.10 → 16.10.2026)** : 4 vidéos « pub » postées à 12:00 (mar → ven). **Dimanche 18.10** : comparer (temps de visionnage d'abord), garder 1–2, Claude fait 2–3 débuts différents → ce sont elles qui partent en pub. Détails : `wibzo/pubs-organiques/LISEZ-MOI.md`.
-7. [ ] **Lancer les pubs** : 100 CHF / 8 jours. Bilan : ≥ 1 client = continuer ; conversations sans client = corriger maquette/prix/relance ; presque aucune conversation = nouveaux hooks/visuels.
+7. [ ] **Lancer les pubs** : 100 CHF / 7 jours, formulaire Meta. Avant : page protection des données + test du formulaire (voir `wibzo/pubs-meta-formulaire/A-LIRE.md`). Arrêt si 40 CHF sans prospect. Exporter les prospects chaque soir. Bilan : ≥ 1 client = continuer ; conversations sans client = corriger maquette/prix/relance ; presque aucune conversation = nouveaux hooks/visuels.
 8. [ ] **En parallèle** : messages WhatsApp aux 206 commerces du fichier, **20–30 par jour max** (risque de blocage du numéro ; règles LCD sur la prospection à vérifier).

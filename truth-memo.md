@@ -1,39 +1,37 @@
-# Truth Memo — 2026-10-13
+# Truth Memo — 2026-10-14
 
 ## Situation
-Wibzo (Ryan, Suisse romande) veut vendre des sites à des petits commerces : maquette gratuite en < 24 h, puis ~500 CHF + 25 CHF/mois (prix à tester). Site wibzo.ch en ligne, Instagram/Facebook créés le 12.10, Reels organiques publiés depuis le 13.10, pub Meta de 100 CHF prévue après le test organique.
+Wibzo (Ryan, Suisse romande) vend des sites à de petits commerces : maquette gratuite en moins de 24 h, puis environ 500 CHF + 25 CHF/mois (prix à tester). Le sprint de prospection directe de 5 jours (14–18.10) décidé le 13.10 commence aujourd'hui. La production de Reels continue en parallèle (posts prêts jusqu'au 15.10).
 
 ## Known
-- 6 commerces ont reçu un message + une démo le 30.09.2026 (Esta Barbershop, Menuiserie Roulin, Chez Buki, Création Natacha, Chez G Barbershop, physio Katty Van Puyenbroeck). Aucune réponse ni relance n'est notée dans PROSPECTS.md.
-- 206 commerces de la Broye sans site sont listés (prospects_sans_site.xlsx, mobile + message + lien WhatsApp prêts) — aucun contacté.
-- 0 client, 0 CHF encaissé, 0 conversation commerciale notée.
-- Compte Instagram : 2 abonnés le 13.10, quelques J'aime sur la 1re pub.
-- Beaucoup de temps investi en site, branding, pubs et Reels (refaits plusieurs fois le 13.10).
-- Bloquants admin : mentions légales vides (requises avant les pubs), WhatsApp Business pas fini, Netlify sans crédits.
+- Aucune nouvelle preuve depuis le 13.10 : 0 client, 0 CHF, 0 conversation commerciale notée.
+- 6 commerces ont reçu une démo le 30.09. Leurs réponses et relances ne sont toujours pas notées dans PROSPECTS.md. La date de la dernière relance prévue (07-10.10) est passée.
+- 206 prospects prêts dans `prospection/prospects_sans_site.xlsx`, aucun contacté.
+- 6 Reels/pubs organiques publiés ou prêts jusqu'au 15.10. Les posts du 16 au 19.10 ne sont pas fabriqués.
+- Points administratifs ouverts : mentions légales vides, WhatsApp Business pas fini, Netlify sans crédits (démos sans lien, mais les captures d'écran restent possibles).
+- 5 décisions sur l'offre ne sont pas prises (durée de l'abonnement, options, domaine, arrêt, retouches).
 
 ## Believed
-- Les petits commerces sans site veulent un site si on leur montre une maquette d'eux-mêmes.
-- La maquette gratuite en 24 h fait tomber la peur de payer.
-- 500 CHF + 25/mois est un prix acceptable.
+- Un commerçant sans site dira oui à une maquette s'il voit la sienne.
+- La maquette gratuite fait tomber la peur de payer.
+- 500 CHF + 25 CHF/mois est acceptable.
 
 ## Hoped
-- Les Reels / la pub Meta vont amener des demandes « MAQUETTE » sur WhatsApp.
-- Un compte Instagram à 2 abonnés peut générer des clients en quelques semaines.
+- Les Reels et la pub Meta amèneront des demandes « MAQUETTE ».
 
 ## Current Bottleneck
-pipeline / sales — personne n'a encore dit oui ni non à une offre ; on ne sait pas si l'offre se vend.
+pipeline / sales — on ne sait toujours pas si un commerçant veut l'offre.
 
 ## Main Contradiction
-« Les commerces veulent un site s'ils voient leur maquette » ↔ 6 maquettes envoyées il y a 2 semaines sans suite notée, et 206 prospects prêts jamais contactés, pendant que l'effort va dans le contenu.
+Le plan du 13.10 disait « prospection d'abord, pas de nouvelle vidéo » ↔ le 13.10 au soir, l'effort est encore allé dans de nouveaux Reels et 0 message de prospection n'est parti.
 
 ## Verdict
 validate-first
 
 ## One Next Move
-Action réelle : relancer les 6 démos + sprint de prospection directe (20 messages/jour sur 5 jours) et noter chaque réponse dans suivi-wibzo.xlsx.
+Action réelle : envoyer aujourd'hui les 20 premiers messages de prospection et la relance aux 6 commerces du 30.09, et tout noter dans `suivi-wibzo.xlsx`.
 
 ## What Would Change This
-- Si les 6 commerces ont déjà répondu (oui/non/prix) → passer à pipeline-reviewer avec ces réponses.
-- Si ≥ 2 commerces acceptent une maquette personnalisée sur ~100 contacts → l'offre tient : produire et livrer, puis pricing-model-framer.
-- Si presque personne ne répond → revoir le message (messaging-architect) avant toute pub payante.
-- Si les règles LCD sur la prospection par message interdisent ce canal → basculer sur visites en personne / appels.
+- ≥ 2 commerces demandent une maquette → passer à la livraison (LIVRER-UNE-MAQUETTE.md) et aux décisions de prix.
+- Beaucoup de réponses mais des « non » → `pipeline-reviewer` pour trouver la fuite (prix, confiance, pas besoin).
+- Presque aucune réponse sur ~100 messages → revoir le message d'approche ou la cible (`customer-hypothesis`).

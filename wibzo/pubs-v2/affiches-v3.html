@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Affiches Wibzo v3 (formulaire Meta)</title>
+<link rel="stylesheet" href="kit.css">
+<style>
+/* v3 (14.10.2026) : pubs vers le formulaire Meta. Moins de texte, pas de WhatsApp, rassurance locale. ?k=a|b & f=45|916 */
+#f { position: relative; overflow: hidden; background: #0D0F0E; font-family: D; color: #F2F0EA; }
+.bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,.04) 2px, transparent 2px); background-size: 90px 90px; }
+.glow { position: absolute; width: 1400px; height: 1400px; border-radius: 50%; background: radial-gradient(closest-side, rgba(198,255,61,.20), transparent); }
+.light { background: #F2EEE5 !important; color: #141414; }
+.light .bg { background-image: linear-gradient(rgba(0,0,0,.035) 2px, transparent 2px), linear-gradient(90deg, rgba(0,0,0,.035) 2px, transparent 2px); }
+.abs { position: absolute; }
+/* Bouton : renvoie au vrai bouton Meta « En savoir plus » juste sous l'image */
+.cta { position: absolute; left: 60px; right: 60px; height: 118px; border-radius: 999px; background: #C6FF3D; color: #0D0F0E; display: flex; align-items: center; justify-content: center; gap: 22px; font: 800 46px/1 B; letter-spacing: -.02em; box-shadow: 0 24px 60px -20px rgba(198,255,61,.55); }
+.cta i { flex: none; width: 70px; height: 70px; border-radius: 50%; background: #0D0F0E; color: #C6FF3D; display: grid; place-items: center; font: 800 44px/1 D; font-style: normal; }
+.light .cta { background: #141414; color: #fff; box-shadow: 0 24px 60px -24px rgba(0,0,0,.5); }
+.light .cta i { background: #C6FF3D; color: #141414; }
+/* Rassurance */
+.ok { font: 700 34px/1.25 D; color: #d6d8d2; z-index: 6; }
+.ok b { color: #C6FF3D; margin-right: 10px; }
+/* Étiquettes avant / après */
+.lab { position: absolute; transform: translateX(-50%); white-space: nowrap; padding: 10px 20px; border-radius: 999px; font: 800 24px/1 D; letter-spacing: .03em; text-transform: uppercase; }
+.lab.av { background: #fff; color: #b3261e; border: 2px solid #f1c9c5; }
+.lab.ap { background: #141414; color: #C6FF3D; }
+.arrow { position: absolute; width: 96px; height: 96px; margin: -48px 0 0 -48px; border-radius: 50%; background: #C6FF3D; color: #141414; display: grid; place-items: center; font: 800 54px/1 D; box-shadow: 0 16px 40px -12px rgba(0,0,0,.4); z-index: 5; }
+/* Reçu en bande (reprend l'idée du ticket 0 CHF) */
+.strip { position: absolute; left: 70px; right: 70px; padding: 22px 34px 24px; background: #fff; color: #141414; font-family: "Courier New", monospace; box-shadow: 0 30px 60px -30px rgba(0,0,0,.45), 0 2px 6px rgba(0,0,0,.08); transform: rotate(-1.2deg); }
+.strip:before, .strip:after { content: ""; position: absolute; left: 0; right: 0; height: 16px; background: linear-gradient(-45deg, transparent 11px, #fff 0) 0 0/22px 16px repeat-x, linear-gradient(45deg, transparent 11px, #fff 0) 0 0/22px 16px repeat-x; }
+.strip:before { top: -15px; transform: rotate(180deg); }
+.strip:after { bottom: -15px; }
+.strip .hd { font: 700 19px/1 "Courier New", monospace; color: #666; text-align: center; letter-spacing: .02em; }
+.strip .cols { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+.strip .cols div { flex: 1; display: grid; gap: 6px; text-align: center; font: 700 21px/1.1 "Courier New", monospace; color: #555; }
+.strip .cols div + div { border-left: 2px dashed #ccc; }
+.strip .cols b { font: 800 36px/1 B; color: #141414; letter-spacing: -.02em; }
+.strip .cols b.z { background: #C6FF3D; padding: 2px 10px 4px; border-radius: 8px; justify-self: center; }
+/* C — prix */
+.prix .bg { display: none; }
+.pl-top { position: absolute; left: 0; right: 0; top: 0; background: #F2EEE5 url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='360'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .32 0 0 0 0 .29 0 0 0 0 .24 0 0 0 .09 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+.pl-top:after { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 80% at 75% 40%, rgba(255,255,255,.55), transparent 70%), radial-gradient(50% 60% at 10% 90%, rgba(120,100,70,.08), transparent 70%); }
+.pl-bot { position: absolute; left: 0; right: 0; bottom: 0; background: #0D0F0E; overflow: hidden; }
+.pl-bot:before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,.04) 2px, transparent 2px); background-size: 90px 90px; }
+.pl-bot:after { content: ""; position: absolute; right: -300px; top: -500px; width: 1100px; height: 1100px; border-radius: 50%; background: radial-gradient(closest-side, rgba(198,255,61,.18), transparent); }
+.ch { position: absolute; display: flex; align-items: center; gap: 12px; padding: 10px 18px 10px 10px; border-radius: 999px; background: #fff; color: #141414; font: 700 22px/1 D; box-shadow: 0 8px 24px -10px rgba(0,0,0,.25); }
+.ch i { position: relative; width: 34px; height: 34px; border-radius: 6px; background: #DA291C; }
+.ch i:before, .ch i:after { content: ""; position: absolute; left: 50%; top: 50%; background: #fff; transform: translate(-50%, -50%); }
+.ch i:before { width: 20px; height: 6px; }
+.ch i:after { width: 6px; height: 20px; }
+.pt { font: 800 54px/1.02 D; letter-spacing: -.03em; color: #141414; }
+.pz { font-family: B; font-weight: 800; letter-spacing: -.06em; line-height: .8; color: #0D0F0E; display: flex; align-items: flex-start; }
+.pz small { font-size: .3em; letter-spacing: -.02em; margin: .1em 0 0 .12em; padding: .06em .2em .1em; border-radius: .14em; background: #C6FF3D; line-height: 1; }
+.pb { z-index: 5; }
+.pm { font: 700 40px/1 D; color: #d6d8d2; letter-spacing: -.01em; }
+.pm b { font: 800 72px/1 B; color: #C6FF3D; letter-spacing: -.03em; margin: 0 .08em; }
+.pi { margin-top: 18px; font: 600 28px/1.35 D; color: #9aa09a; }
+.cta.pc { z-index: 6; }
+.pk { margin-top: 22px; font: 700 24px/1.2 D; color: #d6d8d2; }
+.pk b { color: #C6FF3D; margin-right: 10px; }
+.strip .ft { margin-top: 14px; padding-top: 12px; border-top: 2px dashed #ccc; text-align: center; font: 700 22px/1.2 "Courier New", monospace; }
+</style>
+</head>
+<body>
+<div id="f"><div class="bg"></div><div id="c"></div></div>
+<script src="kit.js"></script>
+<script>
+var Q = new URLSearchParams(location.search);
+var K = Q.get('k') || 'a', F = Q.get('f') || '45';
+var W = 1080, H = F === '916' ? 1920 : F === '11' ? 1080 : 1350;
+var f = document.getElementById('f');
+f.style.width = W + 'px'; f.style.height = H + 'px';
+// En 9:16, tout le contenu reste entre ~200 px du haut et ~380 px du bas (zones couvertes par Stories/Reels)
+var T = F === '916' ? 190 : 0;
+var CTA = function (top) { return '<div class="cta" style="top:' + top + 'px">Demandez votre maquette<i>↓</i></div>'; };
+var h;
+
+if (K === 'a') {
+  // A — sombre, accroche « concurrent » (texte A). 3 maquettes, une promesse, rassurance locale.
+  var v = F === '916';
+  h = '<div class="glow" style="left:-160px;top:' + (T - 300) + 'px"></div>' +
+    '<div class="abs" style="left:70px;top:' + (T + 66) + 'px"><span class="logo" style="font-size:52px">Wibzo<span class="lime">.</span></span></div>' +
+    '<div class="abs big" style="left:70px;top:' + (T + 160) + 'px;font-size:' + (v ? 128 : 116) + 'px">Pas de site&nbsp;?</div>' +
+    '<div class="abs big red" style="left:70px;top:' + (T + (v ? 300 : 290)) + 'px;font-size:' + (v ? 64 : 58) + 'px;line-height:1">Le commerce d’à côté<br>en a un.</div>';
+  if (v) {
+    h += phoneHTML('p1', 'garage', { style: 'left:110px;top:' + (T + 520) + 'px;transform:scale(.6) rotate(-9deg)' }) +
+      phoneHTML('p2', 'boul', { style: 'left:570px;top:' + (T + 520) + 'px;transform:scale(.6) rotate(9deg)' }) +
+      phoneHTML('p3', 'coif', { on: true, tag: true, style: 'left:340px;top:' + (T + 470) + 'px;transform:scale(.66)' }) +
+      '<div class="abs" style="left:0;right:0;top:' + (T + 860) + 'px;height:200px;background:linear-gradient(180deg,rgba(13,15,14,0),#0D0F0E 70%)"></div>' +
+      '<div class="abs big" style="left:70px;top:' + (T + 1000) + 'px;font-size:96px">Maquette <span class="hl">gratuite</span></div>' +
+      '<div class="abs big lime" style="left:64px;top:' + (T + 1100) + 'px;font-size:150px;line-height:.85"><span style="font-size:72px;color:#F2F0EA;margin-right:.32em">en</span>24 H</div>' +
+      '<div class="abs ok" style="left:560px;top:' + (T + 1112) + 'px;font-size:30px"><b>✓</b>Payez seulement<br>si elle vous plaît<br><b>✓</b>Basé en Suisse romande</div>' +
+      CTA(T + 1290);
+  } else {
+    h += '<div class="abs big" style="left:70px;top:480px;font-size:118px;line-height:.9">Maquette<br><span class="hl">gratuite</span></div>' +
+      '<div class="abs big lime" style="left:64px;top:715px;font-size:230px;line-height:.82"><span style="font-size:96px;color:#F2F0EA;margin-right:.32em">en</span>24 H</div>' +
+      '<div class="abs ok" style="left:72px;top:975px;font-size:36px"><b>✓</b>Payez seulement si elle vous plaît<br><b>✓</b>Basé en Suisse romande</div>' +
+      phoneHTML('p1', 'garage', { style: 'left:610px;top:520px;transform:scale(.52) rotate(-10deg)' }) +
+      phoneHTML('p2', 'boul', { style: 'left:830px;top:500px;transform:scale(.52) rotate(10deg)' }) +
+      phoneHTML('p3', 'coif', { on: true, tag: true, style: 'left:720px;top:440px;transform:scale(.58)' }) +
+      '<div class="abs" style="left:660px;right:0;top:900px;height:200px;background:linear-gradient(180deg,rgba(13,15,14,0),#0D0F0E 70%)"></div>' +
+      CTA(1176);
+  }
+} else if (K === 'c') {
+  // C — « prix » (structure de l'image record Ugo Studio) : haut clair texturé + téléphone coupé à gauche + prix géant,
+  // bas noir : abonnement + ce qui est inclus + maquette gratuite. Formats 11 (1:1), 45, 916.
+  f.classList.add('prix');
+  var C = { '11': { sp: 590, pl: -78, pt: 120, ps: .8, x: 372, ti: 150, pz: 268, ib: 630, cta: 920 },
+            '45': { sp: 740, pl: -70, pt: 170, ps: .92, x: 410, ti: 215, pz: 262, ib: 790, cta: 1176 },
+            '916': { sp: T + 850, pl: -70, pt: T + 150, ps: .95, x: 410, ti: T + 220, pz: 255, ib: T + 920, cta: T + 1290 } }[F];
+  h = '<div class="pl-top" style="height:' + C.sp + 'px"></div>' +
+    '<div class="pl-bot" style="top:' + C.sp + 'px"></div>' +
+    '<div class="abs" style="left:' + C.x + 'px;top:' + (C.ti - 92) + 'px"><span class="logo" style="font-size:50px;color:#141414">Wibzo<span style="color:#7fb800">.</span></span></div>' +
+    '<div class="ch" style="right:56px;top:' + (C.ti - 96) + 'px"><i></i>Basé en Suisse romande</div>' +
+    phoneHTML('pc', 'garage', { tag: true, style: 'left:' + C.pl + 'px;top:' + C.pt + 'px;transform:scale(' + C.ps + ') rotate(-7deg);z-index:4' }) +
+    '<div class="abs pt" style="left:' + C.x + 'px;top:' + C.ti + 'px">votre site internet<br>pour seulement</div>' +
+    '<div class="abs pz" style="left:' + (C.x - 8) + 'px;top:' + (C.ti + 112) + 'px;font-size:' + C.pz + 'px">500<small>CHF</small></div>' +
+    '<div class="abs pb" style="left:' + C.x + 'px;top:' + C.ib + 'px">' +
+      '<div class="pm">puis <b>25 CHF</b> / mois</div>' +
+      '<div class="pi">Hébergement, nom de domaine .ch<br>et petites modifications inclus</div>' +
+      '<div class="pk"><b>✓</b>Vous payez seulement si la maquette vous plaît</div></div>' +
+    '<div class="cta pc" style="top:' + C.cta + 'px">Maquette gratuite en 24 h<i>↓</i></div>';
+} else {
+  // B — clair, accroche « Google » (texte B). Avant/après : fiche Google vide → site. Bande « reçu » 0 CHF.
+  f.classList.add('light');
+  var v = F === "916", s = v ? .62 : .5, y0 = T + (v ? 530 : 505);
+  var cx1 = v ? 290 : 300, cx2 = v ? 790 : 780;
+  h = '<div class="abs" style="left:70px;top:' + (T + 66) + 'px"><span class="logo" style="font-size:52px;color:#141414">Wibzo<span style="color:#7fb800">.</span></span></div>' +
+    '<div class="abs big" style="left:70px;top:' + (T + 160) + 'px;font-size:84px;color:#141414">Vos clients vous<br>cherchent sur Google.</div>' +
+    '<div class="abs big" style="left:70px;top:' + (T + (v ? 345 : 335)) + 'px;font-size:' + (v ? 60 : 54) + 'px;color:#e0362b;line-height:1">Ils trouvent<br>votre concurrent.</div>' +
+    '<span class="lab av" style="left:' + cx1 + 'px;top:' + (y0 - 56) + 'px">Votre fiche</span>' +
+    '<span class="lab ap" style="left:' + cx2 + 'px;top:' + (y0 - 56) + 'px">Votre site Wibzo</span>' +
+    phoneHTML('pa', 'fiche', { style: 'left:' + (cx1 - 200) + 'px;top:' + y0 + 'px;transform:scale(' + s + ') rotate(-3deg);filter:saturate(.6)' }) +
+    phoneHTML('pb', 'garage', { tag: true, style: 'left:' + (cx2 - 200) + 'px;top:' + y0 + 'px;transform:scale(' + s + ') rotate(3deg)' }) +
+    '<div class="arrow" style="left:540px;top:' + (y0 + 820 * s / 2) + 'px">→</div>';
+  var st = y0 + 820 * s + 36;
+  h += '<div class="strip" style="top:' + st + 'px"><div class="hd">REÇU WIBZO · SUISSE ROMANDE</div>' +
+      '<div class="cols"><div>Maquette<b class="z">0 CHF</b></div><div>Délai<b>&lt; 24 h</b></div><div>Engagement<b>aucun</b></div></div>' +
+      '<div class="ft">Vous payez seulement si elle vous plaît</div></div>' +
+    CTA(v ? T + 1300 : 1176);
+}
+document.getElementById('c').innerHTML = h;
+</script>
+</body>
+</html>

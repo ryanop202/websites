@@ -1,0 +1,290 @@
+<title>Pubs Site Pro Rapide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout : une colonne de lecture, des "cartes pub" schématiques en grille, chiffres en mono */
+:root{
+  --bg:#f5f6f2; --surface:#ffffff; --ink:#151a16; --muted:#5d665f; --line:#dde2da;
+  --accent:#4d7a00; --lime:#c6ff3d; --warn:#b4471f; --good:#2f7d32;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Source Sans 3",ui-sans-serif,system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1210; --surface:#171b18; --ink:#e9ede7; --muted:#9aa49c; --line:#2a312c;
+  --accent:#b6ec3a; --lime:#c6ff3d; --warn:#f08a5d; --good:#7bd389; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1210; --surface:#171b18; --ink:#e9ede7; --muted:#9aa49c; --line:#2a312c;
+  --accent:#b6ec3a; --lime:#c6ff3d; --warn:#f08a5d; --good:#7bd389; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:17px/1.55 var(--body)}
+.wrap{max-width:860px;margin:0 auto;padding-block:40px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:44px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(30px,6vw,46px);font-weight:700}
+h2{font-size:26px;font-weight:700;display:flex;align-items:baseline;gap:10px}
+h2 .n{font-family:var(--mono);font-size:13px;color:var(--muted);font-weight:500}
+h3{font-size:18px;font-weight:700}
+p{margin:0;max-width:65ch}
+section{display:grid;gap:16px}
+.eyebrow{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lede{font-size:19px;color:var(--muted)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.facts div{background:var(--surface);padding:14px 16px;display:grid;gap:2px}
+.facts b{font:500 22px var(--mono)}
+.facts span{font-size:14px;color:var(--muted)}
+/* reach bars */
+.reach{display:grid;gap:12px}
+.bar{display:grid;grid-template-columns:minmax(0,190px) 1fr;gap:12px;align-items:center}
+.bar .lab{font-size:15px;min-width:0}
+.bar .lab small{display:block;color:var(--muted);font-size:13px}
+.track{position:relative;height:30px;background:var(--line);border-radius:4px}
+.fill{height:100%;border-radius:4px;background:var(--accent)}
+.fill.off{background:var(--warn)}
+.track .v{position:absolute;left:8px;top:50%;transform:translateY(-50%);font:500 13px var(--mono);color:var(--ink)}
+.track .v.in{color:var(--bg)}
+.note{font-size:14px;color:var(--muted)}
+/* age chart */
+.ages{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;align-items:end;height:160px;padding-top:8px}
+.ages div{display:grid;gap:4px;justify-items:center;align-self:end}
+.ages i{display:block;width:100%;background:var(--accent);border-radius:3px 3px 0 0;opacity:.85}
+.ages span{font:500 12px var(--mono);color:var(--muted)}
+/* ad copy */
+.copy{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.ad{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:10px;align-content:start}
+.ad .tag{justify-self:start;font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;padding:3px 8px;border-radius:99px;background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.ad .tag.win{color:var(--good);border-color:currentColor}
+.ad .tag.lose{color:var(--warn);border-color:currentColor}
+.ad blockquote{margin:0;font-size:16px;line-height:1.45;white-space:pre-line;border-left:3px solid var(--line);padding-left:12px}
+/* creative mockups */
+.cre{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+.card{display:grid;gap:10px;align-content:start}
+.frame{aspect-ratio:1/1;max-width:100%;border-radius:8px;border:1px solid var(--line);background:var(--surface);padding:12px;display:grid;gap:6px;align-content:start;position:relative;overflow:hidden}
+.frame.tall{aspect-ratio:9/16;max-height:340px;justify-self:start;width:100%}
+.blk{background:var(--line);border-radius:4px}
+.hd{font:700 15px/1.15 var(--display)}
+.cta{justify-self:start;background:var(--accent);color:var(--bg);font:600 12px var(--body);padding:6px 10px;border-radius:6px}
+.person{position:absolute;right:10px;bottom:0;width:42%;height:62%;border-radius:40% 40% 0 0;background:var(--line)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1;height:70%}
+.split div{border-radius:6px;display:grid;place-items:center;font:500 11px var(--mono);color:var(--muted);background:var(--bg);border:1px dashed var(--line)}
+.split div:last-child{border-style:solid;border-color:var(--accent);color:var(--accent)}
+.stars{font:500 11px var(--mono);color:var(--muted);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:3px 6px;justify-self:start}
+.card p{font-size:15px}
+.card .k{font:500 11px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;counter-reset:s}
+.flow div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px;font-size:15px;display:grid;gap:4px}
+.flow div b{font-family:var(--display)}
+.flow.old div{opacity:.75;border-style:dashed}
+/* table */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 12px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:600}
+.drafts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.draft{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:10px;align-content:start}
+.draft pre{margin:0;white-space:pre-wrap;font:16px/1.5 var(--body)}
+.draft button{justify-self:start;font:600 14px var(--body);background:var(--ink);color:var(--bg);border:0;border-radius:6px;padding:7px 12px;cursor:pointer}
+.draft button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+ul{margin:0;padding-left:20px;display:grid;gap:6px;max-width:65ch}
+a{color:var(--accent)}
+.mark{background:linear-gradient(transparent 60%,color-mix(in srgb,var(--lime) 55%,transparent) 60%)}
+.links{display:flex;flex-wrap:wrap;gap:8px}
+.links a{font:500 13px var(--mono);padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface);text-decoration:none}
+</style>
+
+<main class="wrap">
+
+<header style="display:grid;gap:12px">
+  <span class="eyebrow">Analyse concurrent · Bibliothèque pub Meta · 14.10.2026</span>
+  <h1>Pubs Site Pro Rapide</h1>
+  <p class="lede">La pub de vente de sites la plus solide trouvée en France et en Suisse romande. Ce qu'ils montrent, à qui, où va le clic, et la version Wibzo pour la Suisse romande.</p>
+</header>
+
+<section>
+  <h2><span class="n">00</span>Les records du domaine</h2>
+  <p>Recherche complète du 14.10.2026 dans la Bibliothèque pub Meta : 6 recherches (création site internet, clé en main, site vitrine artisans, site internet professionnel, Solocal, Simplébo), pubs actives et arrêtées, triées par impressions. On garde seulement les entreprises qui <b>créent le site pour le client</b>, pas les outils à faire soi-même (Wix, Squarespace, Shopify).</p>
+  <h3>Classement par couverture (personnes touchées dans l'UE)</h3>
+  <div class="reach">
+    <div class="bar"><div class="lab">Ugo · image prix<small>8 mois · fév.-nov. 2025</small></div><div class="track"><div class="fill" style="width:100%"></div><span class="v in mono">1 573 679</span></div></div>
+    <div class="bar"><div class="lab">local.fr · image<small>active depuis nov. 2025</small></div><div class="track"><div class="fill" style="width:26.7%"></div><span class="v mono" style="left:calc(26.7% + 8px)">420 728</span></div></div>
+    <div class="bar"><div class="lab">local.fr · vidéo témoignage 11 s<small>active depuis avr. 2026</small></div><div class="track"><div class="fill" style="width:22.4%"></div><span class="v mono" style="left:calc(22.4% + 8px)">352 427</span></div></div>
+    <div class="bar"><div class="lab">Simplébo · vidéo dialogue 21 s<small>fév.-juin 2026</small></div><div class="track"><div class="fill" style="width:19.5%"></div><span class="v mono" style="left:calc(19.5% + 8px)">306 722</span></div></div>
+    <div class="bar"><div class="lab">local.fr · vidéo créateur 33 s<small>fév.-nov. 2025</small></div><div class="track"><div class="fill" style="width:16%"></div><span class="v mono" style="left:calc(16% + 8px)">252 490</span></div></div>
+    <div class="bar"><div class="lab">Site Pro Rapide · infographie<small>active depuis juin 2026</small></div><div class="track"><div class="fill" style="width:9.3%"></div><span class="v mono" style="left:calc(9.3% + 8px)">147 081</span></div></div>
+    <div class="bar"><div class="lab">Simplébo · vidéo sans personne 13 s<small>mai-oct. 2025</small></div><div class="track"><div class="fill" style="width:2.8%"></div><span class="v mono" style="left:calc(2.8% + 8px)">44 672</span></div></div>
+  </div>
+
+  <div class="copy">
+    <div class="ad"><span class="tag win">Meilleure image</span><h3>Ugo Studio</h3>
+      <blockquote>Logo Ugo · « Fabriqué en France »
+Votre site internet pour seulement 500€
+Téléphone avec le site d'un restaurant
+Abonnement à notre outil à partir de 45€ / mois sans engagement !
+Inclus : hébergement, nom de domaine, avis Google, réseaux, SMS…</blockquote>
+      <p class="note">Texte : « Confiez la création de votre site à Ugo Studio et concentrez-vous sur votre business. Demandez votre devis gratuit. » Une seule image, 8 mois de diffusion, <b>1,57 million</b> de personnes. C'est presque <b>ton offre exacte</b> (≈500 CHF + ≈25 CHF/mois).</p></div>
+    <div class="ad"><span class="tag win">Meilleure vidéo avec personne</span><h3>local.fr</h3>
+      <blockquote>Un artisan filme en selfie dans son atelier, 11 s, sous-titres :
+« Vous n'avez pas de site, ou personne ne vous trouve sur Google. Moi franchement, je n'y comprenais rien. Local.fr est venu directement à l'atelier. Ils ont pris le temps de comprendre mon boulot. Ils m'ont fait un site qui me ressemble… »</blockquote>
+      <p class="note">Texte : « Si votre entreprise n'est pas sur Google, vos clients vont chez vos concurrents. Local.fr vient chez vous… » <b>352 427</b> personnes, toujours active. Un <b>témoignage client</b>, pas une pub de l'agence.</p></div>
+    <div class="ad"><span class="tag">Meilleure vidéo sans personne</span><h3>Simplébo</h3>
+      <blockquote>Animation 13 s : une fiche Google d'un artisan se remplit (photo, avis, horaires, bouton site).
+« Découvrez les 3 erreurs de votre fiche Google »
+Bouton : Essai gratuit</blockquote>
+      <p class="note"><b>44 672</b> personnes en 5 mois. Les vidéos sans personne sont <b>rares et beaucoup moins diffusées</b> dans ce domaine : toutes les grosses vidéos ont quelqu'un dessus.</p></div>
+  </div>
+  <p><b>Ce que ça veut dire :</b> pour les images, la meilleure annonce <span class="mark">le prix en grand avec le site sur un téléphone</span>. Pour les vidéos, il faut <span class="mark">une vraie personne, en selfie, avec sous-titres</span>, idéalement un client qui raconte. Une vidéo sans personne marche nettement moins bien.</p>
+  <p class="note">Limites : couverture UE seulement (France surtout) ; la bibliothèque ne garde pas les très vieilles pubs, donc « record de tous les temps » = record visible aujourd'hui. Couverture ≠ clients. Les visages peuvent être des acteurs ou de l'IA (non vérifiable).</p>
+</section>
+
+<section>
+  <h2><span class="n">01</span>L'essentiel</h2>
+  <div class="facts">
+    <div><b>4 mois</b><span>pubs actives depuis le 11 juin 2026</span></div>
+    <div><b>64</b><span>pubs créées au total</span></div>
+    <div><b>~15</b><span>encore actives aujourd'hui</span></div>
+    <div><b>87</b><span>abonnés sur leur page Facebook</span></div>
+  </div>
+  <p>Payées par la société <b>PUREMIUM</b>. La page n'a presque pas d'abonnés : tout passe par la pub, pas par les réseaux sociaux. <b>siteprorapide.fr n'a pas de site</b> : c'est une page de parking chez Gandi (vérifié le 14.10.2026). Tout le parcours client se fait donc dans Facebook, puis par téléphone.</p>
+</section>
+
+<section>
+  <h2><span class="n">02</span>Combien de personnes ont vu chaque pub</h2>
+  <p>La bibliothèque Meta montre la <b>couverture</b> pour l'Europe : le nombre de personnes qui ont vu la pub au moins une fois. Meta met plus de budget sur les pubs qui marchent, donc c'est un bon indice.</p>
+  <div class="reach">
+    <div class="bar"><div class="lab">Infographie, sans personne<small>type A · 3 formats</small></div><div class="track"><div class="fill" style="width:100%"></div><span class="v in mono">147 081</span></div></div>
+    <div class="bar"><div class="lab">Vidéo selfie artisan 8 s<small>type F</small></div><div class="track"><div class="fill" style="width:34.2%"></div><span class="v mono" style="left:calc(34.2% + 8px)">50 333</span></div></div>
+    <div class="bar"><div class="lab">Photo femme e-commerce<small>type B</small></div><div class="track"><div class="fill" style="width:7.5%"></div><span class="v mono" style="left:calc(7.5% + 8px)">11 038</span></div></div>
+    <div class="bar"><div class="lab">Photo homme « 14 jours »<small>type B</small></div><div class="track"><div class="fill" style="width:7.1%"></div><span class="v mono" style="left:calc(7.1% + 8px)">10 385</span></div></div>
+    <div class="bar"><div class="lab">2 autres vidéos selfie<small>type F · chacune</small></div><div class="track"><div class="fill" style="width:3.4%"></div><span class="v mono" style="left:calc(3.4% + 8px)">~4 900</span></div></div>
+    <div class="bar"><div class="lab">Image vers le chat<small>arrêtée le 23 sept.</small></div><div class="track"><div class="fill off" style="width:2.3%"></div><span class="v mono" style="left:calc(2.3% + 8px)">3 335</span></div></div>
+  </div>
+  <p class="note">Toutes les pubs « concurrents » ont démarré le même jour (11 juin) : la comparaison est juste. Couverture ≠ clients ; le budget et les demandes ne sont pas publics.</p>
+  <p><b>Le gagnant n'a aucune personne</b> : c'est l'infographie (maquette d'un site de plombier sur écran et téléphone, 3 promesses, gros bouton). Elle tourne en 3 formats : carré, vertical et horizontal. Meta lui a donné 3 fois plus de diffusion que la meilleure vidéo, et 13 fois plus que les photos de personnes.</p>
+
+  <h3 style="margin-top:8px">Qui voit la pub gagnante</h3>
+  <p>Ciblage : <b>toute la France, 18 à 65+ ans, hommes et femmes</b>. Aucun ciblage fin, Meta trouve seul les bonnes personnes. Résultat : <b>72 % d'hommes</b>, surtout entre 35 et 54 ans. Ça correspond aux artisans et patrons de petites entreprises.</p>
+  <div class="ages" role="img" aria-label="Couverture par âge : 18-24 8 300, 25-34 26 400, 35-44 38 200, 45-54 37 400, 55-64 25 100, 65+ 12 400">
+    <div><span>8k</span><i style="height:22px"></i><span>18-24</span></div>
+    <div><span>26k</span><i style="height:69px"></i><span>25-34</span></div>
+    <div><span>38k</span><i style="height:100px"></i><span>35-44</span></div>
+    <div><span>37k</span><i style="height:98px"></i><span>45-54</span></div>
+    <div><span>25k</span><i style="height:66px"></i><span>55-64</span></div>
+    <div><span>12k</span><i style="height:32px"></i><span>65+</span></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">03</span>Le texte : ce qui reste et ce qui a été coupé</h2>
+  <div class="copy">
+    <div class="ad"><span class="tag win">Gagnant · image</span><blockquote>Pas de site internet ?
+Vos concurrents en ont un !
+On s'occupe de tout. Vous, concentrez-vous sur votre métier.</blockquote><p class="note">Titre sous l'image : « Un site qui bosse pour vous ». Bouton : En savoir plus.</p></div>
+    <div class="ad"><span class="tag win">Gagnant · vidéo</span><blockquote>Vous n'avez pas de site internet ?
+Vos concurrents, si.
+On s'occupe de tout, de la création à la mise en ligne.</blockquote><p class="note">Titre : « Votre site pro, créé et géré pour vous ». Bouton : En savoir plus.</p></div>
+    <div class="ad"><span class="tag lose">Arrêté · chat</span><blockquote>Pas de site = des clients perdus chaque jour.
+Création de site pro, clé en main.</blockquote><p class="note">Envoyait vers un chat sur leur site. Moins de 2 % de la couverture du gagnant.</p></div>
+  </div>
+  <p>Ce qui marche : <span class="mark">4 lignes, une question, la peur du concurrent, et la promesse « on fait tout »</span>. Pas de prix, pas de liste de services, pas de long texte.</p>
+</section>
+
+<section>
+  <h2><span class="n">04</span>Les visuels</h2>
+  <p>22 visuels actifs : 9 images et 13 vidéos courtes. Ils testent beaucoup de visuels avec <b>le même texte</b>. Schémas ci-dessous ; les originaux sont dans les liens en bas de page.</p>
+  <div class="cre">
+    <div class="card"><div class="frame"><span class="hd">Votre site internet professionnel en 14 jours</span><div class="blk" style="height:44px;width:55%"></div><div class="blk" style="height:16px;width:50%"></div><div class="blk" style="height:16px;width:50%"></div><div class="blk" style="height:16px;width:50%"></div><div class="blk" style="position:absolute;right:12px;top:58px;width:38%;height:48%"></div><span class="cta" style="justify-self:stretch;text-align:center">Je veux mon site internet →</span></div>
+      <span class="k">Type A · Infographie</span><p>Maquette d'un site de plombier sur écran et téléphone. 3 promesses : en ligne en 14 jours, conseiller dans votre région, rappel sous 24h. Gros bouton orange.</p></div>
+    <div class="card"><div class="frame"><span class="hd">Votre site professionnel</span><span style="font-size:12px;color:var(--muted)">Simple &amp; rapide</span><div class="person"></div><div class="blk" style="width:48%;height:70px;margin-top:20px"></div><span class="cta" style="margin-top:8px">Obtenir mon devis gratuit</span></div>
+      <span class="k">Type B · Photo artisan</span><p>Un artisan (chantier, peintre, esthéticienne) avec un ordinateur portable. Titre court en blanc, bouton bleu « devis gratuit ».</p></div>
+    <div class="card"><div class="frame"><div class="split"><div>Avant<br>fiche Google vide</div><div>Après<br>photos, avis, site</div></div><span class="hd" style="font-size:13px">Conseiller dédié dans votre région</span><span style="font-size:12px;color:var(--muted)">Devis gratuit · Rappel en 24h</span></div>
+      <span class="k">Type C · Avant / après</span><p>Deux fiches Google côte à côte : une vide, une complète avec photos, avis et lien vers le site.</p></div>
+    <div class="card"><div class="frame tall"><span class="hd" style="text-align:center">500 professionnels ont déjà leur site</span><span class="stars">5.0 ★★★★★ Marc P.</span><span class="stars">5.0 ★★★★★ Karim B.</span><span class="stars">5.0 ★★★★★ Tom D.</span><div class="person" style="height:40%"></div><span class="cta" style="position:absolute;bottom:14px;left:12px">Créer mon site →</span></div>
+      <span class="k">Type D · Preuve sociale</span><p>Format vertical. « 500 professionnels », bulles d'avis 5 étoiles avec prénoms, « livrés en 14 jours ».</p></div>
+    <div class="card"><div class="frame tall"><span class="hd">Ce matin, 3 nouveaux clients vous ont trouvé en ligne.</span><div class="person" style="height:46%;width:55%;right:22%"></div><span class="stars" style="margin-top:6px">Nouveau client vous a contacté</span><span class="cta" style="position:absolute;bottom:14px;left:12px">Je veux être rappelé gratuitement</span></div>
+      <span class="k">Type E · Le résultat</span><p>Un artisan sourit en regardant son téléphone : une notification de nouveau client. On vend le résultat, pas le site.</p></div>
+    <div class="card"><div class="frame tall" style="display:grid;place-items:center"><div class="person" style="position:static;width:70%;height:70%;border-radius:50% 50% 8px 8px"></div><span class="note mono">6 à 12 s · face caméra</span></div>
+      <span class="k">Type F · Vidéo selfie</span><p>13 vidéos verticales de 6 à 12 secondes. Une personne parle face caméra (artisan dans son atelier, femme en tailleur, homme devant une camionnette). Pas de sous-titres visibles. Les visages semblent générés par IA (estimation).</p></div>
+  </div>
+  <p class="note">Toutes les images semblent créées par IA (estimation). Le logo est petit, dans un coin.</p>
+</section>
+
+<section>
+  <h2><span class="n">05</span>Où va le clic</h2>
+  <h3>Avant (arrêté)</h3>
+  <div class="flow old"><div><b>Pub</b>« Pas de site = clients perdus »</div><div><b>Leur site</b>chat.siteprorapide.fr</div><div><b>Chat</b>la personne doit écrire</div></div>
+  <h3>Maintenant (gagnant)</h3>
+  <div class="flow"><div><b>Pub</b>« Vos concurrents en ont un »</div><div><b>Formulaire Meta</b>s'ouvre dans Facebook, déjà prérempli</div><div><b>Rappel</b>un conseiller appelle sous 24h</div></div>
+  <p>Le lien est « fb.me » avec le bouton « En savoir plus ». C'est la marque d'un <b>formulaire instantané Meta</b> : la personne ne quitte pas Facebook, son nom et son téléphone sont déjà remplis, elle clique 2 fois. Je ne peux pas voir les questions du formulaire, cette partie est une déduction.</p>
+  <p><b>Leçon :</b> sortir la personne de Facebook pour un chat a coûté cher. Ils ont gardé l'option où <span class="mark">il y a le moins d'effort à faire</span>. Ton plan WhatsApp va dans le même sens : la personne reste dans une app qu'elle connaît.</p>
+</section>
+
+<section>
+  <h2><span class="n">06</span>Version Wibzo pour la Suisse romande</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Élément</th><th>Site Pro Rapide (France)</th><th>Wibzo (Suisse romande)</th></tr></thead>
+    <tbody>
+      <tr><td>Accroche</td><td>Pas de site ? Vos concurrents en ont un.</td><td>Même idée, avec la région : « Pas de site ? Le garage d'à côté en a un. »</td></tr>
+      <tr><td>Promesse</td><td>On s'occupe de tout</td><td>On s'occupe de tout + maquette gratuite en 24h</td></tr>
+      <tr><td>Rassurer</td><td>Devis gratuit, rappel 24h, conseiller région</td><td>Payez seulement si elle vous plaît · basé dans la Broye · prix en CHF</td></tr>
+      <tr><td>Preuve</td><td>« 500 professionnels »</td><td>Tes 2 maquettes d'exemple (JR MECA, Roulin). Pas de faux chiffres ni de faux avis.</td></tr>
+      <tr><td>Visuels</td><td>Infographie, photo artisan, avant/après, vidéo selfie IA</td><td>Avant/après Google d'un vrai commerce romand + vidéo selfie de toi (vrai visage, région)</td></tr>
+      <tr><td>Clic</td><td>Formulaire Meta, rappel</td><td>WhatsApp (ton plan actuel)</td></tr>
+      <tr><td>Ciblage</td><td>Toute la France, 18-65+, large</td><td>Suisse romande, 25-65 ans, large</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>2 textes prêts à tester</h3>
+  <div class="drafts">
+    <div class="draft"><span class="eyebrow">Texte A · concurrent</span><pre id="ta">Pas de site internet ?
+Le commerce d'à côté en a un.
+
+On crée votre site, vous continuez votre métier.
+Maquette gratuite en 24h. Vous payez seulement si elle vous plaît.</pre><button type="button" data-copy="ta">Copier</button></div>
+    <div class="draft"><span class="eyebrow">Texte B · Google</span><pre id="tb">Vos clients vous cherchent sur Google.
+Ils trouvent votre concurrent.
+
+Votre site pro en Suisse romande, on s'occupe de tout.
+Maquette gratuite en 24h, sans engagement.</pre><button type="button" data-copy="tb">Copier</button></div>
+  </div>
+
+  <h3>Visuels à créer (dans l'ordre)</h3>
+  <ul>
+    <li><b>Infographie</b> (type A, le gagnant) : maquette d'un site de garage sur écran et téléphone + 3 promesses (maquette en 24h, payez si ça plaît, basé en Suisse romande) + gros bouton. En 3 formats : carré, vertical, horizontal.</li>
+    <li><b>Avant / après Google</b> (type C) avec une fiche de commerce romand inventée, aux couleurs Wibzo.</li>
+    <li><b>Vidéo selfie de 8 à 12 s</b> (type F), filmée par toi avec sous-titres. Un vrai visage local devrait mieux marcher qu'un visage IA dans une petite région (estimation, à tester).</li>
+    <li><b>Résultat</b> (type E) : « Ce matin, 2 clients ont réservé en ligne. »</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="n">07</span>Limites</h2>
+  <ul>
+    <li>Marché français, prix en euros, budget inconnu. Rien ne prouve que ça marchera pareil en Suisse romande.</li>
+    <li>La couverture montre où Meta a mis l'argent, pas combien de clients ils ont signés.</li>
+    <li>Ne copie pas leurs images ni leurs phrases mot pour mot : reprends la structure, avec tes visuels et ta preuve.</li>
+    <li>Ne mets pas de faux avis ni de chiffres inventés (« 500 clients ») : c'est trompeur et risqué en Suisse (loi contre la concurrence déloyale).</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="n">08</span>Voir les originaux</h2>
+  <div class="links">
+    <a href="https://www.facebook.com/ads/library/?id=1027579366515020" target="_blank" rel="noopener">Image gagnante</a>
+    <a href="https://www.facebook.com/ads/library/?id=1927667544591746" target="_blank" rel="noopener">Vidéo gagnante</a>
+    <a href="https://www.facebook.com/ads/library/?id=1718993779741613" target="_blank" rel="noopener">Pub chat arrêtée</a>
+    <a href="https://www.facebook.com/ads/library/?active_status=all&amp;ad_type=all&amp;country=FR&amp;view_all_page_id=1189355100924398&amp;search_type=page&amp;media_type=all" target="_blank" rel="noopener">Toutes leurs pubs (64)</a>
+  </div>
+</section>
+
+</main>
+<script>
+document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',()=>{
+  const el=document.getElementById(b.dataset.copy);const t=el.textContent;
+  const ok=()=>{b.textContent='Copié';setTimeout(()=>b.textContent='Copier',1500)};
+  try{navigator.clipboard.writeText(t).then(ok,()=>sel(el))}catch(e){sel(el)}
+}));
+function sel(el){const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r)}
+</script>

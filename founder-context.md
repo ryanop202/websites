@@ -1,6 +1,7 @@
 # Founder Context — Wibzo
 
-_Dernière mise à jour : 2026-10-13 (co-founder, Founder Skills)._ Voir aussi CLAUDE.md, LANCEMENT.md, PROSPECTS.md.
+_Dernière mise à jour : 2026-10-14 (co-founder, Founder Skills)._
+_14.10 : rien de neuf depuis le 13.10 (0 message de prospection envoyé). Sprint maintenu du 14 au 18.10, règle « prospection avant contenu ». Objectifs de Ryan : `wibzo/OBJECTIFS.md`. Founder Skills installés sur ce PC (copie : `claude-skills/founder-skills/`)._ Voir aussi CLAUDE.md, LANCEMENT.md, PROSPECTS.md.
 
 ## Current focus
 Prouver que l'offre se vend : obtenir de vraies réponses de commerçants (sprint de prospection directe de 5 jours, 14–18.10.2026).

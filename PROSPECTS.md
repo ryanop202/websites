@@ -146,3 +146,10 @@ Maquette réalisée (site multi-pages : Accueil, Prestations, À propos, Contact
 * Détails et sources : `sites/nature-and-co/INFOS.md`.
 
 **Statut :** Message WhatsApp envoyé le 15.10.2026 à 18:55. Réponse à 18:58 : « Justement quand on met jardinerie on nous trouve. Mais envoie toujours par curiosité ». Maquette faite et en ligne le 15.10.2026 : https://nature-and-co-wibzo.pages.dev. À lui envoyer.
+
+## AFC Boutique — Magasin de vêtements, Payerne
+
+* Grand-Rue 58, 1530 Payerne. 076 583 17 69. Google : 5,0 (1 avis). Lun 13:15–18:30, mar–ven 09:00–12:00 / 13:15–18:30, sam 09:00–16:00, dim fermé. Vitrine : mode femme et enfant, chaussures, sacs, bijoux.
+* Détails et sources : `sites/afc-boutique/INFOS.md`.
+
+**Statut :** Message WhatsApp envoyé le 16.10.2026 à 09:29 (test du créneau 9h30). Réponse à 09:30 : « vous pouvez envoyer mais pour le moment je pense que je ferai pas suite » (réponse tiède). Maquette faite le 16.10.2026 (`sites/afc-boutique/`). En ligne : https://afc-boutique-wibzo.pages.dev (Cloudflare Pages). Envoyée le 16.10.2026 à 09:51 avec le prix de lancement (350.– + 30.–/mois). Réponse à 09:57 : « C'est bien mais pour le moment je pense pas ». → Pas intéressée pour l'instant. Ne pas relancer avant 2-3 mois (changement de saison : avant les fêtes ou au printemps, avec les nouvelles vitrines).

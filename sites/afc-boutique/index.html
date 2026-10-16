@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AFC Boutique — Grand-Rue 58, Payerne</title>
+<meta name="description" content="AFC Boutique, Grand-Rue 58 à Payerne : mode femme et enfant, chaussures et accessoires. Horaires, vitrine et demande de taille sur WhatsApp.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="demo-bar">Maquette de démonstration, préparée par <strong>Wibzo</strong> pour AFC Boutique. Ce n'est pas le site officiel.</div>
+
+<header class="fascia">
+  <a class="mark" href="#" aria-label="AFC Boutique, accueil">
+    <span class="mark-afc">AFC</span>
+    <span class="mark-sub">Boutique</span>
+  </a>
+  <nav class="nav">
+    <a href="#rayons">Rayons</a>
+    <a href="#taille">Demander une taille</a>
+    <a href="#infos">Horaires</a>
+  </nav>
+  <a class="open" id="open" href="#infos"><i></i><span>Horaires</span></a>
+</header>
+
+<main>
+
+<section class="front" aria-labelledby="t-front">
+  <div class="front-text">
+    <p class="kicker">Grand-Rue 58 · Payerne</p>
+    <h1 id="t-front">La vitrine de la Grand-Rue, <em>à regarder aussi depuis chez vous.</em></h1>
+    <p class="lede">Mode femme et enfant, chaussures, sacs et bijoux. Touchez la vitrine pour voir de plus près, puis demandez votre taille avant de passer.</p>
+    <div class="front-cta">
+      <a class="btn btn-rust" href="#taille">Demander une taille</a>
+      <a class="btn btn-line" href="tel:+41765831769">Appeler la boutique</a>
+    </div>
+  </div>
+
+  <figure class="vitrine">
+    <div class="vitrine-scroll" id="scroll">
+      <div class="vitrine-inner">
+        <img src="img/vitrine-nuit.jpg" width="1600" height="820" alt="La vitrine d'AFC Boutique le soir : mannequins femme et enfant, chaussures, sacs et décoration d'automne.">
+        <div id="spots"></div>
+      </div>
+    </div>
+    <figcaption>
+      <span class="swipe">← Glissez pour longer la vitrine →</span>
+      <span>La vitrine d'automne, photo de la boutique (Google, septembre 2026)</span>
+    </figcaption>
+    <div class="card" id="card" hidden>
+      <button class="card-x" id="card-x" aria-label="Fermer">×</button>
+      <p class="card-n" id="card-n"></p>
+      <h3 id="card-t"></h3>
+      <p id="card-d"></p>
+      <a class="card-go" id="card-go" href="#taille">Demander ma taille →</a>
+    </div>
+  </figure>
+</section>
+
+<section class="rayons" id="rayons" aria-labelledby="t-rayons">
+  <div class="rayons-head">
+    <p class="kicker kicker-dark">Ce qu'on trouve en boutique</p>
+    <h2 id="t-rayons">Quatre rayons, <em>un seul arrêt</em> dans la Grand-Rue.</h2>
+  </div>
+
+  <ol class="index">
+    <li>
+      <span class="no">01</span>
+      <div><h3>Femme</h3><p>Hauts imprimés, blouses, jeans et pantalons larges.</p></div>
+    </li>
+    <li>
+      <span class="no">02</span>
+      <div><h3>Enfant</h3><p>Robes et tenues pour filles, polos et jeans pour garçons.</p></div>
+    </li>
+    <li>
+      <span class="no">03</span>
+      <div><h3>Chaussures</h3><p>Baskets et bottes.</p></div>
+    </li>
+    <li>
+      <span class="no">04</span>
+      <div><h3>Accessoires</h3><p>Sacs à main, colliers et bijoux.</p></div>
+    </li>
+  </ol>
+
+  <figure class="jour">
+    <img src="img/vitrine-jour.jpg" width="720" height="1280" loading="lazy" alt="La vitrine d'AFC Boutique en journée, avec un mannequin femme et un mannequin garçon.">
+    <figcaption>En journée, la même vitrine côté rue.</figcaption>
+  </figure>
+</section>
+
+<section class="taille" id="taille" aria-labelledby="t-taille">
+  <div class="taille-intro">
+    <p class="kicker">Avant de vous déplacer</p>
+    <h2 id="t-taille">Vous avez vu quelque chose ? <em>Demandez si votre taille est là.</em></h2>
+    <p>Trois réponses, et votre message part tout prêt sur le WhatsApp de la boutique.</p>
+  </div>
+
+  <form class="ticket" id="form" onsubmit="return false">
+    <div class="ticket-top"><span>AFC Boutique</span><span>Demande n° <b id="tno">—</b></span></div>
+
+    <label class="field">
+      <span>1. Qu'avez-vous vu ?</span>
+      <input id="f-item" type="text" placeholder="Ex. la blouse rose pâle de la vitrine" autocomplete="off">
+    </label>
+
+    <fieldset class="field">
+      <legend>2. Pour qui ?</legend>
+      <div class="chips" id="f-who"></div>
+    </fieldset>
+
+    <label class="field">
+      <span>3. Quelle taille ?</span>
+      <input id="f-size" type="text" placeholder="Ex. M, 38, 8 ans, pointure 37" autocomplete="off">
+    </label>
+
+    <div class="ticket-sum" id="sum" aria-live="polite"></div>
+
+    <a class="btn btn-wa" id="wa" href="#" aria-disabled="true" target="_blank" rel="noopener">Envoyer sur WhatsApp</a>
+    <p class="ticket-note">Ou appelez le <a href="tel:+41765831769">076 583 17 69</a>.</p>
+  </form>
+</section>
+
+<section class="infos" id="infos" aria-labelledby="t-infos">
+  <div class="infos-col">
+    <p class="kicker kicker-dark">Venir à la boutique</p>
+    <h2 id="t-infos">Horaires</h2>
+    <table class="hours" id="hours">
+      <tr data-d="1"><th>Lundi</th><td>13:15 – 18:30</td></tr>
+      <tr data-d="2"><th>Mardi</th><td>09:00 – 12:00 · 13:15 – 18:30</td></tr>
+      <tr data-d="3"><th>Mercredi</th><td>09:00 – 12:00 · 13:15 – 18:30</td></tr>
+      <tr data-d="4"><th>Jeudi</th><td>09:00 – 12:00 · 13:15 – 18:30</td></tr>
+      <tr data-d="5"><th>Vendredi</th><td>09:00 – 12:00 · 13:15 – 18:30</td></tr>
+      <tr data-d="6"><th>Samedi</th><td>09:00 – 16:00</td></tr>
+      <tr data-d="0"><th>Dimanche</th><td>Fermé</td></tr>
+    </table>
+    <p class="hint">Attention : le lundi, ouverture seulement l'après-midi.</p>
+  </div>
+
+  <div class="infos-col address">
+    <h2>Adresse</h2>
+    <p class="addr">Grand-Rue 58<br>1530 Payerne</p>
+    <p>Au centre de Payerne, à deux pas de l'Abbatiale.</p>
+    <div class="infos-cta">
+      <a class="btn btn-ink" href="https://www.google.com/maps/search/?api=1&query=AFC+BOUTIQUE+Grand-Rue+58+1530+Payerne" target="_blank" rel="noopener">Itinéraire</a>
+      <a class="btn btn-line-dark" href="tel:+41765831769">076 583 17 69</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <span class="mark-afc small">AFC</span>
+  <p>AFC Boutique · Grand-Rue 58 · 1530 Payerne · <a href="tel:+41765831769">076 583 17 69</a></p>
+  <p class="foot-demo">Maquette réalisée par Wibzo. Photos : fiche Google de la boutique.</p>
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+
+// ---------- Vitrine : points sur la photo (ce qu'on voit sur la photo, pas de prix) ----------
+const SPOTS = [
+  { x: 14.4, y: 37.8, r: 'Femme',       t: 'Haut imprimé et jean',      d: 'Haut à motifs feuillage, porté avec un jean droit.',    item: 'le haut imprimé bleu de la vitrine (à gauche)' },
+  { x: 19.4, y: 67,   r: 'Accessoires', t: 'Sac camel',                  d: 'Sac en daim porté à la main, à côté du jean.',          item: 'le sac camel de la vitrine' },
+  { x: 22.8, y: 84,   r: 'Chaussures',  t: 'Bottes',                     d: 'Bottes posées sur le présentoir, devant le mannequin.', item: 'les bottes de la vitrine' },
+  { x: 28.4, y: 63.4, r: 'Enfant',      t: 'Polo et jean garçon',        d: 'Polo bleu et jean large pour garçon.',                  item: 'le polo bleu et le jean garçon de la vitrine' },
+  { x: 37.8, y: 75.6, r: 'Enfant',      t: 'Robe fille',                 d: 'Robe orange à volants, avec petit sac fleur.',          item: 'la robe orange fille de la vitrine' },
+  { x: 50,   y: 56,   r: 'Femme',       t: 'Ensemble imprimé',           d: 'Haut et pantalon large assortis, motif vert et crème.', item: 'l\'ensemble imprimé vert et crème de la vitrine' },
+  { x: 58.8, y: 87.8, r: 'Accessoires', t: 'Bijoux',                     d: 'Colliers présentés sur buste, au pied de la vitrine.',  item: 'un collier de la vitrine' },
+  { x: 80.6, y: 70.7, r: 'Femme',       t: 'Blouse rose pâle',           d: 'Blouse fluide, nouée à la taille.',                      item: 'la blouse rose pâle de la vitrine (à droite)' }
+];
+$('spots').innerHTML = SPOTS.map((s, i) =>
+  `<button class="spot" style="left:${s.x}%;top:${s.y}%" data-i="${i}" aria-label="${s.t}"><span>${i + 1}</span></button>`).join('');
+
+let cur = null;
+function openSpot(i) {
+  const s = SPOTS[i];
+  document.querySelectorAll('.spot').forEach(b => b.classList.toggle('on', +b.dataset.i === i));
+  $('card-n').textContent = `${String(i + 1).padStart(2, '0')} · ${s.r}`;
+  $('card-t').textContent = s.t;
+  $('card-d').textContent = s.d;
+  $('card').hidden = false;
+  $('card').classList.toggle('left', s.x > 55);
+  cur = i;
+}
+$('spots').addEventListener('click', e => { const b = e.target.closest('.spot'); if (b) openSpot(+b.dataset.i); });
+const closeCard = () => { $('card').hidden = true; document.querySelectorAll('.spot').forEach(b => b.classList.remove('on')); };
+$('card-x').onclick = closeCard;
+$('card-go').onclick = () => {
+  if (cur === null) return;
+  const s = SPOTS[cur];
+  $('f-item').value = s.item;
+  pick(s.r === 'Enfant' ? (s.t.includes('fille') ? 'Fille' : 'Garçon') : 'Femme');
+  update();
+  closeCard();
+};
+
+// Sur mobile, la vitrine démarre au milieu
+const sc = $('scroll');
+requestAnimationFrame(() => { sc.scrollLeft = (sc.scrollWidth - sc.clientWidth) / 2; });
+
+// ---------- Demande de taille ----------
+const WHO = ['Femme', 'Fille', 'Garçon', 'Un cadeau'];
+$('f-who').innerHTML = WHO.map(w => `<label class="chip"><input type="radio" name="who" value="${w}"><span>${w}</span></label>`).join('');
+function pick(w) { const r = document.querySelector(`input[name=who][value="${w}"]`); if (r) r.checked = true; }
+document.querySelectorAll('#form input').forEach(i => i.addEventListener('input', update));
+$('tno').textContent = String(Math.floor(Math.random() * 900) + 100);
+
+function update() {
+  const item = $('f-item').value.trim(), size = $('f-size').value.trim();
+  const who = (document.querySelector('input[name=who]:checked') || {}).value;
+  $('sum').innerHTML = [['Article', item], ['Pour', who], ['Taille', size]]
+    .map(([k, v]) => `<div><span>${k}</span><b>${v ? v.replace(/</g, '&lt;') : '—'}</b></div>`).join('');
+  const ok = !!item;
+  const wa = $('wa');
+  wa.setAttribute('aria-disabled', !ok);
+  if (ok) {
+    const msg = `Bonjour AFC Boutique !\nJ'ai vu : ${item}` + (who ? `\nPour : ${who}` : '') + (size ? `\nTaille : ${size}` : '') +
+      (size ? `\nEst-ce que vous l'avez dans cette taille ?` : `\nEst-ce que c'est encore disponible ?`) + `\nMerci !`;
+    wa.href = 'https://wa.me/41765831769?text=' + encodeURIComponent(msg);
+  } else wa.href = '#';
+}
+update();
+
+// ---------- Horaires (fiche Google, 16.10.2026) ----------
+const AM = [9, 12], PM = [13.25, 18.5];
+const H = { 1: [PM], 2: [AM, PM], 3: [AM, PM], 4: [AM, PM], 5: [AM, PM], 6: [[9, 16]] };
+const now = new Date(), d = now.getDay(), t = now.getHours() + now.getMinutes() / 60;
+const tr = document.querySelector(`#hours tr[data-d="${d}"]`); if (tr) tr.classList.add('today');
+const isOpen = (H[d] || []).some(([a, b]) => t >= a && t < b);
+$('open').classList.toggle('is-open', isOpen);
+$('open').lastElementChild.textContent = isOpen ? 'Ouvert maintenant' : 'Fermé pour le moment';
+</script>
+</body>
+</html>

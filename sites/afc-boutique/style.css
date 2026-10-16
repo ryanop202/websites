@@ -1,0 +1,179 @@
+/* AFC Boutique — maquette Wibzo
+   Direction : la façade noire de la Grand-Rue et sa vitrine éclairée.
+   Encre presque noire + crème chaud + rouille des feuilles d'automne. */
+
+:root {
+  --ink: #141416;
+  --ink-2: #222226;
+  --cream: #F4EEE4;
+  --paper: #FBF8F2;
+  --sand: #E7DCCB;
+  --rust: #B5471C;
+  --rust-2: #D8692F;
+  --muted: #6E6860;
+  --line: rgba(20, 20, 22, .14);
+  --serif: "Bodoni Moda", "Didot", Georgia, serif;
+  --sans: "Hanken Grotesk", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--cream); color: var(--ink); line-height: 1.55; font-size: 17px; -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+em { font-style: italic; }
+
+.demo-bar { background: var(--rust); color: #fff; font-size: 13px; text-align: center; padding: 7px 16px; }
+
+/* ---------- Façade ---------- */
+.fascia {
+  background: var(--ink); color: var(--cream);
+  display: flex; align-items: center; gap: 32px;
+  padding: 18px clamp(16px, 4vw, 56px);
+  border-bottom: 1px solid #2c2c31;
+  position: sticky; top: 0; z-index: 20;
+}
+.mark { display: flex; flex-direction: column; align-items: center; text-decoration: none; line-height: 1; }
+.mark-afc { font-family: var(--serif); font-weight: 700; font-size: 34px; letter-spacing: .14em; padding-left: .14em; color: transparent; -webkit-text-stroke: 1px #CFC6B8; }
+.mark-sub { font-size: 10px; letter-spacing: .32em; text-transform: uppercase; margin-top: 4px; color: #CFC6B8; padding-left: .32em; }
+.nav { display: flex; gap: 26px; margin-left: auto; }
+.nav a { text-decoration: none; font-size: 15px; color: #d9d2c6; }
+.nav a:hover { color: #fff; }
+.open { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-size: 13px; font-weight: 600; border: 1px solid #3a3a40; padding: 7px 12px; color: #d9d2c6; white-space: nowrap; }
+.open i { width: 8px; height: 8px; border-radius: 50%; background: #77706a; }
+.open.is-open i { background: #6FCF7F; box-shadow: 0 0 0 3px rgba(111, 207, 127, .2); }
+
+/* ---------- Vitrine (accueil) ---------- */
+.front { background: var(--ink); color: var(--cream); padding: clamp(36px, 6vw, 72px) 0 0; }
+.front-text { padding: 0 clamp(16px, 4vw, 56px); max-width: 1180px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 20px 56px; align-items: end; }
+.kicker { font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: var(--rust-2); font-weight: 600; margin-bottom: 14px; }
+.kicker-dark { color: var(--rust); }
+.front h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(36px, 5.4vw, 70px); line-height: 1.02; letter-spacing: -.01em; grid-column: 1; }
+.front h1 em { color: #E9C9A6; }
+.front .kicker { grid-column: 1 / -1; margin-bottom: 0; }
+.lede { color: #c9c1b4; grid-column: 2; }
+.front-cta { grid-column: 2; display: flex; flex-wrap: wrap; gap: 10px; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; padding: 13px 20px; font-weight: 600; font-size: 15px; text-decoration: none; border: 1px solid transparent; border-radius: 2px; cursor: pointer; transition: background .2s, color .2s; }
+.btn-rust { background: var(--rust); color: #fff; }
+.btn-rust:hover { background: var(--rust-2); }
+.btn-line { border-color: #55524c; color: var(--cream); }
+.btn-line:hover { border-color: var(--cream); }
+.btn-ink { background: var(--ink); color: var(--cream); }
+.btn-line-dark { border-color: var(--ink); }
+.btn-line-dark:hover { background: var(--ink); color: var(--cream); }
+
+.vitrine { position: relative; margin-top: clamp(32px, 5vw, 56px); }
+.vitrine-scroll { overflow-x: auto; scrollbar-width: none; }
+.vitrine-scroll::-webkit-scrollbar { display: none; }
+.vitrine-inner { position: relative; width: 100%; min-width: 860px; }
+.vitrine-inner img { width: 100%; }
+.vitrine figcaption { display: flex; justify-content: space-between; gap: 16px; font-size: 12px; color: #8d877d; padding: 10px clamp(16px, 4vw, 56px) 18px; }
+.swipe { display: none; color: var(--rust-2); font-weight: 600; }
+
+.spot { position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; border: 0; background: rgba(251, 248, 242, .92); color: var(--ink); font: 700 13px var(--sans); cursor: pointer; box-shadow: 0 2px 10px rgba(0, 0, 0, .35); transition: transform .2s, background .2s; }
+.spot::before { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 1.5px solid rgba(251, 248, 242, .7); animation: ring 2.4s ease-out infinite; }
+.spot:hover, .spot.on { transform: scale(1.12); background: var(--rust); color: #fff; }
+.spot.on::before { border-color: var(--rust-2); }
+@keyframes ring { 0% { transform: scale(.85); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .spot::before { animation: none; } }
+
+.card { position: absolute; right: clamp(16px, 4vw, 56px); bottom: 64px; width: min(320px, calc(100% - 32px)); background: var(--paper); color: var(--ink); padding: 20px 22px 18px; box-shadow: 0 18px 40px rgba(0, 0, 0, .35); border-top: 4px solid var(--rust); }
+.card[hidden] { display: none; }
+.card.left { right: auto; left: clamp(16px, 4vw, 56px); }
+section[id] { scroll-margin-top: 76px; }
+.card-x { position: absolute; top: 8px; right: 10px; border: 0; background: none; font-size: 24px; line-height: 1; cursor: pointer; color: var(--muted); }
+.card-n { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--rust); font-weight: 700; }
+.card h3 { font-family: var(--serif); font-weight: 500; font-size: 26px; line-height: 1.1; margin: 6px 0 6px; }
+.card p:not(.card-n) { color: var(--muted); font-size: 15px; }
+.card-go { display: inline-block; margin-top: 12px; font-weight: 700; color: var(--rust); text-decoration: none; }
+.card-go:hover { text-decoration: underline; }
+
+/* ---------- Rayons ---------- */
+.rayons { max-width: 1180px; margin: 0 auto; padding: clamp(64px, 9vw, 120px) clamp(16px, 4vw, 56px); display: grid; grid-template-columns: 1fr 340px; gap: 40px 72px; }
+.rayons-head { grid-column: 1 / -1; max-width: 720px; }
+.rayons h2, .taille h2, .infos h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(30px, 4vw, 48px); line-height: 1.08; }
+.rayons h2 em, .taille h2 em { color: var(--rust); }
+.index { list-style: none; border-top: 1px solid var(--line); align-self: start; }
+.index li { display: grid; grid-template-columns: 72px 1fr; gap: 16px; padding: 24px 0; border-bottom: 1px solid var(--line); }
+.index .no { font-family: var(--serif); font-style: italic; font-size: 30px; color: var(--rust); line-height: 1; }
+.index h3 { font-family: var(--serif); font-size: 28px; font-weight: 500; line-height: 1.1; margin-bottom: 4px; }
+.index p { color: var(--muted); }
+.jour { transform: rotate(1.5deg); background: var(--paper); padding: 10px 10px 14px; box-shadow: 0 14px 30px rgba(20, 20, 22, .14); align-self: start; }
+.jour img { aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 45%; width: 100%; }
+.jour figcaption { font-size: 13px; color: var(--muted); padding-top: 10px; }
+
+/* ---------- Demande de taille ---------- */
+.taille { background: var(--sand); padding: clamp(64px, 9vw, 112px) clamp(16px, 4vw, 56px); display: grid; grid-template-columns: 1fr minmax(0, 460px); gap: 48px 80px; align-items: center; justify-content: center; }
+.taille-intro { max-width: 520px; justify-self: end; }
+.taille-intro p:last-child { color: var(--muted); margin-top: 16px; }
+
+/* le formulaire a la forme d'une étiquette de vêtement */
+.ticket { position: relative; background: var(--paper); padding: 54px 28px 26px; clip-path: polygon(14% 0, 86% 0, 100% 34px, 100% 100%, 0 100%, 0 34px); box-shadow: 0 1px 0 var(--line); }
+.ticket::before { content: ""; position: absolute; top: 14px; left: 50%; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: var(--sand); box-shadow: inset 0 0 0 2px rgba(20, 20, 22, .2); }
+.ticket-top { display: flex; justify-content: space-between; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); border-bottom: 1px dashed var(--line); padding-bottom: 12px; margin-bottom: 18px; }
+.field { display: block; border: 0; margin-bottom: 18px; }
+.field > span, .field legend { display: block; font-weight: 700; font-size: 15px; margin-bottom: 8px; }
+.field input[type=text] { width: 100%; font: inherit; font-size: 16px; padding: 12px 14px; border: 1px solid var(--line); background: #fff; border-radius: 2px; }
+.field input[type=text]:focus { outline: 2px solid var(--rust); outline-offset: 1px; border-color: transparent; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip input { position: absolute; opacity: 0; pointer-events: none; }
+.chip span { display: inline-block; padding: 9px 14px; border: 1px solid var(--line); font-size: 15px; cursor: pointer; background: #fff; }
+.chip input:checked + span { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+.chip input:focus-visible + span { outline: 2px solid var(--rust); outline-offset: 2px; }
+.ticket-sum { border-top: 1px dashed var(--line); border-bottom: 1px dashed var(--line); padding: 12px 0; margin: 6px 0 18px; font-size: 14px; }
+.ticket-sum div { display: flex; justify-content: space-between; gap: 16px; padding: 2px 0; }
+.ticket-sum span { color: var(--muted); }
+.ticket-sum b { text-align: right; overflow-wrap: anywhere; }
+.btn-wa { width: 100%; background: #1F7A4D; color: #fff; }
+.btn-wa:hover { background: #18663f; }
+.btn-wa[aria-disabled=true] { background: #b9b2a6; pointer-events: none; }
+.ticket-note { text-align: center; font-size: 14px; color: var(--muted); margin-top: 12px; }
+
+/* ---------- Infos ---------- */
+.infos { max-width: 1180px; margin: 0 auto; padding: clamp(64px, 9vw, 112px) clamp(16px, 4vw, 56px); display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px 80px; }
+.infos h2 { margin-bottom: 20px; }
+.hours { width: 100%; border-collapse: collapse; font-size: 16px; }
+.hours th, .hours td { text-align: left; padding: 11px 0; border-bottom: 1px solid var(--line); font-weight: 400; }
+.hours th { width: 40%; }
+.hours td { font-variant-numeric: tabular-nums; }
+.hours tr.today th, .hours tr.today td { font-weight: 700; color: var(--rust); }
+.hours tr.today th::after { content: " · aujourd'hui"; font-weight: 400; font-size: 13px; }
+.hint { font-size: 14px; color: var(--muted); margin-top: 14px; }
+.address { border-left: 1px solid var(--line); padding-left: clamp(0px, 4vw, 56px); }
+.addr { font-family: var(--serif); font-size: 30px; line-height: 1.2; margin-bottom: 10px; }
+.address p:not(.addr) { color: var(--muted); }
+.infos-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+
+/* ---------- Pied ---------- */
+.foot { background: var(--ink); color: #b9b2a6; padding: 40px clamp(16px, 4vw, 56px); display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; font-size: 14px; }
+.mark-afc.small { font-size: 24px; }
+.foot-demo { margin-left: auto; color: #7d776e; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 900px) {
+  .front-text { grid-template-columns: 1fr; }
+  .front h1, .lede, .front-cta { grid-column: 1; }
+  .rayons { grid-template-columns: 1fr; }
+  .jour { max-width: 340px; justify-self: center; }
+  .taille { grid-template-columns: 1fr; }
+  .taille-intro { justify-self: start; }
+  .infos { grid-template-columns: 1fr; }
+  .address { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); padding-top: 40px; }
+}
+@media (max-width: 720px) {
+  body { font-size: 16px; }
+  .nav { display: none; }
+  .open { margin-left: auto; }
+  .fascia { padding-top: 12px; padding-bottom: 12px; }
+  .mark-afc { font-size: 28px; }
+  .vitrine-inner { min-width: 0; width: 900px; }
+  .swipe { display: inline; }
+  .vitrine figcaption { flex-direction: column; gap: 4px; }
+  .card, .card.left { position: fixed; left: 16px; right: 16px; bottom: 16px; width: auto; z-index: 30; }
+  .index li { grid-template-columns: 52px 1fr; }
+  .index .no { font-size: 24px; }
+  .index h3 { font-size: 24px; }
+  .ticket { padding: 50px 18px 22px; }
+  .foot-demo { margin-left: 0; }
+}

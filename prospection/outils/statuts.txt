@@ -1,4 +1,4 @@
-# Suivi des envois (numéro ¦ statut ¦ date d'envoi). Lu par build_xlsx.py → colonnes Statut / Date d'envoi / Date de relance (+3 jours).
+﻿# Suivi des envois (numéro ¦ statut ¦ date d'envoi). Lu par build_xlsx.py → colonnes Statut / Date d'envoi / Date de relance (+3 jours).
 0797629900 ¦ Envoyé WhatsApp ¦ 14.10.2026
 0768373065 ¦ Envoyé WhatsApp ¦ 14.10.2026
 0787470768 ¦ Envoyé WhatsApp ¦ 14.10.2026
@@ -11,3 +11,41 @@
 0767981544 ¦ Envoyé WhatsApp ¦ 14.10.2026
 0783127512 ¦ Envoyé WhatsApp ¦ 14.10.2026
 0765875562 ¦ Envoyé WhatsApp ¦ 14.10.2026
+0798746893 ¦ Pas intéressé (répondu 14.10) ¦ 14.10.2026
+0788761630 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0766096346 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0779842907 ¦ Pas intéressé (répondu 15.10 : reste avec Google Business) ¦ 15.10.2026
+0774813373 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0792363627 ¦ Pas intéressé (répondu 15.10) ¦ 15.10.2026
+0791336431 ¦ Intéressée (oui 15.10) → maquette faite ¦ 15.10.2026
+0762439469 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0764624259 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0763443584 ¦ Intéressée (oui 15.10) → maquette envoyée ¦ 15.10.2026
+0798204285 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0797055148 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0794759666 ¦ Pas intéressée (répondu 15.10 : utilise OneDoc + cabinet bientôt en pause, déménagement) ¦ 15.10.2026
+0792569976 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0778104435 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0796084727 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0787537989 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0799556115 ¦ Pas intéressé (répondu 15.10) ¦ 15.10.2026
+0798345899 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0796838708 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0774130110 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0787561743 ¦ Intéressée (« envoie toujours par curiosité », 15.10) → maquette faite ¦ 15.10.2026
+0783536509 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0786568003 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0799537311 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0792127239 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0764353888 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0794100479 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0795162835 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0793180850 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0793848627 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0764817677 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0798120207 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0791374050 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0796290304 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0794133291 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0766990173 ¦ Envoyé WhatsApp ¦ 15.10.2026
+0765648727 ¦ Envoyé WhatsApp ¦ 15.10.2026

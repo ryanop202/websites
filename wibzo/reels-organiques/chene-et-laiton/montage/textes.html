@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<style>
+  html, body { margin: 0; background: transparent; }
+  .f { width: 1080px; height: 1920px; position: relative; display: none; font-family: "Segoe UI", "Segoe UI Emoji", Arial, sans-serif; }
+  .f.on { display: block; }
+  /* même style « texte Instagram avec fond » que Terre de Saule, en blanc sur les zones noires */
+  .bulle { position: absolute; left: 50%; transform: translateX(-50%); background: #fff; color: #000;
+           font-weight: 700; font-size: 48px; line-height: 1.22; text-align: center; padding: 18px 30px;
+           border-radius: 22px; width: max-content; max-width: 960px; box-sizing: border-box; }
+  .noir { background: #000; color: #fff; border: 2px solid rgba(255,255,255,.25); }
+  .sous { position: absolute; left: 0; right: 0; text-align: center; color: #fff; font-weight: 700; font-size: 42px; }
+</style>
+</head>
+<body>
+  <!-- 1. accroche (zone noire au-dessus de l'écran) -->
+  <div class="f" id="hook">
+    <div class="bulle" style="top:330px">CLIENT : « Mes clients peuvent voir<br>leur cuisine avant de l'acheter ? »</div>
+    <div class="bulle noir" style="top:500px">MOI : En 3D, à leurs mesures 👀</div>
+  </div>
+  <!-- 2. appel à l'action (zone noire sous l'écran) -->
+  <div class="f" id="cta">
+    <div class="bulle" style="top:1330px; font-size:56px">Commente « MAQUETTE » 👇</div>
+    <div class="sous" style="top:1470px">et je te prépare la tienne gratuitement</div>
+  </div>
+</body>
+</html>

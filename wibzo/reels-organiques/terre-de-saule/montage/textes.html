@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<style>
+  html, body { margin: 0; background: transparent; }
+  .f { width: 1080px; height: 1920px; position: relative; display: none; font-family: "Segoe UI", "Segoe UI Emoji", Arial, sans-serif; }
+  .f.on { display: block; }
+  /* style « texte Instagram avec fond » comme @azz.immersif */
+  .bulle { position: absolute; left: 50%; transform: translateX(-50%); background: #000; color: #fff;
+           font-weight: 700; font-size: 46px; line-height: 1.22; text-align: center; padding: 18px 30px;
+           border-radius: 22px; width: max-content; max-width: 900px; box-sizing: border-box; }
+  .blanc { background: #fff; color: #000; }
+  .petit { position: absolute; left: 0; right: 0; bottom: 470px; text-align: center; color: rgba(255,255,255,.55);
+           font-size: 26px; font-weight: 600; letter-spacing: .5px; }
+</style>
+</head>
+<body>
+  <!-- 1. hook : les 2 lignes dès le début, jusqu'au CTA -->
+  <div class="f" id="hook">
+    <div class="bulle" style="top:400px">CLIENT : « Tu peux me faire un devis<br>automatique sur mon site ? »</div>
+    <div class="bulle" style="top:560px">MOI : C'est déjà fait 👀</div>
+  </div>
+  <!-- 2. appel à l'action de fin -->
+  <div class="f" id="cta">
+    <div class="bulle blanc" style="top:400px; font-size:54px">Commente « MAQUETTE » 👇</div>
+    <div class="bulle" style="top:540px; font-size:40px">et je te prépare la tienne gratuitement</div>
+  </div>
+</body>
+</html>

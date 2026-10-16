@@ -1,0 +1,80 @@
+# Pour le message de prospection (version du 15.10.2026) : métier Google ¦ ce qu'un client cherche ¦ client (m = « un nouveau client », f = « une nouvelle cliente »)
+# Lu par prospection/outils/maj_messages.ps1 et build_xlsx.py. Ajouter une ligne pour chaque nouveau métier.
+Assistance et services informatiques ¦ un informaticien ¦ m
+Atelier de mécanique automobile ¦ un garage ¦ m
+Atelier de réparation automobile ¦ un garage ¦ m
+Auto-école ¦ une auto-école ¦ m
+Barbier ¦ un barbier ¦ m
+Boucherie ¦ une boucherie ¦ m
+Boutique de desserts ¦ une pâtisserie ¦ m
+Carreleur ¦ un carreleur ¦ m
+Carrosserie ¦ une carrosserie ¦ m
+Centre équestre ¦ un centre équestre ¦ m
+Charcuterie ¦ une charcuterie ¦ m
+Charpentier ¦ un charpentier ¦ m
+Coach particulier ¦ un coach ¦ m
+Coiffeur ¦ un coiffeur ¦ f
+Concessionnaire automobile ¦ une voiture ¦ m
+Cordonnier ¦ un cordonnier ¦ m
+Couturier ¦ une couturière ¦ f
+Couvreur ¦ un couvreur ¦ m
+École de musique ¦ des cours de musique ¦ m
+Entrepreneur ¦ une entreprise de construction ¦ m
+Entrepreneur spécialisé dans les systèmes de CVC ¦ un chauffagiste ¦ m
+Entreprise informatique ¦ un informaticien ¦ m
+Épicerie ¦ une épicerie ¦ m
+Épicerie fine ¦ une épicerie fine ¦ m
+Ferme ¦ des produits de la ferme ¦ m
+Fleuriste ¦ un fleuriste ¦ m
+Fournisseur de produits alimentaires ¦ des produits locaux ¦ m
+Friperie ¦ une friperie ¦ f
+Galerie d'art ¦ une galerie d'art ¦ m
+Garage automobile ¦ un garage ¦ m
+Grossiste en produits de beauté ¦ des produits de beauté ¦ f
+Institut de beauté ¦ un institut de beauté ¦ f
+Institut de massages ¦ un massage ¦ m
+Jardinerie ¦ une jardinerie ¦ m
+Kebab ¦ un kebab ¦ m
+Kiosque ¦ un kiosque ¦ m
+Magasin d'antiquités ¦ un antiquaire ¦ m
+Magasin de cannabis ¦ un CBD shop ¦ m
+Magasin de cosmétiques ¦ des cosmétiques ¦ f
+Magasin de rideaux et stores ¦ des stores ou des rideaux ¦ m
+Magasin de stores et de rideaux ¦ des stores ou des rideaux ¦ m
+Magasin de vélo ¦ un magasin de vélos ¦ m
+Magasin de vêtements ¦ un magasin de vêtements ¦ f
+Magasins d'appareil de fitness ¦ du matériel de fitness ¦ m
+Maison d'hôtes ¦ une chambre d'hôtes ¦ m
+Marché alimentaire ¦ une épicerie ¦ m
+Massothérapeute ¦ un massage ¦ m
+Menuisier ¦ un menuisier ¦ m
+Nettoyage à sec ¦ un pressing ¦ m
+Ostéopathe ¦ un ostéopathe ¦ m
+Paysagiste ¦ un paysagiste ¦ m
+Peintre ¦ un peintre ¦ m
+Peintre en bâtiment ¦ un peintre en bâtiment ¦ m
+Pension pour chiens ¦ une pension pour chiens ¦ m
+Physiothérapeute ¦ un physio ¦ m
+Pizzas à emporter ¦ une pizzeria ¦ m
+Pizzeria ¦ une pizzeria ¦ m
+Podologue ¦ un podologue ¦ m
+Programme de bien-être ¦ un soin bien-être ¦ m
+Restaurant suisse ¦ un restaurant ¦ m
+Salle de danse ¦ des cours de danse ¦ m
+Salon de coiffure ¦ un coiffeur ¦ f
+Salon de manucure ¦ une onglerie ¦ f
+Salon de tatouage ¦ un tatoueur ¦ m
+Salon de tatouage et piercing ¦ un tatoueur ¦ m
+Sandwicherie ¦ une sandwicherie ¦ m
+Scierie ¦ du bois ¦ m
+Serrurier ¦ un serrurier ¦ m
+Service d'assainissement ¦ une entreprise d'assainissement ¦ m
+Service de location d'outils ¦ une location d'outils ¦ m
+Service de nettoyage ¦ une entreprise de nettoyage ¦ m
+Service de nettoyage et d'entretien ¦ une entreprise de nettoyage ¦ m
+Service de préparation des déclarations fiscales ¦ de l'aide pour sa déclaration d'impôts ¦ m
+Service de réparation d'ordinateurs ¦ un réparateur d'ordinateurs ¦ m
+Soin des pieds ¦ un podologue ¦ m
+Thérapeute en drainage lymphatique ¦ un drainage lymphatique ¦ f
+Toiletteur ¦ un toiletteur ¦ m
+Traiteur ¦ un traiteur ¦ m

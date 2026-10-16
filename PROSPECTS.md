@@ -42,7 +42,11 @@ Garage.
 
 Aucun site identifié lors de la première recherche.
 
-**Statut :** Prospect à traiter.
+* Nom Google : JR MECA by J.Rossier Utilitaires. ZI de La Palaz a C8, 1530 Payerne. 079 953 73 11.
+* Google : 21 avis à 5/5. Lun–ven 08:00–18:00, sam 11:00–16:00, dim fermé. Utilitaires, poids lourds, tracteurs, remorques.
+* Détails et sources : `sites/jr-meca/INFOS.md`.
+
+**Statut :** Message WhatsApp envoyé le 15.10.2026, 18:49. Réponse à 19:00 : « Vasy montre moi ». Maquette faite le 15.10.2026 (`sites/jr-meca/`). Zip pour Cloudflare Pages : `sites/jr-meca/jr-meca-en-ligne.zip`. Lien de démo : https://jr-meca-wibzo.pages.dev (Cloudflare Pages, mis en ligne par Claude le 15.10.2026).
 
 ## Menuiserie Roulin — Estavayer-le-Lac
 
@@ -118,3 +122,27 @@ Physiothérapeute indépendante.
 Maquette réalisée (site multi-pages : Accueil, Prestations, À propos, Contact).
 
 **Statut :** Message + démo envoyés le 30.09.2026. Relance si pas de réponse d'ici le 03-04.10.2026. Dernière relance possible d'ici le 07-10.10.2026.
+
+## Quinn Beauty — Onglerie & cils, Payerne
+
+* Jessica, styliste ongulaire et lash artiste. Rue de Guillermaux 24, 1530 Payerne (Salonkee). 076 344 35 84.
+* Réservation Salonkee, 17 avis à 5/5. Pas de site.
+* Détails et sources : `sites/quinn-beauty/INFOS.md` (⚠️ ancienne adresse à Villeneuve FR sur search.ch, à vérifier avec elle).
+
+**Statut :** Message WhatsApp envoyé le 15.10.2026, 14:38. Réponse « Oui pkoi pas » à 14:39. Maquette faite le 15.10.2026 (`sites/quinn-beauty/`). Lien de démo : https://quinn-beauty-wibzo.pages.dev (Cloudflare Pages).
+
+## CTL Nails Onglerie — Onglerie, Payerne
+
+* Carolina (prénom confirmé : nom WhatsApp « CTLnails Carolina »), styliste ongulaire. Rue de Lausanne 8, 1530 Payerne. 079 133 64 31. Instagram @ctlnailss.
+* Google : 7 avis à 5/5. Lun–ven 09:00–19:00, sam–dim fermé. Rendez-vous par message (« Rendez-vous en dm »). Pas de site.
+* Détails et sources : `sites/ctl-nails/INFOS.md`.
+
+**Statut :** Message WhatsApp envoyé le 15.10.2026. Réponse le 15.10 : « oui je veux bien la voir » + « Et si j'accepte le prix serait de combien ? ». Maquette faite le 15.10.2026 (`sites/ctl-nails/`). En ligne : https://ctl-nails-wibzo.pages.dev. Maquette + prix (350.– + 30.–/mois) envoyés le 15.10.2026 à 18:56. 19:08 : question sur les rendez-vous : elle aime devoir confirmer sur WhatsApp, demande si les jours/heures du site suivent ses disponibilités. Prix proposé par Ryan (15.10.2026) : 350.– + 30.–/mois. Si elle valide, réservation en ligne possible à la place de WhatsApp.
+
+## Nature & co Growshop — Jardinerie / growshop, Payerne
+
+* Rue du Favez 24, 1530 Payerne. 078 756 17 43. Google : 4,6 (20 avis), « géré par une femme ». Mar–ven 10:00–18:30, sam 09:30–17:00 (search.ch). Plantes, tableaux végétaux, matériel de culture, déco florale, CBD (Smile).
+* ⚠️ Numéro marqué « pas de publicité » sur search.ch : elle a demandé la maquette, donc OK, mais vérifier l'astérisque avant les prochains envois.
+* Détails et sources : `sites/nature-and-co/INFOS.md`.
+
+**Statut :** Message WhatsApp envoyé le 15.10.2026 à 18:55. Réponse à 18:58 : « Justement quand on met jardinerie on nous trouve. Mais envoie toujours par curiosité ». Maquette faite et en ligne le 15.10.2026 : https://nature-and-co-wibzo.pages.dev. À lui envoyer.

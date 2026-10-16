@@ -59,7 +59,7 @@ Structure de l'image record Ugo Studio (1,57 M personnes) aux couleurs Wibzo : h
 Refaire seulement celle-ci : `cd pubs-v2` puis `node affiches-v3.js c`.
 
 ## Décision du 14.10.2026 (Ryan) — 3 pubs pour le test
-- Prix **validés comme fixes** : 500 CHF + 25 CHF/mois → l'affiche C peut être utilisée (mettre wibzo.ch au même prix : enlever les « ~ »).
+- ~~Prix validés comme fixes : 500 CHF + 25 CHF/mois~~ **ANNULÉ le 15.10.2026 : pas de prix fixe.** L'affiche C (prix exact « 500 CHF ») ne doit pas être lancée telle quelle : un prix affiché dans une pub engage (LCD).
 - Les 3 pubs du test : **B – Google** (image), **C – prix** (image), **vidéo « Toujours gratuite »** (fin adaptée au formulaire : « Demandez votre maquette, juste en dessous »).
 - A – concurrent mise de côté (trop proche de B).
 - Vidéo prête : `visuels/Wibzo_D-video-toujours-gratuite_9x16.mp4` (Stories/Reels) et `_4x5.mp4` (fil), 19 s, voix de femme Clémence,

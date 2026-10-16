@@ -51,7 +51,7 @@ Une idée = une ligne avec un code (R-xxx pour Reel, C-xxx pour carrousel/photo,
 - Sans visage, voix Théo (ElevenLabs) quand possible, musique originale (pas de musique Instagram → réutilisable en pub).
 - Tutoiement dans les Reels « grand public », vouvoiement dans les pubs.
 - **Depuis le 13.10.2026 (demande de Ryan)** : chaque Reel montre une **vraie maquette**, faite comme pour un client, dans `maquettes-demo/<nom>/` (nom fictif mais crédible, vérifié sur le web pour ne pas copier un vrai commerce ; localité inventée). Capture avec `reels-organiques/shoot.js`, animation dans `reels-organiques/serie2.html`.
-- Noms de commerces fictifs déjà pris : Salon Mélanie, Garage Mercier, Boulangerie du Bourg, Café Tiercelin, Atelier Sève, Institut Les Iris (concurrent fictif), Maison Faucon.
+- Noms de commerces fictifs déjà pris : Salon Mélanie, Garage Mercier, Boulangerie du Bourg, Café Tiercelin, Atelier Sève, Institut Les Iris (concurrent fictif), Maison Faucon, Terre de Saule, Chêne & Laiton (cuisiniste, 15.10.2026, `maquettes-demo/chene-et-laiton/`).
 
 ---
 

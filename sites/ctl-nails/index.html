@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CTL Nails — onglerie à Payerne</title>
+<meta name="description" content="CTL Nails, onglerie à Payerne : pose en gel, Gel X, semi-permanent, nail art et pédicure. Rue de Lausanne 8, 1530 Payerne.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..600&family=Jost:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="demo-bar">Maquette de démonstration, préparée par <strong>Wibzo</strong> pour CTL Nails. Ce n'est pas le site officiel.</div>
+
+<header class="top">
+  <a class="mono" href="#">
+    <span class="mono-c" aria-hidden="true">Ctl</span>
+    <span><b>CTL NAILS</b><small>Styliste ongulaire</small></span>
+  </a>
+  <nav>
+    <a href="#nuancier">Réalisations</a>
+    <a href="#tarifs">Tarifs</a>
+    <a href="#avis">Avis</a>
+    <a href="#infos">Infos</a>
+    <a class="btn btn-b" href="#rdv">Prendre rendez-vous</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero">
+  <div>
+    <p class="kick">Nail artist · Payerne</p>
+    <h1><span>Vos ongles,</span> <span><i>façonnés</i> à la main.</span></h1>
+    <p class="lead">Pose en gel, Gel X, semi-permanent, nail art en 3D et pédicure, Rue de Lausanne 8 à Payerne.</p>
+    <div class="ctas">
+      <a class="btn btn-b" href="#rdv">Composer mon rendez-vous →</a>
+      <a class="btn btn-l" href="tel:+41791336431">079 133 64 31</a>
+    </div>
+    <a class="rating" href="#avis" style="text-decoration:none">
+      <span class="stars" aria-hidden="true">★★★★★</span><b>5,0</b><span>sur 7 avis Google</span>
+    </a>
+  </div>
+  <div class="hand" aria-label="Réalisations CTL Nails">
+    <div class="nail n1"><img src="img/lagon.jpg" alt="Ongles amande dégradé turquoise et étoiles de mer en 3D"></div>
+    <div class="nail n2"><img src="img/rose-3d.jpg" alt="Ongles stiletto roses avec fleurs en 3D et perles dorées"></div>
+    <div class="nail n3"><img src="img/lilas.jpg" alt="Ongles lilas avec étoile dorée et strass violets"></div>
+    <span class="stud s1"></span><span class="stud s2"></span><span class="stud s3"></span>
+  </div>
+</section>
+
+<section class="shade" id="nuancier">
+  <div class="sec-head">
+    <div><p class="kick">Le nuancier</p><h2>Chaque pose est <i>unique</i>.</h2></div>
+    <p>Dégradés, fleurs en relief, perles, étoiles de mer… Quelques réalisations récentes, toutes faites au salon.</p>
+  </div>
+  <div class="rail" id="rail"></div>
+  <p class="rail-hint">← Faites glisser pour voir plus · Plus de photos sur <a href="https://www.instagram.com/ctlnailss/" target="_blank" rel="noopener">@ctlnailss</a></p>
+</section>
+
+<section class="prices" id="tarifs">
+  <div class="sec-head" style="padding:0">
+    <div><p class="kick">Tarifs</p><h2>Les prix, <i>clairement</i>.</h2></div>
+    <p>Tous les prix en francs suisses. Le nail art élaboré se fait sur devis, selon votre idée.</p>
+  </div>
+  <div class="p-cols">
+    <div class="p-group" id="g-mains"><h3>Mains <small>CHF</small></h3></div>
+    <div>
+      <div class="p-group" id="g-pieds"><h3>Pieds <small>CHF</small></h3></div>
+      <div class="p-group" id="g-art"><h3>Nail art <small>CHF</small></h3></div>
+      <p class="p-note"><strong>−10.– avec la carte étudiante.</strong><br>Paiement cash ou par carte.</p>
+    </div>
+  </div>
+</section>
+
+<section class="book" id="rdv">
+  <div class="sec-head">
+    <div><p class="kick">Rendez-vous</p><h2>Composez votre <i>rendez-vous</i>.</h2></div>
+    <p>Choisissez votre prestation, le prix s'affiche tout de suite. Votre demande part ensuite toute prête sur WhatsApp : plus besoin d'écrire en DM et d'attendre pour connaître le prix.</p>
+  </div>
+  <div class="b-grid">
+    <div>
+      <div class="b-step">
+        <h3>1 · Prestation</h3>
+        <div class="tabs" role="tablist">
+          <button type="button" class="on" data-tab="mains">Mains</button>
+          <button type="button" data-tab="pieds">Pieds</button>
+        </div>
+        <div class="svc" id="svc"></div>
+      </div>
+      <div class="b-step">
+        <h3>2 · Options</h3>
+        <div class="chips" id="opts"></div>
+      </div>
+      <div class="b-step">
+        <h3>3 · Jour et heure</h3>
+        <div class="chips" id="days" style="margin-bottom:10px"></div>
+        <div class="chips" id="hrs"></div>
+        <p class="dispo" id="dispo-note"></p>
+      </div>
+      <div class="b-step">
+        <h3>4 · Votre prénom</h3>
+        <input class="name" id="name" type="text" placeholder="Prénom" autocomplete="given-name" aria-label="Votre prénom">
+      </div>
+    </div>
+
+    <aside class="ticket" aria-live="polite">
+      <div class="t-head"><span class="mono-c" aria-hidden="true">Ctl</span><span>Votre demande</span></div>
+      <ul class="t-lines" id="lines"></ul>
+      <div class="t-when" id="when">Jour : à choisir</div>
+      <div class="t-total"><span>Total indicatif</span><output id="total">0.–</output></div>
+      <a class="btn wa" id="wa" href="#" target="_blank" rel="noopener" aria-disabled="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.2-.2-.4-.3z"/></svg>
+        Envoyer ma demande sur WhatsApp
+      </a>
+      <p class="t-foot">Carolina vous confirme le rendez-vous.<br>Ou appelez le <a href="tel:+41791336431">079 133 64 31</a></p>
+    </aside>
+  </div>
+</section>
+
+<section class="reviews" id="avis">
+  <div class="sec-head" style="padding:0">
+    <div><p class="kick">Avis Google</p><h2><i>5,0</i> sur 7 avis.</h2></div>
+    <p>Tous les avis Google de CTL Nails ont 5 étoiles. En voici quatre.</p>
+  </div>
+  <div class="r-grid">
+    <figure class="r-card"><span class="stars">★★★★★</span><blockquote>Jamais déçue ! Elle fait un travail minutieux, toujours à l'écoute de ce qu'on veut. Les ongles tiennent super bien et le résultat est toujours top. Je recommande !</blockquote><figcaption><b>Sandra J.</b> · il y a un an</figcaption></figure>
+    <figure class="r-card"><span class="stars">★★★★★</span><blockquote>J'y vais depuis un an et je suis toujours sortie avec des ongles magnifiques !</blockquote><figcaption><b>lil deh</b> · il y a un mois</figcaption></figure>
+    <figure class="r-card"><span class="stars">★★★★★</span><blockquote>Carolina est top et pro et très sympathique.</blockquote><figcaption><b>Cynthia C.</b> · il y a 6 mois</figcaption></figure>
+    <figure class="r-card"><span class="stars">★★★★★</span><blockquote>Un travail de qualité ! Elle comprend parfaitement mes attentes. Je peux que vous la recommander ! 🫶🏽</blockquote><figcaption><b>Arianevltn</b> · il y a un an</figcaption></figure>
+  </div>
+  <p class="r-src">Avis repris de la fiche Google de CTL Nails Onglerie.</p>
+</section>
+
+<section class="infos" id="infos">
+  <div class="i-txt">
+    <p class="kick">Infos pratiques</p>
+    <h2>Rue de Lausanne 8,<br><i>Payerne</i>.</h2>
+    <table class="hours" id="hours">
+      <tr data-d="1"><td>Lundi</td><td>09:00 – 19:00</td></tr>
+      <tr data-d="2"><td>Mardi</td><td>09:00 – 19:00</td></tr>
+      <tr data-d="3"><td>Mercredi</td><td>09:00 – 19:00</td></tr>
+      <tr data-d="4"><td>Jeudi</td><td>09:00 – 19:00</td></tr>
+      <tr data-d="5"><td>Vendredi</td><td>09:00 – 19:00</td></tr>
+      <tr data-d="6"><td>Samedi</td><td>Fermé</td></tr>
+      <tr data-d="0"><td>Dimanche</td><td>Fermé</td></tr>
+    </table>
+    <ul class="i-list">
+      <li><span>Adresse</span>Rue de Lausanne 8, 1530 Payerne</li>
+      <li><span>Téléphone</span><a href="tel:+41791336431">079 133 64 31</a></li>
+      <li><span>Instagram</span><a href="https://www.instagram.com/ctlnailss/" target="_blank" rel="noopener">@ctlnailss</a></li>
+      <li><span>Paiement</span>Cash ou carte</li>
+    </ul>
+    <a class="btn btn-b" href="#rdv">Prendre rendez-vous</a>
+  </div>
+  <iframe title="Carte : Rue de Lausanne 8, Payerne" src="https://maps.google.com/maps?q=CTL%20Nails%20Onglerie%2C%20Rue%20de%20Lausanne%208%2C%201530%20Payerne&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</section>
+</main>
+
+<footer>
+  <span>© 2026 CTL Nails · Payerne</span>
+  <span>Maquette de démonstration réalisée par Wibzo (wibzo.ch). Photos, tarifs et avis repris de l'Instagram et de la fiche Google de CTL Nails.</span>
+</footer>
+
+<div class="sticky-bar"><a href="tel:+41791336431">Appeler</a><a href="https://wa.me/41791336431" target="_blank" rel="noopener">WhatsApp</a></div>
+
+<script>
+// Tarifs recopiés de la story « Prix » d'Instagram (@ctlnailss)
+const MAINS = [
+  ['Pose complète en gel', 'chablons ou capsules', 80],
+  ['Remplissage gel', '', 65],
+  ['Gel X / Pose américaine', '', 60],
+  ['Dépose + Gel X / Pose américaine', '', 70],
+  ['Semi-permanent', '', 50],
+  ['Dépose + semi-permanent', '', 60],
+  ['Manucure + vernis classique', '', 35],
+  ['Manucure', '', 20],
+  ['Dépose gel', '', 30],
+  ['Dépose Gel X / Pose américaine', '', 20],
+  ['Dépose semi-permanent', '', 15]
+];
+const PIEDS = [
+  ['Pédicure', 'bain des pieds, cuticules, dépose, crème et petit massage', 40],
+  ['Pédicure + pose semi-permanent', '', 65],
+  ['Dépose + pédicure + pose semi-permanent', '', 70],
+  ['Pose semi-permanent', 'sans pédicure, seulement les cuticules', 40],
+  ['Dépose + pose semi-permanent', 'sans pédicure, seulement les cuticules', 45],
+  ['Pédicure + pose vernis classique', '', 50]
+];
+const ART = [['French / Babyboomer', '', 6], ['Nail art élaboré', '', 'sur devis']];
+const PHOTOS = [
+  ['rose-3d', 'Rose & fleurs 3D', 'Stiletto'], ['lagon', 'Lagon', 'Étoiles de mer'], ['papaye', 'Papaye', 'Nail art peint'],
+  ['lilas', 'Lilas', 'Strass & étoile'], ['framboise', 'Framboise', 'Marbré & perles'], ['chocolat', 'Chocolat', 'Fleurs 3D'],
+  ['french-bleu', 'French bleue', 'Fleurs peintes'], ['ciel', 'Ciel', 'Étoiles dorées'], ['prune', 'Prune', 'Pois & nœud'],
+  ['bijoux', 'Turquoise', 'Bijoux d\'ongles']
+];
+const $ = id => document.getElementById(id);
+const chf = n => typeof n === 'number' ? n + '.–' : n;
+
+// tarifs
+const row = ([n, d, p]) => `<div class="row"><span>${n}${d ? `<em>${d}</em>` : ''}</span><span class="dots"></span><b>${chf(p)}</b></div>`;
+$('g-mains').insertAdjacentHTML('beforeend', MAINS.map(row).join(''));
+$('g-pieds').insertAdjacentHTML('beforeend', PIEDS.map(row).join(''));
+$('g-art').insertAdjacentHTML('beforeend', ART.map(row).join(''));
+
+// nuancier
+$('rail').innerHTML = PHOTOS.map(([f, t, s]) => `<figure><div class="tip"><img src="img/${f}.jpg" alt="Réalisation CTL Nails : ${t}, ${s}" loading="lazy"></div><figcaption>${t}<small>${s}</small></figcaption></figure>`).join('');
+
+// horaires : jour du jour en couleur
+const tr = document.querySelector(`#hours tr[data-d="${new Date().getDay()}"]`); if (tr) tr.classList.add('today');
+
+// ---------- Composer le rendez-vous ----------
+const S = { tab: 'mains', svc: null, french: false, art: false, etu: false, day: null, hour: null };
+function renderSvc() {
+  const list = S.tab === 'mains' ? MAINS : PIEDS;
+  $('svc').innerHTML = list.map(([n, d, p], i) => `<label><input type="radio" name="svc" value="${i}" ${S.svc && S.svc.n === n ? 'checked' : ''}><span>${n}</span><b>${p}.–</b></label>`).join('') +
+    `<label class="open"><input type="radio" name="svc" value="x" ${S.svc && S.svc.open ? 'checked' : ''}><span>Je ne sais pas encore : on en discute ensemble</span><b>à discuter</b></label>`;
+  $('svc').querySelectorAll('input').forEach(inp => inp.onchange = () => {
+    if (inp.value === 'x') S.svc = { n: 'À discuter ensemble', p: 'à discuter', open: true };
+    else { const [n, d, p] = list[+inp.value]; S.svc = { n, p }; }
+    update();
+  });
+}
+document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => {
+  S.tab = b.dataset.tab; document.querySelectorAll('.tabs button').forEach(x => x.classList.toggle('on', x === b)); renderSvc();
+});
+const chip = (id, label, type, name) => `<label class="chip"><input type="${type}" name="${name}" value="${id}"><span>${label}</span></label>`;
+$('opts').innerHTML = chip('french', 'French / Babyboomer · 6.–', 'checkbox', 'o') + chip('art', 'Nail art élaboré · sur devis', 'checkbox', 'o') + chip('etu', 'Carte étudiante · −10.–', 'checkbox', 'o');
+$('opts').querySelectorAll('input').forEach(i => i.onchange = () => { S[i.value] = i.checked; update(); });
+// ---------- Disponibilités : l'agenda Google de Carolina (via /api/busy) ----------
+// Durée de chaque prestation, en minutes. ⚠️ ESTIMATIONS : à remplacer par les vraies durées de Carolina.
+const DUREE = {
+  'Pose complète en gel': 120, 'Remplissage gel': 90, 'Gel X / Pose américaine': 90, 'Dépose + Gel X / Pose américaine': 105,
+  'Semi-permanent': 60, 'Dépose + semi-permanent': 75, 'Manucure + vernis classique': 45, 'Manucure': 30,
+  'Dépose gel': 30, 'Dépose Gel X / Pose américaine': 30, 'Dépose semi-permanent': 20,
+  'Pédicure': 60, 'Pédicure + pose semi-permanent': 75, 'Dépose + pédicure + pose semi-permanent': 90,
+  'Pose semi-permanent': 45, 'Dépose + pose semi-permanent': 50, 'Pédicure + pose vernis classique': 60
+};
+const PAR_DEFAUT = 60, FRENCH = 15, NAIL_ART = 30;
+const OUVRE = 9 * 60, FERME = 19 * 60, PAS = 30; // salon ouvert 09:00–19:00, créneaux toutes les 30 min
+const pad = n => String(n).padStart(2, '0');
+const hhmm = m => `${pad(Math.floor(m / 60))}:${pad(m % 60)}`;
+// 10 prochains jours ouvrables (le salon est fermé le samedi et le dimanche)
+const DAYS = [];
+for (const d = new Date(); DAYS.length < 10;) {
+  d.setDate(d.getDate() + 1);
+  if (d.getDay() % 6) DAYS.push({ k: `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`, label: d.toLocaleDateString('fr-CH', { weekday: 'long', day: '2-digit', month: '2-digit' }).replace(',', '').replace(/\.$/, '') });
+}
+// Agenda de démonstration (rendez-vous fictifs), utilisé tant que son agenda n'est pas relié
+function demoBusy() {
+  const P = [[[540, 660], [840, 930]], [[600, 720], [960, 1080]], [[780, 900]], [[540, 630], [660, 780], [1020, 1140]], [[540, 1140]]];
+  return Object.fromEntries(DAYS.map((d, i) => [d.k, P[i % P.length]]));
+}
+let BUSY = null, DEMO = true;
+const duree = () => (!S.svc || S.svc.open ? PAR_DEFAUT : DUREE[S.svc.n] || PAR_DEFAUT) + (S.french ? FRENCH : 0) + (S.art ? NAIL_ART : 0);
+const libre = (k, start, dur) => start + dur <= FERME && !(BUSY[k] || []).some(([a, b]) => start < b && start + dur > a);
+const creneaux = k => { const dur = duree(), out = []; for (let m = OUVRE; m + dur <= FERME; m += PAS) if (libre(k, m, dur)) out.push(m); return out; };
+
+function renderSlots() {
+  if (!BUSY) { $('days').innerHTML = '<span class="dispo">Chargement des disponibilités…</span>'; return; }
+  $('days').innerHTML = DAYS.map(d => {
+    const full = !creneaux(d.k).length;
+    return `<label class="chip${full ? ' full' : ''}"><input type="radio" name="day" value="${d.k}" ${full ? 'disabled' : ''} ${S.dayK === d.k ? 'checked' : ''}><span>${d.label}${full ? ' · complet' : ''}</span></label>`;
+  }).join('');
+  $('days').querySelectorAll('input').forEach(i => i.onchange = () => { S.dayK = i.value; S.day = DAYS.find(d => d.k === i.value).label; S.hour = null; update(); });
+  if (S.dayK && !creneaux(S.dayK).length) { S.dayK = S.day = S.hour = null; }
+  if (!S.dayK) { $('hrs').innerHTML = '<span class="dispo">Choisissez d\'abord un jour.</span>'; }
+  else {
+    const dur = duree(), all = [];
+    for (let m = OUVRE; m + PAS <= FERME; m += PAS) all.push(m);
+    if (S.hour && !libre(S.dayK, +S.hour.slice(0, 2) * 60 + +S.hour.slice(3), dur)) S.hour = null;
+    $('hrs').innerHTML = all.map(m => { const ok = libre(S.dayK, m, dur); return `<label class="chip${ok ? '' : ' taken'}"><input type="radio" name="hour" value="${hhmm(m)}" ${ok ? '' : 'disabled'} ${S.hour === hhmm(m) ? 'checked' : ''}><span>${hhmm(m)}</span></label>`; }).join('');
+    $('hrs').querySelectorAll('input').forEach(i => i.onchange = () => { S.hour = i.value; update(); });
+  }
+  $('dispo-note').textContent = DEMO ? 'Les heures barrées sont déjà prises (agenda de démonstration).' : 'Les heures barrées sont déjà prises dans l\'agenda de Carolina.';
+}
+fetch('/api/busy').then(r => r.ok ? r.json() : null)
+  .then(j => { if (j && j.busy) { BUSY = j.busy; DEMO = false; } else BUSY = demoBusy(); })
+  .catch(() => { BUSY = demoBusy(); })
+  .finally(update);
+$('name').oninput = update;
+
+let shown = 0, raf;
+function countTo(v) {
+  cancelAnimationFrame(raf); const from = shown, t0 = performance.now();
+  const step = t => { const k = Math.min(1, (t - t0) / 450); shown = Math.round(from + (v - from) * (1 - Math.pow(1 - k, 3))); $('total').textContent = shown + '.–'; if (k < 1) raf = requestAnimationFrame(step); };
+  raf = requestAnimationFrame(step);
+}
+function update() {
+  renderSlots();
+  const L = [];
+  if (S.svc) L.push([S.svc.n, S.svc.p]);
+  if (S.french) L.push(['French / Babyboomer', 6]);
+  if (S.art) L.push(['Nail art élaboré', 'sur devis']);
+  if (S.etu && S.svc && !S.svc.open) L.push(['Carte étudiante', -10]);
+  $('lines').innerHTML = L.length ? L.map(([n, p]) => `<li class="${p < 0 ? 'minus' : ''}"><span>${n}</span><b>${typeof p === 'number' ? (p < 0 ? '−' + (-p) : p) + '.–' : p}</b></li>`).join('') : '<li class="empty">Choisissez une prestation</li>';
+  const total = Math.max(0, L.reduce((s, [, p]) => s + (typeof p === 'number' ? p : 0), 0));
+  const open = S.svc && S.svc.open;
+  if (open) { cancelAnimationFrame(raf); shown = 0; $('total').textContent = 'à discuter'; } else countTo(total);
+  $('when').textContent = 'Rendez-vous souhaité : ' + (S.day ? S.day + (S.hour ? ' à ' + S.hour : '') : 'à choisir');
+  const ok = S.svc && S.day && S.hour;
+  const wa = $('wa'); wa.setAttribute('aria-disabled', !ok);
+  if (ok) {
+    const name = $('name').value.trim();
+    const msg = `Bonjour, je souhaite prendre rendez-vous chez CTL Nails :\n` + L.filter(([n]) => !open || n !== S.svc.n).map(([n, p]) => `- ${n} (${typeof p === 'number' ? p + '.–' : p})`).join('\n') +
+      (open ? `\nJe ne sais pas encore quoi faire, on peut en discuter ?` : `\nTotal indicatif : ${total}.–${S.art ? ' + nail art sur devis' : ''}`) + `\nRendez-vous souhaité : ${S.day} à ${S.hour}` + (name ? `\nPrénom : ${name}` : '') + `\nMerci !`;
+    wa.href = 'https://wa.me/41791336431?text=' + encodeURIComponent(msg);
+  } else wa.href = '#';
+}
+renderSvc(); update();
+</script>
+</body>
+</html>

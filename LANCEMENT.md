@@ -50,3 +50,9 @@ Dernière mise à jour : 14.10.2026. À lire au début de chaque nouvelle sessio
 6c. [ ] **Test organique des pubs (13.10 → 16.10.2026)** : 4 vidéos « pub » postées à 12:00 (mar → ven). **Dimanche 18.10** : comparer (temps de visionnage d'abord), garder 1–2, Claude fait 2–3 débuts différents → ce sont elles qui partent en pub. Détails : `wibzo/pubs-organiques/LISEZ-MOI.md`.
 7. [ ] **Lancer les pubs** : 100 CHF / 7 jours, formulaire Meta. Avant : page protection des données + test du formulaire (voir `wibzo/pubs-meta-formulaire/A-LIRE.md`). Arrêt si 40 CHF sans prospect. Exporter les prospects chaque soir. Bilan : ≥ 1 client = continuer ; conversations sans client = corriger maquette/prix/relance ; presque aucune conversation = nouveaux hooks/visuels.
 8. [ ] **En parallèle** : messages WhatsApp aux 206 commerces du fichier, **20–30 par jour max** (risque de blocage du numéro ; règles LCD sur la prospection à vérifier).
+
+## Mise à jour 15.10.2026 — démos sur Cloudflare Pages
+- Compte Cloudflare créé par Ryan. Les maquettes de démo passent maintenant par **Cloudflare Pages** (gratuit), à la place de Netlify qui n'a plus de crédits.
+- Première démo : Quinn Beauty → https://quinn-beauty-wibzo.pages.dev
+- Méthode : Workers & Pages → Créer → Pages → téléverser un .zip du site.
+- ⚠️ Le .zip fait avec « Compresser » de Windows / PowerShell 5 met des chemins `img\photo.jpg`. Cloudflare ne les comprend pas et les photos ne s'affichent pas. Il faut un zip avec des chemins `img/photo.jpg` (Claude le fait).

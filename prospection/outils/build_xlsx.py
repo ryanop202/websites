@@ -17,6 +17,7 @@ MSG = ("Bonjour, je suis Ryan, créateur web dans la région.\n\n"
 
 # Nouveau message (14.10.2026, après recherche Instagram) pour tous les commerces pas encore « Envoyé ».
 # Les messages déjà envoyés gardent MSG ci-dessus. Voir PROCESS.md.
+# ATTENTION (15.10.2026) : le message actuel est écrit par maj_messages.ps1 (à relancer après ce script).
 MSG_V2 = ("Bonjour, ici Ryan de Wibzo, je crée des sites pour les commerces de la région.\n\n"
           "{line} Mais quand un nouveau client vous cherche sur Google, il ne trouve pas de site pour {benefit}, "
           "et il risque d'aller ailleurs.\n\n"
@@ -38,7 +39,7 @@ BENEFIT = {
 }
 KEYS = [
     ("resto", ["pizz", "kebab", "restaurant", "traiteur", "sandwich", "dessert", "boucherie", "charcuterie"]),
-    ("rdv", ["coiff", "barbier", "beauté", "massa", "massage", "manucure", "tatouage", "ostéo", "podolog", "physio",
+    ("rdv", ["coiff", "barbier", "beauté", "massa", "masso", "massage", "manucure", "tatouage", "ostéo", "podolog", "physio",
              "toiletteur", "drainage", "soin des pieds", "auto-école", "coach", "danse", "musique", "bien-être",
              "garage", "réparation automobile", "mécanique automobile", "carrosserie", "pension pour chiens",
              "équestre", "maison d'hôtes"]),

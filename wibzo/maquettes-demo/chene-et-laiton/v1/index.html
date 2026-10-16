@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chêne &amp; Laiton — cuisines sur mesure</title>
+<meta name="description" content="Chêne & Laiton, cuisiniste dans la Broye : composez votre cuisine en ligne, voyez-la et connaissez le budget avant le premier rendez-vous. Exemple fictif, maquette Wibzo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <a class="logo" href="#">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" fill="none" stroke="#C9A45B" stroke-width="1.5"/><path d="M1 13h30M16 13v18" stroke="#C9A45B" stroke-width="1.5"/><path d="M11 21h10" stroke="#F0EAE0" stroke-width="2.5" stroke-linecap="round"/></svg>
+    <b>Chêne<i>&amp;</i>Laiton</b>
+  </a>
+  <nav>
+    <a href="#cuisine">Composer</a>
+    <a href="#methode">Méthode</a>
+    <a href="#projets">Projets</a>
+    <a href="#showroom">Showroom</a>
+    <a href="#cuisine" class="btn-s">Métré gratuit</a>
+  </nav>
+</header>
+
+<main>
+<section class="config" id="cuisine">
+  <div class="left">
+    <div class="intro-row">
+      <h1><span>Votre cuisine,</span> <span style="animation-delay:.12s"><em>avant</em> le premier</span> <span style="animation-delay:.24s">rendez-vous.</span></h1>
+      <p>Composez-la ici en deux minutes. Vous la voyez, vous connaissez le budget, et on arrive chez vous avec votre cuisine déjà dessinée.</p>
+    </div>
+    <div class="stage drawing" id="stage">
+      <div class="stage-ui" role="group" aria-label="Ambiance">
+        <button type="button" data-time="jour" class="on"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.4 1.4M11.6 11.6 13 13M3 13l1.4-1.4M11.6 4.4 13 3"/></svg><span>Jour</span></button>
+        <button type="button" data-time="soir"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M13 10.5A5.5 5.5 0 0 1 5.5 3a5.5 5.5 0 1 0 7.5 7.5z"/></svg><span>Soir</span></button>
+      </div>
+      <span class="stage-cap mono">Vue de face · aperçu indicatif</span>
+    </div>
+  </div>
+
+  <aside class="sheet" aria-label="Composer votre cuisine">
+    <div class="view" id="v-config">
+      <div class="sh-head"><b>Votre composition</b><span class="mono ref"></span></div>
+      <div class="step"><div class="st-top"><span class="num mono">01</span><span class="lbl">Implantation</span><span class="val mono" data-v="lay"></span></div><div class="seg" id="o-lay"></div></div>
+      <div class="step"><div class="st-top"><span class="num mono">02</span><span class="lbl">Façades</span><span class="val mono" data-v="front"></span></div><div class="chips" id="o-front"></div></div>
+      <div class="step"><div class="st-top"><span class="num mono">03</span><span class="lbl">Plan de travail</span><span class="val mono" data-v="top"></span></div><div class="chips" id="o-top"></div></div>
+      <div class="step"><div class="st-top"><span class="num mono">04</span><span class="lbl">Poignées</span><span class="val mono" data-v="handle"></span></div><div class="hopts" id="o-handle"></div></div>
+      <div class="step"><div class="st-top"><span class="num mono">05</span><span class="lbl">Éclairage</span></div>
+        <button type="button" class="switch" id="o-led" role="switch" aria-checked="true"><i></i><span>LED sous les meubles hauts<small>Passez en mode « Soir » pour la voir</small></span></button>
+      </div>
+      <div class="budget"><span class="mono">Budget estimé · pose comprise</span><output id="price">CHF –</output><small>Indicatif. Prix ferme après le métré gratuit chez vous.</small></div>
+      <button type="button" class="cta" id="go-book">Réserver le métré avec cette cuisine <span>→</span></button>
+    </div>
+
+    <div class="view" id="v-book" hidden>
+      <div class="sh-head"><b>Métré gratuit chez vous</b><span class="mono ref"></span></div>
+      <ul class="recap" id="recap"></ul>
+      <span class="pick-l mono">Quel jour ?</span>
+      <div class="picks" id="days"></div>
+      <span class="pick-l mono">À quelle heure ?</span>
+      <div class="picks" id="hours"></div>
+      <div style="margin-top:18px"><button type="button" class="cta" id="confirm" disabled>Confirmer le rendez-vous <span>→</span></button></div>
+      <button type="button" class="back" data-back>← Modifier ma cuisine</button>
+    </div>
+
+    <div class="view" id="v-done" hidden>
+      <div class="sh-head"><b>C'est noté</b><span class="mono ref"></span></div>
+      <div class="stamp">MÉTRÉ RÉSERVÉ</div>
+      <p class="done-txt" id="done-txt"></p>
+      <p class="done-txt" style="color:var(--mute);font-size:13.5px">Pas besoin de revenir au showroom pour choisir : tout est déjà dans votre dossier.</p>
+      <button type="button" class="back" data-back>← Modifier ma cuisine</button>
+    </div>
+  </aside>
+</section>
+
+<section class="band">
+  <span class="kick mono">Le problème qu'on a réglé</span>
+  <h2>Choisir sa cuisine, sans dix allers-retours au showroom.</h2>
+  <div class="vs">
+    <div class="old">
+      <h3>D'habitude</h3>
+      <ul>
+        <li>On feuillette des catalogues sans s'imaginer le résultat</li>
+        <li>On revient trois fois pour un échantillon de couleur</li>
+        <li>On découvre le prix à la toute fin</li>
+      </ul>
+    </div>
+    <div class="new">
+      <h3>Chez Chêne &amp; Laiton</h3>
+      <ul>
+        <li>Vous voyez votre cuisine changer en direct</li>
+        <li>Le budget s'affiche à chaque choix</li>
+        <li>On arrive au métré avec votre composition</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="method" id="methode">
+  <span class="kick mono">Méthode</span>
+  <h2>Quatre étapes, un seul interlocuteur.</h2>
+  <ol class="steps">
+    <li><span class="mono">01 · En ligne</span><h3>Vous composez</h3><p>Implantation, façades, plan de travail, poignées. Deux minutes, depuis votre canapé.</p></li>
+    <li><span class="mono">02 · Chez vous</span><h3>On mesure</h3><p>Le métré est gratuit. On vient avec votre composition, pas avec un catalogue.</p></li>
+    <li><span class="mono">03 · Sous 5 jours</span><h3>Plan &amp; prix ferme</h3><p>Plan détaillé de votre cuisine et prix définitif, sans surprise.</p></li>
+    <li><span class="mono">04 · Chantier</span><h3>Une équipe pose tout</h3><p>Démontage, pose, raccordements. Vous n'avez qu'un seul numéro à appeler.</p></li>
+  </ol>
+</section>
+
+<section class="projects" id="projets">
+  <span class="kick mono">Inspirations</span>
+  <h2>Trois compositions pour commencer.</h2>
+  <div class="p-grid" id="p-grid"></div>
+</section>
+
+<section class="contact" id="showroom">
+  <div>
+    <span class="kick mono">Showroom</span>
+    <h2>Venez toucher les matières.</h2>
+  </div>
+  <dl class="c-list">
+    <dt>Adresse</dt><dd>Rue de l'Atelier 4, 1599 Bourg-sur-Broye</dd>
+    <dt>Téléphone</dt><dd><a href="tel:+41260000005">026 000 00 05</a></dd>
+    <dt>Showroom</dt><dd>Mar–ven 9h–12h · 13h30–18h<br>Samedi 9h–13h</dd>
+  </dl>
+</section>
+</main>
+
+<footer>
+  <span>© 2026 Chêne &amp; Laiton · cuisines sur mesure</span>
+  <span class="fic">Exemple fictif · maquette Wibzo</span>
+</footer>
+
+<script>
+// ---------- Données (prix FICTIFS, démo) ----------
+const LAYS = {
+  lineaire: { n: 'Linéaire', p: 17900, dim: '4,20 m' },
+  ilot:     { n: 'Avec îlot', p: 26400, dim: '4,20 m + îlot 2,80 m' },
+  complete: { n: 'Îlot + colonnes', p: 33800, dim: '5,00 m + îlot 2,80 m' }
+};
+const FRONTS = {
+  craie:    { n: 'Craie mat',     c: '#E4DDD1', p: 0 },
+  sauge:    { n: 'Vert sauge',    c: '#8A9880', p: 1400 },
+  encre:    { n: 'Bleu encre',    c: '#2D394A', p: 1400 },
+  argile:   { n: 'Argile',        c: '#B0674A', p: 1600 },
+  chene:    { n: 'Chêne naturel', c: '#B98B5C', p: 4200 },
+  graphite: { n: 'Graphite',      c: '#34312E', p: 900 }
+};
+const TOPS = {
+  chene:  { n: 'Chêne massif', c: '#C49766', p: 1600, bg: 'repeating-linear-gradient(0deg, rgba(70,40,15,.2) 0 1px, transparent 1px 6px), #C49766' },
+  marbre: { n: 'Marbre blanc', c: '#ECE9E4', p: 4800, bg: 'linear-gradient(118deg, transparent 38%, rgba(110,105,100,.5) 40%, transparent 42%), linear-gradient(62deg, transparent 63%, rgba(130,125,120,.35) 64%, transparent 65%), #ECE9E4' },
+  granit: { n: 'Granit noir',  c: '#2B2A29', p: 3400, bg: 'radial-gradient(rgba(255,255,255,.45) .8px, transparent 1.2px) 0 0 / 5px 5px, #2B2A29' },
+  inox:   { n: 'Inox brossé',  c: '#B5B8BA', p: 2900, bg: 'repeating-linear-gradient(0deg, rgba(255,255,255,.3) 0 1px, transparent 1px 3px), linear-gradient(#CACDCF, #A6A9AB)' }
+};
+const HANDLES = {
+  laiton: { n: 'Barre laiton',  s: 'Laiton', h: 'barre',  m: '#C9A45B', p: 520 },
+  noir:   { n: 'Barre noire',   s: 'Noir',   h: 'barre',  m: '#1D1C1B', p: 340 },
+  bouton: { n: 'Bouton laiton', s: 'Bouton', h: 'bouton', m: '#C9A45B', p: 410 },
+  gorge:  { n: 'Sans poignée',  s: 'Sans',   h: 'gorge',  m: '#8F8A84', p: 980 }
+};
+const LED_P = 690;
+
+// ---------- Dessin de la cuisine (SVG, vue de face) ----------
+const DEFS = `<defs>
+<pattern id="grain" width="220" height="14" patternUnits="userSpaceOnUse"><path d="M0 4C50 2 110 7 220 4" stroke="rgba(70,40,15,.3)" fill="none"/><path d="M0 10C70 12 140 8 220 11" stroke="rgba(70,40,15,.18)" fill="none"/><path d="M0 7C40 8 90 6 160 7.5S200 7 220 7" stroke="rgba(255,240,220,.2)" fill="none"/></pattern>
+<pattern id="veins" width="420" height="80" patternUnits="userSpaceOnUse"><path d="M-10 60C60 40 90 70 160 30S260 10 300 40 380 70 430 20" stroke="rgba(110,105,100,.5)" stroke-width="1.2" fill="none"/><path d="M40 0C70 20 120 25 150 70" stroke="rgba(140,135,130,.35)" fill="none"/><path d="M250 80C280 60 330 55 360 10" stroke="rgba(150,140,130,.35)" fill="none"/></pattern>
+<pattern id="speck" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="3" cy="4" r=".9" fill="rgba(255,255,255,.4)"/><circle cx="11" cy="9" r=".7" fill="rgba(255,255,255,.3)"/><circle cx="7" cy="14" r="1" fill="rgba(190,180,170,.35)"/><circle cx="14" cy="2" r=".6" fill="rgba(255,255,255,.35)"/></pattern>
+<pattern id="brush" width="300" height="3" patternUnits="userSpaceOnUse"><path d="M0 1H300" stroke="rgba(255,255,255,.4)" stroke-width=".6"/></pattern>
+<pattern id="zellige" width="36" height="36" patternUnits="userSpaceOnUse"><g fill="none" stroke="rgba(255,255,255,.75)"><rect x=".5" y=".5" width="35" height="17"/><rect x="-17.5" y="18.5" width="35" height="17"/><rect x="18.5" y="18.5" width="35" height="17"/></g><rect x="3" y="3" width="12" height="4" fill="rgba(255,255,255,.3)"/><rect x="22" y="21" width="10" height="3" fill="rgba(255,255,255,.25)"/><rect x="0" y="18" width="18" height="18" fill="rgba(0,0,0,.025)"/></pattern>
+<linearGradient id="ledG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD9A3" stop-opacity=".95"/><stop offset="1" stop-color="#FFD9A3" stop-opacity="0"/></linearGradient>
+<linearGradient id="shadeG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".3"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>
+<radialGradient id="pG"><stop offset="0" stop-color="#FFD39A" stop-opacity=".62"/><stop offset="1" stop-color="#FFD39A" stop-opacity="0"/></radialGradient>
+<linearGradient id="shimG" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4E4136"/><stop offset="1" stop-color="#6E5B4A"/></linearGradient>
+<linearGradient id="glassG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2E2E33"/><stop offset=".5" stop-color="#18181B"/><stop offset="1" stop-color="#2A2A2F"/></linearGradient>
+</defs>`;
+
+const R = (x, y, w, h, cls, ex = '') => `<rect class="p ${cls}" x="${x}" y="${y}" width="${w}" height="${h}" pathLength="100" ${ex}/>`;
+const front = (x, y, w, h) => R(x + 2, y + 2, w - 4, h - 4, 'fr') + `<rect class="gr fd" x="${x + 2}" y="${y + 2}" width="${w - 4}" height="${h - 4}" fill="url(#grain)"/>`;
+const bar = (x, y, w, h) => `<rect class="p mt" x="${x}" y="${y}" width="${w}" height="${h}" rx="2.5" pathLength="100"/>`;
+const knob = (x, y) => `<circle class="p mt" cx="${x}" cy="${y}" r="5.5" pathLength="100"/>`;
+const groove = (x, y, w, h) => `<rect class="gz fd" x="${x}" y="${y}" width="${w}" height="${h}"/>`;
+
+// poignées : les 3 styles sont dessinés, le CSS montre le bon
+function hd(H, x, y, w, h, kind, side) {
+  const hx = side === 'R' ? x + w - 17 : x + 17;
+  if (kind === 'drawer') {
+    const bw = Math.min(w * .4, 84);
+    H.b += bar(x + w / 2 - bw / 2, y + 14, bw, 5); H.k += knob(x + w / 2, y + 18); H.g += groove(x + 2, y + 2, w - 4, 7);
+  } else if (kind === 'door') {
+    H.b += bar(hx - 2.5, y + 14, 5, 56); H.k += knob(hx, y + 22); H.g += groove(x + 2, y + 2, w - 4, 7);
+  } else if (kind === 'wall') {
+    H.b += bar(hx - 2.5, y + h - 72, 5, 56); H.k += knob(hx, y + h - 22); H.g += groove(x + 2, y + h - 9, w - 4, 7);
+  } else if (kind === 'tall') {
+    H.b += bar(hx - 2.5, y + h * .3, 5, 130); H.k += knob(hx, y + h * .42); H.g += groove(side === 'R' ? x + w - 9 : x + 2, y + 2, 7, h - 4);
+  }
+}
+function section(fn) {
+  const H = { b: '', k: '', g: '' };
+  const body = fn(H);
+  return body + `<g class="h-barre">${H.b}</g><g class="h-bouton">${H.k}</g><g class="h-gorge">${H.g}</g>`;
+}
+function worktop(x, y, w, h) {
+  return R(x, y, w, h, 'tp') +
+    ['grain', 'veins', 'speck', 'brush'].map(t => `<rect class="tx tx-${t} fd" x="${x}" y="${y}" width="${w}" height="${h}" fill="url(#${{ grain: 'grain', veins: 'veins', speck: 'speck', brush: 'brush' }[t]})"/>`).join('') +
+    `<rect class="fd" x="${x}" y="${y}" width="${w}" height="2.5" fill="rgba(255,255,255,.35)"/>`;
+}
+
+function kitchen(main) {
+  let s = `<svg viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Aperçu de la cuisine composée">` + (main ? DEFS : '');
+  // mur, sol, crédence
+  s += `<rect class="fd" x="0" y="0" width="1200" height="620" fill="#D2C8B9"/>`;
+  s += `<rect class="fd" x="0" y="620" width="1200" height="100" fill="url(#floorG)"/>`;
+  s += [640, 662, 690].map(y => `<path class="fd" d="M0 ${y}H1200" stroke="rgba(255,255,255,.07)"/>`).join('');
+  s += R(100, 270, 1000, 150, 'splash') + `<rect class="fd" x="100" y="270" width="1000" height="150" fill="url(#zellige)"/>`;
+  // étagère au-dessus de la hotte
+  s += R(566, 132, 168, 7, 'wood');
+  s += `<path class="p cer" pathLength="100" d="M586 132q19-24 38 0z"/><path class="p cer" pathLength="100" d="M590 112q15-18 30 0z" transform="translate(0 20)"/>`;
+  s += R(650, 96, 26, 36, 'cer', 'rx="3"') + R(688, 108, 30, 24, 'wood2', 'rx="2"');
+  // meubles hauts
+  s += section(H => {
+    let o = '';
+    [[100, 'R'], [247, 'R'], [393, 'L']].forEach(([x, sd]) => { o += front(x, 80, 147, 190); hd(H, x, 80, 147, 190, 'wall', sd); });
+    o += front(760, 80, 170, 190); hd(H, 760, 80, 170, 190, 'wall', 'R');
+    return o;
+  });
+  // hotte
+  s += R(556, 196, 188, 54, 'fr') + `<rect class="fd" x="558" y="243" width="184" height="6" fill="rgba(0,0,0,.35)"/>`;
+  // ombres sous les meubles hauts
+  s += `<rect class="fd" x="100" y="270" width="440" height="24" fill="url(#shadeG)"/><rect class="fd" x="760" y="270" width="340" height="24" fill="url(#shadeG)"/>`;
+  // socle + meubles bas
+  s += `<rect class="fd" x="104" y="600" width="992" height="20" fill="#211D19"/>`;
+  s += section(H => {
+    let o = '';
+    [[440, 44], [484, 58], [542, 58]].forEach(([y, h]) => { o += front(100, y, 220, h); hd(H, 100, y, 220, h, 'drawer'); });
+    o += front(320, 440, 110, 160) + front(430, 440, 110, 160); hd(H, 320, 440, 110, 160, 'door', 'R'); hd(H, 430, 440, 110, 160, 'door', 'L');
+    o += front(540, 440, 220, 64) + front(540, 504, 220, 96); hd(H, 540, 440, 220, 64, 'drawer'); hd(H, 540, 504, 220, 96, 'drawer');
+    o += front(760, 440, 110, 160) + front(870, 440, 110, 160); hd(H, 760, 440, 110, 160, 'door', 'R'); hd(H, 870, 440, 110, 160, 'door', 'L');
+    return o;
+  });
+  // plan de travail
+  s += worktop(90, 420, 1020, 20) + `<rect class="fd" x="100" y="440" width="1000" height="10" fill="url(#shadeG)"/>`;
+  // déco sur le plan
+  s += `<path class="p terra" pathLength="100" d="M138 420l4-30h34l4 30z"/>`;
+  s += `<path class="p leaf" pathLength="100" d="M158 390C148 362 128 352 118 330c22 6 38 22 42 60z"/><path class="p leaf" pathLength="100" d="M161 390c4-32 18-48 40-60-4 24-20 42-38 60z"/><path class="p leaf" pathLength="100" d="M159 390c-2-28 0-48 7-74 7 28 3 50-5 74z"/>`;
+  s += R(222, 336, 64, 84, 'wood2', 'rx="7"') + `<circle class="fd" cx="254" cy="351" r="5" fill="rgba(0,0,0,.3)"/>`;
+  s += `<rect class="fd" x="396" y="417" width="124" height="4" fill="rgba(0,0,0,.4)"/>`;
+  s += `<path class="p fau" pathLength="100" d="M440 418V372q0-24 22-24t22 24v12"/>` + R(431, 413, 18, 7, 'mt', 'rx="2"');
+  s += `<rect class="fd" x="572" y="417" width="156" height="4" fill="#0E0E0E"/>`;
+  s += R(606, 386, 62, 31, 'potc', 'rx="4"') + `<path class="p potc" pathLength="100" d="M600 387h74q-37-16-74 0z"/>` + R(633, 371, 8, 5, 'potc', 'rx="2"');
+  s += R(846, 380, 30, 40, 'jar', 'rx="4"') + R(846, 374, 30, 8, 'wood2', 'rx="2"') + R(884, 392, 26, 28, 'jar', 'rx="4"') + R(884, 386, 26, 8, 'wood2', 'rx="2"');
+  // bout de cuisine (caché avec les colonnes)
+  s += `<g class="g-end">` + section(H => {
+    hd(H, 930, 80, 170, 190, 'wall', 'L'); hd(H, 980, 440, 120, 160, 'door', 'L');
+    return front(930, 80, 170, 190) + front(980, 440, 120, 160);
+  }) + `</g>`;
+  // colonnes four + frigo
+  s += `<g class="g-cols"><rect class="fd" x="980" y="600" width="200" height="20" fill="#211D19"/>` + section(H => {
+    let o = front(980, 60, 100, 240); hd(H, 980, 60, 100, 240, 'wall', 'R');
+    o += R(982, 302, 96, 116, 'fr') + `<rect class="fd" x="990" y="324" width="80" height="86" fill="url(#glassG)"/>` + R(992, 309, 76, 5, 'mt', 'rx="2.5"');
+    o += front(980, 420, 100, 90) + front(980, 510, 100, 90); hd(H, 980, 420, 100, 90, 'drawer'); hd(H, 980, 510, 100, 90, 'drawer');
+    o += front(1080, 60, 100, 540); hd(H, 1080, 60, 100, 540, 'tall', 'L');
+    return o;
+  }) + `</g>`;
+  // suspensions
+  s += `<g class="g-pend">` + [450, 750].map(x => `<path class="fd" d="M${x} 0V152" stroke="#1A1816" stroke-width="1.5"/><path class="p mt" pathLength="100" d="M${x - 36} 190Q${x - 36} 150 ${x} 150Q${x + 36} 150 ${x + 36} 190Z"/><rect class="bulb fd" x="${x - 32}" y="188" width="64" height="3"/>`).join('') + `</g>`;
+  // îlot
+  s += `<g class="g-ilot"><ellipse class="fd" cx="600" cy="711" rx="390" ry="9" fill="rgba(0,0,0,.4)"/><rect class="fd" x="284" y="696" width="632" height="14" fill="#1C1916"/>` + section(H => {
+    let o = '';
+    [270, 490, 710].forEach(x => { o += front(x, 586, 220, 42) + front(x, 628, 220, 70); hd(H, x, 586, 220, 42, 'drawer'); hd(H, x, 628, 220, 70, 'drawer'); });
+    return o;
+  }) + worktop(250, 566, 700, 20) + `<rect class="fd" x="270" y="586" width="660" height="9" fill="url(#shadeG)"/>` +
+    R(700, 534, 22, 32, 'cer', 'rx="3"') + `<path class="p leaf" pathLength="100" d="M711 534c-4-16-14-22-22-26 12 0 20 10 22 26zM711 534c2-14 10-22 20-26-4 12-10 20-20 26z"/>` +
+    R(380, 552, 90, 14, 'wood2', 'rx="3"') + `</g>`;
+  // nuit + lumières
+  s += `<rect class="night" x="0" y="0" width="1200" height="720" fill="#080A12"/>`;
+  s += `<rect class="led" x="100" y="270" width="440" height="80" fill="url(#ledG)"/><rect class="led" x="760" y="270" width="220" height="80" fill="url(#ledG)"/><rect class="led led-end" x="980" y="270" width="120" height="80" fill="url(#ledG)"/><rect class="led" x="100" y="418" width="880" height="3" fill="#FFE2B5"/><rect class="led led-end" x="980" y="418" width="120" height="3" fill="#FFE2B5"/>`;
+  s += [450, 750].map(x => `<ellipse class="pglow" cx="${x}" cy="300" rx="190" ry="230" fill="url(#pG)"/><rect class="pglow" x="${x - 32}" y="188" width="64" height="4" fill="#FFF1D6"/>`).join('') + `<ellipse class="pglow" cx="600" cy="567" rx="330" ry="16" fill="url(#pG)"/>`;
+  s += `<rect class="shim" x="-500" y="0" width="460" height="720" fill="url(#shimG)"/>`;
+  if (main) s += `<g class="dims"><path id="dimp" d="M100 40V54M100 47H1100M1100 40V54"/><text id="dimt" x="600" y="32" text-anchor="middle"></text></g>`;
+  return s + `</svg>`;
+}
+
+// ---------- État + affichage ----------
+const S = { lay: 'ilot', front: 'sauge', top: 'chene', handle: 'laiton', led: true, time: 'jour' };
+const stage = document.getElementById('stage');
+stage.insertAdjacentHTML('afterbegin', kitchen(true));
+const $ = id => document.getElementById(id);
+const fmt = n => n.toLocaleString('de-CH').replace(/[’']/g, '’');
+const r100 = n => Math.round(n / 100) * 100;
+
+function paint(el, c) {
+  el.dataset.lay = c.lay; el.dataset.front = c.front; el.dataset.top = c.top;
+  el.dataset.handle = HANDLES[c.handle].h; el.dataset.led = c.led ? '1' : '0';
+  el.style.setProperty('--front', FRONTS[c.front].c);
+  el.style.setProperty('--top', TOPS[c.top].c);
+  el.style.setProperty('--metal', HANDLES[c.handle].m);
+}
+function total(c) { return LAYS[c.lay].p + FRONTS[c.front].p + TOPS[c.top].p + HANDLES[c.handle].p + (c.led ? LED_P : 0); }
+const range = c => [r100(total(c) * .94), r100(total(c) * 1.08)];
+
+// options
+function opts(boxId, key, data, render) {
+  const box = $(boxId);
+  Object.entries(data).forEach(([k, v]) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.dataset.k = k; b.title = v.n; b.setAttribute('aria-label', v.n);
+    render(b, k, v);
+    b.onclick = () => { if (S[key] === k) return; S[key] = k; update(true); };
+    box.appendChild(b);
+  });
+}
+opts('o-lay', 'lay', LAYS, (b, k, v) => { b.textContent = v.n; });
+opts('o-front', 'front', FRONTS, (b, k, v) => { b.className = 'chip'; b.style.background = k === 'chene' ? TOPS.chene.bg.replace(/#C49766/, v.c) : v.c; });
+opts('o-top', 'top', TOPS, (b, k, v) => { b.className = 'chip'; b.style.background = v.bg; });
+opts('o-handle', 'handle', HANDLES, (b, k, v) => {
+  const ic = v.h === 'barre' ? `<rect x="5" y="7" width="24" height="4" rx="2" fill="${v.m}" stroke="rgba(255,255,255,.25)"/>`
+    : v.h === 'bouton' ? `<circle cx="17" cy="9" r="4.5" fill="${v.m}"/>`
+    : `<path d="M2 4h30" stroke="#8F8A84" stroke-width="3"/><path d="M2 8h30" stroke="rgba(255,255,255,.12)" stroke-width="6"/>`;
+  b.innerHTML = `<svg viewBox="0 0 34 18">${ic}</svg>${v.s}`;
+});
+$('o-led').onclick = () => { S.led = !S.led; update(false); };
+document.querySelectorAll('.stage-ui button').forEach(b => b.onclick = () => { S.time = b.dataset.time; update(false); });
+
+// prix qui défile
+let shown = null, raf;
+function animatePrice(to) {
+  const from = shown || to; cancelAnimationFrame(raf);
+  const t0 = performance.now(), D = 700;
+  const step = t => {
+    const k = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - k, 3);
+    const lo = r100(from[0] + (to[0] - from[0]) * e), hi = r100(from[1] + (to[1] - from[1]) * e);
+    $('price').textContent = `CHF ${fmt(lo)} – ${fmt(hi)}.–`;
+    if (k < 1) raf = requestAnimationFrame(step); else shown = to;
+  };
+  raf = requestAnimationFrame(step);
+}
+
+function flash(el) { el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); }
+
+function update(withFlash) {
+  paint(stage, S);
+  stage.dataset.time = S.time;
+  document.querySelectorAll('.stage-ui button').forEach(b => b.classList.toggle('on', b.dataset.time === S.time));
+  [['o-lay', 'lay'], ['o-front', 'front'], ['o-top', 'top'], ['o-handle', 'handle']].forEach(([id, key]) =>
+    $(id).querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.k === S[key])));
+  document.querySelector('[data-v=lay]').textContent = LAYS[S.lay].n;
+  document.querySelector('[data-v=front]').textContent = FRONTS[S.front].n;
+  document.querySelector('[data-v=top]').textContent = TOPS[S.top].n;
+  document.querySelector('[data-v=handle]').textContent = HANDLES[S.handle].n;
+  $('o-led').setAttribute('aria-checked', S.led);
+  $('dimt').textContent = LAYS[S.lay].dim;
+  $('dimp').setAttribute('d', S.lay === 'complete' ? 'M100 40V54M100 47H1180M1180 40V54' : 'M100 40V54M100 47H1100M1100 40V54');
+  animatePrice(range(S));
+  if (withFlash) flash(stage);
+}
+
+// numéro de dossier + date
+const today = new Date();
+document.querySelectorAll('.ref').forEach(e => e.textContent = 'N° CL-2026-0213');
+
+// ---------- Réservation du métré ----------
+const views = { config: $('v-config'), book: $('v-book'), done: $('v-done') };
+function show(v) { Object.entries(views).forEach(([k, el]) => el.hidden = k !== v); }
+let pickDay = null, pickHour = null;
+function pickers() {
+  const days = $('days'); days.innerHTML = '';
+  const d = new Date(today); let n = 0;
+  while (n < 5) {
+    d.setDate(d.getDate() + 1);
+    if (d.getDay() === 0 || d.getDay() === 6) continue;
+    const lbl = d.toLocaleDateString('fr-CH', { weekday: 'short', day: '2-digit', month: '2-digit' });
+    const b = document.createElement('button'); b.type = 'button'; b.textContent = lbl;
+    b.onclick = () => { pickDay = lbl; days.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); check(); };
+    days.appendChild(b); n++;
+  }
+  const hours = $('hours'); hours.innerHTML = '';
+  ['08:30', '10:30', '13:30', '16:00'].forEach(h => {
+    const b = document.createElement('button'); b.type = 'button'; b.textContent = h;
+    b.onclick = () => { pickHour = h; hours.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); check(); };
+    hours.appendChild(b);
+  });
+  pickDay = pickHour = null; check();
+}
+function check() { $('confirm').disabled = !(pickDay && pickHour); }
+$('go-book').onclick = () => {
+  const [lo, hi] = range(S);
+  $('recap').innerHTML = [
+    ['Implantation', LAYS[S.lay].n], ['Façades', FRONTS[S.front].n], ['Plan de travail', TOPS[S.top].n],
+    ['Poignées', HANDLES[S.handle].n], ['Éclairage', S.led ? 'LED sous meubles' : 'Standard'], ['Budget estimé', `CHF ${fmt(lo)} – ${fmt(hi)}.–`]
+  ].map(([a, b]) => `<li><span>${a}</span>${b}</li>`).join('');
+  pickers(); show('book');
+};
+$('confirm').onclick = () => {
+  $('done-txt').innerHTML = `Rendez-vous le <b>${pickDay} à ${pickHour}</b>. On arrive chez vous avec votre cuisine « ${FRONTS[S.front].n} &amp; ${TOPS[S.top].n} » déjà dessinée.`;
+  show('done');
+};
+document.querySelectorAll('[data-back]').forEach(b => b.onclick = () => show('config'));
+
+// ---------- Inspirations ----------
+const PROJ = [
+  { t: 'Sauge & chêne', c: { lay: 'ilot', front: 'sauge', top: 'chene', handle: 'laiton', led: true } },
+  { t: 'Encre & marbre', c: { lay: 'complete', front: 'encre', top: 'marbre', handle: 'bouton', led: true } },
+  { t: 'Craie & granit', c: { lay: 'lineaire', front: 'craie', top: 'granit', handle: 'gorge', led: false } }
+];
+PROJ.forEach(p => {
+  const card = document.createElement('article'); card.className = 'p-card';
+  const [lo, hi] = range(p.c);
+  card.innerHTML = `<div class="stage">${kitchen(false)}</div><div class="p-meta"><h3>${p.t}</h3>
+    <span class="mono">${LAYS[p.c.lay].n} · ${HANDLES[p.c.handle].n}<br>dès CHF ${fmt(lo)}.–</span>
+    <button type="button">Ouvrir dans le configurateur ↑</button></div>`;
+  paint(card.querySelector('.stage'), p.c);
+  card.querySelector('button').onclick = () => {
+    Object.assign(S, p.c); show('config'); update(true);
+    $('cuisine').scrollIntoView({ behavior: 'smooth' });
+  };
+  $('p-grid').appendChild(card);
+});
+
+update(false);
+setTimeout(() => stage.classList.remove('drawing'), 2600);
+</script>
+</body>
+</html>

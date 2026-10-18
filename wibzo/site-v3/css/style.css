@@ -737,3 +737,24 @@ section { padding: 72px 0; }
 }
 /* Mobile : la colonne des démos ne dépasse jamais l’écran */
 @media (max-width: 959px) { .dpanel { grid-template-columns: minmax(0, 1fr); } .dside { min-width: 0; } }
+
+/* Garanties « Zéro risque » */
+.trust { padding: 72px 0; }
+.trust__box {
+  display: grid; gap: 32px;
+  border: 1px dashed var(--lime); border-radius: var(--radius);
+  padding: 28px 20px;
+  background: var(--bg-2);
+}
+.trust__title { font-family: var(--display); font-weight: 800; font-size: clamp(44px, 11vw, 88px); line-height: .95; letter-spacing: -0.04em; margin-top: 6px; }
+.trust__lead { margin-top: 14px; color: var(--muted); max-width: 30ch; }
+.trust__list { margin: 0; display: grid; gap: 0; }
+.trust__list > div { padding: 16px 0; border-top: 1px solid var(--line); }
+.trust__list > div:first-child { border-top: 0; padding-top: 0; }
+.trust__list dt { font-weight: 700; font-size: 18px; }
+.trust__list dt::before { content: "✓"; color: var(--lime); font-weight: 800; margin-right: 10px; }
+.trust__list dd { margin: 4px 0 0 26px; color: var(--muted); font-size: 16px; }
+@media (min-width: 960px) {
+  .trust { padding: 110px 0; }
+  .trust__box { grid-template-columns: 5fr 7fr; gap: 56px; padding: 56px 48px; }
+}

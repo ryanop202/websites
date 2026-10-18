@@ -1,0 +1,8 @@
+{
+  "name": "wibzo",
+  "compatibility_date": "2026-10-12",
+  "workers_dev": true,
+  "assets": {
+    "directory": "."
+  }
+}

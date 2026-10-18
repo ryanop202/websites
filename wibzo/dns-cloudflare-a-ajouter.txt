@@ -1,0 +1,14 @@
+LIGNES À AJOUTER DANS CLOUDFLARE (wibzo.ch) — 16.10.2026
+Copiées depuis la zone DNS Infomaniak.
+
+1) DKIM (signature des e-mails)
+Type : TXT
+Name : 20261012._domainkey
+Content (tout copier, sur une seule ligne) :
+v=DKIM1; t=s; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsUlKaF8YIVqY5xsV0BYdNfMuQDziOQD1/VBPzdmBrfXFkPFF6NA0+KG9R8ujKH8zma9fXKBbHSlo9B/gBYondJm8e9g2HhVQfE+FADwH0sM0cVUdMBWOSjr3I9WZic28/E34xO9f9a+D6VE0NHpVxB2lAU012t1InLN6x1wDBGWWw8/ByfJ3I/+ZX98qN/fu1sp50JvZ3q3HS3AJR9bNDqxOCzzbAwfWmRqyIkRMPtjgyls6PSAO0XYaOjxg9pJNqZrLBKjPh6L7UNZRMnu/w+SSpLgd5dvgp1ZCPw05yus5OfFPnGZfY7YwPkcvW3F3+XsZlM/txVKMAJ4LGUA1MQIDAQAB
+
+2) SRV (envoi d'e-mails sécurisé)
+Type : SRV
+Name : _submissions._tcp
+Priority : 1   Weight : 1   Port : 465
+Target : mail.infomaniak.com

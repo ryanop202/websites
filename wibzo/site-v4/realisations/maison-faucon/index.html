@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maison Faucon — barbier</title>
+<meta name="description" content="Maison Faucon, barbier : coupe, barbe, rasage à l'ancienne. Réservation en ligne. Exemple fictif, maquette Wibzo.">
+<meta name="theme-color" content="#15302A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav" id="top">
+  <a class="logo" href="#top" aria-label="Maison Faucon, accueil"><span class="logo__pole" aria-hidden="true"></span><span>Maison<b>Faucon</b></span></a>
+  <nav class="nav__links" aria-label="Menu">
+    <a href="#prestations">Prestations</a>
+    <a href="#maison">La maison</a>
+    <a href="#horaires">Horaires</a>
+  </nav>
+  <a class="btn btn--brass btn--sm" href="#rdv">Réserver</a>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero__copy">
+      <p class="eyebrow">Barbier · Bourg-sur-Broye · depuis 2019</p>
+      <h1>Coupe nette.<br>Barbe soignée.<br><span>Sans attendre.</span></h1>
+      <p class="lead">Choisissez votre créneau en 30 secondes, même à minuit. Vous arrivez, le fauteuil est prêt.</p>
+      <div class="hero__cta">
+        <a class="btn btn--brass" href="#rdv">Réserver un créneau <i aria-hidden="true">→</i></a>
+        <a class="btn btn--line" href="tel:+41260000002">026 000 00 02</a>
+      </div>
+      <p class="live" id="live"><i aria-hidden="true"></i><span>Horaires du jour</span></p>
+    </div>
+    <figure class="hero__photo">
+      <img src="img/salon.jpg" width="1400" height="1866" alt="Le fauteuil de barbier devant le mur de carreaux verts">
+      <span class="pole" aria-hidden="true"></span>
+      <figcaption><b>Fauteuil n° 1</b><span>Rue du Moulin 3</span></figcaption>
+    </figure>
+  </section>
+
+  <div class="band" aria-hidden="true">
+    <div class="band__track">
+      <span>Coupe</span><span>Barbe</span><span>Rasage à l’ancienne</span><span>Serviette chaude</span><span>Contours</span><span>Sur rendez-vous</span>
+      <span>Coupe</span><span>Barbe</span><span>Rasage à l’ancienne</span><span>Serviette chaude</span><span>Contours</span><span>Sur rendez-vous</span>
+    </div>
+  </div>
+
+  <section class="book" id="rdv" aria-labelledby="rdv-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="eyebrow">Réservation en ligne</p>
+        <h2 id="rdv-title">Votre fauteuil,<br>en trois choix.</h2>
+      </header>
+
+      <div class="book__grid">
+        <div class="book__steps">
+          <fieldset class="step">
+            <legend><b>1</b>La prestation</legend>
+            <div class="svc" id="svc"></div>
+          </fieldset>
+          <fieldset class="step">
+            <legend><b>2</b>Le jour</legend>
+            <div class="days" id="days"></div>
+          </fieldset>
+          <fieldset class="step">
+            <legend><b>3</b>L’heure</legend>
+            <div class="slots" id="slots"></div>
+            <p class="slots__legend"><span class="k k--free"></span>Libre <span class="k k--taken"></span>Déjà pris</p>
+          </fieldset>
+        </div>
+
+        <aside class="ticket" aria-live="polite">
+          <div class="ticket__in" id="ticket">
+            <p class="ticket__kick">Votre rendez-vous</p>
+            <dl class="ticket__rows">
+              <div><dt>Prestation</dt><dd id="t-svc">—</dd></div>
+              <div><dt>Jour</dt><dd id="t-day">—</dd></div>
+              <div><dt>Heure</dt><dd id="t-time">—</dd></div>
+              <div><dt>Durée</dt><dd id="t-dur">—</dd></div>
+            </dl>
+            <div class="ticket__total"><span>À payer sur place</span><b id="t-price">—</b></div>
+            <button class="btn btn--brass btn--full" id="confirm" type="button" disabled>Choisissez une heure</button>
+            <p class="ticket__note">Rappel par SMS la veille. Annulation gratuite jusqu’à 12 h avant.</p>
+          </div>
+          <div class="ticket__done" id="done" hidden>
+            <p class="ticket__kick">C’est noté</p>
+            <p class="done__big" id="d-when"></p>
+            <p class="done__svc" id="d-svc"></p>
+            <p class="ticket__note">Démonstration : aucune réservation n’est envoyée.</p>
+            <button class="btn btn--line btn--full" id="again" type="button">Choisir un autre créneau</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu" id="prestations" aria-labelledby="menu-title">
+    <div class="wrap menu__grid">
+      <header class="sec-head sec-head--light">
+        <p class="eyebrow">Prestations</p>
+        <h2 id="menu-title">La carte.</h2>
+        <p class="sec-head__p">Prix affichés, pas de surprise à la caisse. Paiement carte, TWINT ou espèces.</p>
+      </header>
+      <ul class="menu__list" id="menu"></ul>
+    </div>
+  </section>
+
+  <section class="maison" id="maison" aria-labelledby="maison-title">
+    <div class="wrap maison__grid">
+      <figure class="maison__photo">
+        <img src="img/outils.jpg" width="1400" height="1050" loading="lazy" alt="Rasoir, ciseaux, peignes et blaireau sur le comptoir en bois">
+        <span class="stamp" aria-hidden="true">Fait<br>main</span>
+      </figure>
+      <div class="maison__copy">
+        <p class="eyebrow">La maison</p>
+        <h2 id="maison-title">Le geste,<br>pas la chaîne.</h2>
+        <ol class="points">
+          <li><b>Un barbier, un client.</b><span>Personne n’attend derrière vous. Le temps réservé est le vôtre.</span></li>
+          <li><b>Serviette chaude, rasoir droit.</b><span>Le rasage comme on le faisait, avec des produits qu’on peut vous conseiller.</span></li>
+          <li><b>Vous repartez net.</b><span>Contours et nuque inclus dans chaque coupe.</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="info" id="horaires" aria-labelledby="info-title">
+    <div class="wrap info__grid">
+      <div>
+        <p class="eyebrow">Horaires</p>
+        <h2 id="info-title">Passez nous voir.</h2>
+        <table class="hours" id="hours">
+          <tr data-d="2,3,4,5"><th>Mardi – vendredi</th><td>9:00 – 19:00</td></tr>
+          <tr data-d="6"><th>Samedi</th><td>8:00 – 15:00</td></tr>
+          <tr data-d="0,1"><th>Dimanche – lundi</th><td class="off">Fermé</td></tr>
+        </table>
+      </div>
+      <div class="where">
+        <p class="where__addr"><b>Rue du Moulin 3</b><span>Bourg-sur-Broye</span></p>
+        <p class="where__hint">Parking gratuit 30 min devant la boutique.</p>
+        <div class="where__btns">
+          <a class="btn btn--brass" href="#rdv">Réserver</a>
+          <a class="btn btn--line" href="tel:+41260000002">Appeler</a>
+          <a class="btn btn--line" href="#">Itinéraire</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <span class="logo"><span class="logo__pole" aria-hidden="true"></span><span>Maison<b>Faucon</b></span></span>
+    <p>Barbier · Rue du Moulin 3 · 026 000 00 02</p>
+    <p class="fic">Exemple fictif · maquette Wibzo</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<a href="../../index.html#realisations" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;display:inline-flex;align-items:center;gap:6px;padding:8px 12px;background:rgba(21,21,19,.92);color:#ECE9E3;font:500 12px/1.2 -apple-system,Segoe UI,Helvetica,Arial,sans-serif;letter-spacing:.01em;text-decoration:none;border-radius:2px;box-shadow:0 2px 10px rgba(0,0,0,.18)">Projet de démonstration · commerce fictif · <b style="font-weight:600">Wibzo</b></a>
+</body>
+</html>

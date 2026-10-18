@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terre de Saule — jardins &amp; paysages</title>
+<meta name="description" content="Terre de Saule, paysagiste dans la Broye : création de jardins, entretien, taille, murs en pierre sèche et pavage. Exemple fictif, maquette Wibzo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="intro" aria-hidden="true">
+  <svg viewBox="0 0 40 40"><path d="M20 36V14"/><path d="M20 22c-6-1-10-6-10-12 6 0 10 4 10 10"/><path d="M20 18c5-1 9-5 9-11-5 0-9 4-9 9"/><path d="M8 36h24"/></svg>
+  <p>Terre <i>de</i> Saule</p>
+</div>
+<div class="progress" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"></div>
+
+<header class="top">
+  <a class="logo" href="#">
+    <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 36V14"/><path d="M20 22c-6-1-10-6-10-12 6 0 10 4 10 10"/><path d="M20 18c5-1 9-5 9-11-5 0-9 4-9 9"/><path d="M8 36h24"/></svg>
+    <span>Terre<i>de</i>Saule</span>
+  </a>
+  <nav>
+    <a href="#plan">Savoir-faire</a>
+    <a href="#jardins">Réalisations</a>
+    <a href="#saison">Saisons</a>
+    <a href="#express" class="btn-s">Devis express</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true"><img src="img/hero.jpg" alt=""></div>
+  <svg class="contours" viewBox="0 0 1200 800" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M-20 220 C 200 120, 420 320, 700 200 S 1100 160, 1240 260"/>
+    <path d="M-20 300 C 220 200, 440 400, 720 280 S 1100 240, 1240 340"/>
+    <path d="M-20 380 C 240 285, 460 480, 740 360 S 1100 320, 1240 420"/>
+    <path d="M-20 460 C 260 370, 480 560, 760 440 S 1100 400, 1240 500"/>
+  </svg>
+
+  <div class="hero-txt">
+    <p class="kicker">Paysagiste · Broye vaudoise &amp; fribourgeoise</p>
+    <h1 class="split"><span>Des jardins</span> <span>qui vieillissent</span> <em>bien.</em></h1>
+    <p class="lead">On dessine, on plante, on construit en pierre, puis on revient chaque saison. Un seul interlocuteur, du premier croquis à la dernière haie taillée.</p>
+    <ul class="facts">
+      <li><b data-count="2011">2011</b><span>premier jardin</span></li>
+      <li><b><span data-count="48">48</span> h</b><span>devis détaillé</span></li>
+      <li><b data-count="312">312</b><span>jardins entretenus</span></li>
+    </ul>
+  </div>
+
+  <form class="quote" id="express" onsubmit="event.preventDefault()">
+    <div class="q-head">
+      <span>Devis express</span>
+      <span class="q-no">N° TS-2026-0147 · <time></time></span>
+    </div>
+
+    <p class="q-step">1 · Votre projet</p>
+    <div class="q-chips">
+      <label><input type="checkbox" value="creation" checked><span><svg viewBox="0 0 24 24"><path d="M12 21V9M12 13c-4 0-6-3-6-7 4 0 6 3 6 7m0-2c3 0 5-2 5-6-3 0-5 2-5 6"/></svg>Création</span></label>
+      <label><input type="checkbox" value="gazon" checked><span><svg viewBox="0 0 24 24"><path d="M3 20h18M6 20l-1-6M9 20V12M12 20l1-8M15 20l1-6M18 20l2-5"/></svg>Gazon</span></label>
+      <label><input type="checkbox" value="haie"><span><svg viewBox="0 0 24 24"><path d="M3 20h18M5 20c-2-3 0-7 3-7 0-3 3-5 4-5s4 2 4 5c3 0 5 4 3 7"/></svg>Haies</span></label>
+      <label><input type="checkbox" value="terrasse"><span><svg viewBox="0 0 24 24"><path d="M3 8h18v12H3zM3 14h18M9 8v6M15 14v6"/></svg>Terrasse</span></label>
+      <label><input type="checkbox" value="mur"><span><svg viewBox="0 0 24 24"><path d="M3 9h7v5H3zM10 9h11v5H10zM3 14h11v6H3zM14 14h7v6h-7zM6 4h12v5H6z"/></svg>Mur en pierre</span></label>
+      <label><input type="checkbox" value="entretien"><span><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 3-6.2M4 4v4h4M12 8v4l3 2"/></svg>Entretien / an</span></label>
+    </div>
+
+    <p class="q-step">2 · Surface du terrain <output class="q-surf">400 m²</output></p>
+    <input type="range" class="q-range" min="100" max="2000" step="50" value="400" aria-label="Surface du terrain en mètres carrés">
+
+    <ul class="q-lines" aria-live="polite"></ul>
+
+    <div class="q-total">
+      <div><span>Total estimé</span><small>TVA 8,1 % incluse</small></div>
+      <b>CHF <output class="q-sum">0</output>.–</b>
+    </div>
+    <button class="btn q-send" type="button">Recevoir ce devis <b>→</b></button>
+    <p class="q-note">Estimation indicative. Le prix exact après la visite gratuite.</p>
+    <div class="stamp" aria-hidden="true">Envoyé<small>réponse sous 48 h</small></div>
+  </form>
+
+  <a class="scroll-cue" href="#plan" aria-label="Descendre"><span></span></a>
+</section>
+
+<div class="band" aria-hidden="true">
+  <div class="band-in">
+    <span>Création de jardins</span><i>✦</i><span>Entretien à l'année</span><i>✦</i><span>Taille de haies</span><i>✦</i><span>Murs en pierre sèche</span><i>✦</i><span>Pavage &amp; terrasses</span><i>✦</i><span>Gazon</span><i>✦</i>
+    <span>Création de jardins</span><i>✦</i><span>Entretien à l'année</span><i>✦</i><span>Taille de haies</span><i>✦</i><span>Murs en pierre sèche</span><i>✦</i><span>Pavage &amp; terrasses</span><i>✦</i><span>Gazon</span><i>✦</i>
+  </div>
+</div>
+
+<section class="plan" id="plan">
+  <div class="plan-head r">
+    <p class="kicker">01 — Savoir-faire</p>
+    <h2>Tout votre terrain,<br><em>sur un seul plan.</em></h2>
+  </div>
+
+  <div class="plan-grid">
+    <div class="drawing r" aria-hidden="true">
+      <svg viewBox="0 0 560 420">
+        <defs>
+          <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8"/></pattern>
+          <pattern id="pav" width="18" height="12" patternUnits="userSpaceOnUse"><rect width="18" height="12"/></pattern>
+        </defs>
+        <rect class="parcel" x="10" y="10" width="540" height="400" rx="2"/>
+        <rect class="house" x="30" y="30" width="170" height="120"/>
+        <text class="lbl" x="115" y="95">MAISON</text>
+        <rect class="terrace" x="30" y="150" width="170" height="80"/>
+        <path class="lawn" d="M215 150 C 300 120, 420 140, 470 210 C 500 260, 470 330, 380 340 C 300 350, 230 320, 215 260 Z"/>
+        <path class="path" d="M200 190 C 260 200, 280 260, 330 280 S 420 300, 520 380"/>
+        <g class="hedge"><circle cx="40" cy="390" r="12"/><circle cx="66" cy="392" r="13"/><circle cx="94" cy="390" r="12"/><circle cx="122" cy="392" r="13"/><circle cx="150" cy="390" r="12"/><circle cx="178" cy="392" r="13"/><circle cx="206" cy="390" r="12"/><circle cx="234" cy="392" r="13"/></g>
+        <path class="wall" d="M300 30 L 530 30 L 530 120"/>
+        <g class="trees"><circle cx="480" cy="70" r="26"/><circle cx="420" cy="70" r="18"/><circle cx="60" cy="300" r="30"/><circle cx="140" cy="290" r="20"/></g>
+        <path class="contour" d="M240 30 C 260 60, 250 100, 290 120"/>
+        <path class="contour" d="M260 30 C 280 60, 270 100, 310 125"/>
+        <g class="north"><path d="M520 380 l0 -24 l6 10 m-6 -10 l-6 10"/><text x="515" y="398">N</text></g>
+      </svg>
+      <button class="pin" data-k="0" style="left:73%;top:50%">1</button>
+      <button class="pin" data-k="1" style="left:24%;top:93%">2</button>
+      <button class="pin" data-k="2" style="left:22%;top:45%">3</button>
+      <button class="pin" data-k="3" style="left:64%;top:12.5%">4</button>
+      <button class="pin" data-k="4" style="left:57%;top:70%">5</button>
+      <p class="scale">Échelle 1:200 · plan type</p>
+    </div>
+
+    <div class="svc">
+      <ol class="svc-list">
+        <li data-k="0" class="on"><b>1</b><div><h3>Création de jardins</h3><p>Plan, choix des plantes adaptées à votre sol, plantation. Vous voyez le jardin sur papier avant le premier coup de pelle.</p></div></li>
+        <li data-k="1"><b>2</b><div><h3>Taille de haies</h3><p>Haies, arbustes et petits arbres, taillés à la bonne saison. Déchets verts évacués le jour même.</p></div></li>
+        <li data-k="2"><b>3</b><div><h3>Pavage &amp; terrasses</h3><p>Dalles, pavés, gravier stabilisé. Une terrasse qui reste plane, hiver après hiver.</p></div></li>
+        <li data-k="3"><b>4</b><div><h3>Murs en pierre sèche</h3><p>Murets et talus en pierre locale, montés sans mortier, comme on le fait ici depuis toujours.</p></div></li>
+        <li data-k="4"><b>5</b><div><h3>Entretien à l'année</h3><p>Tonte, désherbage, taille, feuilles mortes. Un contrat simple, quatre passages par an au minimum.</p></div></li>
+      </ol>
+      <figure class="svc-img">
+        <img src="img/buis.jpg" alt="Jardin structuré avec buis et allée" class="on">
+        <img src="img/haie.jpg" alt="Taille d'une haie au taille-haie">
+        <img src="img/pavage.jpg" alt="Terrasse en pavés">
+        <img src="img/rocaille.jpg" alt="Allée en pierre naturelle dans une rocaille">
+        <img src="img/gazon.jpg" alt="Entretien d'un gazon et d'un if taillé">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="jardins" id="jardins">
+  <div class="j-head r">
+    <p class="kicker">02 — Réalisations</p>
+    <h2>Quelques jardins<br><em>de la région.</em></h2>
+    <p class="j-hint">Faites glisser <span>→</span></p>
+  </div>
+  <div class="rail">
+    <figure class="card tall"><img src="img/pergola.jpg" alt="Pergola couverte de végétation au-dessus d'une allée"><figcaption><b>Pergola &amp; allée</b><span>Lucens · 2024</span></figcaption></figure>
+    <figure class="card"><img src="img/escalier.jpg" alt="Escalier en pierre entre fougères et vivaces"><figcaption><b>Escalier de talus</b><span>Moudon · 2025</span></figcaption></figure>
+    <figure class="card wide"><img src="img/rocaille.jpg" alt="Rocaille et allée en pierre naturelle"><figcaption><b>Rocaille sèche</b><span>Estavayer · 2023</span></figcaption></figure>
+    <figure class="card tall"><img src="img/buis.jpg" alt="Jardin à la française avec buis taillés"><figcaption><b>Jardin structuré</b><span>Avenches · 2024</span></figcaption></figure>
+    <figure class="card"><img src="img/automne.jpg" alt="Jardin en automne avec feuillage roux"><figcaption><b>Jardin d'automne</b><span>Bourg-sur-Broye · 2025</span></figcaption></figure>
+  </div>
+</section>
+
+<section class="saison" id="saison">
+  <div class="s-head r">
+    <p class="kicker">03 — Calendrier</p>
+    <h2>Ce que votre jardin<br><em>demande ce mois‑ci.</em></h2>
+  </div>
+  <div class="months r" role="tablist"></div>
+  <div class="month-card r">
+    <p class="m-name"></p>
+    <ul class="m-tasks"></ul>
+  </div>
+</section>
+
+<section class="methode">
+  <p class="kicker r">04 — Comment ça se passe</p>
+  <ol class="steps">
+    <li class="r"><span class="n">01</span><h3>Visite gratuite</h3><p>On passe chez vous, on mesure, on écoute. 45 minutes, sans engagement.</p></li>
+    <li class="r"><span class="n">02</span><h3>Plan &amp; devis en 48 h</h3><p>Un plan dessiné et un prix clair, poste par poste. Pas de surprise à la facture.</p></li>
+    <li class="r"><span class="n">03</span><h3>Travaux, puis suivi</h3><p>Une équipe, un chantier propre. Et on revient voir comment les plantes ont pris.</p></li>
+  </ol>
+</section>
+
+<section class="devis" id="devis">
+  <div class="d-txt r">
+    <p class="kicker">05 — Votre projet</p>
+    <h2>Parlons de<br><em>votre terrain.</em></h2>
+    <p>Répondez à trois questions, on vous rappelle dans la journée pour fixer la visite.</p>
+    <div class="contact">
+      <a href="tel:0260000004">026 000 00 04</a>
+      <span>Route des Saules 9 · Bourg-sur-Broye</span>
+      <span>Lun – Ven · 7:00 – 17:30</span>
+    </div>
+  </div>
+  <form class="form r" onsubmit="event.preventDefault();this.classList.add('sent')">
+    <fieldset>
+      <legend>1. Votre projet</legend>
+      <div class="chips">
+        <label><input type="checkbox" name="p" checked><span>Nouveau jardin</span></label>
+        <label><input type="checkbox" name="p"><span>Entretien</span></label>
+        <label><input type="checkbox" name="p"><span>Taille</span></label>
+        <label><input type="checkbox" name="p"><span>Terrasse</span></label>
+        <label><input type="checkbox" name="p"><span>Mur en pierre</span></label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>2. Surface du terrain <output id="m2">400 m²</output></legend>
+      <input type="range" min="50" max="2000" step="50" value="400" id="surf" aria-label="Surface en mètres carrés">
+    </fieldset>
+    <fieldset>
+      <legend>3. Vos coordonnées</legend>
+      <div class="fields">
+        <input type="text" placeholder="Nom" aria-label="Nom">
+        <input type="tel" placeholder="Téléphone" aria-label="Téléphone">
+      </div>
+    </fieldset>
+    <button class="btn" type="submit">Être rappelé <b>→</b></button>
+    <p class="ok">Merci ! On vous rappelle aujourd'hui. 🌿</p>
+  </form>
+</section>
+
+<footer class="foot">
+  <span class="logo"><span>Terre<i>de</i>Saule</span></span>
+  <p>Jardins &amp; paysages · Broye</p>
+  <p class="fic">Exemple fictif · maquette Wibzo</p>
+</footer>
+
+<script>
+// Révélation au défilement
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+document.querySelectorAll('.r').forEach(el => io.observe(el));
+
+// Plan : épingles <-> liste <-> photo
+const pins = document.querySelectorAll('.pin'), items = document.querySelectorAll('.svc-list li'), imgs = document.querySelectorAll('.svc-img img');
+function pick(k) {
+  [pins, items, imgs].forEach(list => list.forEach(el => el.classList.toggle('on', +(el.dataset.k ?? [...list].indexOf(el)) === k)));
+}
+pins.forEach(p => { p.addEventListener('mouseenter', () => pick(+p.dataset.k)); p.addEventListener('click', () => pick(+p.dataset.k)); });
+items.forEach(li => { li.addEventListener('mouseenter', () => pick(+li.dataset.k)); li.addEventListener('click', () => pick(+li.dataset.k)); });
+pick(0);
+
+// Calendrier : mois courant sélectionné
+const M = [
+  ['Janvier', ['Taille des arbres fruitiers', 'Plan des projets du printemps']],
+  ['Février', ['Taille des rosiers et arbustes d\'été', 'Préparation des massifs']],
+  ['Mars', ['Scarification du gazon', 'Plantation des vivaces']],
+  ['Avril', ['Première tonte', 'Paillage des massifs', 'Semis de gazon']],
+  ['Mai', ['Plantation des annuelles', 'Réglage de l\'arrosage']],
+  ['Juin', ['Première taille des haies', 'Désherbage des allées']],
+  ['Juillet', ['Arrosage et tonte haute', 'Taille des fleurs fanées']],
+  ['Août', ['Entretien des terrasses', 'Préparation des plantations d\'automne']],
+  ['Septembre', ['Deuxième taille des haies', 'Regarnissage du gazon']],
+  ['Octobre', ['Plantation des haies et des arbres', 'Ramassage des feuilles', 'Dernière tonte']],
+  ['Novembre', ['Protection des plantes fragiles', 'Murs et pavage : bon moment pour les chantiers']],
+  ['Décembre', ['Taille de formation', 'Visite gratuite pour vos projets 2027']],
+];
+const box = document.querySelector('.months'), mName = document.querySelector('.m-name'), mTasks = document.querySelector('.m-tasks');
+function showMonth(i) {
+  box.querySelectorAll('button').forEach((b, j) => b.classList.toggle('on', j === i));
+  mName.textContent = M[i][0];
+  mTasks.innerHTML = M[i][1].map(t => '<li>' + t + '</li>').join('');
+}
+M.forEach((m, i) => { const b = document.createElement('button'); b.textContent = m[0].slice(0, 3); b.setAttribute('role', 'tab'); b.onclick = () => showMonth(i); box.appendChild(b); });
+showMonth(new Date().getMonth());
+
+// Surface
+const s = document.getElementById('surf'), o = document.getElementById('m2');
+s.oninput = () => o.textContent = s.value + ' m²';
+
+// ---------- Devis express (prix FICTIFS, démo) ----------
+const fmt = n => Math.round(n).toLocaleString('fr-CH').replace(/[  ,]/g, '’');
+const PRICES = {
+  creation:  a => ({ t: 'Création de massifs', q: Math.round(a * .3) + ' m²', p: a * .3 * 68 }),
+  gazon:     a => ({ t: 'Gazon semé, terre préparée', q: Math.round(a * .5) + ' m²', p: a * .5 * 14 }),
+  haie:      a => ({ t: 'Plantation de haie', q: Math.round(Math.sqrt(a) * 2) + ' m', p: Math.sqrt(a) * 2 * 95 }),
+  terrasse:  a => ({ t: 'Terrasse en pavés', q: '24 m²', p: 24 * 185 }),
+  mur:       a => ({ t: 'Mur en pierre sèche', q: '8 m', p: 8 * 420 }),
+  entretien: a => ({ t: 'Contrat d’entretien', q: '4 passages', p: Math.max(900, a * 2.4) }),
+};
+const quote = document.querySelector('.quote'), qLines = quote.querySelector('.q-lines'), qSum = quote.querySelector('.q-sum'),
+      qRange = quote.querySelector('.q-range'), qSurf = quote.querySelector('.q-surf');
+quote.querySelector('time').textContent = new Date().toLocaleDateString('fr-CH');
+let shown = 0, raf;
+function countTo(target) {
+  cancelAnimationFrame(raf);
+  const from = shown, t0 = performance.now(), d = 700;
+  const step = t => { const k = Math.min(1, (t - t0) / d), e = 1 - Math.pow(1 - k, 3); shown = from + (target - from) * e; qSum.textContent = fmt(shown); if (k < 1) raf = requestAnimationFrame(step); };
+  raf = requestAnimationFrame(step);
+}
+function updateQuote() {
+  const a = +qRange.value; qSurf.textContent = a + ' m²';
+  qRange.style.setProperty('--v', ((a - qRange.min) / (qRange.max - qRange.min) * 100) + '%');
+  const sel = [...quote.querySelectorAll('.q-chips input:checked')].map(i => i.value);
+  const prev = new Set([...qLines.children].map(li => li.dataset.k));
+  qLines.innerHTML = '';
+  let sum = 0;
+  sel.forEach(k => {
+    const l = PRICES[k](a); sum += l.p;
+    const li = document.createElement('li'); li.dataset.k = k; if (!prev.has(k)) li.className = 'new';
+    li.innerHTML = '<span>' + l.t + '</span><em>' + l.q + '</em><b>' + fmt(l.p) + '.–</b>';
+    qLines.appendChild(li);
+  });
+  if (!sel.length) qLines.innerHTML = '<li class="empty">Choisissez au moins un travail</li>';
+  quote.classList.remove('sent');
+  countTo(Math.round(sum * 1.081 / 10) * 10);
+}
+quote.addEventListener('input', updateQuote);
+quote.querySelector('.q-send').addEventListener('click', () => { if (qLines.querySelector('.empty')) return; quote.classList.remove('sent'); void quote.offsetWidth; quote.classList.add('sent'); });
+updateQuote();
+
+// ---------- Effets ----------
+// titre : mots qui montent un par un
+document.querySelectorAll('.split > *').forEach((line, li) => {
+  line.innerHTML = line.textContent.split(' ').map((w, wi) => '<span class="w"><span style="--d:' + (li * 3 + wi) * .07 + 's">' + w + '</span></span>').join(' ');
+});
+// intro
+setTimeout(() => document.body.classList.add('ready'), 1300);
+// compteurs
+const cio = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return; cio.unobserve(e.target);
+  const end = +e.target.dataset.count, start = end > 1000 ? end - 40 : 0, t0 = performance.now() + 1500;
+  const tick = t => { const k = Math.max(0, Math.min(1, (t - t0) / 1600)); e.target.textContent = Math.round(start + (end - start) * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(tick); };
+  requestAnimationFrame(tick);
+}));
+document.querySelectorAll('[data-count]').forEach(el => cio.observe(el));
+// barre de progression, header, parallaxe
+const bar = document.querySelector('.progress'), hdr = document.querySelector('.top'), bg = document.querySelector('.hero-bg img');
+addEventListener('scroll', () => {
+  const y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
+  bar.style.transform = 'scaleX(' + (y / h) + ')';
+  hdr.classList.toggle('solid', y > innerHeight * .75);
+  if (y < innerHeight * 1.2) bg.style.transform = 'translateY(' + y * .3 + 'px) scale(1.08)';
+}, { passive: true });
+// curseur personnalisé (souris seulement)
+if (matchMedia('(pointer: fine)').matches) {
+  const c = document.querySelector('.cursor'); let cx = 0, cy = 0, x = 0, y = 0;
+  addEventListener('pointermove', e => { x = e.clientX; y = e.clientY; c.classList.add('on'); });
+  (function loop() { cx += (x - cx) * .2; cy += (y - cy) * .2; c.style.transform = 'translate(' + cx + 'px,' + cy + 'px)'; requestAnimationFrame(loop); })();
+  document.querySelectorAll('a, button, label, input, .pin, .card, li[data-k]').forEach(el => {
+    el.addEventListener('pointerenter', () => c.classList.add('big'));
+    el.addEventListener('pointerleave', () => c.classList.remove('big'));
+  });
+}
+
+// Glisser la galerie à la souris
+const rail = document.querySelector('.rail'); let down = false, sx = 0, sl = 0;
+rail.addEventListener('pointerdown', e => { down = true; sx = e.clientX; sl = rail.scrollLeft; rail.classList.add('drag'); });
+addEventListener('pointerup', () => { down = false; rail.classList.remove('drag'); });
+rail.addEventListener('pointermove', e => { if (down) rail.scrollLeft = sl - (e.clientX - sx); });
+</script>
+<a href="../../index.html#realisations" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;display:inline-flex;align-items:center;gap:6px;padding:8px 12px;background:rgba(21,21,19,.92);color:#ECE9E3;font:500 12px/1.2 -apple-system,Segoe UI,Helvetica,Arial,sans-serif;letter-spacing:.01em;text-decoration:none;border-radius:2px;box-shadow:0 2px 10px rgba(0,0,0,.18)">Projet de démonstration · commerce fictif · <b style="font-weight:600">Wibzo</b></a>
+</body>
+</html>

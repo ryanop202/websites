@@ -56,3 +56,25 @@ Dernière mise à jour : 14.10.2026. À lire au début de chaque nouvelle sessio
 - Première démo : Quinn Beauty → https://quinn-beauty-wibzo.pages.dev
 - Méthode : Workers & Pages → Créer → Pages → téléverser un .zip du site.
 - ⚠️ Le .zip fait avec « Compresser » de Windows / PowerShell 5 met des chemins `img\photo.jpg`. Cloudflare ne les comprend pas et les photos ne s'affichent pas. Il faut un zip avec des chemins `img/photo.jpg` (Claude le fait).
+
+## Mise à jour 16.10.2026 — wibzo.ch sur Cloudflare
+- `wibzo/site-v3` est en ligne sur Cloudflare (Workers, projet « wibzo ») : https://wibzo.ryanoppliger2021.workers.dev
+- Pour publier une mise à jour : dans `wibzo/site-v3`, lancer `npx wrangler deploy` (config : `wrangler.jsonc`, fichiers exclus : `.assetsignore`).
+- wibzo.ch pointe ENCORE sur Netlify. Pour le passer sur Cloudflare, il faut que la zone DNS wibzo.ch soit gérée par Cloudflare (changer les serveurs de noms chez Infomaniak) et recopier toutes les lignes e-mail (MX, SPF, DKIM, DMARC, SRV, autoconfig). Pas encore fait : décision de Ryan.
+- 16.10.2026 : zone wibzo.ch créée chez Cloudflare (plan Free), 14 lignes recopiées et vérifiées (dont DKIM `20261012._domainkey` et SRV `_submissions._tcp`). Serveurs de noms Cloudflare : `cory.ns.cloudflare.com` et `lilith.ns.cloudflare.com`. Ordre : 1) couper DNSSEC chez Infomaniak, 2) attendre que le DS disparaisse, 3) changer les serveurs de noms, 4) relier wibzo.ch + www au Worker « wibzo ».
+
+## 18.10.2026 — nouveau site site-v4 (avec les 5 maquettes)
+- `wibzo/site-v4` publié sur le Worker « wibzo » (remplace site-v3 sur https://wibzo.ryanoppliger2021.workers.dev). Mise à jour : `npx wrangler deploy` dans `wibzo/site-v4`.
+- Prix affichés : création dès 350 CHF, 30 CHF/mois, maquette offerte.
+- wibzo.ch montre ENCORE l'ancien site (Netlify) : changement des serveurs de noms chez Infomaniak pas encore fait (vérifié le 18.10 : ns11/ns12.infomaniak.ch).
+
+## ⚠️ 16.10.2026 — WhatsApp bloqué 24 h (trop de messages)
+- ~70 messages à des inconnus en 3 jours (dont ~21 le 16.10) → WhatsApp a restreint le numéro 076 757 43 93 pendant 24 h.
+- Nouvelle limite : **10 à 15 nouveaux contacts par jour max**, espacés (pas en rafale), uniquement des messages personnalisés. Un 2e blocage peut devenir définitif.
+- Pendant un blocage : ne pas utiliser d'autre numéro ou d'outil pour contourner. Appels / SMS / visites à la place.
+
+## 18.10.2026 (soir) — DNS wibzo.ch
+- DNSSEC retiré au registre : wibzo.ch remarche (encore l'ancien site Netlify).
+- Serveurs DNS changés chez Infomaniak (par Ryan) → `cory.ns.cloudflare.com` + `lilith.ns.cloudflare.com`. En attente du registre .ch (quelques heures, max ~24 h).
+- Zone Cloudflare vérifiée avant : MX, SPF, DMARC, autodiscover et les 6 SRV mail = identiques à Infomaniak.
+- Prochaine étape : quand la zone Cloudflare est « Active », brancher wibzo.ch + www sur le Worker « wibzo » (site-v4), puis tester site + e-mails.

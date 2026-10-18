@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Café Tiercelin — café de quartier</title>
+<meta name="description" content="Café Tiercelin : café, ardoise du jour et pâtisseries maison. Exemple fictif, maquette Wibzo.">
+<meta name="theme-color" content="#EFEAE2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@400;500;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav" id="top">
+  <a class="mark" href="#top">Tiercelin<small>café de quartier</small></a>
+  <nav class="nav__links" aria-label="Menu">
+    <a href="#ardoise">L’ardoise</a>
+    <a href="#carte">La carte</a>
+    <a href="#lieu">Nous trouver</a>
+  </nav>
+  <p class="status" data-status><i aria-hidden="true"></i><span>Horaires</span></p>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero__copy">
+      <p class="kick">Sous les arcades · Bourg-sur-Broye</p>
+      <h1>Le café du matin,<br><em>la tarte</em><br>de l’après-midi.</h1>
+      <p class="lead">Un comptoir, douze tables et un mur en pierre. Café torréfié à vingt kilomètres, pâtisseries sorties du four le matin même.</p>
+      <div class="quick">
+        <a class="q q--dark" href="tel:+41260000000"><b>Appeler</b><span>026 000 00 00</span></a>
+        <a class="q" href="#lieu"><b>Itinéraire</b><span>Rue des Arcades 12</span></a>
+        <a class="q" href="#carte"><b>La carte</b><span>et les prix</span></a>
+      </div>
+    </div>
+    <figure class="hero__visual">
+      <div class="arch"><img src="img/salle.jpg" width="1400" height="1050" alt="La salle du café, mur en pierre et tables en bois"></div>
+      <a class="note" href="#ardoise">
+        <span class="note__k">Aujourd’hui à midi</span>
+        <span class="note__dish">Quiche poireaux &amp; gruyère</span>
+        <span class="note__p">14.– · voir l’ardoise ↓</span>
+      </a>
+    </figure>
+  </section>
+
+  <section class="slate-sec" id="ardoise" aria-labelledby="ardoise-title">
+    <div class="wrap slate-sec__grid">
+      <div class="slate-sec__copy">
+        <p class="kick kick--light">L’ardoise du jour</p>
+        <h2 id="ardoise-title">Écrite ce matin,<br>servie dès 11&nbsp;h&nbsp;30.</h2>
+        <p>Elle change chaque jour selon le marché. Quand c’est fini, c’est fini&nbsp;: passez tôt ou appelez pour qu’on vous en garde une part.</p>
+        <a class="btn btn--light" href="tel:+41260000000">Réserver une part · 026 000 00 00</a>
+      </div>
+      <div class="slate" role="group" aria-label="Ardoise du jour">
+        <div class="slate__board">
+          <p class="slate__date" data-today>Mardi</p>
+          <ul>
+            <li><span>Quiche poireaux &amp; gruyère</span><small>salade du jardin</small><b>14.–</b></li>
+            <li><span>Soupe de courge</span><small>pain au levain</small><b>9.50</b></li>
+            <li><span>Tarte aux pruneaux</span><small>crème double de la Gruyère</small><b>5.80</b></li>
+          </ul>
+          <svg class="slate__line" viewBox="0 0 300 20" aria-hidden="true"><path d="M4 12 C 60 4, 120 18, 180 9 S 270 6, 296 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+          <p class="slate__foot">tant qu’il y en a&nbsp;!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="carte" id="carte" aria-labelledby="carte-title">
+    <div class="wrap">
+      <header class="carte__head">
+        <h2 id="carte-title">La carte</h2>
+        <div class="tabs" role="tablist" aria-label="Moment de la journée">
+          <button role="tab" aria-selected="true" aria-controls="c-matin" id="tb-matin">Le matin</button>
+          <button role="tab" aria-selected="false" aria-controls="c-midi" id="tb-midi" tabindex="-1">À midi</button>
+          <button role="tab" aria-selected="false" aria-controls="c-gouter" id="tb-gouter" tabindex="-1">Le goûter</button>
+          <button role="tab" aria-selected="false" aria-controls="c-brunch" id="tb-brunch" tabindex="-1">Brunch du dimanche</button>
+        </div>
+      </header>
+
+      <div class="panel" role="tabpanel" id="c-matin" aria-labelledby="tb-matin">
+        <div class="cols">
+          <div>
+            <h3>Au comptoir</h3>
+            <ul class="list">
+              <li><span>Espresso</span><i></i><b>3.80</b></li>
+              <li><span>Cappuccino</span><i></i><b>4.90</b></li>
+              <li><span>Café crème</span><i></i><b>4.20</b></li>
+              <li><span>Chocolat chaud maison</span><i></i><b>5.20</b></li>
+              <li><span>Thé en vrac</span><i></i><b>4.50</b></li>
+            </ul>
+          </div>
+          <div>
+            <h3>À côté</h3>
+            <ul class="list">
+              <li><span>Croissant au beurre</span><i></i><b>2.40</b></li>
+              <li><span>Pain au chocolat</span><i></i><b>2.80</b></li>
+              <li><span>Tartine du matin<small>beurre, confiture maison</small></span><i></i><b>7.50</b></li>
+              <li><span>Birchermüesli</span><i></i><b>8.50</b></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" role="tabpanel" id="c-midi" aria-labelledby="tb-midi" hidden>
+        <div class="cols">
+          <div>
+            <h3>Le midi</h3>
+            <ul class="list">
+              <li><span>Plat de l’ardoise<small>voir plus haut, change chaque jour</small></span><i></i><b>14.–</b></li>
+              <li><span>Soupe du jour &amp; pain</span><i></i><b>9.50</b></li>
+              <li><span>Croque-monsieur<small>jambon de campagne, gruyère</small></span><i></i><b>12.–</b></li>
+              <li><span>Grande salade du jardin</span><i></i><b>13.50</b></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Pour finir</h3>
+            <ul class="list">
+              <li><span>Formule plat + café</span><i></i><b>17.–</b></li>
+              <li><span>Formule plat + dessert</span><i></i><b>19.–</b></li>
+              <li><span>Eau minérale</span><i></i><b>3.50</b></li>
+              <li><span>Jus de pomme de la région</span><i></i><b>4.20</b></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" role="tabpanel" id="c-gouter" aria-labelledby="tb-gouter" hidden>
+        <div class="cols">
+          <div>
+            <h3>Pâtisseries maison</h3>
+            <ul class="list">
+              <li><span>Tarte du jour</span><i></i><b>5.80</b></li>
+              <li><span>Gâteau à la crème</span><i></i><b>5.20</b></li>
+              <li><span>Cookie noisette</span><i></i><b>3.20</b></li>
+              <li><span>Taillé aux greubons</span><i></i><b>3.50</b></li>
+            </ul>
+          </div>
+          <div>
+            <h3>À boire</h3>
+            <ul class="list">
+              <li><span>Cappuccino</span><i></i><b>4.90</b></li>
+              <li><span>Thé glacé maison</span><i></i><b>4.80</b></li>
+              <li><span>Chocolat viennois</span><i></i><b>6.20</b></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" role="tabpanel" id="c-brunch" aria-labelledby="tb-brunch" hidden>
+        <div class="brunch">
+          <div>
+            <h3>Le brunch · dimanche 9 h – 14 h</h3>
+            <p class="brunch__p">Œufs brouillés, tresse, fromages de la région, viennoiseries, birchermüesli, jus pressé et boisson chaude à volonté.</p>
+          </div>
+          <p class="brunch__price"><b>26.–</b><span>par personne · enfants 12.–</span></p>
+          <a class="btn" href="tel:+41260000000">Réserver une table</a>
+        </div>
+      </div>
+      <p class="carte__note">Prix en CHF, TVA comprise. Allergènes : demandez au comptoir.</p>
+    </div>
+  </section>
+
+  <section class="lieu" id="lieu" aria-labelledby="lieu-title">
+    <div class="wrap lieu__grid">
+      <div class="hours-card">
+        <h2 id="lieu-title">Horaires</h2>
+        <p class="status status--big" data-status><i aria-hidden="true"></i><span>Horaires</span></p>
+        <table class="hours" id="hours">
+          <tr data-d="1"><th>Lundi</th><td class="off">Fermé</td></tr>
+          <tr data-d="2,3,4,5"><th>Mardi – vendredi</th><td>7 h – 18 h 30</td></tr>
+          <tr data-d="6"><th>Samedi</th><td>8 h – 17 h</td></tr>
+          <tr data-d="0"><th>Dimanche</th><td>9 h – 14 h · brunch</td></tr>
+        </table>
+      </div>
+      <div class="find">
+        <div class="map" aria-hidden="true">
+          <svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice">
+            <rect width="600" height="340" fill="#E6DED1"/>
+            <g fill="#D8CDBB">
+              <rect x="30" y="30" width="120" height="96" rx="6"/><rect x="180" y="24" width="150" height="80" rx="6"/>
+              <rect x="372" y="40" width="96" height="120" rx="6"/><rect x="500" y="30" width="80" height="70" rx="6"/>
+              <rect x="40" y="170" width="90" height="70" rx="6"/><rect x="440" y="200" width="130" height="64" rx="6"/>
+            </g>
+            <path d="M-10 150 C 140 128, 270 176, 610 136" stroke="#FBF8F3" stroke-width="26" fill="none"/>
+            <path d="M160 -10 L 214 350" stroke="#FBF8F3" stroke-width="18" fill="none"/>
+            <path d="M400 -10 C 384 100, 430 210, 404 350" stroke="#FBF8F3" stroke-width="14" fill="none"/>
+            <path d="M-10 300 C 150 276, 360 330, 610 292 L 610 350 L -10 350 Z" fill="#BFD1D3"/>
+            <circle cx="300" cy="196" r="22" fill="#CFE0D9"/><circle cx="300" cy="196" r="7" fill="#9DBFB6"/>
+            <text x="330" y="226" font-family="Figtree,sans-serif" font-size="13" fill="#8A7E6E">fontaine</text>
+            <text x="40" y="146" font-family="Figtree,sans-serif" font-size="13" fill="#8A7E6E" transform="rotate(-4 40 146)">Rue des Arcades</text>
+          </svg>
+          <span class="pin"><i></i><b>Tiercelin</b></span>
+        </div>
+        <div class="find__info">
+          <p class="find__addr"><b>Rue des Arcades 12</b>Bourg-sur-Broye · sous les arcades, à côté de la fontaine</p>
+          <div class="find__btns">
+            <a class="btn" href="#">Ouvrir l’itinéraire</a>
+            <a class="btn btn--ghost" href="tel:+41260000000">026 000 00 00</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <p class="mark">Tiercelin<small>café de quartier</small></p>
+    <p>Rue des Arcades 12 · Bourg-sur-Broye · 026 000 00 00</p>
+    <p class="fic">Exemple fictif · maquette Wibzo</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<a href="../../index.html#realisations" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;display:inline-flex;align-items:center;gap:6px;padding:8px 12px;background:rgba(21,21,19,.92);color:#ECE9E3;font:500 12px/1.2 -apple-system,Segoe UI,Helvetica,Arial,sans-serif;letter-spacing:.01em;text-decoration:none;border-radius:2px;box-shadow:0 2px 10px rgba(0,0,0,.18)">Projet de démonstration · commerce fictif · <b style="font-weight:600">Wibzo</b></a>
+</body>
+</html>

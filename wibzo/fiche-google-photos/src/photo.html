@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<style>
+@font-face{font-family:"Newsreader";src:url(../../site-v4/assets/fonts/newsreader-latin-wght-normal.woff2) format("woff2");font-weight:200 800}
+@font-face{font-family:"Inter Tight";src:url(../../site-v4/assets/fonts/inter-tight-latin-wght-normal.woff2) format("woff2");font-weight:100 900}
+:root{--bg:#F4F2EE;--ink:#151513;--muted:#77736C;--line:#DCD8D0;--acc:#B4612F;--dark:#151513;--dink:#ECE9E3}
+*{box-sizing:border-box;margin:0}
+html,body{width:var(--w);height:var(--h);overflow:hidden}
+body{background:var(--bg);color:var(--ink);font-family:"Inter Tight",Arial,sans-serif}
+.serif{font-family:"Newsreader",Georgia,serif}
+.k{font-size:22px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.fic{position:absolute;right:40px;bottom:30px;font-size:20px;color:var(--muted)}
+
+/* téléphone + ordinateur */
+.phone{position:absolute;border-radius:46px;background:#0d0d0c;padding:14px;box-shadow:0 40px 80px -30px rgba(0,0,0,.45)}
+.phone img{display:block;width:100%;border-radius:34px}
+.laptop{position:absolute}
+.laptop .scr{background:#0d0d0c;border-radius:18px 18px 0 0;padding:16px}
+.laptop .scr img{display:block;width:100%;border-radius:6px}
+.laptop .base{height:26px;margin:0 -60px;background:linear-gradient(#d9d6d0,#bdb9b2);border-radius:0 0 22px 22px}
+.laptop{filter:drop-shadow(0 40px 50px rgba(0,0,0,.25))}
+
+/* logo */
+.logo{width:100%;height:100%;display:grid;place-items:center;background:#0D0F0E}
+.logo .c{width:78%;aspect-ratio:1;border-radius:50%;background:#0D0F0E;position:relative;display:grid;place-items:center}
+.logo .c b{font:900 300px/1 "Arial Black",Arial,sans-serif;color:#F2F0EA;margin-left:-60px;margin-top:20px}
+.logo .c i{position:absolute;width:76px;height:76px;border-radius:50%;background:#C6FF3D;right:118px;bottom:170px}
+
+/* couverture */
+.cover{position:relative;width:100%;height:100%}
+.cover .txt{position:absolute;left:110px;top:150px;width:820px}
+.cover h1{font-size:118px;line-height:.98;font-weight:500;letter-spacing:-.02em;margin:26px 0 34px}
+.cover h1 em{color:var(--acc)}
+.cover p{font-size:34px;line-height:1.35;color:#3b3934}
+.cover .tags{display:flex;gap:14px;margin-top:44px}
+.cover .tags span{border:2px solid var(--ink);padding:12px 22px;font-size:26px;font-weight:600}
+
+/* exemple */
+.ex{position:relative;width:100%;height:100%;background:var(--pb)}
+.ex .cap{position:absolute;left:70px;top:70px;color:var(--pi)}
+.ex .cap .k{color:var(--pi);opacity:.7}
+.ex .cap h2{font-size:76px;font-weight:500;line-height:1;margin-top:16px}
+.ex .cap p{font-size:28px;margin-top:16px;opacity:.85;max-width:420px;line-height:1.35}
+.ex .fic{color:var(--pi);opacity:.7}
+
+/* étapes */
+.steps{padding:90px 90px;height:100%;display:flex;flex-direction:column}
+.steps h2{font-size:84px;font-weight:500;line-height:1;letter-spacing:-.01em}
+.steps h2 em{color:var(--acc)}
+.steps ol{list-style:none;padding:0;margin-top:auto;display:grid;gap:0}
+.steps li{display:grid;grid-template-columns:120px 1fr auto;align-items:baseline;border-top:2px solid var(--ink);padding:30px 0}
+.steps li .n{font-size:64px;color:var(--acc)}
+.steps li b{font-size:44px;font-weight:600}
+.steps li span{display:block;font-size:28px;color:var(--muted);margin-top:8px;font-weight:400}
+.steps li .p{font-size:40px;font-weight:600}
+</style>
+</head>
+<body>
+<script>
+var q=new URLSearchParams(location.search), k=q.get('k'), W='../../site-v4/assets/work/';
+var EX={
+  faucon:{n:'maison-faucon',bg:'#1A3832',ink:'#F3EBDD',t:'Barbier',h:'Maison Faucon',p:'Réservation en ligne : le client choisit son heure.'},
+  chene:{n:'chene-et-laiton',bg:'#141210',ink:'#E8E1D6',t:'Cuisiniste',h:'Chêne &amp; Laiton',p:'Le client dessine sa cuisine en 3D et voit un prix estimé.'},
+  saule:{n:'terre-de-saule',bg:'#1C2318',ink:'#F2EEE5',t:'Paysagiste',h:'Terre de Saule',p:'Un devis express calculé en direct, sans attendre.'},
+  tiercelin:{n:'cafe-tiercelin',bg:'#E7DFD3',ink:'#2A1F19',t:'Café',h:'Café Tiercelin',p:'La carte, l’ardoise du jour et les horaires.'}
+};
+var S={logo:[720,720],cover:[1920,1080],steps:[1200,900]}; var sz=S[k]||[1200,900];
+document.documentElement.style.setProperty('--w',sz[0]+'px');document.documentElement.style.setProperty('--h',sz[1]+'px');
+var h='';
+if(k==='logo'){h='<div class="logo"><div class="c"><b>W</b><i></i></div></div>';}
+else if(k==='cover'){h='<div class="cover"><div class="txt"><p class="k">Wibzo · sites web · Broye</p><h1 class="serif">Voyez votre site <em>avant</em> de payer.</h1><p>Maquette gratuite en 24 h. Ensuite, vous décidez.</p><div class="tags"><span>Dès 350 CHF</span><span>30 CHF / mois</span></div></div>'+
+ '<div class="laptop" style="left:1010px;top:250px;width:820px"><div class="scr"><img src="'+W+'chene-et-laiton-desk.jpg"></div><div class="base"></div></div>'+
+ '<div class="phone" style="left:930px;top:400px;width:270px"><img src="'+W+'maison-faucon-mob.jpg"></div>'+
+ '<p class="fic">Exemples de maquettes · commerces fictifs</p></div>';}
+else if(k==='steps'){h='<div class="steps"><p class="k">Comment ça marche</p><h2 class="serif" style="margin-top:22px">Vous ne payez<br>que si <em>ça vous plaît.</em></h2><ol>'+
+ '<li><span class="n serif">1</span><div><b>On en parle</b><span>Un message WhatsApp, 5 minutes.</span></div><span class="p">0 CHF</span></li>'+
+ '<li><span class="n serif">2</span><div><b>Votre maquette</b><span>En 24 h, sur votre téléphone.</span></div><span class="p">0 CHF</span></li>'+
+ '<li><span class="n serif">3</span><div><b>Votre site en ligne</b><span>Prix exact donné par écrit avant.</span></div><span class="p">dès 350 CHF</span></li></ol></div>';}
+else{var e=EX[k];document.documentElement.style.setProperty('--pb',e.bg);document.documentElement.style.setProperty('--pi',e.ink);
+ h='<div class="ex"><div class="cap"><p class="k">Exemple · '+e.t+'</p><h2 class="serif">'+e.h+'</h2><p>'+e.p+'</p></div>'+
+ '<div class="laptop" style="left:110px;top:340px;width:740px"><div class="scr"><img src="'+W+e.n+'-desk.jpg"></div><div class="base"></div></div>'+
+ '<div class="phone" style="left:890px;top:230px;width:250px;transform:rotate(3deg)"><img src="'+W+e.n+'-mob.jpg"></div>'+
+ '<p class="fic">Maquette Wibzo · commerce fictif</p></div>';}
+document.body.innerHTML=h;
+</script>
+</body>
+</html>

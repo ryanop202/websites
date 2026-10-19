@@ -78,3 +78,16 @@ Dernière mise à jour : 14.10.2026. À lire au début de chaque nouvelle sessio
 - Serveurs DNS changés chez Infomaniak (par Ryan) → `cory.ns.cloudflare.com` + `lilith.ns.cloudflare.com`. En attente du registre .ch (quelques heures, max ~24 h).
 - Zone Cloudflare vérifiée avant : MX, SPF, DMARC, autodiscover et les 6 SRV mail = identiques à Infomaniak.
 - Prochaine étape : quand la zone Cloudflare est « Active », brancher wibzo.ch + www sur le Worker « wibzo » (site-v4), puis tester site + e-mails.
+
+## 19.10.2026 — wibzo.ch sur Cloudflare (site-v4)
+- Lignes Netlify supprimées par Ryan dans la zone Cloudflare (A wibzo.ch → 75.2.60.5, CNAME www → netlify).
+- `wibzo/site-v4/wrangler.jsonc` : wibzo.ch + www.wibzo.ch ajoutés comme domaines personnalisés du Worker « wibzo ».
+- wibzo.ch et www.wibzo.ch affichent site-v4 (vérifié). MX + SPF intacts. Netlify n'est plus utilisé.
+- Mise à jour du site : `npx wrangler deploy` dans `wibzo/site-v4`.
+
+## 19.10.2026 — Stripe (abonnement 50 CHF/mois)
+- Compte Stripe « wibzo » créé par Ryan. **Identité / IBAN pas encore vérifiés** → seulement en mode TEST pour l'instant.
+- Fait en mode test : produit « Site Wibzo – abonnement mensuel » 50 CHF/mois ; lien de paiement https://buy.stripe.com/test_cNibJ2g0I8XAeMFdCTd7q00 (sans TVA, Managed Payments désactivé, nom + commerce demandés) ; portail client (annulation à la fin du mois payé) billing.stripe.com/p/login/test_cNibJ2g0I8XAeMFdCTd7q00 ; logo W. + couleurs du site (#151513 / #B4612F).
+- Choix : taxes « gérées manuellement » (pas de TVA, < 100 000 CHF/an), Radar Lite (gratuit), PAS de Managed Payments (+3,5 %).
+- Frais : 2,9 % + 0,30 CHF par paiement (carte suisse) + ~0,7 % Billing ≈ 2,10 CHF/mois par client.
+- Après la vérification : recréer produit + lien + portail en mode réel, activer l'e-mail « paiement réussi » (Préférences de communication → Transactions) et les reçus clients.

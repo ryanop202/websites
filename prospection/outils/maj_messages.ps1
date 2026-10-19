@@ -1,6 +1,8 @@
 ﻿# Réécrit le message (col. I) et le lien WhatsApp (col. J) de prospects_sans_site.xlsx
 # pour tous les commerces pas encore contactés (Statut vide ou « SMS à faire »).
-# Message validé par Ryan le 15.10.2026 (version « perso » avec note Google + métier + village). Voir PROCESS.md.
+# Message validé par Ryan le 19.10.2026 : offre 3 premiers clients (création offerte, 50 CHF/mois, maquette déjà prête).
+# Pas d'avis Google dans le message : Google interdit les avis obtenus en échange d'un service gratuit.
+# (Ancien message du 15.10.2026 avec note Google + métier + village : 16 réponses / 63.)
 # Lancer : powershell -ExecutionPolicy Bypass -File prospection\outils\maj_messages.ps1   (Excel doit être fermé)
 
 $dir  = Split-Path $MyInvocation.MyCommand.Path
@@ -36,19 +38,7 @@ for ($r = 2; $r -le $n; $r++) {
   $metier = $ws.Cells.Item($r, 2).Text; $village = $ws.Cells.Item($r, 3).Text
   if (-not $met.ContainsKey($metier)) { $missing += "$r ($metier)"; continue }
   $nom = ShortName $ws.Cells.Item($r, 1).Text $village
-  $m = [regex]::Match($ws.Cells.Item($r, 5).Text, '^([\d,]+) \((\d+) avis\)'); $note = $m.Groups[1].Value
-  $rt = [double]($note -replace ',', '.'); $nb = [int]$m.Groups[2].Value
-  if (($nb -ge 5 -and $rt -ge 4.5) -or ($nb -ge 3 -and $rt -eq 5)) { $l1 = "J'ai vu $(Elide 'que' $nom) a $nb avis à $note/5 sur Google, vos clients sont visiblement contents." }
-  else { $l1 = "J'ai vu la fiche Google $(Elide 'de' $nom) à $village." }
-  $quoi = $met[$metier][0]
-  if ($nom -match '(?i)onglerie|nails') { $quoi = 'une onglerie' }
-  if ($met[$metier][1] -eq 'f') { $qui = 'une nouvelle cliente'; $il = 'elle' } else { $qui = 'un nouveau client'; $il = 'il' }
-  if ($ws.Cells.Item($r, 14).Text -like '*réservation*') {
-    $l2 = "Vous avez déjà une page de réservation, c'est très bien. Mais quand $qui cherche $quoi à $village, un vrai site à votre nom lui donne beaucoup plus confiance."
-  } else {
-    $l2 = "Mais quand $qui cherche $quoi à $village, $il ne trouve pas de site pour $($benefit[(Kind $metier)]), et $il va ailleurs."
-  }
-  $msg = "Bonjour, ici Ryan de Wibzo, dans la Broye.`n`n$l1 $l2`n`nJe vous ai préparé la maquette de votre site, gratuitement. Si elle ne vous plaît pas, on en reste là.`n`nJe vous l'envoie ?"
+  $msg = "Bonjour, ici Ryan de Wibzo, créateur web dans la Broye.`n`nJ'ai vu $(Elide 'que' $nom) à $village n'a pas encore de site.`n`nPour mes 3 premiers clients, j'offre la création du site. Ensuite, c'est seulement 50 CHF/mois tout compris (hébergement, nom de domaine, modifications).`n`nJe vous ai déjà préparé une maquette, gratuitement et sans engagement. Je vous l'envoie ?"
   $ph = ($ws.Cells.Item($r, 7).Text -replace '\s', '')
   $ws.Cells.Item($r, 9).Value2 = $msg
   $c = $ws.Cells.Item($r, 10); $null = $c.Hyperlinks.Delete()

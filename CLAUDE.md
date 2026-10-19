@@ -62,6 +62,7 @@ Ces prix sont des hypothèses à tester, pas des prix définitifs.
 Offre Wibzo actuelle (affichée sur wibzo.ch, 14.10.2026) : maquette 0 CHF, ~500 CHF le site, ~25 CHF/mois. C'est elle qui fait foi pour les pubs et les messages.
 **Mise à jour 15.10.2026 (Ryan) : PAS de prix fixe, le prix change selon le projet.** Le « prix fixe 500 CHF + 25 CHF/mois » noté le 14.10 est annulé. Ne plus écrire « 500 CHF » comme un prix fixe (pubs, messages, vidéos).
 **Mise à jour 18.10.2026 (Ryan) : création « dès 350 CHF » (prix final selon le projet, donné par écrit avec la maquette) + abonnement « dès 30 CHF/mois ».** Maquette toujours offerte. Affiché sur site-v4.
+**Mise à jour 19.10.2026 (Ryan) : offre « 3 premiers clients » = création du site offerte, puis 50 CHF/mois tout compris (hébergement, domaine, modifications) sans engagement (pas d’avis Google en échange : interdit par Google). Maquette gratuite. Utilisée dans le message WhatsApp de prospection (`prospection/outils/maj_messages.ps1`). Le site wibzo.ch affiche encore « dès 350 CHF + 30 CHF/mois ».**
 
 ## CONTRAINTES
 

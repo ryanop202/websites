@@ -1,0 +1,314 @@
+﻿# UID des entreprises FOSC déjà vérifiées (ignorées par fosc_vd_fr.py). Test du 22.10.2026 : 56 premières (50 vérifiées + 6 pas artisans).
+CHE-204.035.406  # Rénova Mood Sàrl
+CHE-457.477.376  # LCspark Sàrl
+CHE-169.375.108  # Castores Sàrl
+CHE-407.554.827  # Iliev Sàrl
+CHE-312.529.792  # Jan Müller
+CHE-416.901.069  # RicJardins Ferreira dos Santos
+CHE-230.771.209  # Jardin du Cordeau SNC
+CHE-248.197.356  # IMPACS Sàrl
+CHE-319.179.931  # Beaud Paysages
+CHE-138.537.473  # ZH Général Pro SA
+CHE-180.555.133  # Verttech groupe Sàrl
+CHE-177.088.740  # KREIMER AUTOGARAGE
+CHE-360.723.569  # Allô Aménagements & Génie Civil Sàrl
+CHE-220.894.307  # ASU Toiture Sàrl
+CHE-424.531.951  # Carrosserie 66 Sàrl
+CHE-198.098.514  # AXIOM construction Sàrl
+CHE-369.126.428  # Cokovic Maintenance & Technique
+CHE-442.218.825  # EI Plâtrerie & Peinture Sàrl
+CHE-321.768.203  # Chemitech Sàrl
+CHE-210.024.687  # LOAD, titulaire Fatjon Ademi
+CHE-317.849.689  # Garage Catillaz SA
+CHE-238.618.586  # BICHET DN MOVING & SERVICES
+CHE-336.661.241  # WD-Wood.art Sàrl
+CHE-451.879.492  # Meka Rénovation Sàrl
+CHE-263.248.618  # Terrazzo & Stone SA
+CHE-391.490.473  # Ruch Bois Sàrl
+CHE-198.427.233  # KD Rénovation Uçucu
+CHE-349.251.243  # V-KA Tech Sàrl
+CHE-396.571.386  # Eddy & Fils Services Sàrl
+CHE-362.827.582  # Semoroz peinture et parquet
+CHE-145.807.241  # Lunoxa SA
+CHE-153.685.715  # Wine-Guard Wanni
+CHE-134.162.919  # METALFIN Sàrl
+CHE-290.323.145  # MAFISA SNC
+CHE-170.776.678  # Vila Verde Froid
+CHE-429.827.382  # EKI Plâtrerie Peinture et Rénovation, titulaire Kavkazi
+CHE-363.265.209  # LCV . BRAU
+CHE-398.883.796  # Yamani Toiture
+CHE-179.205.442  # Camelec Sàrl
+CHE-276.259.962  # LG RENOVA GmbH
+CHE-301.714.641  # Jaccoud Jardins
+CHE-256.598.987  # L.Kuçi
+CHE-272.580.431  # Ashani Ferraillage Sàrl
+CHE-162.083.811  # Atelier Lugo - titulaire Nicolet
+CHE-218.937.634  # Swiss Thermo Tech Sàrl
+CHE-435.958.621  # MELYA IMMO Sàrl
+CHE-171.507.862  # Valentin Mendonca déménagement
+CHE-480.451.110  # Hamzaj
+CHE-462.299.494  # Garage Grosjean Sàrl
+CHE-202.265.237  # Peart Revêtements - titulaire Pedro Alberto Da Rocha Correia
+CHE-321.192.071  # SENSORIA GROUP Sàrl
+CHE-246.558.503  # Paysage Design Chablais Sàrl
+CHE-160.891.711  # Ali Rdwan
+CHE-354.323.687  # Revatec Sàrl
+CHE-203.284.444  # Emini-M Sàrl
+CHE-237.085.629  # RB - Aqua Therm Reshiti
+# Lot du 22.10.2026 : inscrits mars-mai 2026 avec mobile (63 vérifiés : 30 gardés, 19 avec site, 14 exclus)
+CHE-292.485.528  # RF plâtrerie-peinture, titulaire Rey
+CHE-376.588.490  # Schneuwly Elektro AG
+CHE-340.959.382  # PM&S Construction Métallique Sàrl
+CHE-174.844.818  # LM Débosselage Sàrl
+CHE-219.605.324  # Energies Confort Sàrl
+CHE-468.633.367  # Bory Factory Sàrl
+CHE-286.362.107  # Tec Therm GmbH
+CHE-322.457.160  # Genoud Paysage Sàrl
+CHE-445.952.933  # Modulux.ch SA
+CHE-173.965.359  # Auto B Sàrl
+CHE-249.421.680  # Bureau Technique Kilchenmann
+CHE-152.350.583  # Parata Peinture SNC
+CHE-301.685.181  # Milor Entreprise Sàrl
+CHE-293.079.846  # ADONIS Autos Sàrl
+CHE-466.659.433  # TrioVolt Sàrl
+CHE-152.796.565  # M&M La Main du Jardin SNC
+CHE-418.416.098  # Stéphane Mignot, Etanchéité piscine
+CHE-349.170.840  # Samm Service Sàrl
+CHE-360.661.543  # Garage Orani AG
+CHE-351.065.661  # COCH Peinture Sàrl
+CHE-406.384.586  # BS BAT Sàrl
+CHE-188.877.801  # Mooser Stores
+CHE-169.612.254  # Montana Vigneron Peinture Sàrl
+CHE-406.380.861  # A Toiture Sàrl
+CHE-373.513.202  # LA BOITE DE TRAVAUX Sàrl
+CHE-209.903.547  # Blen. Salihi
+CHE-187.083.951  # L'Artisan du Paysage Sàrl
+CHE-326.572.995  # Berisha Groupe SA
+CHE-368.753.226  # Moret Construction Bois Sàrl
+CHE-361.990.647  # da Silva Gonçalves Peinture
+CHE-187.883.348  # Demestre rénovation
+CHE-218.518.875  # Sols Confort, Correia Alves
+CHE-492.374.976  # Vitaliy Kondratyuk - Travaux de montage et d'entretien intérieur
+CHE-189.151.836  # Meulien menuiserie
+CHE-412.144.464  # Epoxy Sols Sàrl
+CHE-467.777.259  # ED Carrosserie & Lackierer, Inhaber Dauti Edi
+CHE-477.433.956  # Aljon Sàrl
+CHE-178.495.757  # ASV Groupe Sàrl
+CHE-274.935.841  # Helvetic Performance Parts D. da Silva Pereira
+CHE-289.655.066  # Belle Store Sàrl
+CHE-258.997.045  # Tartaglia T E C
+CHE-259.031.760  # Natur&ô Sàrl
+CHE-401.280.264  # Eval Etanchéité Sàrl
+CHE-200.067.689  # AquaTherm Solutions GmbH
+CHE-158.214.487  # Les S garage - titulaire Sandoz-Gendre
+CHE-151.965.693  # MURCY CREARENO PAYSAGE AMENAGEMENT
+CHE-214.420.763  # Cantin Automobile Propre & Pneus Service
+CHE-305.013.856  # TLP - Peinture, Sapphathit Thanakorn
+CHE-212.239.690  # Millius Construction Sàrl
+CHE-346.503.282  # FMOTA Sàrl
+CHE-380.283.668  # Jason Pneus & Services Sàrl
+CHE-289.112.015  # La feuille verte Ebneter Sàrl
+CHE-316.926.956  # ARIA GROUP SARL
+CHE-455.991.314  # DON-isol Sàrl
+CHE-332.342.216  # AgoInTech Sàrl
+CHE-170.779.501  # Menuiserie Yanza Cabrera
+CHE-243.962.397  # Energie & Construction-Bois Sàrl
+CHE-255.113.991  # N. Barbaro Sàrl
+CHE-131.352.955  # Clé Romande Sàrl
+CHE-154.391.015  # Home Kustom Sàrl
+CHE-192.490.204  # Tubeau Service Sàrl
+CHE-300.969.575  # Electrolive Dafflon et associés snc
+CHE-301.081.221  # Schwab
+# Lot 2 du 22.10.2026 (70 vérifiés : 34 gardés, 36 avec site)
+CHE-466.349.062  # Petrov Prestige 21 carrelage
+CHE-136.571.418  # M&B Ademi Sàrl
+CHE-171.401.867  # Saniproxy - G. Cana
+CHE-218.109.235  # Devis Design Sàrl
+CHE-429.298.265  # ROCHART Sàrl
+CHE-424.489.556  # Electro-Plus SA
+CHE-297.371.837  # Guhl Bâtiment Sàrl
+CHE-269.960.520  # MFR Menuiserie Sàrl
+CHE-405.001.948  # JM2 Parquet Sàrl
+CHE-385.006.194  # MORINA PRO Sàrl
+CHE-238.923.724  # J-R service Juriens
+CHE-208.866.056  # FMB Construction Sàrl
+CHE-133.026.343  # DORI Construction Sàrl
+CHE-410.007.543  # VAUD PAYSAGE Sàrl
+CHE-424.505.043  # JIDEK Génie civil et Maçonnerie Sàrl
+CHE-468.758.603  # wena.G Constructions et Rénovations Sàrl
+CHE-401.147.607  # Tor construction & rénovation Sàrl
+CHE-400.460.421  # Wood Alliance Sàrl
+CHE-349.726.128  # Vision d'Extérieurs FR Sàrl
+CHE-356.922.605  # Perez Jesus
+CHE-152.924.751  # Allamand Menuiserie
+CHE-184.545.576  # Henzen Sanitaire Sàrl
+CHE-473.695.581  # Geo Track Sàrl
+CHE-227.913.006  # The Greenway SARL
+CHE-190.489.650  # J. Ramos Afonso
+CHE-434.689.855  # Pedro Pessoa Carvalheiro
+CHE-243.791.664  # Garage Carrosserie Leon Sàrl
+CHE-483.914.885  # Junod Toiture
+CHE-437.185.723  # JSA TOITURE, titulaire Silva Araújo
+CHE-233.281.077  # Pidoux Construction Bois
+CHE-291.883.961  # Arias Parquet Sàrl
+CHE-180.691.865  # D & K Pro Sàrl
+CHE-440.672.484  # Le Savoir Faire Swiss SARL
+CHE-171.636.933  # N.N SANITAIRE Najdovski
+CHE-207.632.886  # SWISS SERVICE HOME CHABAN
+CHE-450.442.069  # Fribourg étanchéité Sàrl
+CHE-261.666.442  # ACR Construction Sàrl
+CHE-287.067.817  # Evo Automotive Titulaire Fisnik Selaci
+CHE-224.543.539  # Agnelli Sanitaire Sàrl
+CHE-202.737.176  # Innovant Sàrl
+CHE-155.237.144  # CORBOZ BOIS Menuiserie Charpente Sàrl
+CHE-409.883.302  # Pro-G Sols Sàrl
+CHE-490.649.116  # RP Chauffage Sanitaire Sàrl
+CHE-156.988.508  # MK Carrelage Sàrl
+CHE-170.968.373  # AS Electricité Sàrl
+CHE-175.114.208  # R.G Vitrerie miroiterie et store Torrão Gafenho
+CHE-387.508.199  # Oscar Façades Sàrl
+CHE-447.217.313  # OLI Sanitaire Sàrl
+CHE-256.320.297  # Hassine Peinture
+CHE-345.590.226  # DSA Rénovation Sàrl
+CHE-180.087.617  # Arbosphère Sàrl
+CHE-196.130.495  # DC.CIS Romandie - Daniel Cordero Marrero Concept et Installations Sanitaires - Romandie
+CHE-415.597.230  # SAHITI Carrelage Sàrl
+CHE-447.366.338  # Helveticenergies Sàrl
+CHE-169.939.689  # Amorim Martins Sàrl
+CHE-234.063.347  # La Ligne du Bois Sàrl
+CHE-161.508.280  # OZ Carrosserie Sàrl
+CHE-219.155.551  # Menuiserie Stéphane Currat Sàrl
+CHE-142.153.584  # Quick Multiservices Shpend Salihu
+CHE-456.799.630  # LM Général Sàrl
+CHE-184.077.931  # Morina ML Sàrl
+CHE-389.898.014  # Cuénet Aménagements
+CHE-133.805.494  # SSP Systems SARL
+CHE-361.293.413  # Essentiel Bois Adejo Sàrl
+CHE-252.710.647  # S2 Concept Sàrl
+CHE-205.539.460  # Glâne Carrelage Sàrl
+CHE-145.825.322  # GV Carrelage Sàrl
+CHE-184.546.498  # Lumi-Bois Straesslé
+CHE-443.672.776  # Costa Peinture
+CHE-241.885.024  # Menuiserie Michel Ruchti Sàrl
+# Lot 3 du 22.10.2026 (121 vérifiés)
+CHE-370.391.457  # Waber
+CHE-270.082.530  # Monteiro Borges Varela Peinture
+CHE-294.183.104  # LP DEVIS DÉMÉNAGEMENT Sàrl
+CHE-188.052.858  # ARB Construction Sàrl
+CHE-204.761.582  # RenoSwiss SA
+CHE-382.854.665  # S.CANTIN SARL
+CHE-151.101.379  # Serrurerie d'urgence 24 h 24, Guessi
+CHE-238.676.796  # JARDIN en liberté Sàrl
+CHE-344.714.193  # H-M. Paysagiste Sàrl
+CHE-135.393.663  # Rémy Poisot - Architecte paysagiste
+CHE-419.386.123  # DC Pneus SNC
+CHE-477.944.553  # BG Automobiles Sàrl
+CHE-432.824.912  # LB Atelier Bois Sàrl
+CHE-346.417.381  # Alpha Pazira Sàrl
+CHE-151.613.780  # DRK Automobiles Sàrl
+CHE-316.612.274  # FK Étanchéité Sàrl
+CHE-467.639.261  # Edin Jardin SNC
+CHE-209.170.773  # Rotzetter Plâtrerie Peinture
+CHE-418.140.737  # SWISS COMFORT Danylchenko Yevhenii
+CHE-332.759.912  # Sanitech Pro Sàrl
+CHE-240.993.496  # NovaStore Duric
+CHE-450.157.350  # Pinto Sols Sàrl
+CHE-194.365.751  # Marques Batista entreprise générale
+CHE-264.784.078  # Rui Teixeira Ribeiro Jardinier & Paysagiste
+CHE-440.517.139  # GL Peinture Sàrl
+CHE-484.974.654  # Recycl' & Move SNC
+CHE-383.891.781  # Menuiserie Goitom
+CHE-453.144.680  # Mottier Jo Sàrl
+CHE-204.513.989  # Borne construction
+CHE-245.855.772  # AB Auto Service BEKTESHI
+CHE-201.369.199  # Perroud Peinture
+CHE-162.824.714  # IZIBAT Sàrl
+CHE-257.692.749  # Natura Scape, Dani Dos Santos Pereira
+CHE-371.464.751  # Carrosserie Pro Dynamique Sàrl
+CHE-191.071.709  # AK METALLIX Sàrl
+CHE-177.567.012  # Sopjani-tech Sàrl
+CHE-298.018.125  # AS Rénove Osório da Silva
+CHE-296.018.769  # HB Pierre Naturelle Sàrl
+CHE-445.912.371  # Probat Concept CH - Mvomo
+CHE-482.316.285  # Sanitaire & Chauffage, de Almeida Alves Dias
+CHE-388.459.089  # Place au soleil Madi
+CHE-168.895.931  # NK-SUN Sàrl
+CHE-195.066.073  # Kilchenmann Jason Sàrl
+CHE-215.398.037  # l'Atelier Joël Sàrl
+CHE-383.384.165  # Alica Peinture Sàrl
+CHE-479.851.247  # Street Garage Ferrari
+CHE-211.591.055  # Baudin Sanitaire & Chauffage Sàrl
+CHE-185.122.675  # E.J Peinture Sàrl
+CHE-270.244.927  # EcoTherm Energie SA
+CHE-305.820.437  # AtelierPremium, Leite Morais
+CHE-158.152.521  # Pro déménagement Sàrl
+CHE-497.168.243  # Savary GTsolution
+CHE-196.947.355  # Leuba Menuiserie Sàrl
+CHE-152.712.692  # JoStores Sàrl
+CHE-279.564.249  # EG-Vitrerie&rénovation-N&G Sàrl
+CHE-201.334.338  # Master Sol Sàrl
+CHE-196.965.040  # Kaïros Services Sàrl
+CHE-352.933.484  # Bani service
+CHE-476.570.303  # ART&CAR Esteves Robalo de Fernandes
+CHE-221.636.423  # V Services - Do Rosario Martins Gomes
+CHE-426.297.536  # SaniPro AF Sàrl
+CHE-492.202.335  # S.P Renova Sàrl
+CHE-422.546.143  # R PAYSAGE Sàrl
+CHE-441.904.958  # HomeVision Rénovation Sàrl
+CHE-277.778.118  # T&K Gestion et rénovation immobilière Sàrl
+CHE-171.229.373  # CSC rénov Sàrl
+CHE-363.729.143  # ABC Etanchéité Sàrl
+CHE-415.782.336  # Electricité d'Enhaut Sàrl
+CHE-487.532.181  # Paysagisme et Nettoyages dos Santos Moura
+CHE-140.745.710  # Proporte montage Luzha
+CHE-196.016.356  # neo carrosserie Sàrl
+CHE-203.922.919  # SCS Sanitaire Chauffage Solutions Sàrl
+CHE-457.146.933  # GABE Sàrl
+CHE-264.726.129  # 3F Metal Sylaj
+CHE-196.750.516  # Maison du paysage Sàrl
+CHE-333.871.718  # Arc-Elec Sàrl
+CHE-237.729.711  # Métropole Group Sàrl
+CHE-378.361.129  # BEM menuiserie ébénisterie Sàrl
+CHE-374.902.463  # ELI Rénovation Sàrl
+CHE-137.509.497  # Eclat Plâtrerie Peinture Rénovation Sàrl
+CHE-460.108.258  # LSC Construction Sàrl
+CHE-300.186.981  # Almeida A. Sàrl
+CHE-189.417.371  # Mura-Peinture Sàrl
+CHE-318.932.844  # Renova Service Elezi
+CHE-159.538.248  # V.MAYOR-Services
+CHE-376.247.391  # Amana Rénovation Plâtrerie Peinture Sàrl
+CHE-246.177.851  # Damien Dormond, plâtrier peintre
+CHE-392.803.787  # KBF Peinture Sàrl
+CHE-214.355.054  # FORT GROUPE Sàrl
+CHE-404.953.935  # RénoPose N. Bleta
+CHE-200.499.362  # Hyda concept SA
+CHE-490.944.532  # Express Serrurerie Service NITHIYBAWANANTHAM
+CHE-403.233.790  # D R Group Construction Sàrl
+CHE-217.967.360  # Aquaneo Sàrl
+CHE-243.973.490  # Tissir Sàrl
+CHE-174.485.010  # Perfetto Carrelage Sàrl
+CHE-477.418.371  # URGENCE SOS SANITAIRE RUSSO
+CHE-495.742.384  # MG76 Construction Sàrl
+CHE-337.008.641  # MENETREY PARQUETS SA
+CHE-309.125.514  # Mg76. Vitrerie miroiterie, Mario Guarnaccia
+CHE-142.444.691  # Dupasquier Terrassement Sàrl
+CHE-312.436.334  # Jz agencement & Co Sàrl
+CHE-454.663.310  # OAD Construction Sàrl
+CHE-268.042.231  # TORRIONE, entreprise générale du bâtiment
+CHE-310.776.196  # Garage & Carrosserie Pro Demir Sàrl
+CHE-287.886.956  # Ferreira Paysage, titulaire De Sousa Ferreira Daniel Jorge
+CHE-149.684.865  # Store Pratique Sàrl
+CHE-133.785.302  # Conus services
+CHE-458.154.792  # Construbat XL Sàrl
+CHE-457.328.888  # Repairman.ch by Moulton
+CHE-472.064.828  # PaysAlliaz Sàrl
+CHE-250.310.886  # D. Salija monteur électricien
+CHE-487.087.525  # FAB Paysagiste (Fabien Magnenat)
+CHE-233.050.827  # Art&Bois Fabien Wasser Sàrl
+CHE-257.546.941  # Jardiniste par Nature. Sàrl
+CHE-449.364.528  # Ametal Serruerie Sàrl
+CHE-172.958.210  # Kastrati decor Sàrl
+CHE-311.638.303  # BUILD-IT, KAYGISIZ
+CHE-177.699.501  # Florent Peinture Sàrl
+CHE-310.075.165  # ADP Peinture Sàrl
+CHE-156.583.287  # Gonçalves da Silva MDS Sanitaire

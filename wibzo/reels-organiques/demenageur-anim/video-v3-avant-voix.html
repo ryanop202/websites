@@ -1,0 +1,1176 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wibzo Déménageur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --violet:#8b7bff; --lime:#c6ff3d; --red:#ff6b78; --text:#ecebf5; --muted:#8a8ca3; }
+  html,body{margin:0;height:100%;background:#05050a;overflow:hidden;font-family:Inter,system-ui,sans-serif}
+  body{display:flex;align-items:center;justify-content:center}
+  #stage{width:1080px;height:1920px;position:relative;background:#11121b;overflow:hidden;transform-origin:center center;flex:none}
+  svg{position:absolute;inset:0;width:100%;height:100%}
+  svg text{font-family:Inter,system-ui,sans-serif}
+  #grain{position:absolute;inset:-50px;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>")}
+  #subs{position:absolute;left:70px;right:70px;top:1440px;text-align:center;color:#fff;font-size:56px;font-weight:600;line-height:1.25;letter-spacing:-.01em;text-shadow:0 4px 24px rgba(0,0,0,.7)}
+  #subs span{display:inline-block;margin:0 .13em}
+  #subs .v{color:var(--violet)} #subs .r{color:var(--red)} #subs .l{color:var(--lime)}
+  #tag{position:absolute;top:120px;left:0;right:0;text-align:center;color:#9a9cb3;font-size:24px;font-weight:700;letter-spacing:.34em;text-transform:uppercase}
+  #hint{position:fixed;bottom:10px;left:0;right:0;text-align:center;color:#6b6d82;font:13px Inter,sans-serif}
+</style>
+</head>
+<body>
+<div id="stage">
+<svg viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c1e2f"/><stop offset="1" stop-color="#131420"/></linearGradient>
+  <linearGradient id="dado" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#171827"/><stop offset="1" stop-color="#10111a"/></linearGradient>
+  <linearGradient id="stairBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#202235"/><stop offset=".5" stop-color="#151624"/><stop offset="1" stop-color="#0c0d15"/></linearGradient>
+  <linearGradient id="cone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd98a" stop-opacity=".30"/><stop offset=".6" stop-color="#ffd98a" stop-opacity=".08"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></linearGradient>
+  <radialGradient id="pool" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffd98a" stop-opacity=".22"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="halo" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff1c9" stop-opacity=".9"/><stop offset=".25" stop-color="#ffd98a" stop-opacity=".35"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></radialGradient>
+  <linearGradient id="shaft" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fb2ff" stop-opacity=".13"/><stop offset="1" stop-color="#9fb2ff" stop-opacity="0"/></linearGradient>
+  <linearGradient id="shaftL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b9c8ff" stop-opacity=".16"/><stop offset="1" stop-color="#b9c8ff" stop-opacity="0"/></linearGradient>
+  <linearGradient id="winGlass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4a5690"/><stop offset="1" stop-color="#262c52"/></linearGradient>
+  <linearGradient id="daySky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a7cbf"/><stop offset="1" stop-color="#3a4380"/></linearGradient>
+  <linearGradient id="nightSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#151a3a"/><stop offset="1" stop-color="#232a55"/></linearGradient>
+  <linearGradient id="hoodie" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3a3f5a"/><stop offset=".65" stop-color="#555c7d"/><stop offset="1" stop-color="#6a7296"/></linearGradient>
+  <linearGradient id="blouse" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5b5577"/><stop offset=".5" stop-color="#7a739c"/><stop offset="1" stop-color="#5b5577"/></linearGradient>
+  <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e2b68e"/><stop offset="1" stop-color="#b98863"/></linearGradient>
+  <linearGradient id="faceLit" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9ac85"/><stop offset=".62" stop-color="#c99a7c"/><stop offset="1" stop-color="#b3a1dc"/></linearGradient>
+  <linearGradient id="sofaG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9a8fc2"/><stop offset="1" stop-color="#5f5584"/></linearGradient>
+  <linearGradient id="sofaBack" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7d72a6"/><stop offset="1" stop-color="#4f4672"/></linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3550"/><stop offset="1" stop-color="#26233a"/></linearGradient>
+  <linearGradient id="blanket" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a4f7a"/><stop offset="1" stop-color="#2a2d4a"/></linearGradient>
+  <radialGradient id="vignette" cx=".5" cy=".45" r=".75"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".65"/></radialGradient>
+  <radialGradient id="glowV" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#8b7bff" stop-opacity=".9"/><stop offset="1" stop-color="#8b7bff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="glowL" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#c6ff3d" stop-opacity=".85"/><stop offset="1" stop-color="#c6ff3d" stop-opacity="0"/></radialGradient>
+  <radialGradient id="screenGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#9a8cff" stop-opacity=".55"/><stop offset="1" stop-color="#9a8cff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="warmGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffd98a" stop-opacity=".5"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></radialGradient>
+  <radialGradient id="moonGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#dfe6ff" stop-opacity=".5"/><stop offset="1" stop-color="#dfe6ff" stop-opacity="0"/></radialGradient>
+  <filter id="blur4"><feGaussianBlur stdDeviation="4"/></filter>
+  <filter id="blur6"><feGaussianBlur stdDeviation="6"/></filter>
+  <filter id="blur30" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="30"/></filter>
+  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="cardShadow" x="-30%" y="-30%" width="160%" height="200%"><feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000" flood-opacity=".55"/></filter>
+  <clipPath id="scrClip"><rect x="252" y="162" width="576" height="1116" rx="62"/></clipPath>
+  <clipPath id="typeClip"><rect id="typeRect" x="345" y="300" width="0" height="60"/></clipPath>
+  <clipPath id="clipR1"><rect x="-100" y="-300" width="1850" height="2050" rx="40"/></clipPath>
+  <clipPath id="clipR2"><rect x="40" y="200" width="1000" height="1220" rx="34"/></clipPath>
+  <clipPath id="clipR3"><rect x="60" y="150" width="960" height="1300" rx="34"/></clipPath>
+  <clipPath id="officeWin"><rect x="70" y="250" width="380" height="640" rx="6"/></clipPath>
+
+  <!-- canapé réutilisable -->
+  <g id="sofaArt">
+    <ellipse cx="0" cy="62" rx="230" ry="16" fill="#000" opacity=".25" filter="url(#blur6)"/>
+    <rect x="-178" y="46" width="14" height="22" rx="4" fill="#2c2740"/><rect x="164" y="46" width="14" height="22" rx="4" fill="#2c2740"/>
+    <rect x="-200" y="-74" width="400" height="76" rx="22" fill="url(#sofaBack)"/>
+    <rect x="-186" y="-64" width="182" height="64" rx="18" fill="#8d82b6"/><rect x="4" y="-64" width="182" height="64" rx="18" fill="#8d82b6"/>
+    <path d="M-186 -40 h182 M4 -40 h182" stroke="#a79dd0" stroke-width="3" opacity=".5"/>
+    <rect x="-200" y="-6" width="400" height="56" rx="14" fill="url(#sofaG)"/>
+    <line x1="0" y1="-2" x2="0" y2="46" stroke="#5a5080" stroke-width="4"/>
+    <rect x="-232" y="-40" width="52" height="98" rx="22" fill="#6c6294"/><rect x="180" y="-40" width="52" height="98" rx="22" fill="#6c6294"/>
+    <path d="M-224 -30 q18 -8 36 0" stroke="#8d82b6" stroke-width="4" fill="none"/><path d="M188 -30 q18 -8 36 0" stroke="#8d82b6" stroke-width="4" fill="none"/>
+  </g>
+  <g id="shoeArt"><path d="M-24 -20 Q-24 -32 -10 -32 L26 -32 Q50 -30 54 -10 L54 0 L-24 0Z"/><rect x="-26" y="-8" width="82" height="10" rx="4" fill="#e3e4ee"/></g>
+  <g id="checkIcon"><circle r="26" fill="currentColor"/><path d="M-11 0 L-3 8 L12 -8" stroke="#11121b" stroke-width="5.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+</defs>
+
+<g id="world">
+<rect x="-30000" y="-30000" width="60000" height="60000" fill="#0a0b13"/>
+<!-- =================== ESCALIER =================== -->
+<g id="S_stairs">
+  <g id="cam" clip-path="url(#clipR1)">
+    <rect x="-1500" y="-1500" width="5000" height="5000" fill="url(#wall)"/>
+    <path id="dadoPath" fill="url(#dado)"/>
+    <path id="dadoLine" fill="none" stroke="#25283b" stroke-width="4"/>
+    <g transform="translate(1290 -260)">
+      <rect x="-14" y="-14" width="248" height="548" rx="10" fill="#0f1019"/>
+      <rect width="220" height="520" rx="4" fill="url(#winGlass)"/>
+      <path d="M110 0 V520 M0 260 H220" stroke="#0f1019" stroke-width="12"/>
+      <rect x="-24" y="520" width="268" height="22" rx="6" fill="#23263a"/>
+    </g>
+    <path d="M1290 -260 L1510 -260 L900 1500 L-200 1500Z" fill="url(#shaft)"/>
+    <path id="rail" fill="none" stroke="#2f3350" stroke-width="12" stroke-linecap="round"/>
+    <g id="brackets" fill="#2a2d45"></g>
+    <g transform="translate(260 -120)">
+      <line x1="560" y1="-1200" x2="560" y2="200" stroke="#2b2e44" stroke-width="5"/>
+      <path d="M500 200 L620 200 L596 246 L524 246Z" fill="#2f3249"/>
+      <path d="M500 200 L620 200 L612 214 L508 214Z" fill="#3a3d58"/>
+      <circle cx="560" cy="252" r="160" fill="url(#halo)"/>
+      <ellipse cx="560" cy="248" rx="38" ry="9" fill="#fff1c9"/>
+      <path d="M524 250 L596 250 L1000 1420 L120 1420Z" fill="url(#cone)"/>
+      <ellipse cx="560" cy="1160" rx="460" ry="150" fill="url(#pool)"/>
+      <g id="dust" fill="#ffe6b0"></g>
+    </g>
+    <path id="stairs" fill="url(#stairBody)"/>
+    <g id="treads"></g>
+    <use id="sofaDown" href="#sofaArt" opacity="0"/>
+    <ellipse id="shadow" rx="120" ry="16" fill="#000" opacity=".45" filter="url(#blur6)"/>
+    <g id="man">
+      <path id="legFar" fill="none" stroke="#1d2030" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
+      <use id="shoeFar" href="#shoeArt" fill="#2a2d40"/>
+      <g id="torso">
+        <path id="armFar" fill="none" stroke="#323750" stroke-width="30" stroke-linecap="round"/>
+        <circle id="gloveFar" r="17" fill="#9c7444"/>
+        <path d="M-44 10 C-56 -60 -54 -150 -34 -205 Q-4 -236 34 -212 C52 -150 54 -60 44 10 Q0 22 -44 10Z" fill="url(#hoodie)"/>
+        <path d="M-44 10 Q0 24 44 10 L42 -6 Q0 6 -42 -6Z" fill="#30344b"/>
+        <path d="M-36 -206 Q-58 -190 -48 -160 Q-30 -176 -18 -214Z" fill="#454b69"/>
+        <g id="phone">
+          <circle id="pGlow" cx="-40" cy="20" r="80" fill="url(#glowV)" opacity="0"/>
+          <path d="M-60 -2 L-30 -2 L-30 44 L-60 44Z" fill="#20233a"/>
+          <rect id="pScreen" x="-55" y="-14" width="22" height="38" rx="5" fill="#0b0c13" stroke="#8b7bff" stroke-width="2.5" transform="rotate(-8 -44 5)"/>
+          <g id="haptic" stroke="#a99dff" stroke-width="4" fill="none" stroke-linecap="round" opacity="0">
+            <path d="M-72 -6 Q-80 6 -72 18"/><path d="M-84 -14 Q-96 6 -84 26"/>
+          </g>
+        </g>
+        <use id="sofaOn" href="#sofaArt" transform="translate(-30 -300) rotate(-34)"/>
+        <rect x="-2" y="-236" width="24" height="30" rx="8" fill="#b98863"/>
+        <circle cx="14" cy="-262" r="40" fill="url(#skin)"/>
+        <circle cx="2" cy="-258" r="9" fill="#c49470"/>
+        <path d="M-22 -268 Q-22 -306 16 -306 Q50 -304 54 -272 L54 -268Z" fill="#6d5df5"/>
+        <path d="M38 -272 L84 -266 Q86 -258 76 -258 L38 -262Z" fill="#5546d6"/>
+        <path d="M-24 -262 Q-26 -246 -14 -238" stroke="#2a2232" stroke-width="10" fill="none" stroke-linecap="round"/>
+      </g>
+      <path id="legNear" fill="none" stroke="#2b2f45" stroke-width="46" stroke-linecap="round" stroke-linejoin="round"/>
+      <use id="shoeNear" href="#shoeArt" fill="#383c55"/>
+      <path id="armNear" fill="none" stroke="#5f6689" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+      <g id="earPhone" opacity="0">
+        <circle id="earGlow" r="60" fill="url(#glowV)" opacity=".6"/>
+        <rect x="-14" y="-28" width="28" height="56" rx="7" fill="#0b0c13" stroke="#8b7bff" stroke-width="3"/>
+      </g>
+      <circle id="gloveNear" r="18" fill="#c0904f"/>
+    </g>
+  </g>
+</g>
+
+<!-- =================== BUREAU DE JULIE =================== -->
+<g id="S_office" transform="translate(-1450 -2200)">
+ <g id="officeCam" clip-path="url(#clipR2)">
+  <rect width="1080" height="1920" fill="url(#wall)"/>
+  <rect y="1300" width="1080" height="620" fill="#0f1019"/>
+  <!-- fenêtre jour -->
+  <rect x="56" y="236" width="408" height="668" rx="12" fill="#0f1019"/>
+  <g clip-path="url(#officeWin)">
+    <rect x="70" y="250" width="380" height="640" fill="url(#daySky)"/>
+    <circle cx="380" cy="360" r="120" fill="#fff" opacity=".08"/>
+    <g fill="#2c3466"><rect x="70" y="640" width="70" height="250"/><rect x="146" y="560" width="90" height="330"/><rect x="242" y="680" width="60" height="210"/><rect x="308" y="600" width="110" height="290"/><rect x="420" y="700" width="40" height="190"/></g>
+    <g fill="#5562a6" opacity=".7"><rect x="162" y="590" width="14" height="18"/><rect x="190" y="590" width="14" height="18"/><rect x="162" y="630" width="14" height="18"/><rect x="326" y="630" width="14" height="18"/><rect x="356" y="670" width="14" height="18"/><rect x="326" y="710" width="14" height="18"/></g>
+  </g>
+  <path d="M260 250 V890 M70 570 H450" stroke="#0f1019" stroke-width="12"/>
+  <path d="M450 250 L1080 820 L1080 1300 L450 890Z" fill="url(#shaftL)"/>
+  <!-- horloge -->
+  <g transform="translate(860 400)">
+    <circle r="84" fill="#20233a" stroke="#2f3350" stroke-width="10"/>
+    <g stroke="#4a4e6e" stroke-width="5" stroke-linecap="round"><path d="M0 -66 V-56 M0 66 V56 M-66 0 H-56 M66 0 H56"/></g>
+    <line x1="0" y1="0" x2="0" y2="-40" stroke="#ecebf5" stroke-width="9" stroke-linecap="round" transform="rotate(8)"/>
+    <line x1="0" y1="0" x2="0" y2="-62" stroke="#ecebf5" stroke-width="5" stroke-linecap="round" transform="rotate(90)"/>
+    <circle r="8" fill="#8b7bff"/>
+  </g>
+  <!-- calendrier -->
+  <g transform="translate(760 540)">
+    <rect width="200" height="210" rx="12" fill="#e9e6f3"/>
+    <rect width="200" height="48" rx="12" fill="#6d5df5"/><rect y="30" width="200" height="18" fill="#6d5df5"/>
+    <text x="100" y="33" text-anchor="middle" fill="#fff" font-size="19" font-weight="800" letter-spacing="2">NOVEMBRE</text>
+    <g id="calGrid" fill="#8f8aa6" font-size="16" font-weight="600" text-anchor="middle"></g>
+    <circle id="cal15" cx="0" cy="0" r="16" fill="none" stroke="#6d5df5" stroke-width="4"/>
+  </g>
+  <!-- chaise -->
+  <rect x="380" y="760" width="320" height="420" rx="60" fill="#22243a"/>
+  <!-- Julie -->
+  <g id="julie">
+    <path d="M400 1200 Q390 960 470 920 Q540 900 610 920 Q690 960 680 1200Z" fill="url(#blouse)"/>
+    <path d="M500 905 Q540 940 580 905" stroke="#4a4466" stroke-width="6" fill="none"/>
+    <rect x="518" y="860" width="44" height="54" rx="14" fill="#b98863"/>
+    <g id="julieHead">
+      <ellipse cx="540" cy="808" rx="64" ry="70" fill="url(#faceLit)"/>
+      <path d="M470 820 Q462 720 540 712 Q620 718 612 824 Q612 860 596 878 Q600 800 560 770 Q520 790 486 800 Q482 850 488 878 Q470 860 470 820Z" fill="#2a2233"/>
+    </g>
+    <!-- bras -->
+    <path d="M432 960 Q404 1080 470 1140 Q510 1120 520 1080" stroke="#6a648b" stroke-width="44" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M648 960 Q676 1080 610 1140 Q570 1120 560 1080" stroke="#6a648b" stroke-width="44" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- téléphone (vu de dos) -->
+    <circle cx="540" cy="1020" r="130" fill="url(#screenGlow)"/>
+    <rect id="julPhone" x="500" y="985" width="80" height="140" rx="16" fill="#151726" stroke="#3a3d58" stroke-width="3"/>
+    <circle cx="522" cy="1008" r="8" fill="#0b0c13" stroke="#3a3d58" stroke-width="2"/>
+    <path d="M504 1080 Q492 1060 506 1040 M576 1080 Q588 1060 574 1040" stroke="#d9ac85" stroke-width="16" fill="none" stroke-linecap="round"/>
+    <ellipse cx="506" cy="1096" rx="17" ry="14" fill="#d6a982"/><ellipse cx="574" cy="1096" rx="17" ry="14" fill="#d6a982"/>
+  </g>
+  <!-- bureau -->
+  <rect x="90" y="1180" width="900" height="34" rx="8" fill="url(#wood)"/>
+  <rect x="90" y="1180" width="900" height="6" rx="3" fill="#4a4566"/>
+  <rect x="130" y="1214" width="24" height="200" fill="#1d1f30"/><rect x="926" y="1214" width="24" height="200" fill="#1d1f30"/>
+  <!-- objets bureau -->
+  <g transform="translate(150 1040)">
+    <path d="M0 140 L40 0 L230 0 L270 140Z" fill="#2a2d45"/>
+    <path d="M14 132 L48 10 L222 10 L256 132Z" fill="#3b4170"/>
+    <rect x="-20" y="136" width="310" height="10" rx="4" fill="#2f3350"/>
+  </g>
+  <g transform="translate(700 1090)">
+    <g id="envelope">
+      <rect x="0" y="0" width="190" height="96" rx="8" fill="#e9e6f3" transform="rotate(-6 95 48)"/>
+      <path d="M2 8 L95 56 L188 -12" stroke="#c8c3dd" stroke-width="4" fill="none" transform="rotate(-6 95 48)"/>
+      <text x="95" y="86" text-anchor="middle" fill="#4a4566" font-size="17" font-weight="800" letter-spacing="2" transform="rotate(-6 95 48)">BAIL SIGNÉ</text>
+    </g>
+    <g id="keys" transform="translate(205 62)">
+      <circle r="16" fill="none" stroke="#c9c6d8" stroke-width="5"/>
+      <path d="M10 10 L44 36 M30 24 l8 -6 M38 30 l8 -6" stroke="#d8b25a" stroke-width="8" stroke-linecap="round"/>
+      <path d="M-6 14 L-14 56 M-12 40 l-9 -2" stroke="#b9bccc" stroke-width="7" stroke-linecap="round"/>
+    </g>
+    <use href="#checkIcon" id="bailCheck" x="190" y="-14" color="#8b7bff"/>
+  </g>
+  <g transform="translate(470 1120)">
+    <path d="M0 0 h56 l-6 62 h-44z" fill="#d9d6e6"/><path d="M56 14 q24 4 18 26 q-6 12 -20 12" stroke="#d9d6e6" stroke-width="7" fill="none"/>
+    <path id="steam" d="M18 -12 q-10 -16 0 -32 q10 -16 0 -32 M38 -14 q-10 -16 0 -32" stroke="#ffffff" stroke-opacity=".25" stroke-width="5" fill="none" stroke-linecap="round"/>
+  </g>
+ </g>
+</g>
+
+<!-- =================== CHEZ LE CONCURRENT =================== -->
+<g id="S_depot" transform="translate(1500 -2400)"><g clip-path="url(#clipR3)">
+  <rect width="1080" height="1920" fill="#141627"/>
+  <rect y="0" width="1080" height="700" fill="url(#nightSky)" opacity=".6"/>
+  <!-- bâtiment -->
+  <rect x="80" y="380" width="920" height="900" fill="#1d2034"/>
+  <rect x="80" y="380" width="920" height="24" fill="#262a42"/>
+  <rect x="160" y="450" width="760" height="120" rx="14" fill="#232741"/>
+  <text x="540" y="530" text-anchor="middle" fill="#a99dff" font-size="56" font-weight="900" letter-spacing="4" filter="url(#glow)">EXPRESS</text>
+  <text x="540" y="600" text-anchor="middle" fill="#8a8ca3" font-size="24" font-weight="700" letter-spacing="10">DÉMÉNAGEMENT</text>
+  <!-- fenêtre éclairée -->
+  <rect x="560" y="660" width="340" height="300" rx="8" fill="#0f1019"/>
+  <rect x="576" y="676" width="308" height="268" fill="#3b3550"/>
+  <rect x="576" y="676" width="308" height="268" fill="url(#warmGlow)"/>
+  <g transform="translate(700 760)">
+    <rect x="40" y="40" width="120" height="80" rx="6" fill="#151726" stroke="#8b7bff" stroke-width="3"/>
+    <rect x="94" y="120" width="12" height="40" fill="#151726"/>
+    <circle cx="-10" cy="60" r="32" fill="#2a2440"/><path d="M-60 184 Q-60 104 -10 100 Q40 104 40 184Z" fill="#2a2440"/>
+    <rect id="monGlow" x="44" y="44" width="112" height="72" rx="4" fill="#8b7bff" opacity=".25"/>
+  </g>
+  <rect x="180" y="680" width="300" height="420" rx="8" fill="#141627" stroke="#262a42" stroke-width="6"/>
+  <!-- camion -->
+  <g transform="translate(110 1140)">
+    <ellipse cx="420" cy="250" rx="440" ry="30" fill="#000" opacity=".4" filter="url(#blur6)"/>
+    <rect x="0" y="0" width="600" height="230" rx="16" fill="#2a2d45"/>
+    <text x="300" y="118" text-anchor="middle" fill="#a99dff" font-size="46" font-weight="900" letter-spacing="3">EXPRESS</text>
+    <text x="300" y="160" text-anchor="middle" fill="#8a8ca3" font-size="20" font-weight="700" letter-spacing="8">DÉMÉNAGEMENT</text>
+    <path d="M600 60 L740 60 L840 160 L840 230 L600 230Z" fill="#33375a"/>
+    <path d="M622 82 L732 82 L800 152 L622 152Z" fill="#1b1d2b"/>
+    <circle cx="150" cy="240" r="56" fill="#0b0c12" stroke="#33375a" stroke-width="14"/>
+    <circle cx="720" cy="240" r="56" fill="#0b0c12" stroke="#33375a" stroke-width="14"/>
+  </g>
+  <g id="newReq" opacity="0" filter="url(#cardShadow)"><g transform="translate(0 -90)">
+    <rect x="200" y="260" width="680" height="200" rx="30" fill="#1b1d2c" stroke="#8b7bff" stroke-opacity=".75" stroke-width="2.5"/>
+    <use href="#checkIcon" x="262" y="330" color="#8b7bff"/>
+    <text x="306" y="342" fill="#ecebf5" font-size="36" font-weight="900">Nouvelle demande</text>
+    <text x="240" y="410" fill="#a5a8b8" font-size="26" font-weight="500">Julie · 3 pièces · 15 novembre · piano</text>
+  </g></g>
+</g></g>
+<g fill="none" stroke="#252840" stroke-width="2.5" vector-effect="non-scaling-stroke"><rect x="-100" y="-300" width="1850" height="2050" rx="40" vector-effect="non-scaling-stroke"/><rect x="-1410" y="-2000" width="1000" height="1220" rx="34" vector-effect="non-scaling-stroke"/><rect x="1560" y="-2250" width="960" height="1300" rx="34" vector-effect="non-scaling-stroke"/></g>
+<!-- =================== TÉLÉPHONE (gros plan) =================== -->
+<g id="S_phone" opacity="0" transform="translate(-494 -1988) scale(.62)">
+ <g id="phoneCam">
+  <ellipse cx="540" cy="720" rx="460" ry="680" fill="#6d5df5" opacity=".13" filter="url(#blur30)"/>
+  <rect x="232" y="142" width="616" height="1156" rx="80" fill="#07070c" stroke="#2c2f44" stroke-width="5"/>
+  <rect x="470" y="168" width="140" height="34" rx="17" fill="#000"/>
+  <g clip-path="url(#scrClip)">
+    <rect x="252" y="162" width="576" height="1116" fill="#10111a"/>
+    <text x="300" y="196" fill="#c9cad8" font-size="22" font-weight="700">12:16</text>
+    <g fill="#c9cad8"><rect x="736" y="182" width="36" height="16" rx="4"/><rect x="704" y="186" width="6" height="12"/><rect x="714" y="183" width="6" height="15"/><rect x="724" y="180" width="6" height="18"/></g>
+    <!-- recherche + résultats -->
+    <g id="results">
+      <rect x="290" y="282" width="500" height="84" rx="42" fill="#1d1f2c"/>
+      <circle cx="330" cy="321" r="12" stroke="#8a8ca3" stroke-width="4" fill="none"/><line x1="339" y1="330" x2="349" y2="340" stroke="#8a8ca3" stroke-width="4" stroke-linecap="round"/>
+      <text clip-path="url(#typeClip)" x="362" y="334" fill="#ecebf5" font-size="28" font-weight="500">déménagement Payerne</text>
+      <rect id="caret" x="362" y="306" width="3" height="36" fill="#8b7bff"/>
+      <g id="res1" opacity="0">
+        <rect x="290" y="400" width="500" height="320" rx="30" fill="#191b27" stroke="#2a2d3f" stroke-width="2"/>
+        <rect x="318" y="430" width="64" height="64" rx="16" fill="#2a2d3f"/><text x="350" y="472" text-anchor="middle" fill="#c9cad8" font-size="24" font-weight="800">MD</text>
+        <text x="398" y="458" fill="#ecebf5" font-size="30" font-weight="800">Martin Déménagements</text>
+        <text x="398" y="492" fill="#8a8ca3" font-size="22">Déménagement · Payerne</text>
+        <g id="noSite"><rect x="318" y="522" width="240" height="48" rx="24" fill="#ff6b78" fill-opacity=".14"/>
+          <circle cx="344" cy="546" r="7" fill="#ff6b78"/><text x="360" y="554" fill="#ff6b78" font-size="22" font-weight="700">Pas de site web</text></g>
+        <rect x="318" y="610" width="214" height="78" rx="39" fill="#6d5df5"/>
+        <path d="M368 636 q0 24 24 24 l6 -8 l-10 -7 l-5 4 q-8 -4 -11 -11 l4 -5 l-7 -10z" fill="#fff"/>
+        <text x="412" y="658" fill="#fff" font-size="27" font-weight="800">Appeler</text>
+        <rect x="548" y="610" width="214" height="78" rx="39" fill="#232634"/>
+        <text x="655" y="658" text-anchor="middle" fill="#8a8ca3" font-size="26" font-weight="700">Itinéraire</text>
+      </g>
+      <g id="res2" opacity="0">
+        <rect id="res2box" x="290" y="750" width="500" height="320" rx="30" fill="#191b27" stroke="#8b7bff" stroke-opacity=".55" stroke-width="2"/>
+        <rect x="318" y="780" width="64" height="64" rx="16" fill="#6d5df5"/><text x="350" y="822" text-anchor="middle" fill="#fff" font-size="24" font-weight="800">E</text>
+        <text x="398" y="808" fill="#ecebf5" font-size="30" font-weight="800">Express Déménagement</text>
+        <text x="398" y="842" fill="#8a8ca3" font-size="22">Déménagement · Payerne</text>
+        <rect x="318" y="872" width="320" height="48" rx="24" fill="#8b7bff" fill-opacity=".16"/>
+        <text x="478" y="904" text-anchor="middle" fill="#a99dff" font-size="22" font-weight="700">Site web · Devis en ligne</text>
+        <rect x="318" y="960" width="260" height="78" rx="39" fill="#6d5df5"/>
+        <text x="448" y="1008" text-anchor="middle" fill="#fff" font-size="27" font-weight="800">Voir le site</text>
+      </g>
+    </g>
+    <!-- écran d'appel -->
+    <g id="callUI" opacity="0">
+      <rect x="252" y="162" width="576" height="1116" fill="#12131e"/>
+      <circle class="ring" cx="540" cy="520" r="100" fill="none" stroke="#8b7bff" stroke-width="3"/>
+      <circle class="ring" cx="540" cy="520" r="100" fill="none" stroke="#8b7bff" stroke-width="3"/>
+      <circle cx="540" cy="520" r="100" fill="#232634"/>
+      <text x="540" y="540" text-anchor="middle" fill="#c9cad8" font-size="52" font-weight="800">MD</text>
+      <text x="540" y="690" text-anchor="middle" fill="#ecebf5" font-size="36" font-weight="800">Martin Déménagements</text>
+      <text id="callState" x="540" y="738" text-anchor="middle" fill="#8a8ca3" font-size="26">Appel en cours…</text>
+      <g id="voicemail" opacity="0">
+        <rect x="380" y="776" width="320" height="64" rx="32" fill="#ff6b78" fill-opacity=".15"/>
+        <text x="540" y="818" text-anchor="middle" fill="#ff6b78" font-size="26" font-weight="800" letter-spacing="4">MESSAGERIE</text>
+        <g id="vmWave" fill="#ff6b78" opacity=".7"></g>
+      </g>
+      <circle cx="540" cy="1140" r="60" fill="#e5484d"/>
+      <path d="M508 1142 Q540 1118 572 1142" stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round"/>
+    </g>
+    <!-- site (Express = concurrent, Martin = version Wibzo) -->
+    <g id="siteUI" opacity="0">
+      <rect id="siteBg" x="252" y="162" width="576" height="1116" fill="#f4f3fa"/>
+      <rect id="siteHead" x="252" y="162" width="576" height="110" fill="#ffffff"/>
+      <rect id="siteLogo" x="290" y="196" width="46" height="46" rx="12" fill="#6d5df5"/>
+      <text id="siteName" x="350" y="230" fill="#1b1a2b" font-size="26" font-weight="800">Express Déménagement</text>
+      <text id="siteH1" x="290" y="350" fill="#1b1a2b" font-size="46" font-weight="900">Ton devis</text>
+      <text id="siteH2" x="290" y="404" fill="#1b1a2b" font-size="46" font-weight="900">en 30 secondes</text>
+      <g id="siteForm">
+        <text class="lab" x="290" y="482" fill="#6b6982" font-size="21" font-weight="700" letter-spacing="2">NOMBRE DE PIÈCES</text>
+        <g id="chipsRooms"></g>
+        <text class="lab" x="290" y="632" fill="#6b6982" font-size="21" font-weight="700" letter-spacing="2">DATE</text>
+        <rect id="chipDate" class="chip" x="290" y="652" width="500" height="70" rx="18"/>
+        <text id="chipDatet" x="322" y="697" font-size="27" font-weight="600">Choisir une date</text>
+        <text class="lab" x="290" y="782" fill="#6b6982" font-size="21" font-weight="700" letter-spacing="2">OBJETS SPÉCIAUX</text>
+        <rect id="chipPiano" class="chip" x="290" y="802" width="160" height="70" rx="18"/><text id="chipPianot" x="370" y="847" text-anchor="middle" font-size="27" font-weight="600">Piano</text>
+        <rect class="chip" x="464" y="802" width="160" height="70" rx="18"/><text class="ct" x="544" y="847" text-anchor="middle" font-size="27" font-weight="600">Aucun</text>
+        <rect id="btnQuote" x="290" y="926" width="500" height="100" rx="50" fill="#6d5df5"/>
+        <text id="btnQuotet" x="540" y="988" text-anchor="middle" fill="#fff" font-size="31" font-weight="800">Recevoir mon devis</text>
+      </g>
+      <g id="sent" opacity="0">
+        <rect id="sentBg" x="252" y="162" width="576" height="1116" fill="#f4f3fa"/>
+        <circle id="sentCircle" cx="540" cy="600" r="90" fill="#6d5df5"/>
+        <path id="sentTick" d="M496 600 L528 632 L588 568" stroke="#fff" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <text id="sentT1" x="540" y="764" text-anchor="middle" fill="#1b1a2b" font-size="40" font-weight="900">Demande envoyée</text>
+        <text id="sentT2" x="540" y="812" text-anchor="middle" fill="#6b6982" font-size="25">3 pièces · 15 novembre · piano</text>
+      </g>
+    </g>
+    <!-- appel entrant ignoré -->
+    <g id="incoming" transform="translate(0 -260)">
+      <rect x="272" y="214" width="536" height="150" rx="34" fill="#232634" stroke="#3a3d55" stroke-width="2" filter="url(#cardShadow)"/>
+      <rect x="298" y="248" width="80" height="80" rx="40" fill="#3a3d55"/><text x="338" y="298" text-anchor="middle" fill="#c9cad8" font-size="28" font-weight="800">MD</text>
+      <text x="396" y="282" fill="#ecebf5" font-size="27" font-weight="800">Martin Déménag…</text>
+      <text x="396" y="320" fill="#8a8ca3" font-size="22">Appel entrant</text>
+      <circle cx="708" cy="288" r="32" fill="#e5484d"/><circle cx="772" cy="288" r="32" fill="#30a46c"/>
+    </g>
+  </g>
+  <!-- doigt -->
+  <g id="finger" opacity="0">
+    <circle id="ripple" r="40" fill="none" stroke="#fff" stroke-width="4" opacity="0"/>
+    <circle r="34" fill="#fff" fill-opacity=".25" stroke="#fff" stroke-opacity=".8" stroke-width="3"/>
+  </g>
+ </g>
+</g>
+
+<path id="wA" fill="none" stroke="#8b7bff" stroke-width="6" stroke-linecap="round" vector-effect="non-scaling-stroke" filter="url(#glow)" opacity="0"/>
+<g id="wANodes" opacity="1"><circle r="5" opacity="0"/><circle r="5" opacity="0"/><circle r="5" opacity="0"/><circle r="5" opacity="0"/><circle r="5" opacity="0"/></g>
+<circle id="wAHead" r="9" fill="#fff" filter="url(#glow)" opacity="0"/>
+<path id="wB" fill="none" stroke="#8b7bff" stroke-width="6" stroke-linecap="round" vector-effect="non-scaling-stroke" filter="url(#glow)" opacity="0"/>
+<g id="wBNodes" opacity="1"><circle r="5" opacity="0"/><circle r="5" opacity="0"/><circle r="5" opacity="0"/><circle r="5" opacity="0"/><circle r="5" opacity="0"/></g>
+<circle id="wBHead" r="9" fill="#fff" filter="url(#glow)" opacity="0"/>
+<path id="wC" fill="none" stroke="#8b7bff" stroke-width="6" stroke-linecap="round" vector-effect="non-scaling-stroke" filter="url(#glow)" opacity="0"/>
+<g id="wCNodes" opacity="1"><circle r="5" opacity="0"/><circle r="5" opacity="0"/><circle r="5" opacity="0"/><circle r="5" opacity="0"/><circle r="5" opacity="0"/></g>
+<circle id="wCHead" r="9" fill="#fff" filter="url(#glow)" opacity="0"/>
+</g>
+  <g id="stairsUI">
+    <g id="pillIn" opacity="0" filter="url(#cardShadow)">
+      <rect width="330" height="92" rx="24" fill="#1b1d2c" stroke="#8b7bff" stroke-opacity=".55" stroke-width="2"/>
+      <circle cx="46" cy="46" r="24" fill="#6d5df5"/>
+      <path d="M37 38 q0 18 18 18 l5 -6 l-8 -5 l-4 3 q-6 -3 -8 -8 l3 -4 l-5 -8z" fill="#fff"/>
+      <text x="86" y="40" fill="#ecebf5" font-size="25" font-weight="700">Appel entrant</text>
+      <text x="86" y="70" fill="#8a8ca3" font-size="20" font-weight="500">Numéro inconnu</text>
+    </g>
+    <g id="pillMiss" opacity="0" filter="url(#cardShadow)">
+      <rect width="300" height="76" rx="38" fill="#1b1d2c" stroke="#ff6b78" stroke-opacity=".7" stroke-width="2"/>
+      <circle cx="40" cy="38" r="9" fill="#ff6b78"/>
+      <text x="62" y="47" fill="#ff6b78" font-size="26" font-weight="700">Appel manqué</text>
+    </g>
+    <g id="pillCall" opacity="0" filter="url(#cardShadow)">
+      <rect width="360" height="92" rx="24" fill="#1b1d2c" stroke="#8b7bff" stroke-opacity=".55" stroke-width="2"/>
+      <circle id="callDot" cx="40" cy="46" r="10" fill="#8b7bff"/>
+      <text x="66" y="40" fill="#ecebf5" font-size="25" font-weight="700">Il rappelle…</text>
+      <text id="callSub" x="66" y="70" fill="#8a8ca3" font-size="20" font-weight="500">Ça sonne</text>
+    </g>
+    <g id="cardNew" opacity="0" filter="url(#cardShadow)">
+      <rect width="420" height="132" rx="26" fill="#161a12" stroke="#c6ff3d" stroke-opacity=".75" stroke-width="2.5"/>
+      <use href="#checkIcon" x="50" y="52" color="#c6ff3d"/>
+      <text x="92" y="62" fill="#ecebf5" font-size="30" font-weight="800">Nouvelle demande</text>
+      <text x="32" y="106" fill="#a5a8b8" font-size="22" font-weight="500">Julie · 3 pièces · 15 novembre · piano</text>
+    </g>
+  </g>
+
+<!-- =================== NUIT =================== -->
+<g id="S_night" opacity="0">
+ <g id="nightCam">
+  <rect width="1080" height="1920" fill="#0e1022"/>
+  <rect y="1260" width="1080" height="660" fill="#0a0b18"/>
+  <!-- fenêtre lune -->
+  <rect x="620" y="200" width="360" height="520" rx="10" fill="#090a14"/>
+  <rect x="636" y="216" width="328" height="488" fill="url(#nightSky)"/>
+  <circle cx="860" cy="330" r="110" fill="url(#moonGlow)"/>
+  <circle cx="860" cy="330" r="44" fill="#e8ecff"/><circle cx="878" cy="318" r="40" fill="#1b2148"/>
+  <g fill="#cfd6ff" id="stars"><circle cx="680" cy="270" r="2.5"/><circle cx="740" cy="420" r="2"/><circle cx="700" cy="560" r="2.5"/><circle cx="930" cy="520" r="2"/><circle cx="790" cy="250" r="1.8"/><circle cx="900" cy="640" r="2.2"/></g>
+  <path d="M800 216 V704 M636 460 H964" stroke="#090a14" stroke-width="12"/>
+  <path d="M636 704 L964 704 L700 1500 L120 1500Z" fill="#b9c8ff" opacity=".05"/>
+  <!-- lit -->
+  <rect x="120" y="980" width="40" height="400" rx="12" fill="#2a2440"/>
+  <rect x="160" y="1150" width="860" height="160" rx="20" fill="#241f38"/>
+  <rect x="180" y="1080" width="200" height="90" rx="40" fill="#cfd0e3"/>
+  <circle cx="290" cy="1066" r="58" fill="#2a2233"/>
+  <path d="M260 1100 Q300 1020 420 1050 Q600 1000 820 1060 Q990 1080 1000 1160 L1000 1200 L250 1200Z" fill="url(#blanket)"/>
+  <path d="M360 1090 Q560 1050 800 1090" stroke="#5a5f8f" stroke-width="5" fill="none" opacity=".6"/>
+  <!-- casquette sur la tête de lit -->
+  <path d="M110 1000 Q110 960 140 960 Q170 960 170 1000Z" fill="#6d5df5"/><path d="M160 994 L196 998 L190 1006 L160 1004Z" fill="#5546d6"/>
+  <!-- table de nuit + téléphone -->
+  <rect x="-40" y="1140" width="170" height="220" rx="12" fill="#1f1b31"/>
+  <rect x="-40" y="1140" width="170" height="16" rx="6" fill="#2c2742"/>
+  <circle id="nGlow" cx="60" cy="1128" r="260" fill="url(#glowL)" opacity="0"/>
+  <rect x="24" y="1120" width="90" height="20" rx="6" fill="#0b0c13" stroke="#3a3d58" stroke-width="2"/>
+  <rect id="nScreen" x="28" y="1122" width="82" height="14" rx="4" fill="#c6ff3d" opacity="0"/>
+  <text id="zzz" x="420" y="980" fill="#8a8ca3" font-size="44" font-weight="800" opacity=".5">z</text>
+  <!-- notifications -->
+  <g id="notifs"></g>
+ </g>
+</g>
+
+<!-- =================== OFFRE =================== -->
+<g id="S_offer" opacity="0">
+  <rect width="1080" height="1920" fill="#0c0d10"/>
+  <g id="offerGrid" stroke="#16181f" stroke-width="2"></g>
+  <g id="offerCards"></g>
+  <ellipse id="oGlow" cx="540" cy="900" rx="460" ry="560" fill="#c6ff3d" opacity=".06" filter="url(#blur30)"/>
+  <text id="oT1" x="540" y="330" text-anchor="middle" fill="#f0efea" font-size="96" font-weight="900" letter-spacing="-2" opacity="0">TA MAQUETTE</text>
+  <text id="oT2" x="540" y="480" text-anchor="middle" fill="#c6ff3d" font-size="138" font-weight="900" letter-spacing="-3" opacity="0">GRATUITE</text>
+  <text id="oT3" x="540" y="330" text-anchor="middle" fill="#f0efea" font-size="96" font-weight="900" letter-spacing="-2" opacity="0">PRÊTE EN</text>
+  <text id="oT4" x="540" y="490" text-anchor="middle" fill="#c6ff3d" font-size="160" font-weight="900" letter-spacing="-3" opacity="0">24 H</text>
+  <text id="oT5" x="540" y="330" text-anchor="middle" fill="#f0efea" font-size="96" font-weight="900" letter-spacing="-2" opacity="0">SINON ?</text>
+  <text id="oT6" x="540" y="500" text-anchor="middle" fill="#c6ff3d" font-size="176" font-weight="900" letter-spacing="-4" opacity="0">0 CHF</text>
+  <g id="oPhone" opacity="0">
+    <ellipse cx="540" cy="1000" rx="260" ry="360" fill="#c6ff3d" opacity=".10" filter="url(#blur30)"/>
+    <rect x="380" y="640" width="320" height="640" rx="48" fill="#07070c" stroke="#2c2f44" stroke-width="4"/>
+    <rect x="393" y="653" width="294" height="614" rx="36" fill="#121512"/>
+    <rect x="393" y="653" width="294" height="70" fill="#181c17"/>
+    <rect x="412" y="674" width="30" height="30" rx="8" fill="#c6ff3d"/>
+    <text x="452" y="696" fill="#f0efea" font-size="16" font-weight="800">Martin Déménagements</text>
+    <text x="414" y="790" fill="#f0efea" font-size="34" font-weight="900">Ton devis</text>
+    <text x="414" y="830" fill="#f0efea" font-size="34" font-weight="900">en 30 secondes</text>
+    <text x="414" y="884" fill="#9a9ca6" font-size="13" font-weight="700" letter-spacing="2">NOMBRE DE PIÈCES</text>
+    <g fill="#1e231d" stroke="#2e352c" stroke-width="2"><rect x="414" y="896" width="56" height="40" rx="10"/><rect x="478" y="896" width="56" height="40" rx="10"/><rect x="606" y="896" width="56" height="40" rx="10"/></g>
+    <rect x="542" y="896" width="56" height="40" rx="10" fill="#c6ff3d"/>
+    <text x="414" y="972" fill="#9a9ca6" font-size="13" font-weight="700" letter-spacing="2">DATE</text>
+    <rect x="414" y="984" width="248" height="40" rx="10" fill="#c6ff3d"/>
+    <text x="430" y="1010" fill="#11121b" font-size="16" font-weight="700">Samedi 15 novembre</text>
+    <text x="414" y="1060" fill="#9a9ca6" font-size="13" font-weight="700" letter-spacing="2">OBJETS SPÉCIAUX</text>
+    <rect x="414" y="1072" width="90" height="40" rx="10" fill="#c6ff3d"/><rect x="512" y="1072" width="90" height="40" rx="10" fill="#1e231d" stroke="#2e352c" stroke-width="2"/>
+    <rect x="414" y="1164" width="248" height="58" rx="29" fill="#c6ff3d"/>
+    <text x="538" y="1200" text-anchor="middle" fill="#11121b" font-size="19" font-weight="800">Recevoir mon devis</text>
+  </g>
+  <g id="oLive" opacity="0">
+    <rect x="455" y="582" width="170" height="44" rx="22" fill="#161a12" stroke="#c6ff3d" stroke-width="2"/>
+    <circle id="oLiveDot" cx="480" cy="604" r="8" fill="#c6ff3d"/>
+    <text x="498" y="612" fill="#c6ff3d" font-size="19" font-weight="800" letter-spacing="2">EN LIGNE</text>
+  </g>
+  <g id="oN0" opacity="0" filter="url(#cardShadow)"><rect x="40" y="770" width="390" height="110" rx="26" fill="#161a12" stroke="#c6ff3d" stroke-opacity=".75" stroke-width="2.5"/>
+    <use href="#checkIcon" x="92" y="825" color="#c6ff3d"/>
+    <text x="134" y="820" fill="#f0efea" font-size="25" font-weight="800">Nouvelle demande</text>
+    <text x="134" y="854" fill="#9a9ca6" font-size="20" font-weight="500">À l’instant</text></g>
+<g id="oN1" opacity="0" filter="url(#cardShadow)"><rect x="650" y="900" width="390" height="110" rx="26" fill="#161a12" stroke="#c6ff3d" stroke-opacity=".75" stroke-width="2.5"/>
+    <use href="#checkIcon" x="702" y="955" color="#c6ff3d"/>
+    <text x="744" y="950" fill="#f0efea" font-size="25" font-weight="800">Nouvelle demande</text>
+    <text x="744" y="984" fill="#9a9ca6" font-size="20" font-weight="500">Il y a 1 min</text></g>
+<g id="oN2" opacity="0" filter="url(#cardShadow)"><rect x="40" y="1040" width="390" height="110" rx="26" fill="#161a12" stroke="#c6ff3d" stroke-opacity=".75" stroke-width="2.5"/>
+    <use href="#checkIcon" x="92" y="1095" color="#c6ff3d"/>
+    <text x="134" y="1090" fill="#f0efea" font-size="25" font-weight="800">Nouvelle demande</text>
+    <text x="134" y="1124" fill="#9a9ca6" font-size="20" font-weight="500">Il y a 3 min</text></g>
+</g>
+
+<!-- =================== LOGO =================== -->
+<g id="S_logo" opacity="0">
+  <rect width="1080" height="1920" fill="#0e0f0f"/>
+  <g id="logoW" transform="translate(196 520) scale(.82)">
+    <path d="M183 339 L301 339 L343 563 L404 339 L522 339 L584 563 L626 339 L743 339 L655 740 L534 740 L463 488 L394 740 L272 740Z" fill="#f0efea"/>
+  </g>
+  <circle id="logoDot" cx="882" cy="1076" r="51" fill="#c6ff3d"/>
+  <text id="logoUrl" x="540" y="1300" text-anchor="middle" fill="#f0efea" font-size="54" font-weight="800" letter-spacing="1">wibzo.ch</text>
+  <text id="logoSub" x="540" y="1370" text-anchor="middle" fill="#8a8c90" font-size="30" font-weight="600">Ta maquette gratuite en 24 h</text>
+</g>
+
+<!-- =================== CALQUES GLOBAUX =================== -->
+<path id="lineA" fill="none" stroke="#8b7bff" stroke-width="7" stroke-linecap="round" filter="url(#glow)" opacity="0"/>
+<circle id="lineAHead" r="10" fill="#fff" filter="url(#glow)" opacity="0"/>
+<path id="lineB" fill="none" stroke="#8b7bff" stroke-width="7" stroke-linecap="round" filter="url(#glow)" opacity="0"/>
+<circle id="lineBHead" r="10" fill="#fff" filter="url(#glow)" opacity="0"/>
+<g id="rewMini" opacity="0">
+  <circle id="rewRing" cx="540" cy="1262" r="50" fill="#14151f" stroke="#8b7bff" stroke-width="4" filter="url(#glow)"/>
+  <path d="M542 1240 L514 1262 L542 1284Z M572 1240 L544 1262 L572 1284Z" fill="#ecebf5"/>
+  <text id="rewLabel" x="540" y="1356" text-anchor="middle" fill="#a5a8b8" font-size="24" font-weight="800" letter-spacing="8">2 MINUTES PLUS TÔT</text>
+</g>
+<g id="rew" opacity="0">
+  <rect id="rewBg" width="1080" height="1920" fill="#08080e" opacity=".72"/>
+  <g id="rewBars" fill="#ffffff" opacity=".06"><rect width="1080" height="18"/><rect width="1080" height="8"/><rect width="1080" height="30"/></g>
+  <circle id="rewBigRing" cx="540" cy="880" r="88" fill="#1a1c29" stroke="#8b7bff" stroke-width="5" filter="url(#glow)"/>
+  <path d="M542 842 L494 880 L542 918Z M594 842 L546 880 L594 918Z" fill="#ecebf5"/>
+  <text id="rewText" x="540" y="1030" text-anchor="middle" fill="#a5a8b8" font-size="28" font-weight="800" letter-spacing="9">2 MINUTES PLUS TÔT</text>
+</g>
+<rect width="1080" height="1920" fill="url(#vignette)" pointer-events="none"/>
+<rect id="flash" width="1080" height="1920" fill="#c6ff3d" opacity="0" pointer-events="none"/>
+<rect id="fade" width="1080" height="1920" fill="#000" opacity="0" pointer-events="none"/>
+</svg>
+<div id="grain"></div>
+<div id="tag"></div>
+<div id="subs"></div>
+</div>
+<div id="hint">Brouillon complet sans voix · clic = pause · ← → = reculer / avancer de 2 s · R = rejouer</div>
+
+<script>
+const stage = document.getElementById('stage');
+function fit(){ const s = Math.min(innerWidth/1080, (innerHeight-26)/1920); stage.style.transform = `scale(${s})`; }
+addEventListener('resize', fit); fit();
+const $ = id => document.getElementById(id);
+const A = (el, o) => { el = typeof el === 'string' ? $(el) : el; for (const k in o) el.setAttribute(k, o[k]); };
+const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+const lerp = (a,b,t) => a + (b-a)*t;
+const smooth = t => t*t*(3-2*t);
+const win = (t,a,b) => clamp((t-a)/(b-a), 0, 1);
+const easeOut = t => 1 - Math.pow(1-t, 3);
+const easeInOut = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3)/2;
+const backOut = t => { const c=1.9; return 1 + (c+1)*Math.pow(t-1,3) + c*Math.pow(t-1,2); };
+const VIOLET = '#8b7bff', LIME = '#c6ff3d';
+
+/* ============ construction statique ============ */
+const RUN = 150, RISE = 82, Y0 = 1500;
+const stepY = k => Y0 - k*RISE;
+const noseY = x => Y0 - (x/RUN)*RISE;
+(function(){
+  let d = `M${-6*RUN} ${stepY(-6)+RISE} `, tr = '';
+  for (let k=-6; k<=18; k++){
+    const x = k*RUN, y = stepY(k);
+    d += `L${x} ${y+RISE} L${x} ${y} L${x+RUN} ${y} `;
+    tr += `<rect x="${x-4}" y="${y-3}" width="${RUN+4}" height="10" rx="3" fill="#2c2f47"/><rect x="${x}" y="${y+7}" width="${RUN}" height="10" fill="#0d0e16" opacity=".55"/>`;
+  }
+  A('stairs', {d: d + `L${19*RUN} 4000 L${-6*RUN} 4000Z`});
+  $('treads').innerHTML = tr;
+  const xa = -1200, xb = 3400;
+  A('dadoLine', {d:`M${xa} ${noseY(xa)-330} L${xb} ${noseY(xb)-330}`});
+  A('dadoPath', {d:`M${xa} ${noseY(xa)-330} L${xb} ${noseY(xb)-330} L${xb} 4000 L${xa} 4000Z`});
+  A('rail', {d:`M${xa} ${noseY(xa)-250} L${xb} ${noseY(xb)-250}`});
+  let br = ''; for (let x=-900; x<3200; x+=420) br += `<rect x="${x-6}" y="${noseY(x)-250}" width="12" height="34" rx="3"/>`;
+  $('brackets').innerHTML = br;
+  let dust = ''; for (let i=0;i<34;i++) dust += `<circle r="${(1.5+((i*7)%5)*.6).toFixed(1)}"/>`;
+  $('dust').innerHTML = dust;
+  // calendrier
+  let g = ''; let day = 1;
+  for (let r=0;r<5;r++) for (let c=0;c<7;c++){ if (day>30) break; const x = 22 + c*26, y = 76 + r*28;
+    g += `<text x="${x}" y="${y}">${day}</text>`; if (day===15) A('cal15', {cx:x, cy:y-6}); day++; }
+  $('calGrid').innerHTML = g;
+  // chips pièces
+  let ch = ''; ['1','2','3','4+'].forEach((l,i) => { const x = 290 + i*128;
+    ch += `<rect id="room${i}" class="chip" x="${x}" y="502" width="116" height="70" rx="18"/><text id="room${i}t" class="ct" x="${x+58}" y="547" text-anchor="middle" font-size="27" font-weight="600">${l}</text>`; });
+  $('chipsRooms').innerHTML = ch;
+  // onde messagerie
+  let w = ''; for (let i=0;i<16;i++) w += `<rect x="${412 + i*16}" y="860" width="8" height="10" rx="4"/>`;
+  $('vmWave').innerHTML = w;
+  // grille offre
+  let og = ''; for (let x=0;x<=1080;x+=90) og += `<line x1="${x}" y1="0" x2="${x}" y2="1920"/>`; for (let y=0;y<=1920;y+=90) og += `<line x1="0" y1="${y}" x2="1080" y2="${y}"/>`;
+  $('offerGrid').innerHTML = og;
+  // cartes offre
+  const cards = [
+    {icon:'eye',  t:'Ta maquette', s:'Gratuite, faite pour ton entreprise'},
+    {icon:'clock',t:'Prête en 24 h', s:'Tu la vois avant de décider'},
+    {icon:'check',t:'Elle te plaît ?', s:'On la met en ligne. Sinon, tu ne paies rien.'},
+  ];
+  let oc = '';
+  cards.forEach((c,i) => {
+    const y = 430 + i*250;
+    const ic = c.icon==='eye' ? `<path d="M-20 0 Q0 -20 20 0 Q0 20 -20 0Z" fill="none" stroke="#11121b" stroke-width="5"/><circle r="6" fill="#11121b"/>`
+             : c.icon==='clock' ? `<circle r="15" fill="none" stroke="#11121b" stroke-width="5"/><path d="M0 -8 V0 L7 5" stroke="#11121b" stroke-width="5" fill="none" stroke-linecap="round"/>`
+             : `<path d="M-11 0 L-3 8 L12 -8" stroke="#11121b" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+    oc += `<g id="oc${i}" opacity="0" filter="url(#cardShadow)"><rect x="110" y="${y}" width="860" height="200" rx="34" fill="#171a20" stroke="#2a2e38" stroke-width="2"/>
+      <g transform="translate(200 ${y+100})"><circle r="44" fill="#c6ff3d"/>${ic}</g>
+      <text x="280" y="${y+92}" fill="#f0efea" font-size="46" font-weight="900">${c.t}</text>
+      <text x="280" y="${y+140}" fill="#9a9ca6" font-size="27" font-weight="500">${c.s}</text></g>`;
+  });
+  $('offerCards').innerHTML = oc;
+  // notifications nuit
+  const times = ['23:47','02:14','06:05'];
+  let nt = '';
+  times.forEach((h,i) => { const y = 380 + i*170;
+    nt += `<g id="nt${i}" opacity="0" filter="url(#cardShadow)"><rect x="70" y="${y}" width="520" height="140" rx="30" fill="#161a12" stroke="#c6ff3d" stroke-opacity=".7" stroke-width="2.5"/>
+      <use href="#checkIcon" x="126" y="${y+70}" color="#c6ff3d"/>
+      <text x="170" y="${y+62}" fill="#ecebf5" font-size="30" font-weight="800">Nouvelle demande</text>
+      <text x="170" y="${y+104}" fill="#a5a8b8" font-size="23" font-weight="500">${h} · demande de devis</text></g>`; });
+  $('notifs').innerHTML = nt;
+})();
+
+/* ============ ESCALIER ============ */
+function ik(hx, hy, fx, fy, a, b){
+  const dx = fx-hx, dy = fy-hy, d = Math.hypot(dx,dy);
+  const dc = clamp(d, 1, a+b-1), th = Math.atan2(dy,dx);
+  const al = Math.acos(clamp((a*a + dc*dc - b*b)/(2*a*dc), -1, 1));
+  const k1 = [hx + a*Math.cos(th-al), hy + a*Math.sin(th-al)], k2 = [hx + a*Math.cos(th+al), hy + a*Math.sin(th+al)];
+  return { knee: k1[0] > k2[0] ? k1 : k2, ankle: [hx + dc*Math.cos(th), hy + dc*Math.sin(th)] };
+}
+const foot = k => [k*RUN + 80, stepY(k)];
+function pose(t, mode){
+  if (mode === 'call'){ const p = 6; return {p, n:6, f:0, hip:[p*RUN+15, stepY(p)-176], lean:3}; }
+  const p = 3 + 0.45*t, n = Math.floor(p), f = p - n;
+  return {p, n, f, hip:[p*RUN + 15, stepY(p) - 172 - 7*Math.sin(Math.PI*f)], lean: 10 + 1.5*Math.sin(2*Math.PI*f)};
+}
+const toWorld = (P, x, y) => { const r = P.lean*Math.PI/180, c = Math.cos(r), s = Math.sin(r); return [P.hip[0] + x*c - y*s, P.hip[1] + x*s + y*c]; };
+
+// mode : 'open' (appel manqué), 'call' (il rappelle), 'imagine' (la demande arrive chez lui)
+// Pose le déménageur et renvoie la caméra qui le suit (sans l'appliquer).
+function renderStairs(t, mode, opt = {}){
+  const P = pose(t, mode === 'call' ? 'call' : 'climb');
+  const {n, f, hip} = P;
+  const e = mode === 'call' ? 0 : smooth(win(f, .2, .85));
+  const planted = foot(n), from = foot(n-1), to = foot(n+1);
+  const moving = [lerp(from[0], to[0], e), lerp(from[1], to[1], e) - 40*Math.sin(Math.PI*e)];
+  const nearPlanted = n % 2 === 0;
+  const fNear = nearPlanted ? planted : moving, fFar = nearPlanted ? moving : planted;
+  const leg = (id, shoe, fp) => {
+    const r = ik(hip[0], hip[1], fp[0], fp[1]-26, 135, 135);
+    A(id, {d:`M${hip[0]} ${hip[1]} L${r.knee[0]} ${r.knee[1]} L${r.ankle[0]} ${r.ankle[1]}`});
+    A(shoe, {transform:`translate(${r.ankle[0]-8} ${r.ankle[1]+26}) rotate(${fp === moving ? -6*Math.sin(Math.PI*e) : 0})`});
+  };
+  leg('legFar','shoeFar',fFar); leg('legNear','shoeNear',fNear);
+  A('torso', {transform:`translate(${hip[0]} ${hip[1]}) rotate(${P.lean})`});
+  A('shadow', {cx:(fNear[0]+fFar[0])/2 + 10, cy: Math.max(fNear[1], fFar[1]) - 2});
+
+  const W = (x,y) => toWorld(P, x, y);
+  if (mode === 'call'){
+    A('sofaOn', {opacity:0});
+    const cx = 1290; A('sofaDown', {opacity:1, transform:`translate(${cx} ${noseY(cx)-70}) rotate(-29)`});
+    A('armFar', {d:'M-6 -198 Q-30 -130 -20 -74'}); A('gloveFar', {cx:-20, cy:-70});
+    const sh = W(14,-196), el = W(64,-176), ha = W(16,-250);
+    A('armNear', {d:`M${sh[0]} ${sh[1]} L${el[0]} ${el[1]} L${ha[0]} ${ha[1]}`});
+    A('gloveNear', {cx:ha[0], cy:ha[1]});
+    A('earPhone', {opacity:1, transform:`translate(${ha[0]+4} ${ha[1]-4}) rotate(14)`});
+    A('phone', {opacity:0});
+  } else {
+    A('sofaOn', {opacity:1}); A('sofaDown', {opacity:0}); A('earPhone', {opacity:0}); A('phone', {opacity:1});
+    A('armFar', {d:'M-6 -198 Q-58 -196 -78 -232 Q-90 -262 -96 -282'}); A('gloveFar', {cx:-96, cy:-286});
+    const sh = W(14,-196), el = W(62,-160), ha = W(66,-246);
+    A('armNear', {d:`M${sh[0]} ${sh[1]} L${el[0]} ${el[1]} L${ha[0]} ${ha[1]}`});
+    A('gloveNear', {cx:ha[0], cy:ha[1]});
+  }
+
+  const ph = W(-44, 6), ep = W(16,-250);
+  const isOpen = mode === 'open', isImg = mode === 'imagine';
+  const vib = isOpen ? (t > .25 && t < 4.6) : isImg ? (opt.arrive !== undefined && opt.arrive > 0 && opt.arrive < 1.6) : false;
+  A('phone', {transform:`translate(${vib ? Math.sin(t*90)*2.2 : 0} 0)`});
+  A('pGlow', {fill: isImg ? 'url(#glowL)' : 'url(#glowV)'});
+  A('pScreen', {stroke: isImg && opt.arrive > 0 ? LIME : VIOLET});
+  let g = 0;
+  if (isOpen) g = vib ? .55 + .35*Math.sin(t*12) : Math.max(0, .55*(1 - (t-4.6)/.4));
+  if (isImg && opt.arrive > 0) g = .5 + .35*Math.sin(t*10);
+  A('pGlow', {opacity: clamp(g,0,1).toFixed(2)});
+  A('haptic', {opacity: vib ? (.5 + .5*Math.sin(t*14)).toFixed(2) : 0, stroke: isImg ? LIME : '#a99dff'});
+  A('earGlow', {opacity: mode === 'call' ? (.35 + .3*Math.sin(t*8)).toFixed(2) : 0});
+
+  // poussière
+  const dust = $('dust').children;
+  for (let i=0;i<dust.length;i++){
+    const sx = 330 + ((i*97) % 460), base = 520 + ((i*173) % 820);
+    A(dust[i], {cx:(sx + 10*Math.sin(t*.8 + i)).toFixed(1), cy:(base - ((t*14 + i*23) % 120)).toFixed(1), opacity:(.15 + .35*Math.abs(Math.sin(t*.9 + i*1.7))).toFixed(2)});
+  }
+  // caméra qui le suit
+  let cam;
+  if (isOpen){
+    // gros plan sur la poche, puis on recule ; ensuite la caméra s'arrête et il continue de monter
+    const e2 = smooth(win(t, 1.9, 4.3));
+    const tf = t < 5.0 ? t : 5.0 + (1 - Math.exp(-(t-5.0)*1.2))*.7;
+    const Q = pose(tf, 'climb'), nx = Q.hip[0] + 40, ny = Q.hip[1] - 150;
+    cam = {cx: lerp(ph[0], nx, e2), cy: lerp(ph[1] + 40, ny, e2), z: lerp(2.4, 1.0, e2) * (1 + .05*smooth(win(t, 4.3, 8.4)))};
+  } else if (mode === 'call'){
+    cam = {cx: hip[0] + 60, cy: hip[1] - 150, z: 1};
+  } else {
+    cam = {cx: hip[0] + 40, cy: hip[1] - 150, z: 1.0 + 0.06*smooth(clamp(t/6.4,0,1))};
+  }
+  return {cam, ph, ep, t, mode, opt};
+}
+
+// pastilles à l'écran autour du déménageur (une fois la caméra connue)
+function stairsPills(st, S, z){
+  const {t, mode, opt} = st, isOpen = mode === 'open', isImg = mode === 'imagine';
+  const vis = z > .6 ? 1 : 0;
+  const sp = S(st.ph);
+  const inA = isOpen ? win(t,.5,.8) * (1 - win(t,4.4,4.6)) : 0;
+  A('pillIn', {opacity:(inA*vis).toFixed(2), transform:`translate(${sp[0]-430} ${sp[1]-150 + (1-win(t,.5,.8))*16})`});
+  const rp = S(toWorld(pose(4.6,'climb'), -44, 6));
+  const missA = isOpen ? win(t, 4.6, 4.9) : 0;
+  A('pillMiss', {opacity:(missA*vis).toFixed(2), transform:`translate(${rp[0]-380} ${rp[1]-40}) scale(${(.85 + .15*smooth(missA)).toFixed(3)})`});
+  const callA = mode === 'call' ? win(t, .5, .8) : 0;
+  const se = S(st.ep);
+  A('pillCall', {opacity:(callA*vis).toFixed(2), transform:`translate(${Math.min(se[0]+70, 700)} ${se[1]-170})`});
+  A('callDot', {opacity: (.4 + .6*Math.abs(Math.sin(t*4))).toFixed(2)});
+  $('callSub').textContent = t > 2.2 ? 'Pas de réponse' : 'Ça sonne…';
+  A('callSub', {fill: t > 2.2 ? '#ff6b78' : '#8a8ca3'});
+  const nA = isImg && opt.arrive !== undefined ? win(opt.arrive, .15, .45) : 0;
+  A('cardNew', {opacity:(nA*vis).toFixed(2), transform:`translate(${Math.max(40, sp[0]-470)} ${sp[1]-300 + (1-easeOut(nA))*24})`});
+}
+
+/* ============ BUREAU ============ */
+function renderOffice(t){
+  const push = 1 + .08*smooth(win(t, 0, 3.6));
+  const zin = smooth(win(t, 3.3, 4.5));
+  const s = push * (1 + .7*zin*zin);
+  const ox = 540, oy = 1055;           // le téléphone
+  A('envelope', {opacity: win(t,.4,.8).toFixed(2), transform:`translate(0 ${(1-easeOut(win(t,.4,.8)))*-20})`});
+  A('bailCheck', {opacity: win(t,1.0,1.2).toFixed(2), transform:`translate(${190*(1)} ${-14}) scale(${backOut(win(t,1.0,1.35)).toFixed(3)}) translate(-190 14)`});
+  A('julieHead', {transform:`rotate(${(2*Math.sin(t*1.3)).toFixed(2)} 540 870)`});
+  A('steam', {opacity: (.5 + .5*Math.sin(t*2)).toFixed(2), transform:`translate(0 ${-(t*10)%14})`});
+  A('julPhone', {stroke: t > 2.8 && t < 3.4 ? '#8b7bff' : '#3a3d58'});
+}
+
+/* ============ TÉLÉPHONE ============ */
+function chip(id, on, accentFill, base){
+  const el = $(id), tx = $(id+'t');
+  A(el, {fill: on ? accentFill : base.chip, stroke: on ? accentFill : base.chipStroke, 'stroke-width':2});
+  if (tx) A(tx, {fill: on ? base.onText : base.text});
+}
+function setSiteTheme(brand){
+  const dark = brand === 'martin';
+  const th = dark ? {bg:'#121512', head:'#181c17', text:'#f0efea', lab:'#9a9ca6', chip:'#1e231d', chipStroke:'#2e352c', onText:'#11121b', accent:LIME, btnText:'#11121b'}
+                  : {bg:'#f4f3fa', head:'#ffffff', text:'#1b1a2b', lab:'#6b6982', chip:'#ffffff', chipStroke:'#dcd9ea', onText:'#ffffff', accent:'#6d5df5', btnText:'#ffffff'};
+  A('siteBg', {fill:th.bg}); A('siteHead', {fill:th.head}); A('sentBg', {fill:th.bg});
+  A('siteLogo', {fill:th.accent});
+  $('siteName').textContent = dark ? 'Martin Déménagements' : 'Express Déménagement';
+  ['siteName','siteH1','siteH2','sentT1'].forEach(i => A(i, {fill:th.text}));
+  document.querySelectorAll('#siteUI .lab').forEach(e => A(e, {fill:th.lab}));
+  A('sentT2', {fill:th.lab}); A('sentCircle', {fill:th.accent}); A('sentTick', {stroke: dark ? '#11121b' : '#fff'});
+  A('btnQuote', {fill:th.accent}); A('btnQuotet', {fill:th.btnText});
+  return th;
+}
+function tap(t, t0, x, y){
+  // doigt qui arrive (t0-.45 -> t0), appuie à t0
+  const a = win(t, t0-.5, t0-.05), r = win(t, t0, t0+.45);
+  return {a, x, y, press: t >= t0 && t < t0+.12, ripple: r};
+}
+function renderPhone(t, script, extraY = 0){
+  // script : liste de vues -> état
+  const st = script(t);
+  A('typeRect', {width: st.typed*440});
+  A('caret', {x: 362 + st.typed*318, opacity: st.caret ? (Math.sin(t*9) > 0 ? 1 : 0) : 0});
+  A('res1', {opacity:st.res1.toFixed(2), transform:`translate(0 ${(1-easeOut(st.res1))*30})`});
+  A('noSite', {transform:`translate(438 546) scale(${(1 + .07*st.pulse).toFixed(3)}) translate(-438 -546)`});
+  A('res2', {opacity:st.res2.toFixed(2), transform:`translate(0 ${(1-easeOut(st.res2))*30})`});
+  A('res2box', {'stroke-opacity': (.55 + .45*st.res2hl).toFixed(2)});
+  A('results', {transform:`translate(0 ${st.scroll})`});
+  A('callUI', {opacity:st.call.toFixed(2)});
+  document.querySelectorAll('#callUI .ring').forEach((c,i) => {
+    const ph = ((st.callT - i*.5) % 1.1 + 1.1) % 1.1, on = st.ringing && st.callT > i*.5;
+    A(c, {r: 100 + ph*110, opacity: on ? (1-ph/1.1)*.8 : 0});
+  });
+  A('voicemail', {opacity:st.vm.toFixed(2)});
+  [...$('vmWave').children].forEach((b,i) => { const h = 10 + 26*Math.abs(Math.sin(t*7 + i*.9)) * st.vm; A(b, {height:h.toFixed(1), y:(870 - h/2).toFixed(1)}); });
+  $('callState').textContent = st.vm > .5 ? 'Appel terminé' : 'Appel en cours…';
+  // site
+  const th = setSiteTheme(st.brand);
+  A('siteUI', {opacity:st.site.toFixed(2)});
+  for (let i=0;i<4;i++) chip('room'+i, i===2 && st.rooms, th.accent, th);
+  document.querySelectorAll('#chipsRooms text').forEach((e,i) => A(e, {fill: i===2 && st.rooms ? th.onText : th.text}));
+  chip('chipDate', st.date, th.accent, th);
+  $('chipDatet').textContent = st.date ? 'Samedi 15 novembre' : 'Choisir une date';
+  if (!st.date) A('chipDatet', {fill: th.lab});
+  chip('chipPiano', st.piano, th.accent, th);
+  document.querySelectorAll('#siteForm .chip:not([id])').forEach(e => A(e, {fill:th.chip, stroke:th.chipStroke}));
+  document.querySelectorAll('#siteForm .ct').forEach(e => { if (!e.id) A(e, {fill:th.text}); });
+  A('btnQuote', {transform: st.btnPress ? 'translate(540 976) scale(.96) translate(-540 -976)' : ''});
+  A('sent', {opacity:st.sent.toFixed(2)});
+  A('sentCircle', {transform:`translate(540 600) scale(${backOut(clamp(st.sent*1.2,0,1)).toFixed(3)}) translate(-540 -600)`});
+  // appel entrant
+  A('incoming', {transform:`translate(${st.inX || 0} ${lerp(-260, 0, easeOut(st.incoming))})`});
+  // doigt
+  const f = st.finger;
+  if (f){
+    A('finger', {opacity: f.a.toFixed(2), transform:`translate(${f.x + (1-f.a)*120} ${f.y + (1-f.a)*200}) scale(${f.press ? .85 : 1})`});
+    A('ripple', {r: 30 + f.ripple*50, opacity: f.ripple > 0 && f.ripple < 1 ? (1-f.ripple).toFixed(2) : 0});
+  } else A('finger', {opacity:0});
+  A('phoneCam', {transform:''});
+}
+const base = {typed:0, caret:false, res1:0, pulse:0, res2:0, res2hl:0, scroll:0, call:0, ringing:false, callT:0, vm:0, site:0, brand:'express', rooms:false, date:false, piano:false, btnPress:false, sent:0, incoming:0, finger:null};
+
+// partie 1 : recherche -> appel -> messagerie -> site concurrent -> envoyé
+function script1(t){
+  const s = {...base};
+  s.zoom = lerp(.92, 1, easeOut(win(t, 0, .6)));
+  s.typed = win(t, .3, 1.3); s.caret = t < 1.6;
+  s.res1 = win(t, 1.4, 1.8); s.pulse = t > 2.0 && t < 3.0 ? Math.abs(Math.sin((t-2.0)*Math.PI*2)) : 0;
+  if (t > 2.4 && t < 3.3) s.finger = tap(t, 3.0, 425, 650);
+  s.call = win(t, 3.2, 3.45) * (1 - win(t, 5.6, 5.9));
+  s.ringing = t < 4.6; s.callT = t - 3.3;
+  s.vm = win(t, 4.6, 4.85);
+  s.res2 = win(t, 5.9, 6.3); s.res2hl = t > 6.3 ? .5 + .5*Math.sin(t*6) : 0;
+  s.scroll = -260*smooth(win(t, 6.0, 6.6));
+  if (t > 6.4 && t < 7.2) s.finger = tap(t, 6.95, 448, 999 - 260);
+  s.site = win(t, 7.1, 7.4);
+  s.rooms = t > 7.9; s.date = t > 8.45; s.piano = t > 9.0;
+  if (t > 7.3 && t < 8.0) s.finger = tap(t, 7.85, 546, 537);
+  if (t > 8.0 && t < 8.55) s.finger = tap(t, 8.4, 540, 687);
+  if (t > 8.55 && t < 9.1) s.finger = tap(t, 8.95, 370, 837);
+  if (t > 9.1 && t < 9.8) s.finger = tap(t, 9.55, 540, 976);
+  s.btnPress = t > 9.55 && t < 9.7;
+  s.sent = win(t, 9.7, 10.0);
+  s.panY = 1920*smooth(win(t, 10.6, 11.4));
+  return s;
+}
+// partie 2 : elle a envoyé, il rappelle, elle ignore
+function script2(t){
+  const s = {...base, site:1, rooms:true, date:true, piano:true, sent:1};
+  s.incoming = win(t, .3, .7) * (1 - win(t, 2.2, 2.5));
+  s.inX = t > 2.2 ? -700*smooth(win(t, 2.2, 2.6)) : Math.sin(t*50)*3*(t>.7 ? 1 : 0);
+  if (t > 1.5 && t < 2.6) s.finger = {a: win(t,1.5,1.9)*(1-win(t,2.4,2.6)), x: lerp(708, 300, smooth(win(t,2.0,2.5))), y: 288, press:false, ripple:0};
+  return s;
+}
+// partie 3 : même scène, mais le site est celui de Martin (fait par Wibzo)
+function script3(t){
+  const s = {...base, site:1, brand:'martin', rooms:true, date:true, piano:true};
+  s.zoom = lerp(.94, 1, easeOut(win(t, 0, .5)));
+  if (t > .1 && t < .9) s.finger = tap(t, .65, 540, 976);
+  s.btnPress = t > .65 && t < .8;
+  s.sent = win(t, .8, 1.1);
+  s.panY = 1920*smooth(win(t, 1.7, 2.3));
+  return s;
+}
+
+/* ============ CHEZ LE CONCURRENT ============ */
+function renderDepot(t, y = 0){
+  const a = backOut(win(t, .75, 1.15));
+  A('newReq', {opacity: win(t,.75,.95).toFixed(2), transform:`translate(540 270) scale(${(.8 + .2*a).toFixed(3)}) translate(-540 -270)`});
+  A('monGlow', {opacity: t > .7 ? (.35 + .25*Math.sin(t*8)).toFixed(2) : .2});
+}
+
+/* ============ NUIT ============ */
+function renderNight(t){
+  A('nightCam', {transform:`translate(540 960) scale(${(1.04 - .04*smooth(win(t,0,6))).toFixed(4)}) translate(-540 -960)`});
+  const hits = [.9, 2.3, 3.7];
+  let glow = 0;
+  hits.forEach((h,i) => {
+    const a = win(t, h, h+.35);
+    A('nt'+i, {opacity:a.toFixed(2), transform:`translate(0 ${(1-easeOut(a))*30})`});
+    glow = Math.max(glow, Math.max(0, 1 - Math.abs(t - h - .3)/.9));
+  });
+  A('nGlow', {opacity:(glow*.8).toFixed(2)}); A('nScreen', {opacity:(glow).toFixed(2)});
+  A('zzz', {opacity:(.25 + .25*Math.sin(t*1.5)).toFixed(2), transform:`translate(${(t*4)%30} ${-(t*8)%40})`});
+  [...$('stars').children].forEach((s,i) => A(s, {opacity:(.4 + .6*Math.abs(Math.sin(t*.7 + i))).toFixed(2)}));
+}
+
+/* ============ OFFRE ============ */
+function renderOffer(t){
+  const slam = (x, from) => lerp(from, 1, easeOut(x));
+  const sc = (id, k, cx, cy) => A(id, {transform:`translate(${cx} ${cy}) scale(${k.toFixed(3)}) translate(${-cx} ${-cy})`});
+  // « TA MAQUETTE » puis « GRATUITE » qui s'écrase
+  const out1 = win(t, 1.75, 1.95);
+  const a1 = easeOut(win(t, .15, .45));
+  A('oT1', {opacity:(a1*(1-out1)).toFixed(2), transform:`translate(0 ${((1-a1)*40).toFixed(1)})`});
+  const s2 = win(t, .85, 1.05);
+  A('oT2', {opacity:(s2*(1-out1)).toFixed(2)}); sc('oT2', slam(s2, 2.3), 540, 440);
+  // « PRÊTE EN » + compteur jusqu'à 24 H
+  const out2 = win(t, 4.95, 5.15), a3 = easeOut(win(t, 1.95, 2.2));
+  A('oT3', {opacity:(a3*(1-out2)).toFixed(2), transform:`translate(0 ${((1-a3)*40).toFixed(1)})`});
+  $('oT4').textContent = Math.round(24*easeOut(win(t, 2.05, 2.75))) + ' H';
+  A('oT4', {opacity:(a3*(1-out2)).toFixed(2)}); sc('oT4', 1 + .12*Math.max(0, 1 - Math.abs(t - 2.8)/.2), 540, 440);
+  // le site de Martin monte, en ligne, les demandes arrivent
+  const ph = easeOut(win(t, .35, 1.0));
+  A('oPhone', {opacity:ph.toFixed(2), transform:`translate(0 ${((1-ph)*760).toFixed(1)})`});
+  A('oLive', {opacity: win(t, 3.85, 4.05).toFixed(2)});
+  A('oLiveDot', {opacity: (.4 + .6*Math.abs(Math.sin(t*5))).toFixed(2)});
+  [4.25, 4.6, 4.95].forEach((h, i) => {
+    const k = easeOut(win(t, h, h + .3));
+    A('oN'+i, {opacity:k.toFixed(2), transform:`translate(${((1-k)*(i % 2 ? 160 : -160)).toFixed(1)} 0)`});
+  });
+  // « SINON ? » puis « 0 CHF »
+  const a5 = easeOut(win(t, 5.15, 5.4));
+  A('oT5', {opacity:a5.toFixed(2), transform:`translate(0 ${((1-a5)*40).toFixed(1)})`});
+  const s6 = win(t, 6.15, 6.35);
+  A('oT6', {opacity:s6.toFixed(2)}); sc('oT6', slam(s6, 2.5), 540, 440);
+  // éclat vert à chaque impact
+  const hit = Math.max(0, 1 - Math.abs(t - 1.0)/.35, 1 - Math.abs(t - 6.3)/.35, .6*(1 - Math.abs(t - 4.0)/.4));
+  A('oGlow', {opacity:(.06 + .14*hit).toFixed(3)});
+}
+
+/* ============ LOGO ============ */
+function renderLogo(t){
+  const w = easeOut(win(t, .9, 1.5));
+  A('logoW', {opacity:w.toFixed(2), transform:`translate(196 ${520 + (1-w)*40}) scale(.82)`});
+  const d = backOut(win(t, .6, 1.0));
+  A('logoDot', {r: (51*d).toFixed(1)});
+  A('logoUrl', {opacity: win(t, 1.6, 2.0).toFixed(2)});
+  A('logoSub', {opacity: win(t, 2.0, 2.4).toFixed(2)});
+}
+
+/* ============ FILS ============ */
+// fils dans le décor (wA, wB, wC) : la caméra peut les suivre
+const wireCache = {};
+function wirePath(id, d){
+  const el = $(id), c = wireCache[id] || (wireCache[id] = {d:'', len:0});
+  if (d !== c.d){ A(el, {d}); c.d = d; c.len = el.getTotalLength(); }
+  return c.len;
+}
+function pointAt(id, frac){ const el = $(id), L = wireCache[id].len; const p = el.getPointAtLength(clamp(frac,0,1)*L); return [p.x, p.y]; }
+const NODES = [.14, .32, .5, .68, .86];
+function drawWire(id, a, b, color, show, z){
+  const el = $(id), L = wireCache[id] ? wireCache[id].len : 0;
+  const nodes = $(id + 'Nodes').children;
+  if (!L || b <= a || show <= 0){
+    A(el, {opacity:0}); A(id + 'Head', {opacity:0});
+    for (const nd of nodes) A(nd, {opacity:0});
+    return;
+  }
+  A(el, {stroke:color, opacity:show.toFixed(2), 'stroke-dasharray':`${(L*(b-a)).toFixed(1)} ${(L*3).toFixed(1)}`, 'stroke-dashoffset': (-L*a).toFixed(1)});
+  const hp = pointAt(id, b);
+  A(id + 'Head', {cx:hp[0], cy:hp[1], r:(9/z).toFixed(1), fill: color === LIME ? '#f2ffd0' : '#ffffff', opacity: b < .999 ? show.toFixed(2) : 0});
+  NODES.forEach((fr, i) => {
+    const on = fr > a && fr < b, p = pointAt(id, fr);
+    A(nodes[i], {cx:p[0], cy:p[1], r:(5.5/z).toFixed(1), fill:color, opacity: on ? (show*.9).toFixed(2) : 0});
+  });
+}
+function hideWires(){ ['wA','wB','wC'].forEach(id => drawWire(id, 0, 0, VIOLET, 0, 1)); }
+
+// fils à l'écran (nuit, logo)
+const lineCache = {};
+function drawLine(id, d, a, b, color, show = 1){
+  const el = $(id), c = lineCache[id] || (lineCache[id] = {d:'', len:0});
+  if (d !== c.d){ A(el, {d}); c.d = d; c.len = el.getTotalLength(); }
+  const L = c.len;
+  if (b <= a || show <= 0){ A(el, {opacity:0}); A(id + 'Head', {opacity:0}); return; }
+  A(el, {stroke:color, opacity:show.toFixed(2), 'stroke-dasharray':`${(L*(b-a)).toFixed(1)} ${(L*3).toFixed(1)}`, 'stroke-dashoffset': (-L*a).toFixed(1)});
+  const pt = el.getPointAtLength(L*b);
+  A(id + 'Head', {cx:pt.x, cy:pt.y, fill: color === LIME ? '#efffc8' : '#ffffff', opacity: b < 1 ? show.toFixed(2) : 0});
+}
+function hideLines(){ ['lineA','lineB'].forEach(id => { A(id, {opacity:0}); A(id + 'Head', {opacity:0}); }); }
+
+/* ============ CAMÉRA ============ */
+// le décor est une grande carte : chaque pièce a sa place, la caméra voyage entre elles
+const mixCam = (c1, c2, e) => ({cx: lerp(c1.cx, c2.cx, e), cy: lerp(c1.cy, c2.cy, e), z: Math.exp(lerp(Math.log(c1.z), Math.log(c2.z), e))});
+const PW = (x, y) => [-494 + .62*x, -1988 + .62*y];       // point de l'écran du téléphone de Julie -> décor
+const OFFICE_CAM = {cx:-910, cy:-1390, z:.95};
+const PANEL_CAM  = {cx:-159, cy:-1530, z:1.45};
+const DEPOT_CAM  = {cx:2040, cy:-1560, z:.9};
+const MAP_CAM    = {cx:555,  cy:-300,  z:.255};
+const MONITOR    = [2300, -1560];
+
+/* ============ SOUS-TITRES & ÉTIQUETTES ============ */
+// *mot* violet · !mot! rouge · ~mot~ vert Wibzo
+const LINES = [
+  {a:2.3,  b:5.2,  d:2.0, text:'Ce déménageur vient de perdre un *gros* *client.*'},
+  {a:5.3,  b:8.4,  d:1.4, text:'Et il ne le sait même pas.'},
+  {a:8.5,  b:10.4, d:.9,  text:'Deux minutes plus tôt.'},
+  {a:10.5, b:12.1, d:1.3, text:'Julie vient de signer son *bail.*'},
+  {a:12.1, b:14.0, d:1.2, text:'Elle cherche un déménageur.'},
+  {a:14.0, b:15.6, d:1.2, text:'Pas de site. Juste un *numéro.*'},
+  {a:15.6, b:17.2, d:.5,  text:'Elle appelle.'},
+  {a:17.2, b:18.5, d:.4,  text:'!Messagerie.!'},
+  {a:18.5, b:20.2, d:1.0, text:'Deuxième résultat : un *site.*'},
+  {a:20.2, b:22.9, d:1.6, text:'*Trente* *secondes,* et sa demande est partie.'},
+  {a:23.9, b:26.2, d:.7,  text:'Chez le !concurrent.!'},
+  {a:26.4, b:28.8, d:.8,  text:'Lui, il *rappelle.*'},
+  {a:29.0, b:30.5, d:1.0, text:'Mais elle ne décroche plus.'},
+  {a:30.5, b:32.0, d:1.0, text:'Elle a déjà ce qu’il lui faut.'},
+  {a:32.1, b:33.8, d:.8,  text:'Maintenant, ~imagine.~'},
+  {a:34.0, b:35.9, d:1.2, text:'Même escalier. Même canapé.'},
+  {a:36.0, b:39.6, d:1.8, text:'Mais cette fois, c’est ~toi~ qui as ce site.'},
+  {a:41.5, b:44.2, d:1.7, text:'Avec ~Wibzo,~ tes clients s’organisent tout seuls.'},
+  {a:44.2, b:47.0, d:1.2, text:'Même pendant que tu ~dors.~'},
+  {a:47.1, b:49.8, d:1.8, text:'Ta maquette est ~gratuite,~ prête en 24 heures.'},
+  {a:49.9, b:52.0, d:1.2, text:'Elle te plaît, on la met en ligne.'},
+  {a:52.1, b:54.2, d:1.0, text:'Sinon, tu ne paies ~rien.~'},
+];
+const TAGS = [
+  {a:10.5, b:12.6, text:'12:15 · pause de midi'},
+  {a:41.5, b:47.0, text:'La nuit'},
+];
+let curLine = -2;
+function renderSubs(T){
+  const i = LINES.findIndex(l => T >= l.a && T < l.b);
+  const el = $('subs');
+  if (i !== curLine){
+    curLine = i;
+    el.innerHTML = i < 0 ? '' : LINES[i].text.split(' ').map(w => {
+      if (w.startsWith('*')) return `<span class="v">${w.replace(/\*/g,'')}</span>`;
+      if (w.startsWith('!')) return `<span class="r">${w.replace(/!/g,'')}</span>`;
+      if (w.startsWith('~')) return `<span class="l">${w.replace(/~/g,'')}</span>`;
+      return `<span>${w}</span>`; }).join(' ');
+  }
+  if (i >= 0){
+    const L = LINES[i], sp = el.children, n = sp.length;
+    for (let j=0;j<n;j++){ const r = clamp((T - L.a - j*L.d/n)/.14, 0, 1);
+      sp[j].style.opacity = (.18 + .82*r).toFixed(3); sp[j].style.transform = `translateY(${((1-r)*10).toFixed(1)}px)`; }
+  }
+  const tg = TAGS.find(g => T >= g.a && T < g.b), te = $('tag');
+  te.textContent = tg ? tg.text : '';
+  te.style.opacity = tg ? Math.min(win(T, tg.a, tg.a+.4), 1 - win(T, tg.b-.4, tg.b)).toFixed(2) : 0;
+}
+
+/* ============ MONTAGE ============ */
+const DUR = 58.6;
+const DIPS = [{c:35.9, h:.18}, {c:41.3, h:.35}, {c:47.0, h:.3}, {c:54.6, h:.25}];
+const B_CALL = PW(540, 1298), B_SEND = PW(848, 980), B_BANNER = PW(848, 300), B_SEND_DOWN = PW(540, 1298);
+const curve = (p, q, d1, d2) => `M${p[0]} ${p[1]} C ${p[0]+d1[0]} ${p[1]+d1[1]}, ${q[0]+d2[0]} ${q[1]+d2[1]}, ${q[0]} ${q[1]}`;
+
+function render(TT){
+  const svgEl = $('stage').querySelector('svg');
+  if (TT >= 32.0 && TT < 33.5){
+    // on rembobine tout ce qu'on vient de voir, à toute vitesse
+    const k = easeInOut(win(TT, 32.0, 33.5));
+    render(31.9 - k*(31.9 - 4.3));
+    A('rew', {opacity:1}); A('rewBg', {opacity:.28});
+    $('rewText').textContent = 'MAINTENANT, IMAGINE'; A('rewText', {fill: LIME}); A('rewBigRing', {stroke: LIME});
+    A('rewBigRing', {transform:`translate(540 880) scale(${(1 + .06*Math.sin(TT*30)).toFixed(3)}) translate(-540 -880)`});
+    [...$('rewBars').children].forEach((b, i) => A(b, {y: ((TT*5200 + i*640) % 1920).toFixed(0)}));
+    svgEl.style.transform = `translateX(${(Math.sin(TT*97)*5).toFixed(1)}px)`;
+    A('fade', {opacity:0}); A('flash', {opacity:0}); A('rewMini', {opacity:0});
+    renderSubs(TT);
+    return;
+  }
+  svgEl.style.transform = '';
+  A('rew', {opacity:0});
+  A('flash', {opacity: (TT >= 33.5 && TT < 33.9 ? .55*(1 - win(TT, 33.5, 33.9)) : 0).toFixed(2)});
+  hideLines(); hideWires();
+  const inWorld = TT < 41.3;
+  A('world', {opacity: inWorld ? 1 : 0});
+  ['S_night','S_offer','S_logo'].forEach(id => A(id, {opacity:0}));
+  A('rewMini', {opacity:0});
+  let cam = OFFICE_CAM;
+
+  if (inWorld){
+    // --- le déménageur
+    let st;
+    if (TT < 26.0)      st = renderStairs(Math.min(TT, 10.4), 'open');
+    else if (TT < 32.0) st = renderStairs(TT - 26.0, 'call');
+    else                st = renderStairs(TT - 33.5 + 4.3, 'imagine', {arrive: TT - 38.5});
+    // --- Julie, son téléphone, le concurrent
+    renderOffice(TT - 10.4);
+    const pop = easeOut(win(TT, 12.2, 12.7));
+    A('S_phone', {opacity: pop.toFixed(2), transform:`translate(-159.2 -1541.6) scale(${(.62*(.9 + .1*pop)).toFixed(4)}) translate(-540 -720)`});
+    if (TT < 26.0)      renderPhone(TT - 12.6, script1);
+    else if (TT < 32.0) renderPhone(Math.max(0, TT - 28.8), script2);
+    else if (TT < 35.9) renderPhone(0, script3);
+    else                renderPhone(TT - 35.9, script3);
+    renderDepot(TT < 32.3 ? TT - 23.35 : 0);
+
+    // --- fils
+    const pk = st.ph;
+    wirePath('wA', curve(B_CALL, pk, [40, 700], [-220, -1000]));
+    wirePath('wB', curve(B_SEND, MONITOR, [520, 260], [-760, 520]));
+    wirePath('wC', curve(st.ep, B_BANNER, [-60, -900], [520, 200]));
+    const z0 = 1;   // épaisseur recalculée plus bas avec le vrai zoom
+    let wires = [];
+
+    if (TT < 8.4){
+      // 1. ouverture : l'appel arrive par le fil, personne ne décroche
+      cam = st.cam;
+      const b = lerp(.55, 1, easeOut(win(TT, 0, .45)));
+      const red = win(TT, 4.6, 5.0);
+      wires.push(['wA', 0, b, red > .5 ? '#ff6b78' : VIOLET, 1 - .6*red]);
+    } else if (TT < 10.4){
+      // 2. deux minutes plus tôt : on remonte le fil jusqu'à Julie, il s'efface derrière nous
+      const k = smooth(win(TT, 8.5, 10.1)), b = 1 - k;
+      const hp = pointAt('wA', b);
+      const follow = {cx: hp[0], cy: hp[1] + 120, z: .42};
+      cam = mixCam(mixCam(st.cam, follow, smooth(win(TT, 8.4, 8.9))), OFFICE_CAM, smooth(win(TT, 9.8, 10.4)));
+      wires.push(['wA', 0, b, VIOLET, .8]);
+      A('rewMini', {opacity: Math.min(win(TT, 8.4, 8.6), 1 - win(TT, 10.0, 10.3)).toFixed(2)});
+      $('rewLabel').textContent = '2 MINUTES PLUS TÔT'; A('rewLabel', {fill:'#a5a8b8'}); A('rewRing', {stroke: VIOLET});
+    } else if (TT < 22.4){
+      // 3. Julie : bureau, puis son téléphone en grand
+      cam = mixCam(OFFICE_CAM, PANEL_CAM, smooth(win(TT, 12.3, 13.1)));
+      const t1 = TT - 12.6;
+      const bump = (t, a, b, r = .35) => Math.min(smooth(win(t, a, a + r)), 1 - smooth(win(t, b - r, b)));
+      cam = mixCam(cam, {cx:-159.2, cy:-1650, z:1.95}, bump(t1, 1.3, 2.75));
+      cam = mixCam(cam, {cx:-159.2, cy:-1560, z:1.68}, bump(t1, 7.25, 9.75));
+      if (t1 > 3.0) wires.push(['wA', 0, .32*easeOut(win(t1, 3.1, 4.0)), VIOLET, 1 - win(t1, 4.7, 5.2)]);
+    } else if (TT < 24.2){
+      // 4. la demande part : on suit le fil jusqu'au concurrent
+      const k = smooth(win(TT, 22.5, 24.1));
+      const hp = pointAt('wB', k);
+      const follow = {cx: hp[0], cy: hp[1] + 100, z: .5};
+      cam = mixCam(mixCam(PANEL_CAM, follow, smooth(win(TT, 22.4, 22.95))), DEPOT_CAM, smooth(win(TT, 23.55, 24.2)));
+      wires.push(['wB', 0, k, VIOLET, 1]);
+    } else if (TT < 26.0){
+      // 5. chez le concurrent
+      cam = {...DEPOT_CAM, z: DEPOT_CAM.z*(1 + .03*win(TT, 24.2, 26))};
+      wires.push(['wB', 0, 1, VIOLET, 1]);
+    } else if (TT < 32.0){
+      // 6. on prend du recul : il rappelle, mais elle a déjà envoyé sa demande
+      const out = smooth(win(TT, 26.0, 27.0)), back = smooth(win(TT, 28.2, 29.0));
+      cam = mixCam(mixCam({...DEPOT_CAM, z: DEPOT_CAM.z*1.03}, MAP_CAM, out), PANEL_CAM, back);
+      wires.push(['wB', 0, 1, VIOLET, 1]);
+      wires.push(['wC', 0, easeInOut(win(TT, 27.0, 28.3)), VIOLET, 1 - win(TT, 31.0, 31.5)]);
+    } else if (TT < 35.9){
+      // 7-8. après le rembobinage : même escalier, même canapé
+      cam = st.cam;
+    } else {
+      // 9. le site de Martin : la demande part… et la caméra la suit jusqu'à sa poche
+      const t3 = TT - 35.9;
+      wirePath('wA', curve(B_SEND_DOWN, pk, [40, 700], [-220, -1000]));
+      const k = easeInOut(win(t3, 1.0, 2.6));
+      const hp = pointAt('wA', k);
+      const follow = {cx: hp[0], cy: hp[1] + 100, z: .45};
+      cam = mixCam(mixCam(PANEL_CAM, follow, smooth(win(t3, .95, 1.45))), st.cam, smooth(win(t3, 2.15, 2.75)));
+      wires.push(['wA', easeInOut(win(t3, 3.4, 4.2)), k, LIME, 1]);
+    }
+
+    A('world', {transform:`translate(540 860) scale(${cam.z.toFixed(4)}) translate(${(-cam.cx).toFixed(1)} ${(-cam.cy).toFixed(1)})`});
+    wires.forEach(w => drawWire(w[0], w[1], w[2], w[3], w[4], cam.z));
+    const S = w => [540 + (w[0]-cam.cx)*cam.z, 860 + (w[1]-cam.cy)*cam.z];
+    stairsPills(st, S, cam.z);
+  } else if (TT < 47.0){
+    // 10. la nuit : les demandes arrivent toutes seules
+    const t = TT - 41.3; A('S_night', {opacity:1}); renderNight(t);
+    const hits = [.9, 2.3, 3.7], xs = [760, 420, 980];
+    hits.forEach((h, i) => { if (t > h - .7 && t < h + .9)
+      drawLine('lineA', `M${xs[i]} -60 C ${xs[i]} 420, 420 820, 70 1128`, easeOut(win(t, h + .05, h + .7)), easeOut(win(t, h - .6, h)), LIME); });
+  } else if (TT < 54.6){
+    A('S_offer', {opacity:1}); renderOffer(TT - 47.0);
+  } else {
+    const t = TT - 54.6; A('S_logo', {opacity:1}); renderLogo(t);
+    drawLine('lineA', 'M540 -60 C 560 400, 980 700, 882 1076', 0, easeOut(win(t, .05, .62)), LIME, 1 - win(t, .75, 1.05));
+  }
+  let dip = 0; DIPS.forEach(d => dip = Math.max(dip, 1 - Math.abs(TT - d.c)/d.h));
+  A('fade', {opacity: Math.max(clamp(dip, 0, 1), win(TT, DUR - .5, DUR)).toFixed(2)});
+  renderSubs(TT);
+  $('grain').style.backgroundPosition = `${(TT*997)%240}px ${(TT*631)%240}px`;
+}
+
+/* ============ VITESSE PAR PASSAGE ============ */
+// [début, fin, vitesse] en temps « montage » : > 1 = plus rapide à l'écran
+const SPEED = [[0,8.4,1],[8.4,12.6,1.15],[12.6,22.4,1.35],[22.4,32.0,1.25],[32.0,35.9,1],[35.9,41.3,1.15],[41.3,47.0,1.3],[47.0,DUR,1]];
+const REAL_DUR = SPEED.reduce((s, [a, b, v]) => s + (b - a)/v, 0);
+function designAt(r){
+  let acc = 0;
+  for (const [a, b, v] of SPEED){ const d = (b - a)/v; if (r < acc + d) return a + (r - acc)*v; acc += d; }
+  return DUR;
+}
+
+/* ============ LECTURE ============ */
+const q = new URLSearchParams(location.search);
+const STILL = q.get('t');
+let t0 = performance.now(), paused = false, pauseAt = 0;
+function loop(now){
+  if (!paused){ const T = ((now - t0)/1000) % (REAL_DUR + 1); render(designAt(Math.min(T, REAL_DUR))); }
+  requestAnimationFrame(loop);
+}
+if (STILL !== null){ render(+STILL); $('hint').remove(); }
+else requestAnimationFrame(loop);
+window.renderAt = r => render(designAt(r)); window.renderDesign = render; window.DUR = REAL_DUR;
+stage.addEventListener('click', () => { paused = !paused; if (paused) pauseAt = performance.now(); else t0 += performance.now() - pauseAt; });
+addEventListener('keydown', e => {
+  const k = e.key.toLowerCase();
+  if (k === 'r'){ t0 = performance.now(); paused = false; }
+  if (k === 'arrowright') t0 -= 2000;
+  if (k === 'arrowleft') t0 += 2000;
+});
+</script>
+</body>
+</html>

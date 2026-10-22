@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wibzo Déménageur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#11121b; --wall:#161826; --floor:#0e0f17; --panel:#1a1c29; --line:#2a2d3f;
+    --violet:#8b7bff; --violet2:#6d5df5; --red:#ff6b78; --warm:#f5d27a; --text:#ecebf5; --muted:#8a8ca3;
+  }
+  html,body{margin:0;height:100%;background:#05050a;overflow:hidden;font-family:Inter,system-ui,sans-serif}
+  body{display:flex;align-items:center;justify-content:center}
+  #stage{width:1080px;height:1920px;position:relative;background:var(--bg);overflow:hidden;transform-origin:center center;flex:none}
+  svg{position:absolute;inset:0;width:100%;height:100%}
+  #subs{position:absolute;left:60px;right:60px;top:1400px;text-align:center;color:#fff;font-size:54px;font-weight:600;line-height:1.25;letter-spacing:-.01em}
+  #subs span{display:inline-block;margin:0 .14em;opacity:.22}
+  #subs .v{color:var(--violet)} #subs .r{color:var(--red)}
+  #tag{position:absolute;top:110px;left:0;right:0;text-align:center;color:var(--muted);font-size:24px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;opacity:0}
+  #hint{position:fixed;bottom:12px;left:0;right:0;text-align:center;color:#6b6d82;font:13px Inter,sans-serif}
+</style>
+</head>
+<body>
+<div id="stage">
+<svg viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="9" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="22"/></filter>
+    <linearGradient id="cone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f5d27a" stop-opacity=".26"/>
+      <stop offset="1" stop-color="#f5d27a" stop-opacity=".03"/>
+    </linearGradient>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b3156"/><stop offset="1" stop-color="#1b1f36"/>
+    </linearGradient>
+    <clipPath id="typeClip"><rect id="typeRect" x="355" y="300" width="0" height="60"/></clipPath>
+    <clipPath id="screenClip"><rect x="270" y="190" width="540" height="1060" rx="54"/></clipPath>
+  </defs>
+
+  <!-- ============ ESCALIER (ouverture + rappel) ============ -->
+  <g id="s3">
+    <rect width="1080" height="1920" fill="var(--wall)"/>
+    <line x1="600" y1="0" x2="600" y2="170" stroke="#2a2d3f" stroke-width="4"/>
+    <path d="M550 170 L650 170 L630 205 L570 205Z" fill="#2a2d3f"/>
+    <ellipse cx="600" cy="206" rx="34" ry="8" fill="#f5d27a"/>
+    <path d="M570 208 L630 208 L960 1150 L240 1150Z" fill="url(#cone)"/>
+    <path id="stairs" fill="#1f2133"/>
+    <path id="stairEdge" fill="none" stroke="#2c2f45" stroke-width="5"/>
+    <g id="mover">
+      <path d="M512 880 L470 1012" stroke="#2e3042" stroke-width="40" stroke-linecap="round"/>
+      <path d="M548 880 L600 940" stroke="#2e3042" stroke-width="40" stroke-linecap="round"/>
+      <rect x="448" y="1000" width="58" height="22" rx="10" fill="#d8d8e4"/><rect x="584" y="928" width="58" height="22" rx="10" fill="#d8d8e4"/>
+      <path d="M478 905 Q470 760 545 690 Q615 700 600 900Z" fill="#5d6077"/>
+      <g id="sofa">
+        <g transform="rotate(-29 560 610)">
+          <rect x="385" y="652" width="16" height="22" rx="4" fill="#3b3450"/><rect x="740" y="652" width="16" height="22" rx="4" fill="#3b3450"/>
+          <rect x="360" y="500" width="420" height="96" rx="22" fill="#5f5480"/>
+          <rect x="378" y="512" width="186" height="80" rx="18" fill="#857aa8"/><rect x="576" y="512" width="186" height="80" rx="18" fill="#857aa8"/>
+          <rect x="360" y="590" width="420" height="66" rx="14" fill="#7a6f9a"/>
+          <line x1="570" y1="594" x2="570" y2="652" stroke="#5f5480" stroke-width="4"/>
+          <rect x="326" y="548" width="56" height="112" rx="22" fill="#6a5f8a"/><rect x="758" y="548" width="56" height="112" rx="22" fill="#6a5f8a"/>
+        </g>
+      </g>
+      <path id="armUp" d="M560 720 Q610 690 640 625" stroke="#5d6077" stroke-width="30" fill="none" stroke-linecap="round"/>
+      <path id="armEar" d="M560 730 Q640 740 615 670" stroke="#5d6077" stroke-width="30" fill="none" stroke-linecap="round" opacity="0"/>
+      <circle cx="585" cy="655" r="44" fill="#d9b08c"/>
+      <path d="M543 650 Q545 600 590 605 Q632 610 630 645 L660 650 L628 660 Z" fill="var(--violet2)"/>
+      <g id="earPhone" opacity="0">
+        <rect x="602" y="630" width="30" height="54" rx="7" fill="#0d0e15" stroke="var(--violet)" stroke-width="3" transform="rotate(15 617 657)"/>
+      </g>
+      <g id="pocket">
+        <circle id="pocketGlow" cx="500" cy="860" r="38" fill="var(--violet)" opacity="0" filter="url(#soft)"/>
+        <rect x="484" y="830" width="34" height="58" rx="7" fill="#0d0e15" stroke="var(--violet)" stroke-width="3"/>
+        <g id="vib" stroke="var(--violet)" stroke-width="4" fill="none" stroke-linecap="round" opacity="0">
+          <path d="M470 840 Q462 859 470 878"/><path d="M458 832 Q446 859 458 886"/>
+          <path d="M532 840 Q540 859 532 878"/><path d="M544 832 Q556 859 544 886"/>
+        </g>
+      </g>
+    </g>
+    <g id="pillMiss" opacity="0">
+      <rect x="150" y="950" width="270" height="56" rx="28" fill="#1a1c29" stroke="var(--red)" stroke-opacity=".7" stroke-width="2"/>
+      <circle cx="182" cy="978" r="8" fill="var(--red)"/>
+      <text x="200" y="986" fill="var(--red)" font-size="23" font-weight="700">Appel manqué</text>
+    </g>
+    <g id="pillCall" opacity="0">
+      <rect x="680" y="560" width="300" height="64" rx="32" fill="#1a1c29" stroke="var(--violet)" stroke-opacity=".6" stroke-width="2"/>
+      <circle id="callDot" cx="714" cy="592" r="9" fill="var(--violet)"/>
+      <text x="736" y="601" fill="var(--text)" font-size="24" font-weight="600">Il rappelle…</text>
+    </g>
+  </g>
+
+  <!-- ============ BUREAU de Julie, 12:15 ============ -->
+  <g id="s1" opacity="0">
+    <rect width="1080" height="1920" fill="var(--wall)"/>
+    <rect y="1060" width="1080" height="860" fill="var(--floor)"/>
+    <rect x="90" y="330" width="260" height="380" rx="10" fill="url(#sky)" stroke="#23263a" stroke-width="10"/>
+    <g fill="#141729" opacity=".9">
+      <rect x="100" y="560" width="50" height="145"/><rect x="155" y="510" width="60" height="195"/>
+      <rect x="220" y="590" width="45" height="115"/><rect x="270" y="540" width="70" height="165"/>
+    </g>
+    <g transform="translate(830 420)">
+      <circle r="72" fill="#1d2032" stroke="#2c3047" stroke-width="8"/>
+      <line x1="0" y1="0" x2="0" y2="-38" stroke="#ecebf5" stroke-width="8" stroke-linecap="round" transform="rotate(8)"/>
+      <line x1="0" y1="0" x2="0" y2="-56" stroke="#ecebf5" stroke-width="5" stroke-linecap="round" transform="rotate(90)"/>
+      <circle r="7" fill="var(--violet)"/>
+    </g>
+    <text x="830" y="545" text-anchor="middle" fill="var(--muted)" font-size="26" font-weight="600" letter-spacing="3">12:15</text>
+    <line x1="540" y1="0" x2="540" y2="190" stroke="#2a2d3f" stroke-width="4"/>
+    <path d="M490 190 L590 190 L570 225 L510 225Z" fill="#2a2d3f"/>
+    <ellipse cx="540" cy="226" rx="34" ry="8" fill="#f5d27a"/>
+    <path d="M510 228 L570 228 L860 1060 L220 1060Z" fill="url(#cone)"/>
+    <g id="julie">
+      <path d="M455 1000 Q455 830 540 815 Q625 830 625 1000Z" fill="#6e6a8f"/>
+      <circle cx="540" cy="752" r="50" fill="#d9b08c"/>
+      <path d="M490 750 Q492 690 545 692 Q598 694 592 760 Q585 715 540 712 Q505 714 490 750Z" fill="#2b2238"/>
+      <circle cx="560" cy="700" r="22" fill="#2b2238"/>
+      <path d="M470 880 Q470 940 520 925" stroke="#6e6a8f" stroke-width="34" fill="none" stroke-linecap="round"/>
+      <path d="M610 880 Q612 940 560 925" stroke="#6e6a8f" stroke-width="34" fill="none" stroke-linecap="round"/>
+      <rect id="julPhone" x="522" y="880" width="38" height="66" rx="8" fill="#0d0e15" stroke="var(--violet)" stroke-width="3"/>
+      <rect x="527" y="886" width="28" height="52" rx="4" fill="var(--violet)" opacity=".55"/>
+    </g>
+    <rect x="270" y="950" width="540" height="26" rx="6" fill="#2a2d3f"/>
+    <rect x="300" y="976" width="18" height="150" fill="#232636"/><rect x="762" y="976" width="18" height="150" fill="#232636"/>
+    <g transform="translate(640 860)">
+      <g id="bailInner">
+        <rect x="0" y="0" width="150" height="90" rx="8" fill="#e9e6f3"/>
+        <path d="M0 6 L75 52 L150 6" stroke="#c8c3dd" stroke-width="4" fill="none"/>
+        <text x="75" y="80" text-anchor="middle" fill="#4a4566" font-size="15" font-weight="700" letter-spacing="2">BAIL SIGNÉ</text>
+        <g id="bailCheck"><circle cx="146" cy="2" r="22" fill="var(--violet2)"/><path d="M135 2 L143 10 L158 -6" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+      </g>
+    </g>
+    <g fill="#3a3348" stroke="#4a4258" stroke-width="3">
+      <rect x="800" y="1000" width="150" height="120" rx="4"/><rect x="830" y="900" width="110" height="100" rx="4"/>
+    </g>
+    <path d="M800 1060 L950 1060 M885 900 L885 1000" stroke="#4a4258" stroke-width="3"/>
+  </g>
+
+  <!-- ============ TÉLÉPHONE de Julie ============ -->
+  <g id="s2" opacity="0">
+    <rect width="1080" height="1920" fill="var(--bg)"/>
+    <ellipse cx="540" cy="720" rx="420" ry="620" fill="var(--violet2)" opacity=".10" filter="url(#soft)"/>
+    <rect x="250" y="170" width="580" height="1100" rx="72" fill="#08080d" stroke="#2c2f44" stroke-width="4"/>
+    <g clip-path="url(#screenClip)">
+      <rect x="270" y="190" width="540" height="1060" fill="#10111a"/>
+      <text x="310" y="242" fill="var(--muted)" font-size="22" font-weight="600">12:16</text>
+      <rect x="300" y="290" width="480" height="80" rx="40" fill="#1d1f2c"/>
+      <circle cx="335" cy="327" r="11" stroke="var(--muted)" stroke-width="4" fill="none"/>
+      <line x1="343" y1="335" x2="352" y2="344" stroke="var(--muted)" stroke-width="4" stroke-linecap="round"/>
+      <text clip-path="url(#typeClip)" x="365" y="340" fill="var(--text)" font-size="27" font-weight="500">déménagement Payerne</text>
+      <g id="res1" opacity="0">
+        <rect x="300" y="410" width="480" height="300" rx="28" fill="#191b27" stroke="#2a2d3f" stroke-width="2"/>
+        <text x="330" y="466" fill="var(--text)" font-size="31" font-weight="700">Martin Déménagements</text>
+        <text x="330" y="506" fill="var(--muted)" font-size="23">Payerne</text>
+        <g id="noSite"><rect x="330" y="530" width="232" height="46" rx="23" fill="#ff6b78" fill-opacity=".14"/>
+        <text x="446" y="561" text-anchor="middle" fill="var(--red)" font-size="22" font-weight="600">Pas de site web</text></g>
+        <rect x="330" y="608" width="200" height="72" rx="36" fill="var(--violet2)"/>
+        <text x="430" y="653" text-anchor="middle" fill="#fff" font-size="26" font-weight="700">Appeler</text>
+        <rect x="550" y="608" width="200" height="72" rx="36" fill="#232634"/>
+        <text x="650" y="653" text-anchor="middle" fill="var(--muted)" font-size="26" font-weight="600">Itinéraire</text>
+      </g>
+      <g id="res2" opacity="0">
+        <rect x="300" y="740" width="480" height="300" rx="28" fill="#191b27" stroke="var(--violet)" stroke-opacity=".5" stroke-width="2"/>
+        <text x="330" y="796" fill="var(--text)" font-size="31" font-weight="700">Express Déménagement</text>
+        <text x="330" y="836" fill="var(--muted)" font-size="23">Payerne</text>
+        <rect x="330" y="860" width="300" height="46" rx="23" fill="var(--violet)" fill-opacity=".16"/>
+        <text x="480" y="891" text-anchor="middle" fill="var(--violet)" font-size="22" font-weight="600">Site web · Devis en ligne</text>
+        <rect x="330" y="938" width="240" height="72" rx="36" fill="var(--violet2)"/>
+        <text x="450" y="983" text-anchor="middle" fill="#fff" font-size="26" font-weight="700">Voir le site</text>
+      </g>
+      <g id="callUI" opacity="0">
+        <rect x="270" y="190" width="540" height="1060" fill="#10111a"/>
+        <circle class="ring" cx="540" cy="540" r="95" fill="none" stroke="var(--violet)" stroke-width="3" opacity="0"/>
+        <circle class="ring" cx="540" cy="540" r="95" fill="none" stroke="var(--violet)" stroke-width="3" opacity="0"/>
+        <circle cx="540" cy="540" r="95" fill="#232634"/>
+        <circle cx="540" cy="515" r="32" fill="#4a4d66"/><path d="M482 600 Q540 540 598 600Z" fill="#4a4d66"/>
+        <text x="540" y="700" text-anchor="middle" fill="var(--text)" font-size="34" font-weight="700">Martin Déménagements</text>
+        <text id="callState" x="540" y="748" text-anchor="middle" fill="var(--muted)" font-size="26">Appel en cours…</text>
+        <g id="voicemail" opacity="0"><rect x="400" y="780" width="280" height="54" rx="27" fill="#ff6b78" fill-opacity=".15"/>
+        <text x="540" y="816" text-anchor="middle" fill="var(--red)" font-size="24" font-weight="700" letter-spacing="3">MESSAGERIE</text></g>
+        <circle cx="540" cy="1110" r="56" fill="#e5484d"/>
+        <path d="M512 1112 Q540 1092 568 1112" stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round"/>
+      </g>
+      <g id="siteUI" opacity="0">
+        <rect x="270" y="190" width="540" height="1060" fill="#f4f3fa"/>
+        <rect x="270" y="190" width="540" height="90" fill="#ffffff"/>
+        <text x="300" y="248" fill="#1b1a2b" font-size="24" font-weight="800">EXPRESS</text>
+        <text x="420" y="248" fill="var(--violet2)" font-size="24" font-weight="600">Déménagement</text>
+        <text x="300" y="345" fill="#1b1a2b" font-size="40" font-weight="800">Ton devis</text>
+        <text x="300" y="393" fill="#1b1a2b" font-size="40" font-weight="800">en 30 secondes</text>
+        <text x="300" y="468" fill="#6b6982" font-size="22" font-weight="600" letter-spacing="2">NOMBRE DE PIÈCES</text>
+        <rect x="300" y="488" width="96" height="64" rx="16" fill="#fff" stroke="#dcd9ea" stroke-width="2"/><text x="348" y="530" text-anchor="middle" fill="#1b1a2b" font-size="26" font-weight="600">1</text>
+        <rect x="408" y="488" width="96" height="64" rx="16" fill="#fff" stroke="#dcd9ea" stroke-width="2"/><text x="456" y="530" text-anchor="middle" fill="#1b1a2b" font-size="26" font-weight="600">2</text>
+        <rect id="chip3" x="516" y="488" width="96" height="64" rx="16" fill="#fff" stroke="#dcd9ea" stroke-width="2"/><text id="chip3t" x="564" y="530" text-anchor="middle" fill="#1b1a2b" font-size="26" font-weight="600">3</text>
+        <rect x="624" y="488" width="96" height="64" rx="16" fill="#fff" stroke="#dcd9ea" stroke-width="2"/><text x="672" y="530" text-anchor="middle" fill="#1b1a2b" font-size="26" font-weight="600">4+</text>
+        <text x="300" y="615" fill="#6b6982" font-size="22" font-weight="600" letter-spacing="2">DATE</text>
+        <rect id="chipDate" x="300" y="635" width="420" height="64" rx="16" fill="#fff" stroke="#dcd9ea" stroke-width="2"/>
+        <text id="chipDatet" x="330" y="677" fill="#9a98ad" font-size="26" font-weight="600">Choisir une date</text>
+        <text x="300" y="762" fill="#6b6982" font-size="22" font-weight="600" letter-spacing="2">OBJETS SPÉCIAUX</text>
+        <rect id="chipPiano" x="300" y="782" width="150" height="64" rx="16" fill="#fff" stroke="#dcd9ea" stroke-width="2"/><text id="chipPianot" x="375" y="824" text-anchor="middle" fill="#1b1a2b" font-size="26" font-weight="600">Piano</text>
+        <rect x="462" y="782" width="150" height="64" rx="16" fill="#fff" stroke="#dcd9ea" stroke-width="2"/><text x="537" y="824" text-anchor="middle" fill="#1b1a2b" font-size="26" font-weight="600">Aucun</text>
+        <rect id="btnQuote" x="300" y="900" width="480" height="92" rx="46" fill="var(--violet2)"/>
+        <text x="540" y="958" text-anchor="middle" fill="#fff" font-size="30" font-weight="700">Recevoir mon devis</text>
+        <g id="sent" opacity="0">
+          <rect x="270" y="190" width="540" height="1060" fill="#f4f3fa" opacity=".96"/>
+          <circle cx="540" cy="620" r="80" fill="var(--violet2)"/>
+          <path d="M500 620 L528 648 L582 592" stroke="#fff" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="540" y="770" text-anchor="middle" fill="#1b1a2b" font-size="36" font-weight="800">Demande envoyée</text>
+          <text x="540" y="815" text-anchor="middle" fill="#6b6982" font-size="24">Tu reçois ton devis rapidement.</text>
+        </g>
+      </g>
+      <!-- appel entrant ignoré -->
+      <g id="incoming" transform="translate(0 -220)">
+        <rect x="290" y="210" width="500" height="130" rx="30" fill="#232634" stroke="#3a3d55" stroke-width="2"/>
+        <text x="320" y="262" fill="var(--text)" font-size="27" font-weight="700">Martin Déménagements</text>
+        <text x="320" y="300" fill="var(--muted)" font-size="22">Appel entrant…</text>
+        <circle cx="690" cy="275" r="28" fill="#e5484d"/><circle cx="752" cy="275" r="28" fill="#30a46c"/>
+      </g>
+    </g>
+    <circle id="finger" cx="900" cy="1400" r="36" fill="#fff" fill-opacity=".28" stroke="#fff" stroke-width="3" opacity="0"/>
+  </g>
+
+  <!-- ============ CHEZ LE CONCURRENT ============ -->
+  <g id="s5" opacity="0">
+    <rect width="1080" height="1920" fill="var(--wall)"/>
+    <rect y="1220" width="1080" height="700" fill="var(--floor)"/>
+    <path d="M540 0 L540 160" stroke="#2a2d3f" stroke-width="4"/>
+    <ellipse cx="540" cy="166" rx="34" ry="8" fill="#f5d27a"/>
+    <path d="M510 168 L570 168 L900 1220 L180 1220Z" fill="url(#cone)"/>
+    <rect x="150" y="900" width="560" height="280" rx="14" fill="#262839"/>
+    <text x="430" y="1035" text-anchor="middle" fill="var(--violet)" font-size="40" font-weight="800" letter-spacing="2">EXPRESS</text>
+    <text x="430" y="1082" text-anchor="middle" fill="var(--muted)" font-size="26" font-weight="600" letter-spacing="6">DÉMÉNAGEMENT</text>
+    <path d="M710 980 L850 980 L930 1070 L930 1180 L710 1180Z" fill="#2e3044"/>
+    <path d="M730 1000 L840 1000 L895 1065 L730 1065Z" fill="#1b1d2b"/>
+    <circle cx="300" cy="1190" r="52" fill="#0b0c12" stroke="#2e3044" stroke-width="12"/>
+    <circle cx="820" cy="1190" r="52" fill="#0b0c12" stroke="#2e3044" stroke-width="12"/>
+    <g id="newReq" opacity="0">
+      <rect x="220" y="500" width="640" height="220" rx="28" fill="#1a1c29" stroke="var(--violet)" stroke-opacity=".7" stroke-width="2"/>
+      <circle cx="290" cy="575" r="30" fill="var(--violet2)"/>
+      <path d="M275 575 L286 586 L306 564" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="345" y="588" fill="var(--text)" font-size="34" font-weight="800">Nouvelle demande</text>
+      <text x="260" y="672" fill="var(--muted)" font-size="26" font-weight="500">3 pièces · 15 novembre · piano</text>
+    </g>
+  </g>
+
+  <!-- retour en arrière -->
+  <g id="rew" opacity="0">
+    <rect width="1080" height="1920" fill="#0b0b12" opacity=".75"/>
+    <circle cx="540" cy="900" r="80" fill="#1a1c29" stroke="var(--violet)" stroke-width="5" filter="url(#glow)"/>
+    <path d="M540 865 L495 900 L540 935Z M590 865 L545 900 L590 935Z" fill="var(--text)"/>
+    <text x="540" y="1040" text-anchor="middle" fill="var(--muted)" font-size="26" font-weight="700" letter-spacing="8">2 MINUTES PLUS TÔT</text>
+  </g>
+
+  <path id="line3" d="M540 946 C 600 700, 820 420, 900 -40" fill="none" stroke="var(--violet)" stroke-width="6" stroke-linecap="round" filter="url(#glow)" opacity="0"/>
+  <path id="line4" d="M260 -40 C 240 200, 420 380, 540 500" fill="none" stroke="var(--violet)" stroke-width="6" stroke-linecap="round" filter="url(#glow)" opacity="0"/>
+</svg>
+<div id="tag"></div>
+<div id="subs"></div>
+</div>
+<div id="hint">Brouillon, partie 1 (le problème) · clic = pause / reprise · R = rejouer</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+const stage = document.getElementById('stage');
+function fit(){ const s = Math.min(innerWidth/1080, (innerHeight-30)/1920); stage.style.transform = `scale(${s})`; }
+addEventListener('resize', fit); fit();
+
+(function(){
+  let e = 'M0 1300 ';
+  for(let i=0;i<9;i++){ const x=i*135, y=1300-i*75; e+=`L${x} ${y} L${x+135} ${y} `; }
+  document.getElementById('stairs').setAttribute('d', e + 'L1080 1920 L0 1920Z');
+  document.getElementById('stairEdge').setAttribute('d', e);
+})();
+
+function prepLine(id){ const p=document.getElementById(id), L=p.getTotalLength(); p.style.strokeDasharray=L; p.style.strokeDashoffset=L; }
+['line3','line4'].forEach(prepLine);
+
+// ?t=12.5 : image fixe à 12,5 s (pour vérifier une scène)
+const STILL = new URLSearchParams(location.search).get('t');
+const subs = document.getElementById('subs'), tagEl = document.getElementById('tag');
+// *mot* = violet, !mot! = rouge
+function say(tl, t, text, dur){
+  tl.call(() => {
+    const words = text.split(' ');
+    subs.innerHTML = words.map(w => {
+      if (w.startsWith('*')) return `<span class="v">${w.replace(/\*/g,'')}</span>`;
+      if (w.startsWith('!')) return `<span class="r">${w.replace(/!/g,'')}</span>`;
+      return `<span>${w}</span>`;
+    }).join(' ');
+    if (STILL) gsap.set('#subs span', {opacity:1});
+    else gsap.to('#subs span', {opacity:1, duration:.12, stagger:(dur||1.4)/words.length});
+  }, null, t);
+}
+function tag(tl, t, text){
+  tl.call(()=>{ tagEl.textContent=text; gsap.fromTo(tagEl,{opacity:0,y:-10},{opacity:1,y:0,duration:.4}); }, null, t);
+}
+function untag(tl, t){ tl.call(()=>gsap.to(tagEl,{opacity:0,duration:.3}), null, t); }
+function tap(tl, t, x, y){
+  tl.to('#finger', {attr:{cx:x, cy:y}, opacity:1, duration:.45, ease:'power2.inOut'}, t)
+    .to('#finger', {attr:{r:28}, duration:.1, yoyo:true, repeat:1}, t+.5);
+}
+
+const tl = gsap.timeline({repeat:-1, repeatDelay:1.2});
+
+// ---- 1. Ouverture sur lui (0 – 5.4)
+tl.fromTo('#mover', {x:-135, y:75}, {x:0, y:0, duration:5.2, ease:'none'}, 0)
+  .to('#pocketGlow', {opacity:.9, duration:.3}, .3)
+  .to('#vib', {opacity:1, duration:.2}, .3)
+  .to('#pocket', {x:3, duration:.06, yoyo:true, repeat:36, ease:'none'}, .3)
+  .to(['#vib','#pocketGlow'], {opacity:0, duration:.3}, 2.8)
+  .fromTo('#pillMiss', {opacity:0, scale:.8, svgOrigin:'285 978'}, {opacity:1, scale:1, duration:.35, ease:'back.out(2)'}, 3.0);
+say(tl, .3, 'Ce déménageur vient de perdre un *gros* *client.*', 2.0);
+say(tl, 3.1, 'Et il ne le sait même pas.', 1.3);
+
+// ---- 2. Retour en arrière (5.4 – 6.6)
+tl.fromTo('#rew', {opacity:0}, {opacity:1, duration:.3}, 5.4)
+  .fromTo('#rew circle', {scale:.6, svgOrigin:'540 900'}, {scale:1, duration:.4, ease:'back.out(2)'}, 5.4)
+  .to('#s3', {opacity:0, duration:.1}, 6.2)
+  .set('#s1', {opacity:1}, 6.2)
+  .to('#rew', {opacity:0, duration:.4}, 6.4);
+say(tl, 5.6, 'Deux minutes plus tôt.', .8);
+
+// ---- 3. Julie au bureau (6.6 – 10.6)
+tag(tl, 6.7, '12:15 · pause de midi');
+tl.fromTo('#bailInner', {scale:.5, opacity:0}, {scale:1, opacity:1, transformOrigin:'50% 50%', duration:.5, ease:'back.out(2)'}, 6.9)
+  .fromTo('#bailCheck', {scale:0}, {scale:1, transformOrigin:'50% 50%', duration:.4, ease:'back.out(3)'}, 7.4)
+  .to('#julPhone', {stroke:'#fff', duration:.3, yoyo:true, repeat:1}, 9.4);
+say(tl, 7.0, 'Julie vient de signer son *bail.*', 1.2);
+say(tl, 8.6, 'Elle cherche un déménageur.', 1.0);
+tl.to('#s1', {scale:3.2, svgOrigin:'541 913', opacity:0, duration:.7, ease:'power2.in'}, 10.0)
+  .fromTo('#s2', {opacity:0, scale:.85, svgOrigin:'540 720'}, {opacity:1, scale:1, duration:.6, ease:'power2.out'}, 10.4);
+untag(tl, 10.0);
+
+// ---- 4. Recherche, appel, messagerie (10.6 – 15.8)
+tl.fromTo('#typeRect', {attr:{width:0}}, {attr:{width:420}, duration:1.0, ease:'steps(20)'}, 10.8)
+  .fromTo('#res1', {opacity:0, y:30}, {opacity:1, y:0, duration:.5}, 11.9)
+  .to('#noSite', {scale:1.08, svgOrigin:'446 553', duration:.25, yoyo:true, repeat:3}, 12.3);
+say(tl, 12.1, 'Pas de site. Juste un *numéro.*', 1.1);
+tap(tl, 12.9, 430, 644);
+say(tl, 13.5, 'Elle appelle.', .5);
+tl.to('#finger', {opacity:0, duration:.2}, 13.6)
+  .fromTo('#callUI', {opacity:0}, {opacity:1, duration:.3}, 13.6)
+  .fromTo('.ring', {attr:{r:95}, opacity:.8}, {attr:{r:190}, opacity:0, duration:1.0, stagger:.5, repeat:1, ease:'power1.out'}, 13.7)
+  .fromTo('#voicemail', {opacity:0, scale:.8, svgOrigin:'540 807'}, {opacity:1, scale:1, duration:.3, ease:'back.out(2)'}, 15.0)
+  .set('#callState', {textContent:'Appel terminé'}, 15.0);
+say(tl, 15.0, '!Messagerie.!', .3);
+
+// ---- 5. Le site du concurrent (15.8 – 21.4)
+tl.to('#callUI', {opacity:0, duration:.35}, 15.9)
+  .fromTo('#res2', {opacity:0, y:30}, {opacity:1, y:0, duration:.5}, 16.1);
+say(tl, 16.1, 'Deuxième résultat : un *site.*', 1.0);
+tap(tl, 16.7, 450, 974);
+tl.to('#finger', {opacity:0, duration:.15}, 17.3)
+  .fromTo('#siteUI', {opacity:0}, {opacity:1, duration:.35}, 17.3);
+tap(tl, 17.5, 564, 520);
+tl.to('#chip3', {fill:'#6d5df5', stroke:'#6d5df5', duration:.2}, 18.05).to('#chip3t', {fill:'#fff', duration:.2}, 18.05);
+tap(tl, 18.1, 510, 667);
+tl.to('#chipDate', {fill:'#6d5df5', stroke:'#6d5df5', duration:.2}, 18.65).to('#chipDatet', {fill:'#fff', duration:.2}, 18.65)
+  .set('#chipDatet', {textContent:'Samedi 15 novembre'}, 18.65);
+tap(tl, 18.7, 375, 814);
+tl.to('#chipPiano', {fill:'#6d5df5', stroke:'#6d5df5', duration:.2}, 19.25).to('#chipPianot', {fill:'#fff', duration:.2}, 19.25);
+say(tl, 17.9, '*Trente* *secondes,* et sa demande est partie.', 1.8);
+tap(tl, 19.4, 540, 946);
+tl.to('#btnQuote', {fill:'#5442e0', duration:.15}, 19.9)
+  .to('#finger', {opacity:0, duration:.15}, 20.0)
+  .fromTo('#sent', {opacity:0}, {opacity:1, duration:.35}, 20.1)
+  .to('#line3', {opacity:1, duration:.1}, 20.3)
+  .fromTo('#line3', {strokeDashoffset:()=>document.getElementById('line3').getTotalLength()}, {strokeDashoffset:0, duration:.9, ease:'power2.in'}, 20.3);
+
+// ---- 6. Chez le concurrent (21.2 – 23.8)
+tl.to(['#s2','#line3'], {y:1920, duration:.7, ease:'power2.inOut'}, 21.2)
+  .set('#line3', {opacity:0}, 21.95)
+  .fromTo('#s5', {opacity:1, y:-1920}, {y:0, duration:.7, ease:'power2.inOut'}, 21.2)
+  .to('#line4', {opacity:1, duration:.1}, 21.8)
+  .fromTo('#line4', {strokeDashoffset:()=>document.getElementById('line4').getTotalLength()}, {strokeDashoffset:0, duration:.6, ease:'power2.out'}, 21.8)
+  .fromTo('#newReq', {opacity:0, scale:.85, svgOrigin:'540 610'}, {opacity:1, scale:1, duration:.4, ease:'back.out(2)'}, 22.35);
+say(tl, 21.9, 'Chez le !concurrent.!', .6);
+
+// ---- 7. Il rappelle, elle ne décroche pas (23.8 – 31)
+tl.set('#s3', {opacity:1}, 23.8)
+  .set(['#pillMiss','#line4'], {opacity:0}, 23.8)
+  .to('#s5', {y:-1920, duration:.7, ease:'power2.inOut'}, 23.8)
+  .fromTo('#s3', {y:1920}, {y:0, duration:.7, ease:'power2.inOut', immediateRender:false}, 23.8)
+  .to('#sofa', {x:-210, y:300, duration:.8, ease:'power2.inOut'}, 24.6)
+  .to('#armUp', {opacity:0, duration:.2}, 25.0)
+  .to(['#armEar','#earPhone'], {opacity:1, duration:.25}, 25.2)
+  .to('#pocket', {opacity:0, duration:.2}, 25.2)
+  .fromTo('#pillCall', {opacity:0, x:20}, {opacity:1, x:0, duration:.35}, 25.4)
+  .to('#callDot', {opacity:.2, duration:.35, yoyo:true, repeat:5}, 25.6);
+say(tl, 24.3, 'Lui, il *rappelle.*', .8);
+// côté Julie : ça sonne dans le vide
+tl.set('#s2', {y:0, opacity:1}, 26.6)
+  .set('#line3', {opacity:0}, 26.6)
+  .to('#s3', {opacity:0, duration:.4}, 26.6)
+  .fromTo('#incoming', {y:-220}, {y:0, duration:.4, ease:'back.out(1.6)'}, 27.0)
+  .to('#incoming', {x:4, duration:.06, yoyo:true, repeat:24, ease:'none'}, 27.4)
+  .to('#incoming', {y:-220, duration:.4, ease:'power2.in'}, 29.4);
+say(tl, 26.8, 'Mais elle ne décroche plus.', 1.0);
+say(tl, 28.3, 'Elle a déjà ce qu’il lui faut.', 1.1);
+tl.to('#stage svg, #subs, #tag', {opacity:0, duration:.6}, 30.4)
+  .set('#stage svg, #subs, #tag', {opacity:1}, 31.0);
+
+tl.eventCallback('onRepeat', () => {
+  subs.innerHTML=''; tagEl.style.opacity=0;
+  gsap.set('#chipDatet', {textContent:'Choisir une date'});
+  gsap.set('#callState', {textContent:'Appel en cours…'});
+});
+
+if (STILL !== null) { tl.seek(+STILL, false).pause(); gsap.globalTimeline.getChildren(false).forEach(t => t !== tl && t.progress(1)); document.getElementById('hint').remove(); }
+
+stage.addEventListener('click', () => tl.paused(!tl.paused()));
+addEventListener('keydown', e => { if (e.key.toLowerCase()==='r') { subs.innerHTML=''; tl.restart(); } });
+</script>
+</body>
+</html>

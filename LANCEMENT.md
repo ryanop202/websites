@@ -73,6 +73,17 @@ Dernière mise à jour : 14.10.2026. À lire au début de chaque nouvelle sessio
 - Nouvelle limite : **10 à 15 nouveaux contacts par jour max**, espacés (pas en rafale), uniquement des messages personnalisés. Un 2e blocage peut devenir définitif.
 - Pendant un blocage : ne pas utiliser d'autre numéro ou d'outil pour contourner. Appels / SMS / visites à la place.
 
+## ⚠️ 19.10.2026 — WhatsApp banni (2e blocage) — analyse du 22.10 (WhatsApp Web)
+| Jour | Messages envoyés | Nouveaux contacts | Max en 1 h | Résultat |
+|---|---|---|---|---|
+| 14.10 | 11 | 11 | 9 | OK |
+| 15.10 | 40 | 30 | 20 | OK |
+| 16.10 | 45 | 37 | 22 | bloqué 24 h |
+| 19.10 (lundi) | 62 | 40 | **28 (dont 8 à 18 h 42)** | **banni** |
+- Lundi : envois en 3 rafales (14 h : 11, 16 h 30 : 18, 18 h 30–18 h 48 : 28), écart médian < 1 min, même texte, 3 jours après le 1er blocage. 13 réponses sur 40 nouveaux.
+- La limite « 10–15 par jour, espacés » (notée le 16.10) n'a pas été respectée. WhatsApp ne publie pas de seuil exact.
+- Règle : **max 10 nouveaux contacts par jour, au moins 10 min entre deux, jamais de rafale**, message personnalisé, arrêter la journée si quelqu'un bloque/signale.
+
 ## 18.10.2026 (soir) — DNS wibzo.ch
 - DNSSEC retiré au registre : wibzo.ch remarche (encore l'ancien site Netlify).
 - Serveurs DNS changés chez Infomaniak (par Ryan) → `cory.ns.cloudflare.com` + `lilith.ns.cloudflare.com`. En attente du registre .ch (quelques heures, max ~24 h).

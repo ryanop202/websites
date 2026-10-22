@@ -1,0 +1,137 @@
+# Nouvelles entreprises FOSC vérifiées (pas de site + mobile trouvé). Une ligne par entreprise :
+# Nom officiel ¦ Nom dans le message ¦ Mobile ¦ métier (« un carreleur ») ¦ commune ¦ bénéfice (devis / rdv) ¦ inscription (recent / mois) ¦ source
+# recent = « vient de s'inscrire au registre du commerce » ; mois = « s'est inscrit au registre du commerce il y a quelques mois » ; une année (2025) = « s'est inscrit au registre du commerce en 2025 »
+# Le * après le numéro = « ne souhaite pas de publicité » (Ryan vérifie avant d'envoyer).
+# Site vérifié : Google (test 1) puis Bing + DuckDuckGo (Google bloqué), + search.ch / local.ch.
+
+# Test du 22.10.2026 — inscrits août-oct. 2026 (50 testés, 3 gardés)
+Atelier Lugo - titulaire Nicolet ¦ Atelier Lugo ¦ 078 826 65 66 ¦ un atelier de mécanique moto ¦ Fribourg ¦ rdv ¦ recent ¦ search.ch + local.ch
+Peart Revêtements - titulaire Pedro Alberto Da Rocha Correia ¦ Peart Revêtements ¦ 078 753 29 83 * ¦ un carreleur ¦ Broc ¦ devis ¦ recent ¦ search.ch + local.ch
+Cokovic Maintenance & Technique ¦ Cokovic Maintenance & Technique ¦ 078 697 71 34 ¦ une entreprise de chauffage et ventilation ¦ Mathod ¦ devis ¦ recent ¦ search.ch (inscription privée de la titulaire Nermina Cokovic, même adresse ; numéro aussi lié à Water Pro Sàrl, Orbe)
+
+# Lot du 22.10.2026 — inscrits mars-mai 2026 (le meilleur moment : 5 à 7 mois après l'inscription)
+RF plâtrerie-peinture, titulaire Rey ¦ RF plâtrerie-peinture ¦ 079 771 26 04 * ¦ un peintre ¦ Villarepos ¦ devis ¦ mois ¦ search.ch
+PM&S Construction Métallique Sàrl ¦ PM&S Construction Métallique ¦ 079 550 84 90 ¦ un serrurier ¦ Bretigny-sur-Morrens ¦ devis ¦ mois ¦ search.ch
+LM Débosselage Sàrl ¦ LM Débosselage ¦ 079 447 22 26 ¦ un carrossier ¦ Epalinges ¦ rdv ¦ mois ¦ search.ch
+Bory Factory Sàrl ¦ Bory Factory ¦ 079 624 18 61 * ¦ un chauffagiste ¦ Rovray ¦ devis ¦ mois ¦ search.ch
+Genoud Paysage Sàrl ¦ Genoud Paysage ¦ 079 662 99 43 ¦ un paysagiste ¦ Gletterens ¦ devis ¦ mois ¦ search.ch
+Auto B Sàrl ¦ Auto B ¦ 078 917 06 08 * ¦ un garage ¦ Yverdon-les-Bains ¦ rdv ¦ mois ¦ search.ch
+Milor Entreprise Sàrl ¦ Milor Entreprise ¦ 076 828 95 98 ¦ une entreprise du bâtiment ¦ Chavornay ¦ devis ¦ mois ¦ search.ch
+Parata Peinture SNC ¦ Parata Peinture ¦ 076 584 48 28 ¦ un peintre ¦ Renens ¦ devis ¦ mois ¦ search.ch
+ADONIS Autos Sàrl ¦ ADONIS Autos ¦ 079 911 34 53 ¦ un garage ¦ Cheseaux-sur-Lausanne ¦ rdv ¦ mois ¦ search.ch
+Stéphane Mignot, Etanchéité piscine ¦ Stéphane Mignot Étanchéité Piscine ¦ 077 284 60 41 * ¦ un spécialiste de l'étanchéité de piscine ¦ Penthaz ¦ devis ¦ mois ¦ search.ch
+COCH Peinture Sàrl ¦ COCH Peinture ¦ 079 393 81 24 ¦ un peintre ¦ Bussigny ¦ devis ¦ mois ¦ search.ch
+BS BAT Sàrl ¦ BS BAT ¦ 078 611 49 46 ¦ un plâtrier-peintre ¦ Lausanne ¦ devis ¦ mois ¦ search.ch
+Mooser Stores ¦ Mooser Stores ¦ 076 211 16 35 * ¦ un spécialiste des stores ¦ Posieux ¦ devis ¦ mois ¦ search.ch
+A Toiture Sàrl ¦ A Toiture ¦ 079 265 79 37 ¦ un couvreur ¦ Cheseaux-sur-Lausanne ¦ devis ¦ mois ¦ search.ch
+Blen. Salihi ¦ Blen. Salihi ¦ 078 240 70 81 ¦ un installateur sanitaire et chauffage ¦ Lucens ¦ devis ¦ mois ¦ search.ch
+da Silva Gonçalves Peinture ¦ da Silva Gonçalves Peinture ¦ 076 703 04 24 ¦ un peintre ¦ Villars-sur-Glâne ¦ devis ¦ mois ¦ search.ch
+Moret Construction Bois Sàrl ¦ Moret Construction Bois ¦ 079 735 65 51 ¦ un charpentier ¦ Granges-près-Marnand ¦ devis ¦ mois ¦ search.ch
+Sols Confort, Correia Alves ¦ Sols Confort ¦ 076 339 93 77 ¦ un poseur de sols ¦ Ecublens ¦ devis ¦ mois ¦ search.ch
+Vitaliy Kondratyuk - Travaux de montage et d'entretien intérieur ¦ Vitaliy Kondratyuk ¦ 076 240 60 01 ¦ quelqu'un pour monter une cuisine ou poser un sol ¦ Marly ¦ devis ¦ mois ¦ search.ch
+Meulien menuiserie ¦ Meulien menuiserie ¦ 078 230 08 73 ¦ un menuisier ¦ Essertes ¦ devis ¦ mois ¦ search.ch
+Les S garage - titulaire Sandoz-Gendre ¦ Les S garage ¦ 078 215 18 15 ¦ un spécialiste du covering auto ¦ Le Bry ¦ rdv ¦ mois ¦ search.ch
+FMOTA Sàrl ¦ FMota ¦ 079 621 13 32 ¦ un paysagiste ¦ Renens ¦ devis ¦ mois ¦ search.ch
+Millius Construction Sàrl ¦ Millius Construction ¦ 076 217 51 77 * ¦ une entreprise de construction ¦ Yverdon-les-Bains ¦ devis ¦ mois ¦ search.ch
+DON-isol Sàrl ¦ DON-isol ¦ 076 744 48 13 ¦ un spécialiste de l'isolation ¦ Bulle ¦ devis ¦ mois ¦ search.ch
+N. Barbaro Sàrl ¦ N. Barbaro ¦ 079 947 56 61 ¦ un spécialiste de l'étanchéité ¦ Bussigny ¦ devis ¦ mois ¦ search.ch
+Menuiserie Yanza Cabrera ¦ Menuiserie Yanza Cabrera ¦ 079 958 74 71 ¦ un menuisier ¦ Chavannes-près-Renens ¦ devis ¦ mois ¦ search.ch
+AgoInTech Sàrl ¦ AgoInTech ¦ 079 952 55 56 ¦ un installateur sanitaire ¦ Bex ¦ devis ¦ mois ¦ search.ch
+Schwab ¦ Schwab ¦ 079 510 31 33 ¦ un menuisier-charpentier ¦ Yvorne ¦ devis ¦ mois ¦ search.ch
+Electrolive Dafflon et associés snc ¦ Electrolive ¦ 079 878 13 91 * ¦ un électricien ¦ Marly ¦ devis ¦ mois ¦ search.ch
+Tubeau Service Sàrl ¦ Tubeau Service ¦ 076 404 01 17 * ¦ une entreprise de conduites d'eau ¦ Châtel-St-Denis ¦ devis ¦ mois ¦ search.ch
+
+# Lot 2 du 22.10.2026 — inscrits oct. 2025-fév. 2026 et juin-juil. 2026 (70 vérifiés : 34 gardés, 36 avec site)
+ARIA GROUP SARL ¦ ARIA GROUP ¦ 076 841 39 29 ¦ une entreprise de construction ¦ Bière ¦ devis ¦ mois ¦ search.ch (locabilis.ch = annuaire, pas leur site)
+Petrov Prestige 21 carrelage ¦ Petrov Prestige 21 ¦ 076 220 75 62 ¦ un carreleur ¦ Yverdon-les-Bains ¦ devis ¦ mois ¦ search.ch
+M&B Ademi Sàrl ¦ M&B Ademi ¦ 079 322 36 50 ¦ un plâtrier-peintre ¦ Ecublens ¦ devis ¦ mois ¦ search.ch
+Devis Design Sàrl ¦ Devis Design ¦ 078 259 07 07 ¦ un monteur de cuisines ¦ Yverdon-les-Bains ¦ devis ¦ mois ¦ search.ch
+Guhl Bâtiment Sàrl ¦ Guhl Bâtiment ¦ 079 416 98 58 ¦ une entreprise de rénovation ¦ Granges ¦ devis ¦ mois ¦ search.ch
+MORINA PRO Sàrl ¦ MORINA PRO ¦ 076 738 83 00 ¦ un plâtrier-peintre ¦ Bussigny ¦ devis ¦ mois ¦ search.ch
+FMB Construction Sàrl ¦ FMB Construction ¦ 079 339 21 74 ¦ un chauffagiste ¦ Bulle ¦ devis ¦ mois ¦ search.ch
+VAUD PAYSAGE Sàrl ¦ VAUD PAYSAGE ¦ 079 219 02 76 ¦ un paysagiste ¦ Arzier-Le Muids ¦ devis ¦ mois ¦ search.ch
+wena.G Constructions et Rénovations Sàrl ¦ wena.G Constructions et Rénovations ¦ 079 966 20 88 ¦ une entreprise de rénovation ¦ Vevey ¦ devis ¦ mois ¦ search.ch
+Tor construction & rénovation Sàrl ¦ Tor construction & rénovation ¦ 078 336 01 34 * ¦ une entreprise de rénovation ¦ Fribourg ¦ devis ¦ mois ¦ search.ch
+Wood Alliance Sàrl ¦ Wood Alliance ¦ 077 500 32 74 ¦ un menuisier ¦ Yvonand ¦ devis ¦ mois ¦ search.ch
+Perez Jesus ¦ Jesus Perez ¦ 079 449 15 03 ¦ une entreprise de rénovation ¦ Echallens ¦ devis ¦ mois ¦ search.ch
+Allamand Menuiserie ¦ Allamand Menuiserie ¦ 079 397 57 85 ¦ un menuisier ¦ Aigle ¦ devis ¦ mois ¦ search.ch
+The Greenway SARL ¦ The Greenway ¦ 079 616 15 30 ¦ un jardinier ¦ Grens ¦ devis ¦ mois ¦ search.ch
+J. Ramos Afonso ¦ J. Ramos Afonso ¦ 079 785 21 64 ¦ un électricien ¦ Romont ¦ devis ¦ mois ¦ search.ch
+Pedro Pessoa Carvalheiro ¦ Pedro Pessoa Carvalheiro ¦ 076 708 30 28 ¦ un paysagiste ¦ Savigny ¦ devis ¦ mois ¦ search.ch
+Garage Carrosserie Leon Sàrl ¦ Garage Carrosserie Leon ¦ 078 258 40 35 ¦ un garage ¦ Morges ¦ rdv ¦ mois ¦ search.ch
+D & K Pro Sàrl ¦ D & K Pro ¦ 077 453 08 88 * ¦ un spécialiste de l'étanchéité et des sols ¦ Bulle ¦ devis ¦ mois ¦ search.ch
+N.N SANITAIRE Najdovski ¦ N.N Sanitaire ¦ 078 675 91 25 ¦ un installateur sanitaire ¦ Bossonnens ¦ devis ¦ mois ¦ search.ch
+SWISS SERVICE HOME CHABAN ¦ Swiss Service Home ¦ 078 611 66 55 ¦ un déménageur ¦ Marly ¦ devis ¦ mois ¦ search.ch
+ACR Construction Sàrl ¦ ACR Construction ¦ 078 947 79 13 ¦ un maçon ¦ Domdidier ¦ devis ¦ mois ¦ search.ch
+MK Carrelage Sàrl ¦ MK Carrelage ¦ 079 901 33 01 ¦ un carreleur ¦ Aigle ¦ devis ¦ mois ¦ search.ch
+Oscar Façades Sàrl ¦ Oscar Façades ¦ 079 942 20 51 * ¦ un façadier ¦ Corcelles-près-Payerne ¦ devis ¦ mois ¦ search.ch
+OLI Sanitaire Sàrl ¦ OLI Sanitaire ¦ 078 675 25 86 * ¦ un installateur sanitaire ¦ Courtaman ¦ devis ¦ mois ¦ search.ch
+DSA Rénovation Sàrl ¦ DSA Rénovation ¦ 079 728 96 39 ¦ une entreprise de rénovation ¦ Renens ¦ devis ¦ mois ¦ search.ch
+DC.CIS Romandie - Daniel Cordero Marrero Concept et Installations Sanitaires - Romandie ¦ DC.CIS Romandie ¦ 078 850 64 34 ¦ un installateur sanitaire ¦ Fribourg ¦ devis ¦ mois ¦ search.ch
+SAHITI Carrelage Sàrl ¦ SAHITI Carrelage ¦ 078 827 11 97 ¦ un carreleur ¦ Nyon ¦ devis ¦ mois ¦ search.ch
+La Ligne du Bois Sàrl ¦ La Ligne du Bois ¦ 079 958 78 21 * ¦ un menuisier ¦ Vucherens ¦ devis ¦ mois ¦ search.ch
+Menuiserie Stéphane Currat Sàrl ¦ Menuiserie Stéphane Currat ¦ 079 508 58 65 * ¦ un menuisier ¦ Bulle ¦ devis ¦ mois ¦ search.ch
+LM Général Sàrl ¦ LM Général ¦ 079 925 96 90 ¦ un carreleur-peintre ¦ Neyruz ¦ devis ¦ mois ¦ search.ch
+Morina ML Sàrl ¦ Morina ML ¦ 078 647 11 07 * ¦ un plâtrier-peintre ¦ Romont ¦ devis ¦ mois ¦ search.ch
+Cuénet Aménagements ¦ Cuénet Aménagements ¦ 079 575 48 16 ¦ un paysagiste ¦ Brent ¦ devis ¦ mois ¦ search.ch
+SSP Systems SARL ¦ SSP Systems ¦ 079 760 72 13 ¦ un installateur de portes automatiques ¦ St-Prex ¦ devis ¦ mois ¦ search.ch
+Lumi-Bois Straesslé ¦ Lumi-Bois ¦ 078 622 83 01 ¦ un menuisier-charpentier ¦ Villars-le-Terroir ¦ devis ¦ mois ¦ search.ch
+Menuiserie Michel Ruchti Sàrl ¦ Menuiserie Michel Ruchti ¦ 079 637 12 86 * ¦ un menuisier ¦ Dompierre ¦ devis ¦ mois ¦ search.ch
+
+# Lot 3 du 22.10.2026 — inscrits oct. 2024-oct. 2025 (121 vérifiés : 56 gardés, 65 avec site ou doute)
+RenoSwiss SA ¦ RenoSwiss ¦ 079 817 54 30 ¦ une entreprise du bâtiment ¦ Chavannes-près-Renens ¦ devis ¦ 2025 ¦ search.ch
+S.CANTIN SARL ¦ S.Cantin ¦ 079 792 88 10 ¦ un carreleur ¦ Belfaux ¦ devis ¦ 2025 ¦ search.ch
+JARDIN en liberté Sàrl ¦ JARDIN en liberté ¦ 079 518 18 53 * ¦ un jardinier ¦ Granges-près-Marnand ¦ devis ¦ 2025 ¦ search.ch
+H-M. Paysagiste Sàrl ¦ H-M. Paysagiste ¦ 076 811 39 48 * ¦ un paysagiste ¦ Epalinges ¦ devis ¦ 2025 ¦ search.ch
+Alpha Pazira Sàrl ¦ Alpha Pazira ¦ 079 229 16 23 ¦ un spécialiste des sols en résine ¦ Echandens ¦ devis ¦ 2025 ¦ search.ch
+Edin Jardin SNC ¦ Edin Jardin ¦ 079 811 86 10 ¦ un paysagiste ¦ Nyon ¦ devis ¦ 2025 ¦ search.ch
+Rotzetter Plâtrerie Peinture ¦ Rotzetter Plâtrerie Peinture ¦ 078 815 11 46 ¦ un plâtrier-peintre ¦ Savigny ¦ devis ¦ 2025 ¦ search.ch
+NovaStore Duric ¦ NovaStore ¦ 076 441 40 52 ¦ un spécialiste des stores ¦ Crissier ¦ devis ¦ 2025 ¦ search.ch
+Pinto Sols Sàrl ¦ Pinto Sols ¦ 079 607 76 37 ¦ un poseur de sols ¦ Prilly ¦ devis ¦ 2025 ¦ search.ch
+Marques Batista entreprise générale ¦ Marques Batista ¦ 079 313 81 97 * ¦ une entreprise du bâtiment ¦ Suchy ¦ devis ¦ 2025 ¦ search.ch
+Rui Teixeira Ribeiro Jardinier & Paysagiste ¦ Rui Teixeira Ribeiro Jardinier & Paysagiste ¦ 076 672 37 16 ¦ un paysagiste ¦ Denges ¦ devis ¦ 2025 ¦ search.ch
+GL Peinture Sàrl ¦ GL Peinture ¦ 079 200 75 10 ¦ un peintre ¦ Lausanne ¦ devis ¦ 2025 ¦ search.ch
+IZIBAT Sàrl ¦ IZIBAT ¦ 079 423 30 48 ¦ une entreprise de second œuvre ¦ Echallens ¦ devis ¦ 2025 ¦ search.ch
+AK METALLIX Sàrl ¦ AK Metallix ¦ 078 697 30 06 ¦ un constructeur métallique ¦ Lausanne ¦ devis ¦ 2025 ¦ search.ch
+AS Rénove Osório da Silva ¦ AS Rénove ¦ 076 343 45 41 ¦ un couvreur ¦ Yverdon-les-Bains ¦ devis ¦ 2025 ¦ search.ch
+HB Pierre Naturelle Sàrl ¦ HB Pierre Naturelle ¦ 079 170 75 51 * ¦ un poseur de pierre naturelle ¦ Corsier-sur-Vevey ¦ devis ¦ 2025 ¦ search.ch
+Place au soleil Madi ¦ Place au soleil ¦ 076 221 24 45 * ¦ un installateur de panneaux solaires ¦ Marly ¦ devis ¦ 2025 ¦ search.ch
+l'Atelier Joël Sàrl ¦ l'Atelier Joël ¦ 079 378 03 86 ¦ un menuisier-charpentier ¦ Genolier ¦ devis ¦ 2025 ¦ search.ch
+Alica Peinture Sàrl ¦ Alica Peinture ¦ 079 573 34 12 ¦ un peintre ¦ Fribourg ¦ devis ¦ 2025 ¦ search.ch
+Street Garage Ferrari ¦ Street Garage Ferrari ¦ 079 572 81 18 ¦ un garage ¦ Eclépens ¦ rdv ¦ 2025 ¦ search.ch
+Baudin Sanitaire & Chauffage Sàrl ¦ Baudin Sanitaire & Chauffage ¦ 079 703 76 77 * ¦ un installateur sanitaire et chauffage ¦ Treytorrens ¦ devis ¦ 2025 ¦ search.ch
+EcoTherm Energie SA ¦ EcoTherm Energie ¦ 076 501 76 13 ¦ un chauffagiste ¦ Avry-devant-Pont ¦ devis ¦ 2025 ¦ search.ch
+EG-Vitrerie&rénovation-N&G Sàrl ¦ EG-Vitrerie & rénovation ¦ 077 234 17 67 ¦ un vitrier ¦ Yverdon-les-Bains ¦ devis ¦ 2025 ¦ search.ch
+ART&CAR Esteves Robalo de Fernandes ¦ ART&CAR ¦ 079 248 43 70 ¦ un carrossier ¦ Villars-sous-Mont ¦ rdv ¦ 2025 ¦ search.ch
+V Services - Do Rosario Martins Gomes ¦ V Services ¦ 077 211 45 87 ¦ une entreprise de rénovation ¦ Riaz ¦ devis ¦ 2025 ¦ search.ch
+R PAYSAGE Sàrl ¦ R Paysage ¦ 079 961 05 21 ¦ un paysagiste ¦ Yverdon-les-Bains ¦ devis ¦ 2025 ¦ search.ch
+T&K Gestion et rénovation immobilière Sàrl ¦ T&K Gestion et rénovation ¦ 079 248 10 64 ¦ une entreprise de rénovation ¦ Granges-de-Vesin ¦ devis ¦ 2025 ¦ search.ch
+CSC rénov Sàrl ¦ CSC rénov ¦ 078 315 38 71 * ¦ une entreprise de rénovation ¦ Chanéaz ¦ devis ¦ 2025 ¦ search.ch
+ABC Etanchéité Sàrl ¦ ABC Etanchéité ¦ 078 646 52 00 ¦ un spécialiste de l'étanchéité ¦ Lausanne ¦ devis ¦ 2025 ¦ search.ch
+Paysagisme et Nettoyages dos Santos Moura ¦ Paysagisme et Nettoyages dos Santos Moura ¦ 077 991 39 28 ¦ un paysagiste ¦ Morges ¦ devis ¦ 2025 ¦ search.ch
+Proporte montage Luzha ¦ Proporte ¦ 079 840 22 61 ¦ un installateur de portes de garage ¦ St-Aubin ¦ devis ¦ 2025 ¦ search.ch
+GABE Sàrl ¦ GABE ¦ 079 904 23 01 ¦ une entreprise de rénovation ¦ Lausanne ¦ devis ¦ 2025 ¦ search.ch
+3F Metal Sylaj ¦ 3F Metal ¦ 077 942 56 63 ¦ un constructeur métallique ¦ Begnins ¦ devis ¦ 2025 ¦ search.ch
+Arc-Elec Sàrl ¦ Arc-Elec ¦ 079 779 63 83 * ¦ un électricien ¦ Villeneuve ¦ devis ¦ 2025 ¦ search.ch
+Métropole Group Sàrl ¦ Métropole Group ¦ 079 825 63 20 ¦ une entreprise de construction ¦ Lausanne ¦ devis ¦ 2025 ¦ search.ch
+ELI Rénovation Sàrl ¦ ELI Rénovation ¦ 079 305 42 46 * ¦ une entreprise de rénovation ¦ Aigle ¦ devis ¦ 2025 ¦ search.ch
+Sanitaire & Chauffage, de Almeida Alves Dias ¦ Almeida A. ¦ 079 244 35 36 ¦ un carreleur ¦ Bex ¦ devis ¦ 2025 ¦ search.ch
+V.MAYOR-Services ¦ V.Mayor-Services ¦ 078 838 41 81 ¦ un paysagiste-bûcheron ¦ Arveyes ¦ devis ¦ 2025 ¦ search.ch
+Damien Dormond, plâtrier peintre ¦ Damien Dormond ¦ 077 469 05 40 ¦ un plâtrier-peintre ¦ Bex ¦ devis ¦ 2025 ¦ search.ch
+KBF Peinture Sàrl ¦ KBF Peinture ¦ 078 724 55 22 ¦ un peintre ¦ Vevey ¦ devis ¦ 2025 ¦ search.ch
+RénoPose N. Bleta ¦ RénoPose ¦ 076 221 97 45 ¦ un poseur de parquets et carrelage ¦ Rolle ¦ devis ¦ 2025 ¦ search.ch
+Hyda concept SA ¦ Hyda concept ¦ 079 946 83 61 ¦ un chauffagiste ¦ Bulle ¦ devis ¦ 2025 ¦ search.ch
+Express Serrurerie Service NITHIYBAWANANTHAM ¦ Express Serrurerie Service ¦ 077 204 86 49 * ¦ un serrurier ¦ Yverdon-les-Bains ¦ devis ¦ 2024 ¦ search.ch
+D R Group Construction Sàrl ¦ D R Group Construction ¦ 078 304 02 70 * ¦ une entreprise de construction ¦ Fribourg ¦ devis ¦ 2024 ¦ search.ch
+Aquaneo Sàrl ¦ Aquaneo ¦ 079 596 44 44 ¦ un installateur sanitaire et chauffage ¦ Corsier-sur-Vevey ¦ devis ¦ 2024 ¦ search.ch
+URGENCE SOS SANITAIRE RUSSO ¦ Urgence SOS Sanitaire ¦ 076 773 59 14 ¦ un sanitaire ¦ Lausanne ¦ devis ¦ 2024 ¦ search.ch
+Dupasquier Terrassement Sàrl ¦ Dupasquier Terrassement ¦ 079 271 63 87 * ¦ une entreprise de terrassement ¦ Oppens ¦ devis ¦ 2024 ¦ search.ch
+Jz agencement & Co Sàrl ¦ Jz agencement & Co ¦ 079 792 40 00 ¦ une entreprise du bâtiment ¦ Fribourg ¦ devis ¦ 2024 ¦ search.ch
+TORRIONE, entreprise générale du bâtiment ¦ Torrione ¦ 078 349 42 00 ¦ une entreprise générale du bâtiment ¦ Nyon ¦ devis ¦ 2024 ¦ search.ch
+Ferreira Paysage, titulaire De Sousa Ferreira Daniel Jorge ¦ Ferreira Paysage ¦ 078 839 29 58 ¦ un paysagiste ¦ Corminboeuf ¦ devis ¦ 2024 ¦ search.ch
+Conus services ¦ Conus services ¦ 076 571 66 29 * ¦ une entreprise d'entretien de bâtiment ¦ Vuadens ¦ devis ¦ 2024 ¦ search.ch
+D. Salija monteur électricien ¦ D. Salija ¦ 079 602 98 28 * ¦ un électricien ¦ Bulle ¦ devis ¦ 2024 ¦ search.ch
+FAB Paysagiste (Fabien Magnenat) ¦ FAB Paysagiste ¦ 079 650 10 20 * ¦ un paysagiste ¦ Sullens ¦ devis ¦ 2024 ¦ search.ch
+Art&Bois Fabien Wasser Sàrl ¦ Art&Bois ¦ 079 359 75 42 ¦ un menuisier-ébéniste ¦ Gimel ¦ devis ¦ 2024 ¦ search.ch
+BUILD-IT, KAYGISIZ ¦ BUILD-IT ¦ 078 341 54 41 ¦ une entreprise de construction ¦ Rolle ¦ devis ¦ 2024 ¦ search.ch
+ADP Peinture Sàrl ¦ ADP Peinture ¦ 076 409 19 95 * ¦ un plâtrier-peintre ¦ Crissier ¦ devis ¦ 2024 ¦ search.ch

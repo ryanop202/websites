@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wibzo Escalier v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --violet:#8b7bff; --red:#ff6b78; --text:#ecebf5; --muted:#8a8ca3; }
+  html,body{margin:0;height:100%;background:#05050a;overflow:hidden;font-family:Inter,system-ui,sans-serif}
+  body{display:flex;align-items:center;justify-content:center}
+  #stage{width:1080px;height:1920px;position:relative;background:#11121b;overflow:hidden;transform-origin:center center;flex:none}
+  svg{position:absolute;inset:0;width:100%;height:100%}
+  #grain{position:absolute;inset:-50px;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>")}
+  #subs{position:absolute;left:70px;right:70px;top:1420px;text-align:center;color:#fff;font-size:56px;font-weight:600;line-height:1.25;letter-spacing:-.01em;text-shadow:0 4px 24px rgba(0,0,0,.6)}
+  #subs span{display:inline-block;margin:0 .13em;transition:none}
+  #subs .v{color:var(--violet)}
+  #hint{position:fixed;bottom:12px;left:0;right:0;text-align:center;color:#6b6d82;font:13px Inter,sans-serif}
+</style>
+</head>
+<body>
+<div id="stage">
+<svg viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1c1e2f"/><stop offset="1" stop-color="#131420"/>
+    </linearGradient>
+    <linearGradient id="dado" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#171827"/><stop offset="1" stop-color="#10111a"/>
+    </linearGradient>
+    <linearGradient id="stairBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#202235"/><stop offset=".5" stop-color="#151624"/><stop offset="1" stop-color="#0c0d15"/>
+    </linearGradient>
+    <linearGradient id="cone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd98a" stop-opacity=".30"/>
+      <stop offset=".6" stop-color="#ffd98a" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#ffd98a" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="pool" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffd98a" stop-opacity=".22"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="halo" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#fff1c9" stop-opacity=".9"/><stop offset=".25" stop-color="#ffd98a" stop-opacity=".35"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="shaft" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9fb2ff" stop-opacity=".13"/><stop offset="1" stop-color="#9fb2ff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="winGlass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4a5690"/><stop offset="1" stop-color="#262c52"/>
+    </linearGradient>
+    <linearGradient id="hoodie" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3a3f5a"/><stop offset=".65" stop-color="#555c7d"/><stop offset="1" stop-color="#6a7296"/>
+    </linearGradient>
+    <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e2b68e"/><stop offset="1" stop-color="#b98863"/>
+    </linearGradient>
+    <linearGradient id="sofaG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9a8fc2"/><stop offset="1" stop-color="#5f5584"/>
+    </linearGradient>
+    <linearGradient id="sofaBack" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7d72a6"/><stop offset="1" stop-color="#4f4672"/>
+    </linearGradient>
+    <radialGradient id="vignette" cx=".5" cy=".45" r=".75">
+      <stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".65"/>
+    </radialGradient>
+    <radialGradient id="phoneGlow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#8b7bff" stop-opacity=".9"/><stop offset="1" stop-color="#8b7bff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur6"><feGaussianBlur stdDeviation="6"/></filter>
+    <filter id="blur18" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="18"/></filter>
+    <filter id="blur30" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="30"/></filter>
+    <filter id="cardShadow" x="-30%" y="-30%" width="160%" height="200%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000" flood-opacity=".5"/></filter>
+  </defs>
+
+  <g id="cam">
+    <!-- mur -->
+    <rect x="-1500" y="-1500" width="5000" height="5000" fill="url(#wall)"/>
+    <path id="dadoPath" fill="url(#dado)"/>
+    <path id="dadoLine" fill="none" stroke="#25283b" stroke-width="4"/>
+    <!-- fenêtre + rai de lumière froide -->
+    <g transform="translate(1290 -260)">
+      <rect x="-14" y="-14" width="248" height="548" rx="10" fill="#0f1019"/>
+      <rect width="220" height="520" rx="4" fill="url(#winGlass)"/>
+      <path d="M110 0 V520 M0 260 H220" stroke="#0f1019" stroke-width="12"/>
+      <rect x="-24" y="520" width="268" height="22" rx="6" fill="#23263a"/>
+    </g>
+    <path d="M1290 -260 L1510 -260 L900 1500 L-200 1500Z" fill="url(#shaft)"/>
+    <!-- main courante -->
+    <path id="rail" fill="none" stroke="#2f3350" stroke-width="12" stroke-linecap="round"/>
+    <g id="brackets" fill="#2a2d45"></g>
+    <!-- lampe -->
+    <g id="lamp" transform="translate(260 -120)">
+      <line x1="560" y1="-1200" x2="560" y2="200" stroke="#2b2e44" stroke-width="5"/>
+      <path d="M500 200 L620 200 L596 246 L524 246Z" fill="#2f3249"/>
+      <path d="M500 200 L620 200 L612 214 L508 214Z" fill="#3a3d58"/>
+      <circle cx="560" cy="252" r="160" fill="url(#halo)"/>
+      <ellipse cx="560" cy="248" rx="38" ry="9" fill="#fff1c9"/>
+      <path d="M524 250 L596 250 L1000 1420 L120 1420Z" fill="url(#cone)"/>
+      <ellipse cx="560" cy="1160" rx="460" ry="150" fill="url(#pool)"/>
+      <g id="dust" fill="#ffe6b0"></g>
+    </g>
+    <!-- escalier -->
+    <path id="stairs" fill="url(#stairBody)"/>
+    <g id="treads"></g>
+    <!-- ombre du déménageur -->
+    <ellipse id="shadow" rx="120" ry="16" fill="#000" opacity=".45" filter="url(#blur6)"/>
+
+    <!-- déménageur -->
+    <g id="man">
+      <path id="legFar" fill="none" stroke="#1d2030" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
+      <g id="shoeFar"><path d="M-24 -20 Q-24 -32 -10 -32 L26 -32 Q50 -30 54 -10 L54 0 L-24 0Z" fill="#2a2d40"/><rect x="-26" y="-8" width="82" height="10" rx="4" fill="#9a9cb0"/></g>
+      <g id="torso">
+        <!-- bras arrière -->
+        <path d="M-6 -198 Q-58 -196 -78 -232 Q-90 -262 -96 -282" fill="none" stroke="#323750" stroke-width="30" stroke-linecap="round"/>
+        <circle cx="-96" cy="-286" r="17" fill="#9c7444"/>
+        <!-- sweat -->
+        <path d="M-44 10 C-56 -60 -54 -150 -34 -205 Q-4 -236 34 -212 C52 -150 54 -60 44 10 Q0 22 -44 10Z" fill="url(#hoodie)"/>
+        <path d="M-44 10 Q0 24 44 10 L42 -6 Q0 6 -42 -6Z" fill="#30344b"/>
+        <path d="M-36 -206 Q-58 -190 -48 -160 Q-30 -176 -18 -214Z" fill="#454b69"/>
+        <!-- téléphone poche arrière -->
+        <g id="phone">
+          <circle id="pGlow" cx="-40" cy="20" r="70" fill="url(#phoneGlow)" opacity="0"/>
+          <path d="M-60 -2 L-30 -2 L-30 44 L-60 44Z" fill="#20233a"/>
+          <rect id="pScreen" x="-55" y="-14" width="22" height="38" rx="5" fill="#0b0c13" stroke="#8b7bff" stroke-width="2.5" transform="rotate(-8 -44 5)"/>
+          <g id="haptic" stroke="#a99dff" stroke-width="4" fill="none" stroke-linecap="round" opacity="0">
+            <path d="M-72 -6 Q-80 6 -72 18"/><path d="M-84 -14 Q-96 6 -84 26"/>
+          </g>
+        </g>
+        <!-- canapé -->
+        <g transform="translate(-30 -300) rotate(-34)">
+          <ellipse cx="0" cy="62" rx="230" ry="16" fill="#000" opacity=".25" filter="url(#blur6)"/>
+          <rect x="-178" y="46" width="14" height="22" rx="4" fill="#2c2740"/><rect x="164" y="46" width="14" height="22" rx="4" fill="#2c2740"/>
+          <rect x="-200" y="-74" width="400" height="76" rx="22" fill="url(#sofaBack)"/>
+          <rect x="-186" y="-64" width="182" height="64" rx="18" fill="#8d82b6"/><rect x="4" y="-64" width="182" height="64" rx="18" fill="#8d82b6"/>
+          <path d="M-186 -40 h182 M4 -40 h182" stroke="#a79dd0" stroke-width="3" opacity=".5"/>
+          <rect x="-200" y="-6" width="400" height="56" rx="14" fill="url(#sofaG)"/>
+          <line x1="0" y1="-2" x2="0" y2="46" stroke="#5a5080" stroke-width="4"/>
+          <rect x="-232" y="-40" width="52" height="98" rx="22" fill="#6c6294"/><rect x="180" y="-40" width="52" height="98" rx="22" fill="#6c6294"/>
+          <path d="M-224 -30 q18 -8 36 0" stroke="#8d82b6" stroke-width="4" fill="none"/><path d="M188 -30 q18 -8 36 0" stroke="#8d82b6" stroke-width="4" fill="none"/>
+        </g>
+        <!-- tête -->
+        <rect x="-2" y="-236" width="24" height="30" rx="8" fill="#b98863"/>
+        <circle cx="14" cy="-262" r="40" fill="url(#skin)"/>
+        <circle cx="2" cy="-258" r="9" fill="#c49470"/>
+        <path d="M-22 -268 Q-22 -306 16 -306 Q50 -304 54 -272 L54 -268Z" fill="#6d5df5"/>
+        <path d="M38 -272 L84 -266 Q86 -258 76 -258 L38 -262Z" fill="#5546d6"/>
+        <path d="M-24 -262 Q-26 -246 -14 -238" stroke="#2a2232" stroke-width="10" fill="none" stroke-linecap="round"/>
+      </g>
+      <path id="legNear" fill="none" stroke="#2b2f45" stroke-width="46" stroke-linecap="round" stroke-linejoin="round"/>
+      <g id="shoeNear"><path d="M-24 -20 Q-24 -32 -10 -32 L26 -32 Q50 -30 54 -10 L54 0 L-24 0Z" fill="#383c55"/><rect x="-26" y="-8" width="82" height="10" rx="4" fill="#e3e4ee"/></g>
+      <!-- bras avant -->
+      <path id="armNear" fill="none" stroke="#5f6689" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle id="gloveNear" r="18" fill="#c0904f"/>
+    </g>
+
+    <!-- pastilles (dans le monde) -->
+    <g id="pillIn" opacity="0" filter="url(#cardShadow)">
+      <rect x="0" y="0" width="330" height="92" rx="24" fill="#1b1d2c" stroke="#8b7bff" stroke-opacity=".55" stroke-width="2"/>
+      <circle cx="46" cy="46" r="24" fill="#6d5df5"/>
+      <path d="M37 38 q0 18 18 18 l5 -6 l-8 -5 l-4 3 q-6 -3 -8 -8 l3 -4 l-5 -8z" fill="#fff"/>
+      <text x="86" y="40" fill="#ecebf5" font-size="25" font-weight="700">Appel entrant</text>
+      <text x="86" y="70" fill="#8a8ca3" font-size="20" font-weight="500">Numéro inconnu</text>
+    </g>
+    <g id="pillMiss" opacity="0" filter="url(#cardShadow)">
+      <rect x="0" y="0" width="300" height="76" rx="38" fill="#1b1d2c" stroke="#ff6b78" stroke-opacity=".7" stroke-width="2"/>
+      <circle cx="40" cy="38" r="9" fill="#ff6b78"/>
+      <text x="62" y="47" fill="#ff6b78" font-size="26" font-weight="700">Appel manqué</text>
+    </g>
+  </g>
+
+  <rect width="1080" height="1920" fill="url(#vignette)"/>
+</svg>
+<div id="grain"></div>
+<div id="subs"></div>
+</div>
+<div id="hint">Scène 1 · version soignée · clic = pause / reprise · R = rejouer</div>
+
+<script>
+const stage = document.getElementById('stage');
+function fit(){ const s = Math.min(innerWidth/1080, (innerHeight-30)/1920); stage.style.transform = `scale(${s})`; }
+addEventListener('resize', fit); fit();
+const $ = id => document.getElementById(id);
+
+// ---------- géométrie de l'escalier ----------
+const RUN = 150, RISE = 82, Y0 = 1500;
+const stepY = k => Y0 - k*RISE;
+const noseY = x => Y0 - (x/RUN)*RISE;           // ligne des nez de marche
+(function buildStairs(){
+  let d = `M${-6*RUN} ${stepY(-6)+RISE} `;
+  let treads = '';
+  for (let k=-6; k<=16; k++){
+    const x = k*RUN, y = stepY(k);
+    d += `L${x} ${y+RISE} L${x} ${y} L${x+RUN} ${y} `;
+    treads += `<rect x="${x-4}" y="${y-3}" width="${RUN+4}" height="10" rx="3" fill="#2c2f47"/>`
+            +  `<rect x="${x}" y="${y+7}" width="${RUN}" height="10" fill="#0d0e16" opacity=".55"/>`;
+  }
+  d += `L${17*RUN} 4000 L${-6*RUN} 4000Z`;
+  $('stairs').setAttribute('d', d);
+  $('treads').innerHTML = treads;
+  const xa = -1200, xb = 3000;
+  $('dadoLine').setAttribute('d', `M${xa} ${noseY(xa)-330} L${xb} ${noseY(xb)-330}`);
+  $('dadoPath').setAttribute('d', `M${xa} ${noseY(xa)-330} L${xb} ${noseY(xb)-330} L${xb} 4000 L${xa} 4000Z`);
+  $('rail').setAttribute('d', `M${xa} ${noseY(xa)-250} L${xb} ${noseY(xb)-250}`);
+  let br = '';
+  for (let x=-900; x<2800; x+=420) br += `<rect x="${x-6}" y="${noseY(x)-250}" width="12" height="34" rx="3"/>`;
+  $('brackets').innerHTML = br;
+  // poussière dans le cône
+  let dust = '';
+  for (let i=0;i<34;i++) dust += `<circle r="${(1.5+((i*7)%5)*.6).toFixed(1)}"/>`;
+  $('dust').innerHTML = dust;
+})();
+
+// ---------- outils ----------
+const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+const lerp = (a,b,t) => a + (b-a)*t;
+const smooth = t => t*t*(3-2*t);
+const win = (t,a,b) => clamp((t-a)/(b-a), 0, 1);
+function ik(hx, hy, fx, fy, a, b){
+  let dx = fx-hx, dy = fy-hy, d = Math.hypot(dx,dy);
+  const dc = clamp(d, 1, a+b-1), th = Math.atan2(dy,dx);
+  const al = Math.acos(clamp((a*a + dc*dc - b*b)/(2*a*dc), -1, 1));
+  const k1 = [hx + a*Math.cos(th-al), hy + a*Math.sin(th-al)];
+  const k2 = [hx + a*Math.cos(th+al), hy + a*Math.sin(th+al)];
+  const knee = k1[0] > k2[0] ? k1 : k2;          // genou vers l'avant
+  return { knee, ankle: [hx + dc*Math.cos(th), hy + dc*Math.sin(th)] };
+}
+const foot = k => [k*RUN + 80, stepY(k)];
+
+// ---------- sous-titres ----------
+const LINES = [
+  {a:.35, b:3.05, d:2.0, text:'Ce déménageur vient de perdre un *gros* *client.*'},
+  {a:3.15, b:6.4, d:1.4, text:'Et il ne le sait même pas.'},
+];
+let curLine = -1;
+function subs(t){
+  const i = LINES.findIndex(l => t >= l.a && t < l.b);
+  const el = $('subs');
+  if (i !== curLine){
+    curLine = i;
+    el.innerHTML = i < 0 ? '' : LINES[i].text.split(' ').map(w => w.startsWith('*') ? `<span class="v">${w.replace(/\*/g,'')}</span>` : `<span>${w}</span>`).join(' ');
+  }
+  if (i >= 0){
+    const L = LINES[i], spans = el.children, n = spans.length;
+    for (let j=0;j<n;j++){
+      const r = clamp((t - L.a - j*L.d/n)/0.14, 0, 1);
+      spans[j].style.opacity = (0.18 + .82*r).toFixed(3);
+      spans[j].style.transform = `translateY(${(1-r)*10}px)`;
+    }
+  }
+}
+
+function phoneAt(t){
+  const p = 3 + 0.6*t, f = p - Math.floor(p);
+  const hip = [p*RUN + 15, stepY(p) - 130 - 9*Math.sin(Math.PI*f)];
+  const r = (11 + 2*Math.sin(2*Math.PI*f))*Math.PI/180;
+  return [hip[0] + -44*Math.cos(r) - 6*Math.sin(r), hip[1] + -44*Math.sin(r) + 6*Math.cos(r)];
+}
+// ---------- rendu d'une image au temps t ----------
+const DUR = 6.4;
+let ringPhone = [0,0];
+function render(t){
+  // montée : ~0.6 marche / seconde, lourd
+  const p = 3 + 0.6*t, n = Math.floor(p), f = p - n;
+  const bob = 9*Math.sin(Math.PI*f);
+  const hip = [p*RUN + 15, stepY(p) - 130 - bob];
+  const lean = 11 + 2*Math.sin(2*Math.PI*f);
+
+  // pieds : la parité de la marche décide quel pied est posé
+  const e = smooth(win(f, .12, .88));
+  const planted = foot(n);
+  const from = foot(n-1), to = foot(n+1);
+  const moving = [lerp(from[0], to[0], e), lerp(from[1], to[1], e) - 74*Math.sin(Math.PI*e)];
+  const nearIsPlanted = n % 2 === 0;
+  const fNear = nearIsPlanted ? planted : moving, fFar = nearIsPlanted ? moving : planted;
+
+  function leg(id, shoeId, fp){
+    const r = ik(hip[0], hip[1], fp[0], fp[1]-26, 122, 122);
+    $(id).setAttribute('d', `M${hip[0]} ${hip[1]} L${r.knee[0]} ${r.knee[1]} L${r.ankle[0]} ${r.ankle[1]}`);
+    const lift = fp === moving ? Math.sin(Math.PI*e)*-10 : 0;
+    $(shoeId).setAttribute('transform', `translate(${r.ankle[0]-8} ${r.ankle[1]+26}) rotate(${lift})`);
+  }
+  leg('legFar', 'shoeFar', fFar);
+  leg('legNear', 'shoeNear', fNear);
+
+  $('torso').setAttribute('transform', `translate(${hip[0]} ${hip[1]}) rotate(${lean})`);
+  // bras avant (repère du torse -> monde)
+  const rad = lean*Math.PI/180, c = Math.cos(rad), s = Math.sin(rad);
+  const W = (x,y) => [hip[0] + x*c - y*s, hip[1] + x*s + y*c];
+  const sh = W(14,-196), el = W(62,-160), ha = W(66,-246);
+  $('armNear').setAttribute('d', `M${sh[0]} ${sh[1]} L${el[0]} ${el[1]} L${ha[0]} ${ha[1]}`);
+  $('gloveNear').setAttribute('cx', ha[0]); $('gloveNear').setAttribute('cy', ha[1]);
+  $('shadow').setAttribute('cx', (fNear[0]+fFar[0])/2 + 10); $('shadow').setAttribute('cy', Math.max(fNear[1], fFar[1]) - 2);
+
+  // téléphone qui vibre
+  const vib = t > .45 && t < 3.0;
+  const shake = vib ? Math.sin(t*90)*2.2 : 0;
+  $('phone').setAttribute('transform', `translate(${shake} 0)`);
+  $('pGlow').setAttribute('opacity', vib ? (.55 + .35*Math.sin(t*12)).toFixed(2) : Math.max(0, .55*(1 - (t-3.0)/.4)).toFixed(2));
+  $('haptic').setAttribute('opacity', vib ? (.5 + .5*Math.sin(t*14)).toFixed(2) : 0);
+  const ph = W(-44, 6);
+
+  // pastille « appel entrant » qui suit, puis « appel manqué » qui reste derrière
+  const inA = win(t, .55, .85) * (1 - win(t, 2.75, 2.95));
+  $('pillIn').setAttribute('opacity', inA.toFixed(2));
+  $('pillIn').setAttribute('transform', `translate(${ph[0]-400} ${ph[1]-60 + (1-win(t,.55,.85))*16})`);
+  if (t < 2.95) ringPhone = ph; else ringPhone = phoneAt(2.95);
+  const missA = win(t, 2.95, 3.25);
+  $('pillMiss').setAttribute('opacity', missA.toFixed(2));
+  $('pillMiss').setAttribute('transform', `translate(${ringPhone[0]-370} ${ringPhone[1]-40}) scale(${(.85 + .15*smooth(missA)).toFixed(3)})`);
+
+  // poussière
+  const dust = $('dust').children;
+  for (let i=0;i<dust.length;i++){
+    const sx = 330 + ((i*97) % 460), base = 520 + ((i*173) % 820);
+    const y = base - ((t*14 + i*23) % 120), x = sx + 10*Math.sin(t*.8 + i);
+    dust[i].setAttribute('cx', x.toFixed(1)); dust[i].setAttribute('cy', y.toFixed(1));
+    dust[i].setAttribute('opacity', (.15 + .35*Math.abs(Math.sin(t*.9 + i*1.7))).toFixed(2));
+  }
+
+  // caméra : suit le déménageur avec un léger travelling avant
+  const z = 1.0 + 0.06*smooth(clamp(t/DUR,0,1));
+  const fx = hip[0] + 40, fy = hip[1] - 150;
+  $('cam').setAttribute('transform', `translate(540 860) scale(${z.toFixed(4)}) translate(${-fx} ${-fy})`);
+  $('grain').style.backgroundPosition = `${(t*997)%240}px ${(t*631)%240}px`;
+  subs(t);
+}
+
+// ---------- lecture ----------
+const STILL = new URLSearchParams(location.search).get('t');
+let t0 = performance.now(), paused = false, pauseAt = 0;
+function loop(now){
+  if (!paused){ const t = ((now - t0)/1000) % (DUR + .8); render(Math.min(t, DUR)); }
+  requestAnimationFrame(loop);
+}
+if (STILL !== null){ render(+STILL); $('hint').remove(); }
+else requestAnimationFrame(loop);
+window.renderAt = render;   // pour l'export image par image
+stage.addEventListener('click', () => { paused = !paused; if (paused) pauseAt = performance.now(); else t0 += performance.now() - pauseAt; });
+addEventListener('keydown', e => { if (e.key.toLowerCase()==='r') { t0 = performance.now(); paused = false; } });
+</script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 # Sirbatec SA — réponse + offre configurateur (version finale du 29.10.2026, PAS envoyée)
 
-Réponse au mail de Mathias Ruffieux (administrateur) du 29.10.2026 à 08:49, qui demandait un RDV mi-novembre. Ryan ne fait ni RDV ni appel : tout par e-mail, réponse et offre dans un seul mail.
+Réponse au mail de Mathias Ruffieux (administrateur) du 29.10.2026 à 08:49, qui demandait un RDV mi-novembre. Ryan ne fait ni RDV ni appel. Première réponse (tout par e-mail, installation simple, offre annoncée) **déjà envoyée par Ryan le 29.10.2026** : ce mail-ci contient seulement l'offre.
 Prix choisis par Ryan : **mise en place 1 200 CHF** ; abonnement **59 CHF/mois** (proposé par Claude, gardé par Ryan).
 Conditions proposées par Claude (à valider par Ryan avant l'envoi) : abonnement facturé une fois par an à l'avance (708 CHF), résiliable pour la fin de chaque année ; facture de mise en place à la mise en ligne, payable à 30 jours ; délai ~1 semaine après réception des infos.
 Repères marché (29.10.2026) : SaleSqueze ~499 $/mois ; Combeenation ~697 €/mois + mise en place (non confirmé). Site Sirbatec fait par Agence Audace (Estavayer), WordPress + Elementor.
@@ -12,9 +12,7 @@ Repères marché (29.10.2026) : SaleSqueze ~499 $/mois ; Combeenation ~697 €/m
 
 Bonjour Monsieur Ruffieux,
 
-Merci beaucoup pour votre retour, je suis content que le configurateur vous intéresse.
-
-Je travaille uniquement par e-mail : cela me permet de vous répondre rapidement et de garder une trace écrite de tout. Pas besoin d'attendre la mi-novembre, voici directement mon offre.
+Comme promis, voici mon offre pour intégrer le configurateur 3D sur votre site.
 
 Ce qui est compris :
 - Le configurateur à vos couleurs, avec vos options et vos prix
@@ -27,7 +25,7 @@ Prix :
 
 Paiement par facture QR, à 30 jours. La mise en place est facturée à la mise en ligne.
 
-L'installation sur votre site est simple : il suffit d'ajouter sur votre page « Carports & Garages » un bouton « Configurer mon carport en 3D » qui ouvre le configurateur. Si votre site est géré par une agence, je peux lui transmettre directement le lien et les instructions.
+Pour l'installation, il suffit d'ajouter sur votre page « Carports & Garages » un bouton « Configurer mon carport en 3D » qui ouvre le configurateur. Si votre site est géré par une agence, je peux lui transmettre directement le lien et les instructions.
 
 Pour commencer, il me faudrait seulement vos options (types de toit et de couverture, dimensions possibles) et une base de prix (par exemple un prix au m² par type de toit et le prix de chaque option). Le configurateur est ensuite prêt environ une semaine après.
 

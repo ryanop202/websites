@@ -29,6 +29,19 @@ Zone de prospection :
 
 Le but est d'abord de tester le marché et d'obtenir des premiers clients, puis de développer l'activité.
 
+## ⚠️ MISE À JOUR 29.10.2026 (Ryan) — OFFRE PRINCIPALE : CONFIGURATEURS 3D
+
+**L'offre principale de Wibzo est maintenant le configurateur 3D** pour les entreprises qui fabriquent sur mesure (premiers clients visés : charpentiers et constructeurs de carports / couverts à voiture en Suisse romande). Les sites internet deviennent une offre complémentaire (« si besoin »), proposée en plus du configurateur.
+
+* Tout le projet : `configurateurs/` (lire `configurateurs/README.md`, `A-LIRE.md`, `PROSPECTS-CONFIGURATEUR.md`).
+* wibzo.ch : l'accueil présente le configurateur 3D (sans le mot « carport » : le carport n'est qu'une démo, on peut configurer d'autres produits), démo publique https://demo.wibzo.ch ; l'offre sites internet est sur https://wibzo.ch/sites-internet/.
+* **Aucun prix affiché sur le site** pour le configurateur (« comme les autres le font ») : prix par offre écrite.
+* Premier prix réel (offre Sirbatec, 29.10.2026) : 1 200 CHF de mise en place + 700 CHF/an, facture QR à 30 jours.
+* **Contact : e-mail (contact@wibzo.ch) et WhatsApp uniquement. Ryan ne fait ni appel, ni rendez-vous, ni visio** : jamais de bouton « Appeler Wibzo » ni de proposition d'appel/RDV dans le site wibzo.ch, les pubs ou les messages (les sites faits pour les clients peuvent, eux, avoir un bouton Appeler pour leurs propres clients).
+* Ryan a 17 ans (majeur en mars 2027) : contrats clients avec l'accord de ses parents (obtenu le 29.10.2026). Farmwood (entreprise formatrice) a donné son accord pour vendre aux entreprises du bois de la région.
+
+Les sections « OBJECTIF » et « OFFRE ACTUELLE » ci-dessous décrivent l'offre sites internet (toujours valable, mais secondaire).
+
 ## OFFRE ACTUELLE
 
 ### Lancement

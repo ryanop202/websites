@@ -105,8 +105,8 @@ button, input, textarea { font: inherit; color: inherit; }
 .marque-logo img { width: 100%; height: 100%; object-fit: contain; }
 
 /* Logo horizontal (avec le nom dedans) : bandeau blanc, sans texte à côté */
-.marque.logo-large .marque-logo.avec-image { width: auto; height: 44px; padding: 8px 12px; }
-.marque.logo-large .marque-logo img { width: auto; height: 100%; }
+.marque.logo-large .marque-logo.avec-image { width: auto; height: 56px; padding: 8px 12px; }
+.marque.logo-large .marque-logo img { width: auto; height: 40px; } /* 56 px - marges : un % ne marche pas dans la grille */
 .marque.logo-large > span:not(.marque-logo) { display: none; }
 
 .marque strong { display: block; font-size: 15px; }

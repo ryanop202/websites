@@ -21,8 +21,8 @@ Vérifié sur leurs sites le 28.10.2026. Aucun contact pris.
 ## Trouvés avec Harvey (29.10.2026) — pages d'accueil lues, aucun contact pris, aucun configurateur vu
 | Entreprise | Lieu | Couverts à voiture ? | Contact affiché | Verdict |
 |---|---|---|---|---|
-| **MJL Rossier** — mjl-rossier-charpente-menuiserie.ch | Château-d'Œx (admin.) / Les Moulins (atelier) | Oui : « couverts pour vos voitures », aussi chalets, hangars, cabanes | formulaire + 079 274 33 86 (pas d'e-mail affiché) | ✅ |
-| **Graz SA** — grazsa.ch | Moudon selon OpenStreetMap, téléphone 021 653 49 04 (adresse à vérifier) | Réalisations « Couverts » (Le Mont/Lausanne) et pergolas ; 30 ans d'expérience | info@grazsa.ch | ✅ (site ancien, certificat expiré : aussi prospect site web) |
+| **MJL Rossier** — mjl-rossier-charpente-menuiserie.ch | Château-d'Œx (admin.) / Les Moulins (atelier) | Oui : « couverts pour vos voitures », aussi chalets, hangars, cabanes | formulaire + 079 274 33 86 (pas d'e-mail affiché) | ✅ **démo prête** dans `clients/mjl-rossier/` (29.10.2026), PAS publiée, message prêt (formulaire), PAS envoyé |
+| Graz SA — grazsa.ch | Moudon selon OpenStreetMap, téléphone 021 653 49 04 | Page « Couverts » vérifiée le 29.10 : un local fermé et des pergolas, **pas de couvert à voiture** | info@grazsa.ch | ❌ pas de démo carport (site ancien, certificat expiré : prospect site web) |
 | **Alibert Sàrl / Chant du Bois** — chant-du-bois.ch | Attalens (FR) | Oui : « Couvert à voiture et autres en bois rond, massif » (bois rond = poteaux ronds, démo à adapter) | formulaire + 021 947 59 90 | ⚠️ niche bois rond |
 | Menuiserie B. Millasson — bmillasson.ch | Attalens | pergolas, cabanons, « couvertures » (pas de couvert à voiture cité) | bmillasson@bmillasson.ch | ⚠️ faible |
 | Gaille Construction — gaille.ch | Fresens (NE) | « Chalets, abris » | — | ⚠️ faible |

@@ -2,7 +2,7 @@
 
 **Canal :** e-mail depuis contact@wibzo.ch à **info@nicoletcharpente.ch** (adresse affichée sur nicoletcharpente.ch et local.ch, vérifiée le 29.10.2026).
 **Objet :** Vos couverts à voiture en 3D sur votre site (démo préparée pour vous)
-**Démo :** https://nicolet.wibzo.ch (PAS encore publiée)
+**Démo :** https://nicolet.wibzo.ch (en ligne depuis le 29.10.2026)
 
 Repris de leur site : charpente, couverture, ossature bois, page « Véranda – Couvert – Cabanon » avec 3 photos de couvert à voiture (2 pans en tuiles rouges, épicéa naturel, côté et fond en lames horizontales grises, gouttières), entreprise familiale depuis 1933 (local.ch), logo et couleur #006667. **À confirmer avec eux** : prix (fictifs), dimensions, portée entre poteaux.
 Leur site (WordPress 2021) contient encore des textes d'exemple (« Exemple partenaires 1 / 2 ») : proposition de refaire le site dans le mail, « prix abordable », sans montant.

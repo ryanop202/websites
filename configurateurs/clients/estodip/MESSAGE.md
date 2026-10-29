@@ -1,4 +1,4 @@
-# Esto-Dip SA — prise de contact (préparé le 29.10.2026, PAS envoyé)
+# Esto-Dip SA — prise de contact (envoyé le 29.10.2026 ; relance le 05.11.2026 si pas de réponse)
 
 **Canal :** e-mail depuis contact@wibzo.ch à **info@estodip.ch** (adresse affichée sur estodip.ch, vérifiée le 29.10.2026).
 **Démo :** https://estodip.wibzo.ch (en ligne depuis le 29.10.2026)

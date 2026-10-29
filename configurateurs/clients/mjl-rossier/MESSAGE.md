@@ -1,4 +1,4 @@
-# MJL Rossier — prise de contact (préparé le 29.10.2026, PAS envoyé)
+# MJL Rossier — prise de contact (envoyé le 29.10.2026 à jlrossier@hotmail.com ; relance le 05.11.2026 si pas de réponse)
 
 **Canal :** e-mail à **jlrossier@hotmail.com** (adresse donnée par Ryan le 29.10.2026 ; aucun e-mail affiché sur leur site). Tél. affiché : +41 79 274 33 86 (Ryan ne fait pas d'appel).
 **Objet :** Vos couverts à voiture en 3D sur votre site (démo préparée pour vous)

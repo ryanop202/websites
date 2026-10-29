@@ -43,7 +43,7 @@ Suivi des contacts et des relances : `PROSPECTS-CONFIGURATEUR.md`.
 | `libelles` | Remplace les textes (titre, « Finition du bois », « Local de rangement »…) |
 | `equipements` | Options proposées parmi `gouttieres`, `led`, `borne` (liste vide = étape masquée) |
 | `inclus` | Ce qui est compris d'office (ex. « évacuation des eaux intégrée dans les poteaux ») |
-| `bardages[].couleur` / `sens` | Lames de fermeture avec leur teinte propre, horizontales |
+| `bardages[].couleur` / `sens` | Lames de fermeture avec leur propre teinte (bois ou alu), horizontales si `sens: 'horizontal'` |
 | `couvertures` | `tuiles`, `tole`, `polycarbonate`, `epdm`, `gravier`, `vegetal`, `panneau` (toit isolé), `solaire` (photovoltaïque) |
 | `suivi.cleWeb3Forms` | Alertes e-mail à contact@wibzo.ch (démo utilisée, PDF téléchargé, demande envoyée) |
 

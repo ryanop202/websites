@@ -318,9 +318,11 @@ if (ALU) {
     Object.assign(m, { map: null, bumpMap: null, roughness: 0.48, metalness: 0.45, envMapIntensity: 0.8 });
   }
 }
-// Parois : bardage bois (même matériau que la charpente) ou lames composite (alu) avec leur propre teinte
-const matParoi = ALU ? new THREE.MeshStandardMaterial({ ...optBois, map: texVeinage, bumpMap: texVeinage, bumpScale: 0.25, roughness: 0.6 }) : matBois;
-const matParoiV = ALU ? new THREE.MeshStandardMaterial({ ...optBois, map: texVeinageV, bumpMap: texVeinageV, bumpScale: 0.25, roughness: 0.6 }) : matBoisV;
+// Parois : même matériau que la charpente, sauf lames composite (alu) ou bardage avec sa propre teinte (`bardages[].couleur`)
+const PAROI_PROPRE = ALU || Object.values(CONFIG.bardages).some((b) => b.couleur);
+const optParoi = ALU ? { ...optBois, bumpScale: 0.25, roughness: 0.6 } : optBois;
+const matParoi = PAROI_PROPRE ? new THREE.MeshStandardMaterial({ ...optParoi, map: texVeinage, bumpMap: texVeinage }) : matBois;
+const matParoiV = PAROI_PROPRE ? new THREE.MeshStandardMaterial({ ...optParoi, map: texVeinageV, bumpMap: texVeinageV }) : matBoisV;
 const matMetal = new THREE.MeshStandardMaterial({ color: '#5A5D60', roughness: 0.35, metalness: 0.85 });
 const matZinc = new THREE.MeshStandardMaterial({ color: '#8E9396', roughness: 0.32, metalness: 0.8, side: THREE.DoubleSide });
 const matBeton = new THREE.MeshStandardMaterial({ color: '#A9A69E', roughness: 0.95 });
@@ -719,7 +721,7 @@ function construire() {
   matBois.color.set(teinte);
   matBoisV.color.set(teinte);
   matBoisFonce.color.set(teinte).multiplyScalar(0.7);
-  if (ALU) {
+  if (PAROI_PROPRE) {
     const lames = CONFIG.bardages[state.bardage].couleur ?? teinte;
     matParoi.color.set(lames);
     matParoiV.color.set(lames);

@@ -31,7 +31,7 @@ Vérifié sur leurs sites le 28.10.2026. Aucun contact pris.
 ## Recherche local.ch + web (29.10.2026, Broye et environs) — aucun contact pris, aucun configurateur vu
 | Entreprise | Lieu | Couverts à voiture ? | Contact affiché | Verdict |
 |---|---|---|---|---|
-| **Nicolet Charpente SA** — nicoletcharpente.ch | Route de Granges 21, 1529 Cheiry (FR) | Oui : page « Véranda – Couvert – Cabanon » avec 3 photos nommées « Couvert-a-voiture » ; local.ch : « Carports et abris ». Entreprise familiale depuis 1933, 6 employés + 1 apprenti | info@nicoletcharpente.ch · 026 666 11 77 | ✅ **meilleure cible** (site WordPress 2021 avec textes d'exemple oubliés « Exemple partenaires » : aussi prospect site web) |
+| **Nicolet Charpente SA** — nicoletcharpente.ch | Route de Granges 21, 1529 Cheiry (FR) | Oui : page « Véranda – Couvert – Cabanon » avec 3 photos nommées « Couvert-a-voiture » ; local.ch : « Carports et abris ». Entreprise familiale depuis 1933, 6 employés + 1 apprenti | info@nicoletcharpente.ch · 026 666 11 77 | ✅ **démo prête** dans `clients/nicolet/` (29.10.2026), PAS publiée (https://nicolet.wibzo.ch), e-mail prêt (configurateur + nouveau site), PAS envoyé |
 | **GBC Entreprise SA** — gbc-entreprise.digitalone.site | Les Rochettes 2, 1680 Romont (FR) | Oui : « Couverts et garages à voiture » dans les prestations + chantiers en cours | construction@gbcentreprise.ch · 079 378 51 87 | ✅ (site modèle local.ch « MyWEBSITE » : offre site + configurateur) |
 - Recherche « carport » sur local.ch (Broye) : 12 résultats, aucune autre fiche ne cite les couverts à voiture. 77 charpentiers listés au total, la plupart sans site web visible sur local.ch.
 

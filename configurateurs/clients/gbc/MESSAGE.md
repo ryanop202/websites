@@ -2,7 +2,7 @@
 
 **Canal :** e-mail depuis contact@wibzo.ch à **construction@gbcentreprise.ch** (adresse affichée sur leur site et local.ch, vérifiée le 29.10.2026).
 **Objet :** Vos couverts à voiture en 3D sur votre site (démo préparée pour vous)
-**Démo :** https://gbc.wibzo.ch (PAS encore publiée)
+**Démo :** https://gbc.wibzo.ch (en ligne depuis le 29.10.2026)
 
 Repris de leur site : Romont, charpente, couverture, terrassement, génie civil, aménagements extérieurs, entreprise générale ; « Couverts et garages à voiture » dans les prestations ; « couverts à voitures » parmi les chantiers en cours. Logo rouge. Aucune photo de couvert dans leur galerie (bâtiments, chalets, charpentes, kiosque) : style classique, **à confirmer**. Prix fictifs.
 Leur site est un modèle local.ch (« MyWEBSITE ») : proposition de nouveau site dans le mail, « prix abordable », sans montant.

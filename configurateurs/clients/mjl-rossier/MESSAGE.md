@@ -2,7 +2,7 @@
 
 **Canal :** e-mail à **jlrossier@hotmail.com** (adresse donnée par Ryan le 29.10.2026 ; aucun e-mail affiché sur leur site). Tél. affiché : +41 79 274 33 86 (Ryan ne fait pas d'appel).
 **Objet :** Vos couverts à voiture en 3D sur votre site (démo préparée pour vous)
-**Démo :** https://mjl-rossier.wibzo.ch (PAS encore publiée)
+**Démo :** https://mjl-rossier.wibzo.ch (en ligne depuis le 29.10.2026)
 
 Repris de leur site : charpente-menuiserie à Château-d'Œx (atelier aux Moulins), chalets en madrier, « couverts pour vos voitures », label Bois Suisse (logo). Aucune photo de couvert à voiture sur leur site : style repris de leurs chalets (2 pans, épicéa naturel). **À confirmer avec eux** : prix (fictifs), toitures, dimensions, portée entre poteaux.
 Trouvé avec Harvey (OpenStreetMap) le 29.10.2026. Leur site est un modèle ancien : aussi un prospect pour un site Wibzo (proposé dans le premier e-mail, « prix abordable », sans montant).

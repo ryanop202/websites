@@ -24,3 +24,4 @@ Au 2026-10-29 (vérifié) :
 - MJL Rossier (Château-d'Œx) : démo en ligne mjl-rossier.wibzo.ch, mail ENVOYÉ le 29.10 à jlrossier@hotmail.com (avec proposition de refaire leur site « à prix abordable »), relance 05.11.2026. Graz SA : pas de couvert à voiture → pas de démo.
 - Nicolet Charpente SA (Cheiry FR) : démo en ligne nicolet.wibzo.ch, mail ENVOYÉ le 29.10 à info@nicoletcharpente.ch, relance 05.11 (configurateur + nouveau site). GBC Entreprise (Romont) : prospect suivant, pas de démo. Nouveau : bardages[].couleur marche aussi en bois.
 - GBC Entreprise (Romont) : démo en ligne gbc.wibzo.ch, mail ENVOYÉ le 29.10 à construction@gbcentreprise.ch, relance 05.11 (configurateur + nouveau site).
+- Sirbatec : offre ENVOYÉE le 29.10 (1 200 CHF mise en place + 700 CHF/an, facture QR 30 j, résiliable fin d'année). À préparer avant leur oui : autorisation des parents, outil facture QR, version réelle (demandes vers leur e-mail).

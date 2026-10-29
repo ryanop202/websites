@@ -1,4 +1,4 @@
-# Sirbatec SA — réponse + offre configurateur (version finale du 29.10.2026, PAS envoyée)
+# Sirbatec SA — offre configurateur (ENVOYÉE le 29.10.2026)
 
 Réponse au mail de Mathias Ruffieux (administrateur) du 29.10.2026 à 08:49, qui demandait un RDV mi-novembre. Ryan ne fait ni RDV ni appel. Première réponse (tout par e-mail, installation simple, offre annoncée) **déjà envoyée par Ryan le 29.10.2026** : ce mail-ci contient seulement l'offre.
 Prix choisis par Ryan : **mise en place 1 200 CHF** ; abonnement **700 CHF par an** (arrondi par Ryan, ~58 CHF/mois).

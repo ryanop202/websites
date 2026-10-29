@@ -18,6 +18,16 @@ Vérifié sur leurs sites le 28.10.2026. Aucun contact pris.
 
 - **Esto-Dip SA** : démo bois à leur nom prête dans `clients/estodip/` (29.10.2026) : initiales « ED » rouge/jaune (logo non récupérable : téléchargement bloqué par leur site), toit plat tôle / 1 pan / 2 pans, tuiles, ferblanterie, panneaux solaires, gouttières, poteaux lasurés gris (repris de leurs photos). **en ligne le 29.10.2026** sur https://estodip.wibzo.ch (Worker « estodip-3d-configurateur »), e-mail prêt dans `clients/estodip/MESSAGE.md` (à info@estodip.ch). PAS envoyé. Farmwood a donné son accord (Ryan, 29.10.2026).
 
+## Trouvés avec Harvey (29.10.2026) — pages d'accueil lues, aucun contact pris, aucun configurateur vu
+| Entreprise | Lieu | Couverts à voiture ? | Contact affiché | Verdict |
+|---|---|---|---|---|
+| **MJL Rossier** — mjl-rossier-charpente-menuiserie.ch | Château-d'Œx (admin.) / Les Moulins (atelier) | Oui : « couverts pour vos voitures », aussi chalets, hangars, cabanes | formulaire + 079 274 33 86 (pas d'e-mail affiché) | ✅ |
+| **Graz SA** — grazsa.ch | Moudon selon OpenStreetMap, téléphone 021 653 49 04 (adresse à vérifier) | Réalisations « Couverts » (Le Mont/Lausanne) et pergolas ; 30 ans d'expérience | info@grazsa.ch | ✅ (site ancien, certificat expiré : aussi prospect site web) |
+| **Alibert Sàrl / Chant du Bois** — chant-du-bois.ch | Attalens (FR) | Oui : « Couvert à voiture et autres en bois rond, massif » (bois rond = poteaux ronds, démo à adapter) | formulaire + 021 947 59 90 | ⚠️ niche bois rond |
+| Menuiserie B. Millasson — bmillasson.ch | Attalens | pergolas, cabanons, « couvertures » (pas de couvert à voiture cité) | bmillasson@bmillasson.ch | ⚠️ faible |
+| Gaille Construction — gaille.ch | Fresens (NE) | « Chalets, abris » | — | ⚠️ faible |
+- Harvey a aussi trouvé ~25 charpentiers/menuisiers **sans site web** (prospects pour un site Wibzo) : voir le tableau de bord Harvey.
+
 ## Exclu
 - **Outdoor Studio Design** (Thônex GE) : a DÉJÀ un configurateur 3D (pergola, voile, carport, réalité augmentée). Utile comme argument : la concurrence romande s'équipe. Prix affiché : carport bois 1 voiture dès ~12 000 CHF TTC (repère pour rendre les prix de la démo crédibles).
 

@@ -11,6 +11,8 @@ export const CONFIG = {
   },
   produit: 'Carport en bois',
   demo: true,
+  // Notifications par e-mail à Ryan (démo publique de wibzo.ch)
+  suivi: { cleWeb3Forms: '73b06b18-08c3-4c83-9ca8-42288a70dd2b' }, // clé publique, faite pour le code de la page
 
   // [min, max, pas] en mètres
   limites: {

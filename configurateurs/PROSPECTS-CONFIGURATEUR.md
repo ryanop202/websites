@@ -28,6 +28,13 @@ Vérifié sur leurs sites le 28.10.2026. Aucun contact pris.
 | Gaille Construction — gaille.ch | Fresens (NE) | « Chalets, abris » | — | ⚠️ faible |
 - Harvey a aussi trouvé ~25 charpentiers/menuisiers **sans site web** (prospects pour un site Wibzo) : voir le tableau de bord Harvey.
 
+## Recherche local.ch + web (29.10.2026, Broye et environs) — aucun contact pris, aucun configurateur vu
+| Entreprise | Lieu | Couverts à voiture ? | Contact affiché | Verdict |
+|---|---|---|---|---|
+| **Nicolet Charpente SA** — nicoletcharpente.ch | Route de Granges 21, 1529 Cheiry (FR) | Oui : page « Véranda – Couvert – Cabanon » avec 3 photos nommées « Couvert-a-voiture » ; local.ch : « Carports et abris ». Entreprise familiale depuis 1933, 6 employés + 1 apprenti | info@nicoletcharpente.ch · 026 666 11 77 | ✅ **meilleure cible** (site WordPress 2021 avec textes d'exemple oubliés « Exemple partenaires » : aussi prospect site web) |
+| **GBC Entreprise SA** — gbc-entreprise.digitalone.site | Les Rochettes 2, 1680 Romont (FR) | Oui : « Couverts et garages à voiture » dans les prestations + chantiers en cours | construction@gbcentreprise.ch · 079 378 51 87 | ✅ (site modèle local.ch « MyWEBSITE » : offre site + configurateur) |
+- Recherche « carport » sur local.ch (Broye) : 12 résultats, aucune autre fiche ne cite les couverts à voiture. 77 charpentiers listés au total, la plupart sans site web visible sur local.ch.
+
 ## Exclu
 - **Outdoor Studio Design** (Thônex GE) : a DÉJÀ un configurateur 3D (pergola, voile, carport, réalité augmentée). Utile comme argument : la concurrence romande s'équipe. Prix affiché : carport bois 1 voiture dès ~12 000 CHF TTC (repère pour rendre les prix de la démo crédibles).
 

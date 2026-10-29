@@ -1,4 +1,4 @@
-# Sirbatec SA — prise de contact (préparé le 28.10.2026, envoyé via leur formulaire — confirmé le 29.10.2026)
+# Sirbatec SA — prise de contact (envoyé le 28.10.2026 via formulaire ; RÉPONSE positive le 29.10.2026 de Mathias Ruffieux, voir PROSPECTS-CONFIGURATEUR.md)
 
 **Canal :** formulaire de contact https://sirbatec.ch/contact/ (pas d'e-mail publié). Pas de pièce jointe possible.
 **Démo :** https://sirbatec.wibzo.ch (en ligne)

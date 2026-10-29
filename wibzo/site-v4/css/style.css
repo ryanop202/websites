@@ -385,3 +385,5 @@ body{overflow-x:clip}
 @media (max-width:860px){.also__inner{grid-template-columns:1fr}}
 .p3d .hero__title{font-size:clamp(46px,5.2vw,84px)}
 .p3d .hero{padding-top:clamp(40px,5vw,72px)}
+.project--demo2{--p-bg:#22281F;--p-ink:#EFEADF;--p-acc:#B9C08F}
+.project--demo2 .project__media img{aspect-ratio:auto;object-fit:contain}

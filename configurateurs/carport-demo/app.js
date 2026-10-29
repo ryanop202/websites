@@ -19,6 +19,8 @@ const hasard = (min, max) => min + Math.random() * (max - min);
 // Structure en aluminium thermolaqué (sinon charpente bois) : voir `materiau` dans config.js
 const ALU = CONFIG.materiau === 'alu';
 const EQUIPEMENTS = CONFIG.equipements ?? ['gouttieres', 'led', 'borne'];
+const LOCAL = CONFIG.local !== false; // local de rangement proposé
+const VEHICULES = Object.values(CONFIG.vehicules).some((v) => v.fichier); // au moins un véhicule à afficher
 
 // ---------- État (lu depuis le lien partagé si présent) ----------
 
@@ -42,6 +44,7 @@ function valider() {
     state[cle] = Number.isFinite(v) ? Math.min(max, Math.max(min, v)) : CONFIG.defauts[cle];
   }
   if (!CONFIG.implantations[state.adosse]) state.adosse = 'non';
+  if (!LOCAL) state.rangement = false;
   if (!CONFIG.toits[state.toit]) state.toit = CONFIG.defauts.toit;
   // Contre une façade, le toit descend à l'opposé de la maison : pas de 2 pans
   if (state.adosse !== 'non' && CONFIG.toits[state.toit].faitage) {
@@ -157,8 +160,8 @@ function calculerPrix() {
 
   const fStructure = g.adosse !== 'non' ? T.adosseFacteur : 1;
   lignes.push([`Structure, toit ${toit.label} · ${fmtM2(surface)}`, surface * T.structureM2[state.toit] * bois.facteur * fStructure]);
-  lignes.push([CONFIG.couvertures[state.couverture].label, surface * T.couvertureM2[state.couverture]]);
-  if (g.adosse !== 'non') lignes.push(['Fixation à la façade et solin', g.L * T.fixationMl]);
+  if (T.couvertureM2[state.couverture]) lignes.push([CONFIG.couvertures[state.couverture].label, surface * T.couvertureM2[state.couverture]]);
+  if (g.adosse !== 'non') lignes.push([CONFIG.couvertures[state.couverture].ouverte ? 'Fixation à la façade' : 'Fixation à la façade et solin', g.L * T.fixationMl]);
 
   const hMur = g.H + BH;
   const localCote = (s) => g.lateral && (s < 0 ? g.posL === 'gauche' : g.posL === 'droite');
@@ -367,6 +370,26 @@ const texPaves = textureCanvas(512, 512, (g, l, h) => {
   }
 });
 const matPaves = new THREE.MeshStandardMaterial({ map: texPaves, bumpMap: texPaves, bumpScale: 1.2, roughness: 0.92 });
+
+// Terrasse en lames de bois (2 m × 2 m par motif) : `sol: 'terrasse'` dans config.js
+const texTerrasse = textureCanvas(512, 512, (g, l, h) => {
+  g.fillStyle = '#5E4532';
+  g.fillRect(0, 0, l, h);
+  const n = 14;
+  const lh = h / n;
+  for (let r = 0; r < n; r++) {
+    const coupe = hasard(0.25, 0.75) * l;
+    for (const [x0, x1] of [[0, coupe], [coupe, l]]) {
+      const v = hasard(-16, 16);
+      g.fillStyle = `rgb(${158 + v},${118 + v * 0.8},${82 + v * 0.6})`;
+      g.fillRect(x0 + 1, r * lh + 2, x1 - x0 - 2, lh - 4);
+      for (let k = 0; k < 6; k++) {
+        g.fillStyle = `rgba(80,52,30,${hasard(0.06, 0.16)})`;
+        g.fillRect(x0 + 1, r * lh + hasard(3, lh - 4), x1 - x0 - 2, 1);
+      }
+    }
+  }
+});
 
 // Gazon (2 m × 2 m par motif)
 const texGazon = textureCanvas(256, 256, (g, l, h) => {
@@ -727,13 +750,14 @@ function construire() {
     matParoiV.color.set(lames);
   }
 
-  // Base : pavés sous le carport + allée devant, bordures
-  const allee = 4;
+  // Base : pavés + allée devant (ou terrasse en lames de bois, sans allée), bordures
+  const terrasse = CONFIG.sol === 'terrasse';
+  const allee = terrasse ? 0.6 : 4;
   const largP = W + 0.6;
   const longP = L + 0.6 + allee;
   const zP = allee / 2;
   const paves = boite(largP, 0.06, longP, matPaves.clone(), 0, Y_SOL - 0.03, zP, false);
-  paves.material.map = texPaves.clone();
+  paves.material.map = (terrasse ? texTerrasse : texPaves).clone();
   paves.material.map.needsUpdate = true;
   paves.material.map.repeat.set(largP / 2, longP / 2);
   paves.material.bumpMap = paves.material.map;
@@ -787,7 +811,7 @@ function construire() {
 
   // Chevrons (pas de débord côté façade) ; chaque pan a sa propre pente
   const longZ = L + 2 * OVZ;
-  const nChev = Math.max(2, Math.ceil(longZ / 0.65) + 1);
+  const nChev = Math.max(2, Math.ceil(longZ / (CONFIG.entraxeChevrons ?? 0.65)) + 1);
   const zChev = Array.from({ length: nChev }, (_, i) => -longZ / 2 + RW / 2 + (i * (longZ - RW)) / (nChev - 1));
   const cos = Math.cos(a);
   let pans;
@@ -870,8 +894,11 @@ function construire() {
     } else {
       mat.roughness = 0.95;
     }
-    boite(longC, ep, profC, mat, pan.cx, ySup(pan.cx) + (RH + ep / 2) / pan.cs, 0, state.couverture !== 'polycarbonate')
-      .rotation.z = pan.rot;
+    // Couverture « ouverte » (pergola) : seulement les chevrons, pas de plaque
+    if (!couv.ouverte) {
+      boite(longC, ep, profC, mat, pan.cx, ySup(pan.cx) + (RH + ep / 2) / pan.cs, 0, state.couverture !== 'polycarbonate')
+        .rotation.z = pan.rot;
+    }
 
     // Planches de rive devant et derrière (suivent la pente)
     for (const s of [-1, 1]) {
@@ -884,9 +911,9 @@ function construire() {
     }
   }
 
-  // Solin : bande métallique qui raccorde le toit à la façade
+  // Solin : bande métallique qui raccorde le toit à la façade (rien à raccorder si le toit est ouvert)
   for (const s of [-1, 1]) {
-    if (!g.maison(s)) continue;
+    if (!g.maison(s) || couv.ouverte) continue;
     const xs = s * (W / 2 - 0.06);
     const ys = ySup(xs) + (RH + ep) / cos + 0.01;
     boite(0.14, 0.008, profC, matZinc, xs, ys, 0);
@@ -894,7 +921,7 @@ function construire() {
   }
 
   // Faîtage posé SUR la couverture (encastré pour ne pas flotter au-dessus de la pente)
-  if (deuxPans) {
+  if (deuxPans && !couv.ouverte) {
     const yFaite = ySup(xF) + (RH + ep) / Math.min(Math.cos(aG), Math.cos(aD));
     if (state.couverture === 'tuiles') {
       const mat = new THREE.MeshStandardMaterial({ color: new THREE.Color(teinteCouv).multiplyScalar(0.68), roughness: 0.85 });
@@ -1061,7 +1088,7 @@ function construireCotes(g) {
   };
   etiquette(g.lateral ? `${fmtM(W)} (dont local ${fmtM(g.S)})` : fmtM(W), new THREE.Vector3(0, y, zLargeur));
   etiquette(g.posL === 'arriere' ? `${fmtM(L)} (dont local ${fmtM(g.S)})` : fmtM(L), new THREE.Vector3(xProf, y, 0));
-  etiquette(`passage ${fmtM(H)}`, new THREE.Vector3(xH, Y_SOL + H / 2, zH));
+  etiquette(`${LIB.passage} ${fmtM(H)}`, new THREE.Vector3(xH, Y_SOL + H / 2, zH));
   groupeCotes.visible = cotesVisibles;
 }
 
@@ -1291,12 +1318,16 @@ function construirePanneau() {
   const uneForme = Object.keys(CONFIG.toits).length < 2;
   $('#toits').hidden = uneForme;
   $('#toits').previousElementSibling.hidden = uneForme;
-  radios('#pos-local', 'posLocal', Object.entries(CONFIG.positionsLocal),
-    (id, p) => `<span>${p.label}</span><small class="delta"></small>`);
-  radios('#profs-local', 'profLocal', CONFIG.profondeursLocal.map((v) => [v, v]),
-    (id) => `<span>${fmtM(id)}</span><small class="delta"></small>`);
-  radios('#vehicules', 'vehicule', Object.entries(CONFIG.vehicules),
-    (id, v) => `<span>${v.label}</span>`, { delta: false });
+  if (LOCAL) {
+    radios('#pos-local', 'posLocal', Object.entries(CONFIG.positionsLocal),
+      (id, p) => `<span>${p.label}</span><small class="delta"></small>`);
+    radios('#profs-local', 'profLocal', CONFIG.profondeursLocal.map((v) => [v, v]),
+      (id) => `<span>${fmtM(id)}</span><small class="delta"></small>`);
+  }
+  if (VEHICULES) {
+    radios('#vehicules', 'vehicule', Object.entries(CONFIG.vehicules),
+      (id, v) => `<span>${v.label}</span>`, { delta: false });
+  }
 
   for (const b of document.querySelectorAll('[data-paroi]')) {
     b.addEventListener('click', () => {
@@ -1364,7 +1395,8 @@ function majParois() {
     b.title = force;
     b.textContent = force === 'Façade de la maison' ? 'Maison' : { paroiArriere: 'Arrière', paroiGauche: 'Gauche', paroiDroite: 'Droite' }[cle];
   }
-  $('#choix-local').hidden = !state.rangement;
+  const choixLocal = $('#choix-local');
+  if (choixLocal) choixLocal.hidden = !state.rangement;
   dessinerPlan(g);
 }
 
@@ -1471,7 +1503,7 @@ function lignesConfig() {
   const parois = paroisFermees(g);
   const implantation = g.adosse === 'non' ? 'Isolé (4 côtés libres)' : `Contre la maison, façade à ${g.adosse}`;
   return [
-    ['Dimensions', `${fmtM(g.Wv)} × ${fmtM(g.Dc)} pour les véhicules · passage ${fmtM(g.H)}`],
+    ['Dimensions', `${fmtM(g.Wv)} × ${fmtM(g.Dc)} ${LIB.largeurAide} · ${LIB.passage} ${fmtM(g.H)}`],
     ['Emprise totale', `${fmtM(g.W)} × ${fmtM(g.L)} · ${fmtM2(p.surface)}`],
     ['Implantation', implantation],
     ['Toit', `${CONFIG.toits[state.toit].label} (${CONFIG.toits[state.toit].pente}°) · ${couv.label}, ${couv.teintes[state.teinteCouverture].label.toLowerCase()}`],
@@ -1576,16 +1608,38 @@ const LIB = {
   rangement: 'Local de rangement fermé',
   rangementLigne: 'Local de rangement',
   rangementCourt: 'Local',
+  objet: 'carport', // dans les phrases, le nom du PDF et l'objet de l'e-mail
+  passage: 'passage', // étiquette de la cote de hauteur
+  largeurAide: 'pour les véhicules',
+  hauteur: 'Hauteur de passage',
+  hauteurAide: 'sous la charpente',
+  implantationAide: 'Contre la maison, le carport se fixe à la façade : une rangée de poteaux en moins.',
+  parois: 'Parois et rangement',
   ...CONFIG.libelles,
 };
 $('.intro h1').textContent = LIB.titre;
+$('label[for="largeur"] small').textContent = LIB.largeurAide;
+$('label[for="hauteur"]').firstChild.textContent = `${LIB.hauteur} `;
+$('label[for="hauteur"] small').textContent = LIB.hauteurAide;
+$('#implantations').previousElementSibling.textContent = LIB.implantationAide;
+$('#viewer').setAttribute('aria-label', `Aperçu 3D : ${LIB.objet}`);
+const etapeParois = $('#bardages').closest('.etape');
+etapeParois.querySelector('h2').lastChild.textContent = LIB.parois;
+// Pas de local de rangement pour ce produit : option retirée
+if (!LOCAL) {
+  $('[data-cle="rangement"]').closest('.option').remove();
+  $('#choix-local').remove();
+}
+// Aucun véhicule à afficher : étape retirée
+if (!VEHICULES) [...document.querySelectorAll('.etape')].find((e) => e.dataset.court === 'Véhicule')?.remove();
 const etapeFinition = $('#bois').closest('.etape');
 etapeFinition.dataset.court = LIB.finitionCourt;
 etapeFinition.querySelector('h2').lastChild.textContent = LIB.finition;
 $('#bois').setAttribute('aria-label', LIB.finition);
 $('#bardages').previousElementSibling.textContent = LIB.bardage;
 $('#bardages').setAttribute('aria-label', LIB.bardage);
-$('[data-cle="rangement"]').closest('.option').querySelector('span').firstChild.textContent = `${LIB.rangement} `;
+const optLocal = $('[data-cle="rangement"]')?.closest('.option');
+if (optLocal) optLocal.querySelector('span').firstChild.textContent = `${LIB.rangement} `;
 for (const input of document.querySelectorAll('input[type="checkbox"][data-cle]')) {
   if (['gouttieres', 'led', 'borne'].includes(input.dataset.cle) && !EQUIPEMENTS.includes(input.dataset.cle)) input.closest('.option').remove();
 }
@@ -1671,7 +1725,7 @@ if (CONFIG.entreprise.logo) {
 $('#badge-demo').hidden = !CONFIG.demo;
 if (CONFIG.badge) $('#badge-demo').textContent = CONFIG.badge;
 if (CONFIG.chapo) $('.chapo').textContent = CONFIG.chapo;
-if (CONFIG.entreprise.nom !== 'Votre entreprise') document.title = `Configurateur carport — ${CONFIG.entreprise.nom}`;
+document.title = `Configurateur ${LIB.objet} — ${CONFIG.entreprise.nom === 'Votre entreprise' ? 'démo' : CONFIG.entreprise.nom}`;
 // Couleurs de l'entreprise (variables CSS)
 for (const [nom, valeur] of Object.entries(CONFIG.couleurs ?? {})) document.documentElement.style.setProperty(`--${nom}`, valeur);
 
@@ -1705,7 +1759,7 @@ function compterReglage() {
     sessionStorage.setItem('demo-signalee', '1');
   } catch { /* stockage indisponible : on signale quand même une fois */ }
   utilisationSignalee = true;
-  signaler('La démo est utilisée', ['Quelqu\'un configure un carport en ce moment.', '', ...lignesConfig().map(([l, v]) => `${l} : ${v}`), '', `Lien : ${location.href}`].join('\n'));
+  signaler('La démo est utilisée', [`Quelqu'un configure un ${LIB.objet} en ce moment.`, '', ...lignesConfig().map(([l, v]) => `${l} : ${v}`), '', `Lien : ${location.href}`].join('\n'));
 }
 
 if (CONFIG.suivi?.cleWeb3Forms) $('#mention-suivi').hidden = false;
@@ -1753,7 +1807,7 @@ function telechargerPDF() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `estimation-carport-${ref}.pdf`;
+  a.download = `estimation-${LIB.objet.replace(/\s+/g, '-')}-${ref}.pdf`;
   document.body.append(a);
   a.click();
   a.remove();
@@ -1817,7 +1871,7 @@ form.addEventListener('submit', (e) => {
   const mail = $('#btn-mail');
   if (CONFIG.entreprise.email) {
     mail.hidden = false;
-    mail.href = `mailto:${CONFIG.entreprise.email}?subject=${encodeURIComponent('Demande de devis carport')}&body=${encodeURIComponent(texte)}`;
+    mail.href = `mailto:${CONFIG.entreprise.email}?subject=${encodeURIComponent(`Demande de devis ${LIB.objet}`)}&body=${encodeURIComponent(texte)}`;
     $('#recap-intro').textContent = "Voici exactement ce que l'entreprise reçoit :";
   } else {
     mail.hidden = true;

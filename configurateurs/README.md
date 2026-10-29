@@ -12,7 +12,8 @@ Ce dossier fait partie du dépôt `websites` (avec les sites, la prospection et 
 |---|---|
 | `A-LIRE.md` | Historique du projet : choix de la niche, exemple de référence, toutes les fonctions de la démo |
 | `PROSPECTS-CONFIGURATEUR.md` | Entreprises ciblées, ce qui a été vérifié, qui a été contacté et quand, relances |
-| `carport-demo/` | **Version maître** (bois + alu). Toute nouvelle fonction se fait ici d'abord |
+| `carport-demo/` | **Version maître** (bois + alu). Toute nouvelle fonction se fait ici d'abord. Publiée comme démo publique sur https://demo.wibzo.ch |
+| `demo-pergola/` | 2e démo publique, pergola en bois (même moteur) : https://pergola.wibzo.ch |
 | `clients/<entreprise>/` | Une démo par entreprise : copie de la version maître + son `config.js`, son logo, son `MESSAGE.md` (mails), son `wrangler.jsonc` (mise en ligne) |
 | `exemples-pdf/` | Estimations PDF générées par la démo (tests du 28.10.2026) |
 | `outils-claude/` | Ce qui a servi à Claude pour ce projet : skills, réglages, mémoire (voir `outils-claude/README.md`) |
@@ -46,6 +47,12 @@ Suivi des contacts et des relances : `PROSPECTS-CONFIGURATEUR.md`.
 | `bardages[].couleur` / `sens` | Lames de fermeture avec leur propre teinte (bois ou alu), horizontales si `sens: 'horizontal'` |
 | `couvertures` | `tuiles`, `tole`, `polycarbonate`, `epdm`, `gravier`, `vegetal`, `panneau` (toit isolé), `solaire` (photovoltaïque) |
 | `suivi.cleWeb3Forms` | Alertes e-mail à contact@wibzo.ch (démo utilisée, PDF téléchargé, demande envoyée) |
+| `local: false` | Pas de local de rangement (option et réglages retirés) |
+| `sol: 'terrasse'` | Sol en lames de bois au lieu des pavés (pergola) |
+| `entraxeChevrons` | Écart entre les chevrons en mètres (0,65 par défaut) |
+| `couvertures.X.ouverte: true` | Toit ouvert : seulement les chevrons, sans plaque ni solin (pergola) |
+| `libelles.objet / passage / largeurAide / hauteur / hauteurAide / implantationAide / parois` | Textes du produit (« pergola », « hauteur », « Brise-vue »…) |
+| `vehicules` avec seulement `aucun` | Étape « Véhicule » retirée |
 
 ## Ouvrir une démo sur l'ordinateur
 

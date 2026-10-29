@@ -1,14 +1,15 @@
 # MJL Rossier — prise de contact (préparé le 29.10.2026, PAS envoyé)
 
-**Canal :** formulaire « Nous contacter » de mjl-rossier-charpente-menuiserie.ch (aucun e-mail affiché). Tél. affiché : +41 79 274 33 86 (Ryan ne fait pas d'appel).
+**Canal :** e-mail à **jlrossier@hotmail.com** (adresse donnée par Ryan le 29.10.2026 ; aucun e-mail affiché sur leur site). Tél. affiché : +41 79 274 33 86 (Ryan ne fait pas d'appel).
+**Objet :** Vos couverts à voiture en 3D sur votre site (démo préparée pour vous)
 **Démo :** https://mjl-rossier.wibzo.ch (PAS encore publiée)
 
 Repris de leur site : charpente-menuiserie à Château-d'Œx (atelier aux Moulins), chalets en madrier, « couverts pour vos voitures », label Bois Suisse (logo). Aucune photo de couvert à voiture sur leur site : style repris de leurs chalets (2 pans, épicéa naturel). **À confirmer avec eux** : prix (fictifs), toitures, dimensions, portée entre poteaux.
-Trouvé avec Harvey (OpenStreetMap) le 29.10.2026. Leur site est un modèle ancien : aussi un prospect pour un site Wibzo (pas dans ce premier message).
+Trouvé avec Harvey (OpenStreetMap) le 29.10.2026. Leur site est un modèle ancien : aussi un prospect pour un site Wibzo (proposé dans le premier e-mail, « prix abordable », sans montant).
 
 ---
 
-## 1. Premier message (formulaire)
+## 1. Premier e-mail (version du 29.10.2026, avec proposition de refaire le site)
 
 Bonjour,
 
@@ -24,7 +25,9 @@ Ce serait un bon moyen de vous démarquer de vos concurrents : vos clients voien
 
 Les prix sont fictifs pour l'instant, je les remplacerais par les vôtres.
 
-Seriez-vous intéressés à intégrer ce configurateur sur votre site ?
+Je crée aussi des sites internet : si vous le souhaitez, je peux refaire votre site en même temps, avec le configurateur intégré, à un prix abordable.
+
+Seriez-vous intéressés par le configurateur, et éventuellement par un nouveau site ?
 
 Meilleures salutations,
 Ryan

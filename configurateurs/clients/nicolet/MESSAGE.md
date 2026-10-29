@@ -1,4 +1,4 @@
-# Nicolet Charpente SA — prise de contact (préparé le 29.10.2026, PAS envoyé)
+# Nicolet Charpente SA — prise de contact (envoyé le 29.10.2026 ; relance le 05.11.2026 si pas de réponse)
 
 **Canal :** e-mail depuis contact@wibzo.ch à **info@nicoletcharpente.ch** (adresse affichée sur nicoletcharpente.ch et local.ch, vérifiée le 29.10.2026).
 **Objet :** Vos couverts à voiture en 3D sur votre site (démo préparée pour vous)

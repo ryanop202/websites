@@ -1,4 +1,4 @@
-# GBC Entreprise SA — prise de contact (préparé le 29.10.2026, PAS envoyé)
+# GBC Entreprise SA — prise de contact (envoyé le 29.10.2026 ; relance le 05.11.2026 si pas de réponse)
 
 **Canal :** e-mail depuis contact@wibzo.ch à **construction@gbcentreprise.ch** (adresse affichée sur leur site et local.ch, vérifiée le 29.10.2026).
 **Objet :** Vos couverts à voiture en 3D sur votre site (démo préparée pour vous)

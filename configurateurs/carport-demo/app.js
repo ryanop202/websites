@@ -232,23 +232,29 @@ function textureCanvas(l, h, dessiner, couleur = true) {
   return tex;
 }
 
-// Ciel : dégradé derrière la scène
-scene.background = textureCanvas(4, 256, (g, l, h) => {
+// Qualité selon l'appareil : petits écrans / peu de mémoire = ombres plus légères, moins de pixels
+const PETIT_APPAREIL = window.matchMedia('(max-width: 900px)').matches || (navigator.deviceMemory ?? 8) <= 4;
+
+// Ciel : dégradé derrière la scène (le bas = couleur de la brume, l'horizon disparaît)
+const HORIZON = '#E6E2D8';
+scene.background = textureCanvas(4, 512, (g, l, h) => {
   const d = g.createLinearGradient(0, 0, 0, h);
-  d.addColorStop(0, '#B9C6CF');
-  d.addColorStop(0.55, '#DCDDD8');
-  d.addColorStop(1, '#E9E4D8');
+  d.addColorStop(0, '#A9BBC8');
+  d.addColorStop(0.35, '#CBD3D6');
+  d.addColorStop(0.62, '#E2E1DA');
+  d.addColorStop(1, HORIZON);
   g.fillStyle = d;
   g.fillRect(0, 0, l, h);
 });
-scene.fog = new THREE.Fog('#E3DFD4', 30, 90);
+scene.fog = new THREE.Fog(HORIZON, 22, 60);
 
 if (renderer) {
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, PETIT_APPAREIL ? 1.5 : 2));
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.95;
+  // AgX : couleurs plus naturelles que ACES (le bois ne vire plus au jaune, les tuiles moins saturées)
+  renderer.toneMapping = THREE.AgXToneMapping;
+  renderer.toneMappingExposure = 1.15;
   renderer.autoClear = false;
   viewer.prepend(renderer.domElement);
 
@@ -264,10 +270,10 @@ if (renderer) {
   // Pas d'occlusion ambiante (GTAO) : elle faisait apparaître un bloc sombre sur le sol et la paroi du fond
 }
 
-scene.add(new THREE.HemisphereLight('#F4F1EA', '#8C8A73', 0.45));
-const soleil = new THREE.DirectionalLight('#FFF0D8', 2.2);
+scene.add(new THREE.HemisphereLight('#EEF2F5', '#7D7A62', 0.3));
+const soleil = new THREE.DirectionalLight('#FFF1DC', 3.4);
 soleil.castShadow = true;
-soleil.shadow.mapSize.set(2048, 2048);
+soleil.shadow.mapSize.setScalar(PETIT_APPAREIL ? 1024 : 2048);
 Object.assign(soleil.shadow.camera, { left: -11, right: 11, top: 11, bottom: -11, near: 1, far: 50 });
 soleil.shadow.bias = -0.0003;
 soleil.shadow.normalBias = 0.025;
@@ -326,6 +332,9 @@ const PAROI_PROPRE = ALU || Object.values(CONFIG.bardages).some((b) => b.couleur
 const optParoi = ALU ? { ...optBois, bumpScale: 0.25, roughness: 0.6 } : optBois;
 const matParoi = PAROI_PROPRE ? new THREE.MeshStandardMaterial({ ...optParoi, map: texVeinage, bumpMap: texVeinage }) : matBois;
 const matParoiV = PAROI_PROPRE ? new THREE.MeshStandardMaterial({ ...optParoi, map: texVeinageV, bumpMap: texVeinageV }) : matBoisV;
+// Chaque pièce / lame reçoit une nuance et un veinage à elle (voir varierPiece) : bois ±7 %, alu presque uniforme
+const VARIATION = ALU ? 0.015 : 0.07;
+for (const m of new Set([matBois, matBoisV, matBoisFonce, matParoi, matParoiV])) m.vertexColors = true;
 const matMetal = new THREE.MeshStandardMaterial({ color: '#5A5D60', roughness: 0.35, metalness: 0.85 });
 const matZinc = new THREE.MeshStandardMaterial({ color: '#8E9396', roughness: 0.32, metalness: 0.8, side: THREE.DoubleSide });
 const matBeton = new THREE.MeshStandardMaterial({ color: '#A9A69E', roughness: 0.95 });
@@ -393,11 +402,11 @@ const texTerrasse = textureCanvas(512, 512, (g, l, h) => {
 
 // Gazon (2 m × 2 m par motif)
 const texGazon = textureCanvas(256, 256, (g, l, h) => {
-  g.fillStyle = '#7A8160';
+  g.fillStyle = '#6F8350';
   g.fillRect(0, 0, l, h);
-  for (let i = 0; i < 5000; i++) {
+  for (let i = 0; i < 6000; i++) {
     const v = hasard(-22, 22);
-    g.strokeStyle = `rgba(${108 + v},${118 + v},${80 + v * 0.5},0.55)`;
+    g.strokeStyle = `rgba(${100 + v},${128 + v},${72 + v * 0.5},0.6)`;
     g.lineWidth = 1;
     const x = hasard(0, l);
     const y = hasard(0, h);
@@ -407,11 +416,42 @@ const texGazon = textureCanvas(256, 256, (g, l, h) => {
     g.stroke();
   }
 });
-texGazon.repeat.set(90, 90);
-const sol = new THREE.Mesh(
-  new THREE.PlaneGeometry(180, 180),
-  new THREE.MeshStandardMaterial({ map: texGazon, roughness: 1, envMapIntensity: 0.3 }),
-);
+texGazon.repeat.set(40, 40);
+// Taches claires / sombres à grande échelle : casse la répétition du motif de gazon
+const texTaches = textureCanvas(256, 256, (g, l, h) => {
+  g.fillStyle = '#808080';
+  g.fillRect(0, 0, l, h);
+  for (let i = 0; i < 60; i++) {
+    const x = hasard(0, l);
+    const y = hasard(0, h);
+    const r = hasard(12, 46);
+    const clair = Math.random() < 0.5;
+    const rg = g.createRadialGradient(x, y, 0, x, y, r);
+    rg.addColorStop(0, clair ? 'rgba(255,255,235,0.22)' : 'rgba(30,40,10,0.22)');
+    rg.addColorStop(1, 'rgba(128,128,128,0)');
+    g.fillStyle = rg;
+    g.fillRect(x - r, y - r, 2 * r, 2 * r);
+  }
+});
+texTaches.repeat.set(3, 3);
+// Le gazon s'efface en douceur vers le bord (plus de ligne d'horizon nette)
+const texFondu = textureCanvas(256, 256, (g, l, h) => {
+  const d = g.createRadialGradient(l / 2, h / 2, l * 0.18, l / 2, h / 2, l / 2);
+  d.addColorStop(0, '#ffffff');
+  d.addColorStop(1, '#000000');
+  g.fillStyle = d;
+  g.fillRect(0, 0, l, h);
+}, false);
+const matSol = new THREE.MeshStandardMaterial({ map: texGazon, alphaMap: texFondu, transparent: true, depthWrite: false, roughness: 1, envMapIntensity: 0.3 });
+// Les taches multiplient la couleur du gazon (2e texture, sans toucher au matériau de base)
+matSol.onBeforeCompile = (s) => {
+  s.uniforms.tTaches = { value: texTaches };
+  s.fragmentShader = s.fragmentShader
+    .replace('#include <common>', '#include <common>\nuniform sampler2D tTaches;')
+    .replace('#include <map_fragment>', '#include <map_fragment>\ndiffuseColor.rgb *= 2.0 * texture2D(tTaches, vAlphaMapUv * 3.0).rgb;');
+};
+const sol = new THREE.Mesh(new THREE.PlaneGeometry(80, 80), matSol);
+sol.renderOrder = -1;
 sol.rotation.x = -Math.PI / 2;
 sol.receiveShadow = true;
 scene.add(sol);
@@ -537,6 +577,30 @@ const matOmbreVoiture = new THREE.MeshBasicMaterial({
   depthWrite: false,
 });
 
+// Ombre d'ambiance sous le toit : sol plus sombre au centre de l'abri, dégradé vers les bords
+const matOmbreToit = new THREE.MeshBasicMaterial({
+  map: textureCanvas(256, 256, (g, l, h) => {
+    g.filter = 'blur(22px)';
+    g.fillStyle = 'rgba(0,0,0,1)';
+    g.fillRect(l * 0.16, h * 0.16, l * 0.68, h * 0.68);
+  }),
+  transparent: true,
+  opacity: 0.32,
+  depthWrite: false,
+});
+// Petite ombre de contact au pied de chaque poteau
+const matOmbrePied = new THREE.MeshBasicMaterial({
+  map: textureCanvas(64, 64, (g, l, h) => {
+    const d = g.createRadialGradient(l / 2, h / 2, 2, l / 2, h / 2, l / 2);
+    d.addColorStop(0, 'rgba(0,0,0,0.7)');
+    d.addColorStop(1, 'rgba(0,0,0,0)');
+    g.fillStyle = d;
+    g.fillRect(0, 0, l, h);
+  }),
+  transparent: true,
+  depthWrite: false,
+});
+
 const modeles = {};
 const chargeur = new FBXLoader();
 
@@ -548,6 +612,50 @@ function chargerVehicule(id) {
     modeles[id] = preparerModele(obj, v);
     construire();
   }, undefined, () => { modeles[id] = false; });
+}
+
+// Normales adoucies entre faces presque alignées (angle < seuil) : carrosserie moins « en facettes »,
+// les vraies arêtes (vitres, passages de roue) restent nettes
+function lisser(geo, seuilDeg) {
+  const pos = geo.attributes.position;
+  const idx = geo.index;
+  const nbFaces = (idx ? idx.count : pos.count) / 3;
+  const sommet = (f, k) => (idx ? idx.getX(f * 3 + k) : f * 3 + k);
+  const cle = (i) => `${Math.round(pos.getX(i) * 1e4)},${Math.round(pos.getY(i) * 1e4)},${Math.round(pos.getZ(i) * 1e4)}`;
+  const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3();
+  const nFaces = [];
+  const parPoint = new Map();
+  for (let f = 0; f < nbFaces; f++) {
+    a.fromBufferAttribute(pos, sommet(f, 0));
+    b.fromBufferAttribute(pos, sommet(f, 1));
+    c.fromBufferAttribute(pos, sommet(f, 2));
+    const n = new THREE.Vector3().crossVectors(c.sub(b), a.sub(b)).normalize();
+    nFaces.push(n);
+    for (let k = 0; k < 3; k++) {
+      const ck = cle(sommet(f, k));
+      if (!parPoint.has(ck)) parPoint.set(ck, []);
+      parPoint.get(ck).push(f);
+    }
+  }
+  // Géométrie non indexée : chaque coin de face reçoit sa propre normale
+  const plat = idx ? geo.toNonIndexed() : geo;
+  const normales = new Float32Array(nbFaces * 9);
+  const cosSeuil = Math.cos(THREE.MathUtils.degToRad(seuilDeg));
+  const somme = new THREE.Vector3();
+  for (let f = 0; f < nbFaces; f++) {
+    for (let k = 0; k < 3; k++) {
+      somme.set(0, 0, 0);
+      for (const g of parPoint.get(cle(sommet(f, k)))) {
+        if (nFaces[g].dot(nFaces[f]) >= cosSeuil) somme.add(nFaces[g]);
+      }
+      somme.normalize();
+      normales.set([somme.x, somme.y, somme.z], (f * 3 + k) * 3);
+    }
+  }
+  if (idx) {
+    geo.copy(plat);
+  }
+  geo.setAttribute('normal', new THREE.BufferAttribute(normales, 3));
 }
 
 function preparerModele(obj, v) {
@@ -572,6 +680,7 @@ function preparerModele(obj, v) {
   };
   obj.traverse((o) => {
     if (!o.isMesh) return;
+    lisser(o.geometry, 65);
     // Pas d'ombre portée (le modèle anguleux faisait un bloc noir sur le sol et la paroi) : ombre douce posée au sol à la place
     o.castShadow = false;
     o.receiveShadow = true;
@@ -626,7 +735,19 @@ function vider(obj) {
   obj.clear();
 }
 
+// Nuance (couleur de sommets) + décalage du veinage propres à une pièce
+function varierPiece(geo) {
+  const k = 1 + hasard(-VARIATION, VARIATION);
+  const n = geo.attributes.position.count;
+  geo.setAttribute('color', new THREE.Float32BufferAttribute(new Array(n * 3).fill(k), 3));
+  const uv = geo.attributes.uv;
+  const du = Math.random();
+  const dv = Math.random();
+  for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) + du, uv.getY(i) + dv);
+}
+
 function ajouter(geo, mat, x, y, z, ombre = true, parent = groupe) {
+  if (mat.vertexColors && !geo.attributes.color) varierPiece(geo);
   const m = new THREE.Mesh(geo, mat);
   m.position.set(x, y, z);
   m.castShadow = ombre;
@@ -767,6 +888,14 @@ function construire() {
   }
   boite(largP + 0.16, 0.08, 0.08, matBordure, 0, 0.04, -L / 2 - 0.34, false);
 
+  // Ombre d'ambiance sous le toit (plus marquée quand des parois ferment l'abri)
+  const fermes = [state.paroiArriere || g.posL === 'arriere', state.paroiGauche, state.paroiDroite].filter(Boolean).length;
+  const ombreToit = ajouter(new THREE.PlaneGeometry(W * 1.5, L * 1.45), matOmbreToit, 0, Y_SOL + 0.004, -0.1, false);
+  ombreToit.rotation.x = -Math.PI / 2;
+  ombreToit.receiveShadow = false;
+  ombreToit.renderOrder = 1;
+  matOmbreToit.opacity = 0.26 + fermes * 0.05;
+
   if (g.adosse !== 'non') facade(g);
 
   // Poteaux sur plots béton + pieds en U métalliques (pas de poteaux côté façade)
@@ -778,6 +907,10 @@ function construire() {
     // Alu : poteau sur platine directement ; bois : pied en U qui décolle le poteau du sol
     const bas = ALU ? Y_SOL + 0.06 : Y_SOL + 0.13;
     for (const z of g.zPoteaux) {
+      const pied = ajouter(new THREE.PlaneGeometry(0.75, 0.75), matOmbrePied, x, Y_SOL + 0.005, z, false);
+      pied.rotation.x = -Math.PI / 2;
+      pied.receiveShadow = false;
+      pied.renderOrder = 1;
       boite(0.26, 0.05, 0.26, matBeton, x, Y_SOL + 0.025, z);
       boite(0.18, 0.01, 0.18, matMetal, x, Y_SOL + 0.055, z);
       if (!ALU) for (const s of [-1, 1]) boite(0.006, 0.16, 0.1, matMetal, x + s * (P / 2 + 0.003), Y_SOL + 0.14, z);
@@ -924,7 +1057,7 @@ function construire() {
   if (deuxPans && !couv.ouverte) {
     const yFaite = ySup(xF) + (RH + ep) / Math.min(Math.cos(aG), Math.cos(aD));
     if (state.couverture === 'tuiles') {
-      const mat = new THREE.MeshStandardMaterial({ color: new THREE.Color(teinteCouv).multiplyScalar(0.68), roughness: 0.85 });
+      const mat = new THREE.MeshStandardMaterial({ color: new THREE.Color(teinteCouv).multiplyScalar(0.62), roughness: 0.88, envMapIntensity: 0.4 });
       temporaires.push(mat);
       const geoF = new THREE.CylinderGeometry(0.11, 0.11, profC + 0.04, 18, 1, false, 0, Math.PI);
       geoF.rotateX(Math.PI / 2);
@@ -1041,7 +1174,10 @@ function construire() {
   // Soleil et ombres centrés sur le carport
   const centre = g.decalage.clone().setY(1);
   soleil.target.position.copy(centre);
-  soleil.position.copy(centre).add(new THREE.Vector3(g.adosse === 'droite' ? -8 : 8, 14, 10));
+  // Isolé : soleil de côté, à l'opposé de la caméra (l'ombre du toit se voit sous l'abri et à côté).
+  // Contre la maison : soleil du côté libre, sinon la façade mettrait tout le carport à l'ombre.
+  const xSoleil = g.adosse === 'non' ? -10 : g.adosse === 'droite' ? -7 : 7;
+  soleil.position.copy(centre).add(new THREE.Vector3(xSoleil, 13, g.adosse === 'non' ? 5 : 9));
 
   construireCotes(g);
 }

@@ -4,7 +4,7 @@ Réponse au mail de Mathias Ruffieux (administrateur) du 29.10.2026 à 08:49, qu
 Prix choisis par Ryan : **mise en place 1 200 CHF** ; abonnement **700 CHF par an** (arrondi par Ryan, ~58 CHF/mois).
 Conditions proposées par Claude (à valider par Ryan avant l'envoi) : abonnement facturé une fois par an à l'avance, résiliable pour la fin de chaque année ; facture de mise en place à la mise en ligne, payable à 30 jours. Le mail demande seulement les changements qu'ils veulent (choix de Ryan).
 Repères marché (29.10.2026) : SaleSqueze ~499 $/mois ; Combeenation ~697 €/mois + mise en place (non confirmé). Site Sirbatec fait par Agence Audace (Estavayer), WordPress + Elementor.
-⚠️ Avant que Sirbatec accepte : autorisation écrite des parents (Ryan a 17 ans, art. 19 CC). AVS : pas assujetti avant le 1er janvier 2027.
+Autorisation des parents : obtenue (Ryan, 29.10.2026). AVS : pas assujetti avant le 1er janvier 2027.
 
 ---
 

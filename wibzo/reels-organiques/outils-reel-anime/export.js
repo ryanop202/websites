@@ -4,7 +4,7 @@ const { spawn } = require('child_process');
 const path = require('path');
 const [,, page, out, scaleArg = '1', fpsArg = '30', audio] = process.argv;
 const SCALE = +scaleArg, FPS = +fpsArg;
-const FFMPEG = 'C:/Users/Admin/AppData/Local/Python/pythoncore-3.14-64/Lib/site-packages/imageio_ffmpeg/binaries/ffmpeg-win-x86_64-v7.1.exe';
+const FFMPEG = process.env.FFMPEG || require('child_process').execSync('python -c "import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())"').toString().trim();
 const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 
 (async () => {

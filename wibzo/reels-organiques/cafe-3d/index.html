@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wibzo Café 3D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0e0f12; }
+  #stage {
+    position: absolute; left: 50%; top: 50%; width: 1080px; height: 1920px;
+    transform-origin: 50% 50%; transform: translate(-50%, -50%);
+    overflow: hidden; font-family: Inter, system-ui, sans-serif; color: #141938;
+  }
+  #stage canvas { position: absolute; inset: 0; width: 1080px !important; height: 1920px !important; display: block; }
+  #ui { position: absolute; inset: 0; pointer-events: none; }
+  .glass {
+    background: rgba(255,255,255,.55);
+    -webkit-backdrop-filter: blur(18px) saturate(1.3); backdrop-filter: blur(18px) saturate(1.3);
+    border: 1px solid rgba(255,255,255,.7); border-radius: 24px;
+    box-shadow: 0 18px 50px rgba(20,25,56,.12);
+  }
+  .headline {
+    position: absolute; left: 70px; right: 70px; top: 236px; padding: 30px 38px;
+    font-size: 62px; line-height: 1.1; font-weight: 800; letter-spacing: -1.6px; text-align: center; opacity: 0;
+  }
+  #missed {
+    position: absolute; left: 0; right: 0; top: 470px; text-align: center; opacity: 0;
+    font-size: 40px; font-weight: 700; color: #E5383B;
+  }
+  #missed span { display: inline-block; padding: 12px 28px; border-radius: 999px; background: rgba(255,255,255,.7); }
+  #missedN { display: inline-block; min-width: 1ch; }
+  #card { position: absolute; left: 110px; right: 110px; top: 1190px; padding: 34px 44px 26px; opacity: 0; }
+  #card .ct { font-size: 32px; font-weight: 700; color: #4a5072; margin-bottom: 14px; }
+  #card .row { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-top: 1px solid rgba(20,25,56,.08); }
+  #card .lab { font-size: 32px; font-weight: 600; color: #4a5072; }
+  #card .val { font-size: 52px; font-weight: 800; letter-spacing: -1px; font-variant-numeric: tabular-nums; }
+  #card .val.or { color: #FF7A1A; }
+  #card .val.ok { color: #3DAA5C; }
+  .dot { display: inline-block; width: 16px; height: 16px; border-radius: 50%; background: #FF7A1A; margin-right: 12px; vertical-align: 2px; }
+  #toasts { position: absolute; right: 70px; top: 1100px; width: 0; height: 0; }
+  .toast {
+    position: absolute; right: 0; top: 0; white-space: nowrap; opacity: 0;
+    background: #FF7A1A; color: #fff; font-size: 30px; font-weight: 700;
+    padding: 18px 28px; border-radius: 18px; box-shadow: 0 12px 30px rgba(255,122,26,.35);
+  }
+  .toast::before { content: ""; display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: #fff; margin-right: 14px; vertical-align: 3px; }
+  #brand { position: absolute; left: 0; right: 0; top: 1190px; text-align: center; opacity: 0; }
+  #brand .box { display: inline-block; padding: 34px 70px 40px; }
+  #brand .logo { font-size: 150px; font-weight: 900; letter-spacing: -6px; line-height: 1; }
+  #brand .logo span { color: #FF7A1A; }
+  #brand .tag { font-size: 44px; font-weight: 700; margin-top: 14px; color: #2b3150; }
+  #brand .cta { display: inline-block; margin-top: 24px; padding: 14px 30px; border-radius: 14px; background: #FF7A1A; color: #fff; font-size: 36px; font-weight: 800; }
+  #subs { display: none; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<div id="stage">
+  <div id="ui">
+    <div id="h1" class="headline glass">Midi. Le téléphone sonne… et tu as les mains pleines.</div>
+    <div id="h1b" class="headline glass">Ces clients-là partent chez le concurrent.</div>
+    <div id="missed"><span>Appels manqués&nbsp;: <b id="missedN">0</b></span></div>
+    <div id="h2" class="headline glass">Et si tes clients commandaient tout seuls&nbsp;?</div>
+    <div id="toasts"></div>
+    <div id="card" class="glass">
+      <div class="ct">Ton café • ce midi</div>
+      <div class="row"><span class="lab"><i class="dot"></i>Commandes en ligne</span><span class="val or" id="sC">0</span></div>
+      <div class="row"><span class="lab">Ventes en ligne</span><span class="val">CHF <span id="sV">0</span></span></div>
+      <div class="row"><span class="lab">Appels manqués</span><span class="val ok">0 ✓</span></div>
+    </div>
+    <div id="brand"><div class="box glass"><div class="logo">Wibzo<span>.</span></div><div class="tag">Ton site avec commande en ligne.</div><div class="cta">Maquette offerte · wibzo.ch</div></div></div>
+    <div id="subs"></div>
+  </div>
+</div>
+
+<script type="module">
+import * as THREE from 'three';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { GTAOPass } from 'three/addons/postprocessing/GTAOPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+// ---------- helpers ----------
+// the timeline is written in DUR "design" seconds; ANCHORS map design time -> real time
+// so each voice line lands on its picture (same table in sfx_cafe.py / mix_cafe.py)
+const DUR = 10, W = 1080, H = 1920, PI = Math.PI, D2R = PI / 180;
+const ANCHORS = [[0, 0], [1.0, 1.4], [2.7, 5.2], [4.15, 7.4], [4.9, 9.0], [5.9, 11.6], [8.5, 15.4], [10, 17.6]];
+const LOOP = ANCHORS[ANCHORS.length - 1][1];
+// monotone cubic (Fritsch-Carlson) so speed changes are smooth
+const TAN = (() => {
+  const n = ANCHORS.length, m = [], t = [];
+  for (let k = 0; k < n - 1; k++) m.push((ANCHORS[k + 1][1] - ANCHORS[k][1]) / (ANCHORS[k + 1][0] - ANCHORS[k][0]));
+  t[0] = m[0]; t[n - 1] = m[n - 2];
+  for (let k = 1; k < n - 1; k++) t[k] = (m[k - 1] + m[k]) / 2;
+  for (let k = 0; k < n - 1; k++) {
+    const a = t[k] / m[k], b = t[k + 1] / m[k], h = a * a + b * b;
+    if (h > 9) { const r = 3 / Math.sqrt(h); t[k] = r * a * m[k]; t[k + 1] = r * b * m[k]; }
+  }
+  return t;
+})();
+function realOf(d) {
+  let k = 0; while (k < ANCHORS.length - 2 && d > ANCHORS[k + 1][0]) k++;
+  const [x0, y0] = ANCHORS[k], [x1, y1] = ANCHORS[k + 1], h = x1 - x0, u = (d - x0) / h;
+  return (2 * u ** 3 - 3 * u ** 2 + 1) * y0 + (u ** 3 - 2 * u ** 2 + u) * h * TAN[k] + (-2 * u ** 3 + 3 * u ** 2) * y1 + (u ** 3 - u ** 2) * h * TAN[k + 1];
+}
+function designOf(r) {
+  let lo = 0, hi = DUR;
+  for (let i = 0; i < 40; i++) { const mid = (lo + hi) / 2; if (realOf(mid) < r) lo = mid; else hi = mid; }
+  return (lo + hi) / 2;
+}
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, k) => a + (b - a) * k;
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const smooth = x => x * x * (3 - 2 * x);
+const easeOut = x => 1 - Math.pow(1 - x, 3);
+const easeInOut = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const easeOutBack = x => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const easeInBack = x => { const c1 = 1.70158, c3 = c1 + 1; return c3 * x * x * x - c1 * x * x; };
+const bump = (t, a, b) => Math.sin(PI * seg(t, a, b));
+const frac = x => x - Math.floor(x);
+const lerpAngle = (a, b, k) => { const d = ((b - a + PI) % (2 * PI) + 2 * PI) % (2 * PI) - PI; return a + d * k; };
+function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const rand = rng(20261022);
+const fmt = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "'");
+
+const C = { ground: '#F4F1EA', blue: '#2547D0', teal: '#14A3A3', green: '#3DAA5C', orange: '#FF7A1A', red: '#E5383B', ink: '#2B3140', white: '#FBF8F2' };
+
+// ---------- renderer / composer ----------
+const stage = document.getElementById('stage');
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+stage.prepend(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(25, W / H, 1, 400);
+
+const hemi = new THREE.HemisphereLight(0xffffff, 0xd8cfc0, 1.1);
+scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xffffff, 2.6);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+Object.assign(sun.shadow.camera, { left: -14, right: 14, top: 14, bottom: -14, near: 1, far: 90 });
+sun.shadow.bias = -0.0004;
+sun.shadow.normalBias = 0.025;
+scene.add(sun, sun.target);
+
+const rt = new THREE.WebGLRenderTarget(W, H, { type: THREE.HalfFloatType, samples: 4 });
+const composer = new EffectComposer(renderer, rt);
+composer.addPass(new RenderPass(scene, camera));
+const gtao = new GTAOPass(scene, camera, W, H);
+gtao.blendIntensity = 0.9;
+gtao.updateGtaoMaterial({ radius: 0.7, distanceExponent: 1.5, thickness: 1.5, scale: 1.0, samples: 16 });
+composer.addPass(gtao);
+composer.addPass(new OutputPass());
+
+// glass would block AO behind it: hide it during the AO normal/depth pass only
+const glassMeshes = [];
+const gtaoRender = gtao.render.bind(gtao);
+gtao.render = (...a) => { glassMeshes.forEach(m => m.visible = false); gtaoRender(...a); glassMeshes.forEach(m => m.visible = true); };
+
+function fit() {
+  const s = Math.min(innerWidth / W, innerHeight / H);
+  stage.style.transform = `translate(-50%, -50%) scale(${s})`;
+  const pr = clamp(devicePixelRatio * s, 1, 2);
+  renderer.setPixelRatio(pr);
+  renderer.setSize(W, H, false);
+  composer.setPixelRatio(pr);
+  composer.setSize(W, H);
+  dirty = true;
+}
+
+// ---------- materials & geometry ----------
+const tinted = [];   // materials that desaturate in act 1
+const matCache = {};
+function mat(hex, { keep = false, ...opt } = {}) {
+  const key = hex + JSON.stringify(opt) + keep;
+  if (matCache[key]) return matCache[key];
+  const m = new THREE.MeshStandardMaterial({ color: hex, roughness: .82, metalness: 0, ...opt });
+  if (!keep) {
+    const c = m.color.clone(), l = .2126 * c.r + .7152 * c.g + .0722 * c.b;
+    m.userData.base = c;
+    m.userData.desat = new THREE.Color(lerp(l, c.r, .38) * .95, lerp(l, c.g, .38) * .98, lerp(l, c.b, .38) * 1.05);
+    tinted.push(m);
+  }
+  return matCache[key] = m;
+}
+const geoCache = {};
+function rbox(w, h, d, r = .08) {
+  r = Math.max(.002, Math.min(r, Math.min(w, h, d) / 2 - .001));
+  const k = [w, h, d, r].map(v => v.toFixed(3)).join();
+  return geoCache[k] || (geoCache[k] = new RoundedBoxGeometry(w, h, d, 3, r));
+}
+// y = bottom of the block
+function box(parent, w, h, d, color, x, y, z, o = {}) {
+  const m = new THREE.Mesh(rbox(w, h, d, o.r), typeof color === 'string' ? mat(color) : color);
+  m.position.set(x, y + h / 2, z);
+  m.castShadow = o.cast !== false;
+  m.receiveShadow = true;
+  parent.add(m);
+  return m;
+}
+const glassMat = new THREE.MeshStandardMaterial({ color: '#BFD6F2', roughness: .08, metalness: 0, transparent: true, opacity: .22, depthWrite: false });
+function glass(parent, w, h, d, x, y, z) {
+  const m = box(parent, w, h, d, glassMat, x, y, z, { cast: false, r: .01 });
+  glassMeshes.push(m);
+  return m;
+}
+const orangeMat = mat(C.orange, { keep: true, emissive: C.orange, emissiveIntensity: .35 });
+const glowMat = new THREE.MeshStandardMaterial({ color: C.orange, emissive: C.orange, emissiveIntensity: 1.6, roughness: .5, transparent: true });
+const redMat = mat(C.red, { keep: true, emissive: C.red, emissiveIntensity: .5 });
+
+// ---------- build / drop staggering ----------
+const pieces = [];
+function piece(x, z, d) {
+  const g = new THREE.Group();
+  g.position.set(x, 0, z);
+  scene.add(g);
+  pieces.push({ g, d: d ?? Math.hypot(x, z) });
+  return g;
+}
+// world rises staggered from the café outward, drops back in reverse
+function bf(sec, d) {
+  if (sec < 5) {
+    const k = seg(sec, .18 + d * .028, .18 + d * .028 + .5);
+    return { s: easeOutBack(k), y: -(1 - smooth(k)) * 7 };
+  }
+  const k = seg(sec, 9.3 + (13 - d) * .024, 9.3 + (13 - d) * .024 + .34);
+  return { s: Math.max(0, 1 - easeInBack(k)), y: -smooth(k) * 7 };
+}
+function applyB(o, s, y, baseY = 0) {
+  o.visible = s > .003;
+  o.scale.setScalar(Math.max(s, .001));
+  o.position.y = baseY + y;
+}
+
+// ---------- slab & ground ----------
+const slab = new THREE.Group(); scene.add(slab);
+box(slab, 19, 1.0, 19, C.ground, 0, -1.0, 0, { r: .45 });
+box(slab, 18.4, .5, 18.4, '#E4DED2', 0, -1.45, 0, { r: .3 });
+const ground = piece(0, 0, .5);
+box(ground, 19, .06, 2.2, '#E9E3D6', 0, 0, 3.0, { r: .03 });        // front sidewalk
+box(ground, 19, .03, 3.0, '#C9CDD6', 0, 0, 5.6, { r: .015 });       // street
+box(ground, 19, .06, .8, '#E9E3D6', 0, 0, 7.5, { r: .03 });         // far sidewalk
+box(ground, 18.6, .1, 1.2, '#BFE0C4', 0, 0, 8.45, { r: .05 });      // park strip
+for (let x = -8.5; x < 9; x += 1.6) box(ground, .8, .035, .08, '#F4F1EA', x, 0, 5.6, { r: .01, cast: false });
+for (let i = 0; i < 6; i++) box(ground, .5, .04, .32, '#FFFFFF', -3.6, 0, 4.35 + i * .5, { r: .01, cast: false }); // crosswalk
+box(ground, 2.4, .06, 4.4, '#E9E3D6', -3.65, 0, -.4, { r: .03 });   // alley paving
+
+// ---------- buildings ----------
+const winMat = mat('#A9C4E8', { roughness: .3 });
+function building(x, z, w, d, h, color, o = {}) {
+  const g = piece(x, z);
+  box(g, w, h, d, color, 0, 0, 0, { r: .12 });
+  box(g, w + .12, .14, d + .12, o.trim || '#FFFFFF', 0, h, 0, { r: .05 });
+  const floors = Math.floor((h - (o.shop ? 1.4 : .5)) / .95), cols = Math.max(1, Math.floor((w - .4) / .85));
+  const y0 = o.shop ? 1.55 : .55;
+  for (let f = 0; f < floors; f++) for (let c = 0; c < cols; c++) {
+    const xx = (c - (cols - 1) / 2) * ((w - .4) / cols);
+    box(g, .44, .56, .06, winMat, xx, y0 + f * .95, d / 2 + .01, { r: .03, cast: false });
+  }
+  const cz = Math.max(1, Math.floor((d - .4) / .85));
+  for (let f = 0; f < floors; f++) for (let c = 0; c < cz; c++) {
+    const zz = (c - (cz - 1) / 2) * ((d - .4) / cz);
+    box(g, .06, .56, .44, winMat, w / 2 + .01, y0 + f * .95, zz, { r: .03, cast: false });
+  }
+  if (o.roof) { box(g, .7, .4, .6, '#D9DCE3', w * .2, h + .14, -d * .2); box(g, .5, .3, .5, '#C9CED8', -w * .25, h + .14, d * .1); }
+  return g;
+}
+building(-6.4, -5.8, 3.6, 4.2, 5.0, '#E3E8F6', { roof: true });
+building(-2.4, -6.0, 3.4, 3.8, 6.6, C.teal, { roof: true });
+building(1.6, -5.8, 3.6, 4.2, 4.4, '#F0E6D6', { roof: true });
+building(5.9, -6.0, 3.8, 3.8, 5.8, '#C9D6F2', { roof: true, trim: '#E8EEFB' });
+const resi = building(6.4, 0, 3.2, 3.6, 3.8, '#E3EFE2', { shop: false });
+box(resi, .6, 1.0, .06, '#7C8BA6', -.8, 0, 1.81, { r: .03 });   // door
+// competitor shop down the street
+const comp = building(-6.3, .2, 3.0, 3.6, 3.0, '#E8E4DC', { shop: true });
+box(comp, 2.6, 1.1, .06, '#5F6B80', .25, .2, 1.81, { r: .03 });  // dark shop window
+box(comp, .6, 1.2, .06, '#46505F', -.95, 0, 1.82, { r: .03 });   // door
+const compAwn = new THREE.Group(); compAwn.position.set(0, 1.42, 1.8); compAwn.rotation.x = .38; comp.add(compAwn);
+for (let i = 0; i < 5; i++) box(compAwn, .64, .05, .8, i % 2 ? '#FFFFFF' : C.teal, -1.28 + i * .64, 0, .4, { r: .02 });
+
+// ---------- café (the hero's place) ----------
+const cafe = piece(0, 0, 0);
+const WALL = C.white, TRIM = C.blue;
+box(cafe, 5.0, .06, 3.6, '#E8DCC8', 0, 0, .2, { r: .03 });
+box(cafe, 5.0, 2.4, .16, WALL, 0, 0, -1.52, { r: .05 });
+box(cafe, .16, 2.4, 3.6, WALL, -2.42, 0, .2, { r: .05 });
+// right wall: sill, glass, header
+box(cafe, .16, .5, 3.6, WALL, 2.42, 0, .2, { r: .05 });
+glass(cafe, .05, 1.45, 3.4, 2.42, .5, .2);
+box(cafe, .16, .45, 3.6, WALL, 2.42, 1.95, .2, { r: .05 });
+for (const z of [-.95, .2, 1.35]) box(cafe, .1, 1.45, .08, TRIM, 2.45, .5, z, { r: .03 });
+// front wall with the door gap at x -1.8 .. -1.0
+for (const [cx, w] of [[-2.15, .7], [.75, 3.5]]) { box(cafe, w, .5, .16, WALL, cx, 0, 1.92, { r: .05 }); glass(cafe, w, 1.45, .05, cx, .5, 1.92); }
+box(cafe, 5.0, .45, .16, WALL, 0, 1.95, 1.92, { r: .05 });
+for (const x of [-1.8, -1.0, .2, 1.4]) box(cafe, .1, 1.45, .1, TRIM, x, .5, 1.95, { r: .03 });
+for (const [x, z] of [[-2.42, 1.92], [2.42, 1.92], [2.42, -1.52], [-2.42, -1.52]]) box(cafe, .2, 2.45, .2, TRIM, x, 0, z, { r: .05 });
+// awning
+const awn = new THREE.Group(); awn.position.set(0, 2.05, 1.98); awn.rotation.x = .38; cafe.add(awn);
+for (let i = 0; i < 8; i++) box(awn, .66, .05, 1.0, i % 2 ? '#FFFFFF' : TRIM, -2.31 + i * .66, 0, .5, { r: .02 });
+for (let i = 0; i < 8; i++) box(awn, .62, .14, .04, i % 2 ? '#FFFFFF' : TRIM, -2.31 + i * .66, -.14, 1.0, { r: .02 });
+// sign with a cup icon
+box(cafe, 2.0, .42, .14, TRIM, 0, 2.4, 1.95, { r: .08 });
+box(cafe, .24, .2, .04, '#FFFFFF', -.05, 2.5, 2.03, { r: .04 });
+box(cafe, .08, .1, .04, '#FFFFFF', .12, 2.55, 2.03, { r: .03 });
+// interior
+box(cafe, 3.0, .56, .6, TRIM, -.25, .06, -.25, { r: .05 });          // counter
+box(cafe, 3.1, .05, .72, '#FFFFFF', -.25, .62, -.25, { r: .02 });    // counter top (surface .67)
+box(cafe, .7, .3, .5, '#FFFFFF', -1.3, .67, -.25, { r: .04 });       // pastry display
+glass(cafe, .66, .26, .46, -1.3, .68, -.25);
+for (let i = 0; i < 3; i++) box(cafe, .16, .08, .16, '#C99A6B', -1.5 + i * .2, .7, -.25, { r: .04 });
+box(cafe, 4.4, .56, .5, '#FFFFFF', 0, .06, -1.18, { r: .05 });       // back counter
+box(cafe, .5, .45, .38, '#3A4150', -1.15, .62, -1.18, { r: .06 });   // coffee machine
+box(cafe, .14, .14, .14, '#C9CED8', -1.05, .7, -.98, { r: .03 });
+box(cafe, .22, .4, .22, C.teal, -.55, .62, -1.2, { r: .05 });        // grinder
+box(cafe, 1.3, .8, .04, '#2B3140', -1.0, 1.25, -1.43, { r: .04 });   // menu board
+for (let i = 0; i < 4; i++) box(cafe, .8 - i * .1, .04, .02, '#FFFFFF', -1.1, 1.42 + i * .15, -1.4, { r: .01, cast: false });
+box(cafe, 2.4, .05, .28, '#FFFFFF', .9, 1.45, -1.32, { r: .02 });     // shelf
+['#14A3A3', '#3DAA5C', '#2547D0', '#14A3A3', '#3DAA5C', '#2547D0'].forEach((c, i) => box(cafe, .2, .26, .18, c, .1 + i * .32, 1.5, -1.32, { r: .05 }));
+box(cafe, .06, .5, .06, C.ink, 1.65, .06, 1.0);                        // inside table
+box(cafe, .6, .04, .6, '#FFFFFF', 1.65, .56, 1.0, { r: .1 });
+for (const dz of [-.45, .45]) box(cafe, .3, .3, .3, C.teal, 1.65, .06, 1.0 + dz, { r: .08 });
+// phone (rings in act 1)
+const phone = new THREE.Group(); phone.position.set(.95, .67, -.2); cafe.add(phone);
+box(phone, .36, .1, .26, C.ink, 0, 0, 0, { r: .04 });
+box(phone, .38, .08, .1, C.ink, 0, .1, -.06, { r: .04 });
+const phoneScreen = new THREE.MeshStandardMaterial({ color: '#555c6c', emissive: C.red, emissiveIntensity: 0, roughness: .4 });
+box(phone, .16, .02, .08, phoneScreen, .02, .1, .07, { r: .008 });
+// order tablet (lights orange when an online order lands)
+const tablet = new THREE.Group(); tablet.position.set(.3, .67, -.36); tablet.rotation.x = -.35; cafe.add(tablet);
+box(tablet, .06, .12, .06, C.ink, 0, 0, 0);
+const tabletScreen = new THREE.MeshStandardMaterial({ color: '#3A4150', emissive: C.orange, emissiveIntensity: 0, roughness: .4 });
+box(tablet, .46, .32, .03, C.ink, 0, .1, 0, { r: .015 });
+box(tablet, .4, .26, .01, tabletScreen, 0, .13, .02, { r: .004, cast: false });
+// customer cup on counter
+box(cafe, .1, .12, .1, '#FFFFFF', -.15, .67, .0, { r: .03 });
+// missed-call dots
+const dots = [];
+for (let i = 0; i < 7; i++) {
+  const m = new THREE.Mesh(new THREE.SphereGeometry(.075, 20, 14), redMat);
+  m.castShadow = true;
+  const a = (i - 3) / 3;
+  m.position.set(.95 + a * .52, 1.28 - a * a * .14, -.2);
+  cafe.add(m); dots.push(m);
+}
+// pickup shelf on the right side
+const PX = 2.82, PZ = 1.2;
+for (const dz of [-.48, .48]) for (const dx of [-.16, .16]) box(cafe, .05, 1.2, .05, '#FFFFFF', PX + dx, 0, PZ + dz);
+for (const y of [.42, .82]) box(cafe, .42, .04, 1.04, '#FFFFFF', PX, y, PZ, { r: .015 });
+box(cafe, .62, .05, 1.24, TRIM, PX + .04, 1.22, PZ, { r: .02 });
+const shelfSlots = [[.46, -.25], [.46, .25], [.86, -.25], [.86, .25]].map(([y, dz]) => {
+  const m = box(cafe, .3, .26, .32, orangeMat, PX, y, PZ + dz, { r: .04 });
+  return { m, y: y + .13 };
+});
+// terrace
+const tables = [.8, 2.1];
+for (const x of tables) {
+  box(cafe, .06, .48, .06, C.ink, x, .06, 2.85);
+  box(cafe, .56, .04, .56, '#FFFFFF', x, .52, 2.85, { r: .1 });
+  for (const s of [-1, 1]) {
+    box(cafe, .3, .04, .3, C.teal, x + s * .42, .32, 2.85, { r: .03 });
+    box(cafe, .04, .36, .3, C.teal, x + s * .58, .32, 2.85, { r: .02 });
+    box(cafe, .2, .26, .04, C.ink, x + s * .42, .06, 2.85, { r: .01 });
+  }
+}
+box(cafe, .5, .4, .5, '#FFFFFF', -2.15, .06, 2.4, { r: .08 });  // planter by the door
+box(cafe, .44, .4, .44, C.green, -2.15, .4, 2.4, { r: .18 });
+const terraceCups = [[.6, 7.6], [1.0, 8.6], [2.3, 7.4]].map(([x, t]) => ({ m: box(cafe, .09, .1, .09, '#FFFFFF', x, .56, 2.85, { r: .025 }), t, x }));
+
+// ---------- street furniture ----------
+const trees = [], lamps = [];
+function tree(x, z, k = 1) {
+  const g = piece(x, z);
+  const sway = new THREE.Group(); g.add(sway);
+  box(sway, .16 * k, .8 * k, .16 * k, '#8B6B4A', 0, 0, 0, { r: .05 });
+  box(sway, 1.1 * k, .9 * k, 1.1 * k, C.green, 0, .7 * k, 0, { r: .34 * k });
+  box(sway, .74 * k, .62 * k, .74 * k, '#5DBB76', .06, 1.45 * k, -.04, { r: .26 * k });
+  trees.push({ sway, ph: rand() * PI * 2 });
+}
+function lamp(x, z) {
+  const g = piece(x, z);
+  box(g, .2, .1, .2, C.ink, 0, 0, 0, { r: .03 });
+  box(g, .08, 2.0, .08, C.ink, 0, .1, 0, { r: .03 });
+  const m = new THREE.MeshStandardMaterial({ color: '#F4F1EA', emissive: '#FFE3A6', emissiveIntensity: 0, roughness: .5 });
+  box(g, .34, .2, .34, m, 0, 2.05, 0, { r: .06 });
+  box(g, .4, .05, .4, C.ink, 0, 2.25, 0, { r: .02 });
+  lamps.push(m);
+}
+function bench(x, z) {
+  const g = piece(x, z);
+  box(g, 1.2, .07, .4, C.teal, 0, .3, 0, { r: .03 });
+  box(g, 1.2, .3, .06, C.teal, 0, .4, .2, { r: .03 });
+  for (const dx of [-.5, .5]) box(g, .06, .3, .34, C.ink, dx, 0, 0, { r: .02 });
+}
+tree(-8.1, 3.9, .9); tree(7.2, 3.9, .9);
+tree(-7.6, 8.5); tree(-1.4, 8.6, 1.1); tree(7.6, 8.5);
+tree(-3.7, -2.7, .8); tree(3.8, -2.6, .85); tree(-8.3, -2.6, .8);
+lamp(-4.7, 3.95); lamp(4.4, 3.95); lamp(-3.0, 7.7); lamp(2.0, 7.7); lamp(6.0, 7.7);
+bench(-5.2, 8.45); bench(4.2, 8.45);
+
+// ---------- people ----------
+const capGeo = new THREE.CapsuleGeometry(.17, .42, 4, 14);
+const headGeo = new THREE.SphereGeometry(.16, 24, 16);
+const armGeo = new THREE.CapsuleGeometry(.055, .3, 3, 8);
+const SKIN = ['#F1C9A5', '#D9A07A', '#A86F4C', '#7A4E32', '#E8B994'];
+function makePerson(color, o = {}) {
+  const g = new THREE.Group(); scene.add(g);
+  const inner = new THREE.Group(); g.add(inner);
+  const body = new THREE.Mesh(capGeo, mat(color)); body.position.y = .38; body.castShadow = true; inner.add(body);
+  const neck = new THREE.Group(); neck.position.y = .76; inner.add(neck);
+  const head = new THREE.Mesh(headGeo, mat(o.skin || SKIN[Math.floor(rand() * SKIN.length)])); head.position.y = .17; head.castShadow = true; neck.add(head);
+  const p = { g, inner, neck, scale: o.scale || 1 };
+  if (o.arms) {
+    p.arms = [-1, 1].map(s => {
+      const piv = new THREE.Group(); piv.position.set(s * .21, .66 + (s > 0 ? .015 : 0), 0); piv.rotation.order = 'YXZ';
+      const a = new THREE.Mesh(armGeo, mat(color)); a.position.y = -.2; a.castShadow = true; piv.add(a);
+      inner.add(piv); return piv;
+    });
+  }
+  return p;
+}
+function makePath(pts) {
+  const segs = []; let L = 0;
+  for (let i = 1; i < pts.length; i++) {
+    const dx = pts[i][0] - pts[i - 1][0], dz = pts[i][1] - pts[i - 1][1], l = Math.hypot(dx, dz);
+    segs.push({ a: pts[i - 1], dx, dz, l, s: L }); L += l;
+  }
+  return { segs, L };
+}
+function at(path, dist) {
+  dist = clamp(dist, 0, path.L);
+  for (const s of path.segs) if (dist <= s.s + s.l || s === path.segs[path.segs.length - 1]) {
+    const k = s.l ? (dist - s.s) / s.l : 0;
+    return { x: s.a[0] + s.dx * k, z: s.a[1] + s.dz * k, ry: Math.atan2(s.dx, s.dz) };
+  }
+}
+// walks a path then fades out (enters a door)
+function walkVanish(path, v, t0, sec) {
+  const dist = Math.max(0, sec - t0) * v, q = at(path, dist), tEnd = t0 + path.L / v;
+  return { ...q, s: 1 - smooth(seg(sec, tEnd, tEnd + .3)), walk: sec > t0 && dist < path.L ? dist : null };
+}
+// pops in, walks a path, then turns to finalRy (and optionally sits)
+function walkArrive(path, v, t0, sec, finalRy, sit = false, pop = true) {
+  const dist = Math.max(0, sec - t0) * v, q = at(path, dist), tEnd = t0 + path.L / v;
+  const k = smooth(seg(sec, tEnd, tEnd + .25));
+  q.ry = lerpAngle(q.ry, finalRy, k);
+  return { ...q, s: pop ? easeOutBack(seg(sec, t0 - .1, t0 + .25)) : 1, walk: dist > 0 && dist < path.L ? dist : null, sit: sit ? k : 0 };
+}
+const people = [];
+function person(color, fn, o) { const p = makePerson(color, o); p.fn = fn; people.push(p); return p; }
+
+// act 1 passers-by: walk past the café into the competitor
+const pW1 = makePath([[-1, 3.4], [-6.75, 3.4], [-6.75, 2.3]]);
+const pW2 = makePath([[1.6, 3.4], [-6.95, 3.4], [-7.1, 2.3]]);
+person('#5B6478', s => walkVanish(pW1, 3.0, 1.0, s));
+person(C.blue, s => walkVanish(pW2, 3.0, 1.0, s));
+// W3 is still on the street when the café changes: turns back and joins the queue
+const pW3a = makePath([[5.5, 3.45], [-3.5, 3.45]]);
+const pW3b = makePath([[-3.5, 3.45], [-1.4, 3.1], [-1.4, 1.7], [-.75, 1.0]]);
+person('#8E7CC3', s => {
+  if (s < 4.35) {
+    const dist = Math.max(0, s - 1) * 3, q = at(pW3a, dist);
+    q.ry = lerpAngle(-PI / 2, PI * .35, smooth(seg(s, 4.0, 4.35)));
+    return { ...q, s: 1, walk: s > 1 && dist < pW3a.L ? dist : null };
+  }
+  return walkArrive(pW3b, 2.6, 4.35, s, PI, false, false);
+});
+// act 2 arrivals
+person(C.teal, s => walkArrive(makePath.c1 ||= makePath([[-3.6, 8.4], [-3.6, 3.3], [-1.6, 3.1], [-1.35, 1.75]]), 3.0, 4.7, s, PI));
+person('#7FA7E8', s => walkArrive(makePath.c2 ||= makePath([[5.6, 2.3], [5.0, 3.5], [-1.3, 3.5], [-1.4, 2.7]]), 3.3, 4.8, s, PI));
+person(C.green, s => walkArrive(makePath.c3 ||= makePath([[9.2, 3.6], [2.52, 3.6], [2.52, 2.85]]), 3.3, 4.9, s, -PI / 2, true));
+person('#E5E1D8', s => walkArrive(makePath.c4 ||= makePath([[-3.7, -1.2], [-3.7, 3.55], [.38, 3.55], [.38, 2.85]]), 3.4, 4.9, s, PI / 2, true));
+person('#2B3140', s => walkArrive(makePath.c5 ||= makePath([[-9.2, 3.65], [1.22, 3.65], [1.22, 2.85]]), 3.6, 5.2, s, -PI / 2, true));
+// always there: counter customer, bench sitters
+person('#9BD3C6', s => ({ x: -.2, z: .45, ry: PI + Math.sin(s * PI * .8) * .1, s: 1 }));
+person(C.blue, s => ({ x: -5.2, z: 8.35, ry: PI, s: 1, sit: 1 }));
+person('#E5E1D8', s => ({ x: 4.0, z: 8.35, ry: PI, s: 1, sit: 1 }));
+
+// the owner: bigger, green apron, arms
+const owner = makePerson('#FFFFFF', { arms: true, scale: 1.18, skin: '#D9A07A' });
+box(owner.inner, .3, .42, .05, C.green, 0, .2, .16, { r: .02 });
+box(owner.inner, .26, .06, .05, C.green, 0, .64, .15, { r: .02 });
+const hair = new THREE.Mesh(new THREE.SphereGeometry(.165, 20, 12, 0, PI * 2, 0, PI * .55), mat('#3B2A20'));
+hair.position.set(0, .19, -.02); hair.rotation.x = -.35; owner.neck.add(hair);
+
+// ---------- vehicles ----------
+const cars = [];
+function car(color, z, dir, off) {
+  const g = new THREE.Group(); scene.add(g);
+  const b = new THREE.Group(); g.add(b);
+  box(b, 1.9, .42, .86, color, 0, .14, 0, { r: .16 });
+  box(b, 1.0, .38, .78, color, -.1, .5, 0, { r: .14 });
+  box(b, 1.02, .24, .8, mat('#3A4150', { roughness: .3 }), -.1, .56, 0, { r: .08, cast: false });
+  for (const dx of [-.6, .6]) for (const dz of [-.4, .4]) box(b, .34, .34, .12, '#22262F', dx, 0, dz, { r: .08 });
+  g.rotation.y = dir > 0 ? 0 : PI;
+  cars.push({ g, z, dir, off });
+}
+car(C.blue, 5.15, 1, 0); car('#E5E1D8', 5.15, 1, .52); car(C.teal, 6.15, -1, .27);
+
+const scooters = [];
+function scooter(k) {
+  const g = new THREE.Group(); scene.add(g);
+  box(g, .9, .22, .32, C.teal, 0, .18, 0, { r: .1 });
+  box(g, .1, .62, .1, C.ink, .38, .2, 0);
+  box(g, .08, .06, .5, C.ink, .38, .82, 0, { r: .02 });
+  box(g, .36, .12, .3, C.ink, -.15, .4, 0, { r: .05 });
+  for (const dx of [-.34, .38]) box(g, .3, .3, .08, '#22262F', dx, 0, 0, { r: .08 });
+  box(g, .36, .05, .34, C.ink, -.36, .5, 0, { r: .02 });
+  const crate = box(g, .4, .34, .4, orangeMat, -.36, .55, 0, { r: .05 });
+  const rider = new THREE.Group(); rider.position.set(-.1, .48, 0); g.add(rider);
+  const rb = new THREE.Mesh(capGeo, mat(k ? C.blue : C.green)); rb.scale.setScalar(.85); rb.position.y = .3; rb.rotation.z = -.2; rb.castShadow = true; rider.add(rb);
+  const rh = new THREE.Mesh(headGeo, mat('#FFFFFF')); rh.position.set(.1, .78, 0); rh.castShadow = true; rider.add(rh);
+  const s = { g, crate, k, park: [7.4 + k * 1.15, 4.62], dep: 5.0 + k * 2.0 };
+  scooters.push(s);
+  return s;
+}
+scooter(0); scooter(1);
+const hopBox = box(scene, .3, .26, .32, orangeMat, 0, 0, 0, { r: .04 });
+
+// ---------- Wibzo FX ----------
+function ring(r, tube) {
+  const m = new THREE.Mesh(new THREE.TorusGeometry(r, tube, 10, 120), glowMat.clone());
+  m.rotation.x = -PI / 2; scene.add(m); return m;
+}
+const pulseRings = [ring(1, .07), ring(1, .04)];
+const ORDER_N = 7;
+const orderT = i => 5.2 + i * .5;   // arrival time of order i at the tablet
+const sources = [[-6.4, 5.4, -5.8], [1.6, 4.8, -5.8], [6.4, 4.0, 0], [-2.4, 7.0, -6.0], [5.9, 6.2, -6.0], [-7.6, 1.2, 8.5], [7.6, 1.2, 8.5]];
+const orders = sources.map(() => {
+  const g = new THREE.Group(); scene.add(g);
+  const head = new THREE.Mesh(new THREE.SphereGeometry(.3, 20, 14), glowMat);
+  g.add(head);
+  const trail = [1, 2, 3].map(j => { const m = new THREE.Mesh(new THREE.SphereGeometry(.26 * (1 - j * .22), 14, 10), glowMat); scene.add(m); return m; });
+  const burst = ring(.3, .025);
+  return { g, trail, burst };
+});
+const TAB = new THREE.Vector3(.3, .95, -.36);
+const P0 = new THREE.Vector3(), P1 = new THREE.Vector3(), Q = new THREE.Vector3();
+function bez(i, u, out) {
+  P0.set(...sources[i]);
+  P1.copy(P0).add(TAB).multiplyScalar(.5); P1.y += 4.5;
+  const a = (1 - u) * (1 - u), b = 2 * u * (1 - u), c = u * u;
+  return out.set(P0.x * a + P1.x * b + TAB.x * c, P0.y * a + P1.y * b + TAB.y * c, P0.z * a + P1.z * b + TAB.z * c);
+}
+const steam = [];
+const steamGeo = new THREE.SphereGeometry(1, 12, 8), steamMat = mat('#FFFFFF', { keep: true, roughness: 1 });
+function steamAt(x, y, z, show) { for (let k = 0; k < 3; k++) { const m = new THREE.Mesh(steamGeo, steamMat); scene.add(m); steam.push({ m, x, y, z, k, show }); } }
+steamAt(-.15, .82, 0, () => 1);
+terraceCups.forEach(c => steamAt(c.x, .7, 2.85, s => seg(s, c.t, c.t + .3)));
+
+// ---------- camera path ----------
+// [time, azimuth°, elevation°, distance, target x, y, z, vertical frame offset px]
+const CK = [
+  [0.0, 45, 32, 92, 0, .2, .5, 60],
+  [0.6, 45, 32, 92, 0, .2, .5, 60],
+  [1.5, 58, 36, 15, .1, .75, -.45, -190],
+  [4.0, 44, 30, 34, -2.6, .7, .6, -80],
+  [5.8, 36, 33, 58, 0, .3, .9, 120],
+  [9.3, 60, 35, 56, 0, .3, .9, 120],
+  [10., 45, 32, 92, 0, .2, .5, 60],
+];
+function updateCamera(sec) {
+  let i = 0; while (i < CK.length - 2 && sec > CK[i + 1][0]) i++;
+  const a = CK[i], b = CK[i + 1], k = easeInOut(seg(sec, a[0], b[0]));
+  const az = lerp(a[1], b[1], k) * D2R, el = lerp(a[2], b[2], k) * D2R;
+  const dist = Math.exp(lerp(Math.log(a[3]), Math.log(b[3]), k));
+  const tx = lerp(a[4], b[4], k), ty = lerp(a[5], b[5], k), tz = lerp(a[6], b[6], k);
+  camera.position.set(tx + dist * Math.sin(az) * Math.cos(el), ty + dist * Math.sin(el), tz + dist * Math.cos(az) * Math.cos(el));
+  camera.lookAt(tx, ty, tz);
+  camera.setViewOffset(W, H, 0, lerp(a[7], b[7], k), W, H);
+}
+
+// ---------- light / mood ----------
+const cool = { sun: new THREE.Color('#DCE5FF'), sky: new THREE.Color('#DDE5F2'), gnd: new THREE.Color('#B9C2CF'), bg: new THREE.Color('#CBD3DE') };
+const warm = { sun: new THREE.Color('#FFEAD0'), sky: new THREE.Color('#FFF6E8'), gnd: new THREE.Color('#D9C8AC'), bg: new THREE.Color('#EFE3D1') };
+scene.background = new THREE.Color();
+function mood(w) {
+  for (const m of tinted) m.color.copy(m.userData.desat).lerp(m.userData.base, w);
+  sun.color.copy(cool.sun).lerp(warm.sun, w);
+  sun.intensity = lerp(2.3, 3.0, w);
+  sun.position.set(lerp(10, 15, w), lerp(28, 22, w), lerp(14, 9, w));
+  hemi.color.copy(cool.sky).lerp(warm.sky, w);
+  hemi.groundColor.copy(cool.gnd).lerp(warm.gnd, w);
+  hemi.intensity = lerp(1.0, 1.15, w);
+  scene.background.copy(cool.bg).lerp(warm.bg, w);
+}
+
+// ---------- overlay ----------
+const $ = id => document.getElementById(id);
+const toastBox = $('toasts');
+const TOASTS = ['2 cappuccinos + 1 croissant', 'Menu midi à emporter', 'Réservation terrasse · 4 pers.', '1 latte + 1 muffin', '3 sandwichs pour 12h30', '2 thés + 2 croissants', 'Réservation · demain 9h'];
+const toasts = TOASTS.map(txt => { const d = document.createElement('div'); d.className = 'toast'; d.textContent = txt; toastBox.appendChild(d); return d; });
+const MISSED = Array.from({ length: 7 }, (_, i) => 1.3 + i * .37);
+function show(el, o, y = 0, s = 1) { el.style.opacity = o.toFixed(3); el.style.transform = `translateY(${y.toFixed(1)}px) scale(${s.toFixed(3)})`; }
+function updateUI(sec) {
+  const h1 = smooth(seg(sec, 1.0, 1.4)) * (1 - smooth(seg(sec, 2.55, 2.75)));
+  show($('h1'), h1, (1 - smooth(seg(sec, 1.0, 1.4))) * 24);
+  const h1bIn = smooth(seg(sec, 2.7, 2.95)), h1b = h1bIn * (1 - smooth(seg(sec, 4.0, 4.25)));
+  show($('h1b'), h1b, (1 - h1bIn) * 24);
+  const n = MISSED.filter(t => sec >= t).length;
+  $('missedN').textContent = n;
+  const lastHit = n ? MISSED[n - 1] : -9;
+  $('missedN').style.transform = `scale(${(1 + .45 * (1 - seg(sec, lastHit, lastHit + .22))).toFixed(3)})`;
+  show($('missed'), smooth(seg(sec, 1.25, 1.6)) * (1 - smooth(seg(sec, 4.0, 4.25))));
+  const h2in = smooth(seg(sec, 4.15, 4.45)), h2 = h2in * (1 - smooth(seg(sec, 8.2, 8.45)));
+  show($('h2'), h2, (1 - h2in) * 24);
+  const cin = easeOut(seg(sec, 4.7, 5.1)), card = cin * (1 - smooth(seg(sec, 8.2, 8.45)));
+  show($('card'), card, (1 - cin) * 60);
+  const p = easeOut(seg(sec, 4.9, 8.2));
+  const nOrders = Math.round(12 * p);
+  $('sC').textContent = nOrders;
+  $('sV').textContent = fmt(Math.round(nOrders * 18));   // ~CHF 18 per takeaway order
+  // toasts: newest at the bottom, older ones pushed up
+  const live = [];
+  for (let i = 0; i < ORDER_N; i++) { const age = sec - orderT(i); if (age >= 0 && age < 1.35) live.push([i, age]); }
+  toasts.forEach(t => t.style.opacity = 0);
+  live.forEach(([i, age], j) => {
+    const up = live.length - 1 - j;
+    const kin = easeOut(seg(age, 0, .28)), kout = smooth(seg(age, 1.05, 1.35));
+    toasts[i].style.opacity = (kin * (1 - kout) * (sec < 8.45 ? 1 : 0)).toFixed(3);
+    toasts[i].style.transform = `translate(${((1 - kin) * 110).toFixed(1)}%, ${(-up * 84 - kout * 30).toFixed(1)}px)`;
+  });
+  const bin = seg(sec, 8.5, 8.95);
+  show($('brand'), smooth(seg(sec, 8.5, 8.75)) * (1 - smooth(seg(sec, 9.72, 9.95))), (1 - easeOut(bin)) * 40, .85 + .15 * easeOutBack(bin));
+}
+
+// ---------- per-frame scene update (pure function of time) ----------
+function update(sec) {
+  const w = smooth(seg(sec, 4.0, 4.6)) * (1 - smooth(seg(sec, 9.3, 10)));
+  mood(w);
+  updateCamera(sec);
+
+  // build / drop
+  const sk = sec < 5 ? seg(sec, 0, .35) : 1 - seg(sec, 9.66, 9.98);
+  applyB(slab, sec < 5 ? easeOutBack(sk) : sk * sk, -(1 - smooth(sk)) * 6);
+  for (const p of pieces) { const b = bf(sec, p.d); applyB(p.g, b.s, b.y); }
+
+  // owner: busy in act 1, calm with arms crossed in act 2
+  {
+    const u = frac(sec), toCounter = smooth(seg(u, .38, .5)) * (1 - smooth(seg(u, .88, 1)));
+    const calm = smooth(seg(sec, 4.6, 5.4)), cross = smooth(seg(sec, 5.4, 5.9)) * (1 - seg(sec, 9.3, 9.5));
+    const x = lerp(lerp(-1.15, -.25, toCounter), .1, calm);
+    const ry = lerp(lerp(PI, 0, toCounter), 0, calm);
+    const b = bf(sec, 0);
+    owner.g.position.set(x, .06 + b.y, -.78);
+    owner.g.rotation.y = ry;
+    owner.g.scale.setScalar(Math.max(.001, b.s * owner.scale)); owner.g.visible = b.s > .003;
+    owner.inner.position.y = Math.abs(Math.sin(sec * PI * 4)) * .03 * (1 - calm);
+    const reach = (1 - calm) * (.9 + .25 * Math.sin(sec * PI * 6));
+    owner.arms.forEach((a, i) => {
+      const s = i ? 1 : -1;
+      a.rotation.x = lerp(lerp(-.12, -reach, 1 - cross), -1.5, cross);
+      a.rotation.y = lerp(s * .15, -s * 1.0, cross);
+      a.rotation.z = lerp(s * .12, 0, cross);
+    });
+    const nod = bump(sec, 6.0, 6.4) + bump(sec, 6.45, 6.85) + bump(sec, 8.0, 8.4);
+    owner.neck.rotation.x = nod * .38;
+  }
+
+  // phone ringing + missed-call dots
+  {
+    const env = smooth(seg(sec, 1.1, 1.25)) * (1 - smooth(seg(sec, 3.75, 3.95)));
+    phone.position.y = .67 + Math.abs(Math.sin((sec - 1.1) * PI * 5.4)) * .09 * env;
+    phone.rotation.z = Math.sin(sec * PI * 2 * 13) * .14 * env;
+    phoneScreen.emissiveIntensity = env * (1.2 + Math.sin(sec * PI * 10.8));
+    const gone = 1 - easeInBack(seg(sec, 4.0, 4.3));
+    dots.forEach((d, i) => { const s = Math.max(0, easeOutBack(seg(sec, MISSED[i], MISSED[i] + .22)) * gone); d.visible = s > .01; d.scale.setScalar(Math.max(s, .001)); });
+  }
+
+  // people
+  for (const p of people) {
+    const st = p.fn(sec), b = bf(sec, Math.hypot(st.x, st.z));
+    const s = st.s * b.s;
+    p.g.visible = s > .003;
+    p.g.scale.setScalar(Math.max(s * p.scale, .001));
+    p.g.position.set(st.x, .06 + b.y - (st.sit || 0) * .2, st.z);
+    p.g.rotation.y = st.ry;
+    p.inner.position.y = st.walk != null ? Math.abs(Math.sin(st.walk * 3.2)) * .07 : 0;
+    p.inner.rotation.z = st.walk != null ? Math.sin(st.walk * 3.2) * .06 : 0;
+  }
+
+  // cars: integer laps per loop so traffic is seamless
+  for (const c of cars) {
+    const u = frac(sec / DUR * 2 + c.off), x = c.dir > 0 ? lerp(-11, 11, u) : lerp(11, -11, u);
+    const b = bf(sec, Math.hypot(x, c.z)), edge = smooth(clamp((9.6 - Math.abs(x)) / 1.2));
+    c.g.position.set(x, b.y, c.z); c.g.scale.setScalar(Math.max(.001, b.s * edge)); c.g.visible = b.s * edge > .003;
+  }
+
+  // scooters: drive to the pickup shelf, load an order box, drive off
+  const loads = scooters.map(s => s.dep + .85);
+  for (const s of scooters) {
+    let x = s.park[0];
+    const tStop = s.dep + .8, tGo = s.dep + 1.4;
+    if (sec >= s.dep && sec < tStop) x = lerp(s.park[0], 3.4, easeInOut(seg(sec, s.dep, tStop)));
+    else if (sec >= tStop && sec < tGo) x = 3.4;
+    else if (sec >= tGo) { const k = seg(sec, tGo, tGo + 1.3); x = lerp(3.4, -12, k * k); }
+    const z = s.park[1];
+    const b = bf(sec, Math.hypot(x, z)), edge = smooth(clamp((9.6 - Math.abs(x)) / 1.0)), sc = b.s * edge;
+    s.g.position.set(x, b.y, z); s.g.rotation.y = PI;
+    s.g.rotation.z = sec >= tGo && sec < tGo + .4 ? -bump(sec, tGo, tGo + .4) * .08 : 0;
+    s.g.scale.setScalar(Math.max(.001, sc)); s.g.visible = sc > .003;
+    s.crate.visible = sec >= s.dep + 1.25 && sec < 9.3 + 1;
+  }
+  // the box hopping from shelf to scooter
+  hopBox.visible = false;
+  scooters.forEach((s, k) => {
+    const h = seg(sec, loads[k], loads[k] + .4);
+    if (h > 0 && h < 1) {
+      hopBox.visible = true;
+      hopBox.position.set(lerp(PX, 3.4 + .36, h), lerp(.99, .72, h) + Math.sin(PI * h) * 1.3, lerp(PZ + .25, 4.62, h));
+      hopBox.rotation.y = h * PI;
+    }
+  });
+  // shelf fills with packed orders, empties as scooters load
+  {
+    let n = 0;
+    for (let i = 0; i < ORDER_N; i++) n += seg(sec, orderT(i) + .2, orderT(i) + .45);
+    loads.forEach(t => n -= seg(sec, t, t + .12));
+    n = clamp(n, 0, 4) * (1 - seg(sec, 9.2, 9.35));
+    shelfSlots.forEach((sl, j) => { const s = easeOutBack(clamp(n - j)); sl.m.visible = s > .01; sl.m.scale.setScalar(Math.max(s, .001)); });
+  }
+
+  // big orange pulse ring at the transition
+  pulseRings.forEach((r, j) => {
+    const k = seg(sec, 4.0 + j * .1, 4.6 + j * .1);
+    r.visible = k > 0 && k < 1;
+    r.scale.setScalar(lerp(.6, 15, easeOut(k)));
+    r.position.set(0, .2 + j * .05, .2);
+    r.material.opacity = (1 - k) * (j ? .7 : 1);
+  });
+
+  // online orders flying in from the neighbourhood
+  let flash = 0;
+  orders.forEach((o, i) => {
+    const t1 = orderT(i), u = seg(sec, t1 - 1.0, t1);
+    const on = u > 0 && u < 1;
+    o.g.visible = on;
+    if (on) { bez(i, easeInOut(u), o.g.position); o.g.scale.setScalar(.7 + .5 * Math.sin(PI * u)); }
+    o.trail.forEach((m, j) => {
+      const uu = u - (j + 1) * .045;
+      m.visible = on && uu > 0;
+      if (m.visible) bez(i, easeInOut(uu), m.position);
+    });
+    const bk = seg(sec, t1, t1 + .4);
+    o.burst.visible = bk > 0 && bk < 1;
+    o.burst.position.copy(TAB).setY(.72);
+    o.burst.scale.setScalar(lerp(.4, 3, easeOut(bk)));
+    o.burst.material.opacity = 1 - bk;
+    flash = Math.max(flash, 1 - seg(sec, t1, t1 + .5) * (sec >= t1 ? 1 : 0) - (sec < t1 ? 1 : 0));
+  });
+  tabletScreen.emissiveIntensity = flash * 2.2 + (sec > 5 && sec < 9.3 ? .25 : 0);
+
+  // lamps switch on in act 2
+  lamps.forEach((m, i) => m.emissiveIntensity = smooth(seg(sec, 4.9 + i * .12, 5.15 + i * .12)) * (1 - seg(sec, 9.3, 9.5)) * 2.4);
+  // leaves sway (2 s period → 5 per loop)
+  trees.forEach(t => { const a = lerp(.012, .05, w); t.sway.rotation.z = Math.sin(sec * PI + t.ph) * a; t.sway.rotation.x = Math.cos(sec * PI + t.ph) * a * .5; });
+  // terrace cups appear when people sit down
+  terraceCups.forEach(c => { const s = easeOutBack(seg(sec, c.t, c.t + .3)) * bf(sec, 2.9).s; c.m.visible = s > .01; c.m.scale.setScalar(Math.max(s, .001)); });
+  // steam (1.25 s period → 8 per loop)
+  const sv = smooth(seg(sec, 4.6, 5.2)) * (1 - smooth(seg(sec, 9.2, 9.4)));
+  steam.forEach(p => {
+    const ph = frac(sec / 1.25 + p.k / 3), v = sv * p.show(sec);
+    const r = Math.sin(PI * ph) * .055 * v;
+    p.m.visible = r > .004;
+    p.m.position.set(p.x + Math.sin(ph * 6 + p.k) * .04, p.y + ph * .6, p.z);
+    p.m.scale.setScalar(Math.max(r, .001));
+  });
+
+  updateUI(sec);
+}
+
+// ---------- loop / controls ----------
+const params = new URLSearchParams(location.search);
+let playing = !params.has('t'), cur = +(params.get('t') || 0), base = performance.now(), offset = cur, dirty = true;
+function draw(t) { update(designOf(((t % LOOP) + LOOP) % LOOP)); composer.render(); }
+function frame(now) {
+  if (playing) { cur = offset + (now - base) / 1000; draw(cur); }
+  else if (dirty) { draw(cur); dirty = false; }
+  requestAnimationFrame(frame);
+}
+window.DUR = LOOP;
+window.renderAt = t => { playing = false; cur = t; draw(t); dirty = false; };
+window.renderDesign = d => window.renderAt(realOf(d));
+addEventListener('keydown', e => {
+  const k = e.key.toLowerCase();
+  if (k === 'p') { if (playing) playing = false; else { offset = cur; base = performance.now(); playing = true; } }
+  if (k === 'r') { cur = offset = 0; base = performance.now(); dirty = true; }
+});
+addEventListener('resize', fit);
+fit();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

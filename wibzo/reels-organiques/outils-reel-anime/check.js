@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer-core');
 const { execFileSync } = require('child_process');
 const path = require('path'), fs = require('fs');
 const [,, page, out, ...times] = process.argv;
-const FFMPEG = 'C:/Users/Admin/AppData/Local/Python/pythoncore-3.14-64/Lib/site-packages/imageio_ffmpeg/binaries/ffmpeg-win-x86_64-v7.1.exe';
+const FFMPEG = process.env.FFMPEG || require('child_process').execSync('python -c "import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())"').toString().trim();
 (async () => {
   const browser = await puppeteer.launch({ executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe', headless: true });
   const tab = await browser.newPage();

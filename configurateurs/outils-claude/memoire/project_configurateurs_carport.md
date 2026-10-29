@@ -20,3 +20,4 @@ Au 2026-10-29 (vérifié) :
 
 **Why:** l'utilisateur a demandé « t'en es où » et j'ai d'abord répondu sur le mauvais projet.
 **How to apply:** pour « configurateurs », lire d'abord ces deux .md, puis vérifier ce qui est en ligne.
+- Harvey (github.com/ethanplusai/harvey) installé le 29.10 dans C:\Users\dessinateur22\harvey, usage = trouver des prospects uniquement (discover/profile, OSM gratuit), envoi désactivé (harvey.local.yaml), jamais `harvey run`. Ryan ouvre le dashboard lui-même (token). Détails : configurateurs/outils-claude/README.md.

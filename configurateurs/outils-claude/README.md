@@ -18,6 +18,15 @@ Pour réinstaller ckw-design sur un autre ordinateur : copier `websites/claude-s
 - **Claude in Chrome** : tests des démos (ordinateur et mobile), photos des réalisations des prospects.
 - **Bash / PowerShell** : serveur local (`py -m http.server`), mise en ligne (`npx wrangler deploy`), Git.
 
+## Harvey (trouver des prospects) — installé le 29.10.2026
+
+- Agent de prospection open source (MIT) : https://github.com/ethanplusai/harvey — installé dans `C:\Users\dessinateur22\harvey` (pas dans ce dépôt).
+- Utilisé **seulement pour trouver des entreprises** (`harvey discover`, gratuit via OpenStreetMap) et lire leurs sites. **Aucun envoi** : e-mail et LinkedIn désactivés dans `harvey.local.yaml`, aucune boîte mail branchée. Ne jamais lancer `harvey run` (boucle automatique).
+- Réglages Wibzo : `harvey.local.yaml` (cible charpentiers/menuisiers autour de Payerne, Yverdon, Moudon, Fribourg, Bulle, Lausanne, avec coordonnées fixées à la main : Nominatim plaçait Bulle en France).
+- Modification locale du code : `harvey/collectors/discover.py`, catégories OpenStreetMap « charpent » / « carpent » / « menuis » ajoutées.
+- Tableau de bord : dans PowerShell, `cd C:\Users\dessinateur22\harvey` puis `.venv\Scripts\harvey dashboard`, ouvrir le lien affiché.
+- Limite : OpenStreetMap recense peu d'artisans en Suisse (45 trouvés au 29.10.2026, dont 25 sans site web), et ses serveurs gratuits saturent souvent (relancer `harvey discover` plus tard).
+
 ## Réglages (`C:\Users\<nom>\.claude\settings.json`)
 
 Ajouté le 28.10.2026 à la demande de Ryan, pour que la mise en ligne des démos ne demande pas de confirmation :

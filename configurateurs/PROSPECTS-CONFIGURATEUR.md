@@ -35,6 +35,13 @@ Vérifié sur leurs sites le 28.10.2026. Aucun contact pris.
 | **GBC Entreprise SA** — gbc-entreprise.digitalone.site | Les Rochettes 2, 1680 Romont (FR) | Oui : « Couverts et garages à voiture » dans les prestations + chantiers en cours | construction@gbcentreprise.ch · 079 378 51 87 | ✅ **démo en ligne** https://gbc.wibzo.ch (29.10.2026), **e-mail envoyé le 29.10.2026** (configurateur + nouveau site), relance le **05.11.2026** si pas de réponse. Aucune photo de couvert dans leur galerie : cible moins sûre |
 - Recherche « carport » sur local.ch (Broye) : 12 résultats, aucune autre fiche ne cite les couverts à voiture. 77 charpentiers listés au total, la plupart sans site web visible sur local.ch.
 
+## Autres régions (recherche du 29.10.2026 : web + filtre local.ch « carport ») — aucun contact pris
+- Recherche web « couvert à voiture » + charpente (Gruyère, Nord vaudois, Lausanne/La Côte, Valais, Neuchâtel/Jura) : presque rien, les charpentiers montrent rarement leurs couverts sur leur site. local.ch Valais romand « carport » : 0 résultat.
+- **Menuiserie Gonçalves** (Yvonand) : sur local.ch, photos « Couvert à voiture en sapin » et « Couvert en sapin » ; site menuiseriegoncalves.ch (n'en parle presque pas) ; info@menuiseriegoncalves.ch → ⚠️ remonte de « faible » à « moyen ».
+- **Girardoz Charpente Sàrl** (Villeneuve VD) : local.ch liste « Carports et abris » dans ses services, 21 avis 5/5 ; site WordPress (Agence Copilote) sans page couverts ; info@girardoz-charpente.ch · 021 960 45 65 → ⚠️ moyen.
+- Catégorie « carport » sur local.ch mais **pas de site trouvé** (offre site + configurateur possible) : Stoudmann Charpente (Yverdon), Monnier Bois SA (Arnex-sur-Orbe), Gothuey Charpente-Couverture (Grattavache), Origin'Bois Sàrl (Orsonnens), Stéphane Bertau Charpente (Charmey), Barras Jean Sàrl (Botterens), Girard Frères (Enney). Coordonnées à relever sur local.ch.
+- Leads sans site, vus seulement sur local.ch : Picard Construction Bois (Marsens/Enney, photo « couvert à voiture »), Maison Victoor Sàrl (Lausanne, photo « Couvert à voiture »).
+
 ## Exclu
 - **Outdoor Studio Design** (Thônex GE) : a DÉJÀ un configurateur 3D (pergola, voile, carport, réalité augmentée). Utile comme argument : la concurrence romande s'équipe. Prix affiché : carport bois 1 voiture dès ~12 000 CHF TTC (repère pour rendre les prix de la démo crédibles).
 

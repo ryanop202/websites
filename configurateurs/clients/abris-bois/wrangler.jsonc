@@ -1,0 +1,13 @@
+{
+  // Démo en ligne : https://abris-bois.wibzo.ch (et https://abris-bois-3d-configurateur.ryanoppliger2021.workers.dev)
+  // Mise à jour : `npx wrangler deploy` dans ce dossier (fichiers exclus : .assetsignore)
+  "name": "abris-bois-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": true,
+  "routes": [
+    { "pattern": "abris-bois.wibzo.ch", "custom_domain": true }
+  ],
+  "assets": {
+    "directory": "."
+  }
+}

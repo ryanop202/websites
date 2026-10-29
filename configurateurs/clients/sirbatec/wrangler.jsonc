@@ -1,0 +1,13 @@
+{
+  // Démo en ligne : https://sirbatec.wibzo.ch
+  // Mise à jour : `npx wrangler deploy` dans ce dossier (fichiers exclus : .assetsignore)
+  "name": "sirbatec-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [
+    { "pattern": "sirbatec.wibzo.ch", "custom_domain": true }
+  ],
+  "assets": {
+    "directory": "."
+  }
+}

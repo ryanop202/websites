@@ -1,0 +1,3 @@
+# Fichiers temporaires de wrangler (mise en ligne Cloudflare)
+.wrangler/
+node_modules/

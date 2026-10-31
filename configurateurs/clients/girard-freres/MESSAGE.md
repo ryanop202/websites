@@ -1,8 +1,8 @@
-# Girard Frères Sàrl — prise de contact (démo prête le 31.10.2026, PAS ENCORE ENVOYÉ)
+# Girard Frères Sàrl — prise de contact (démo en ligne le 31.10.2026, PAS ENCORE ENVOYÉ)
 
 **Canal :** e-mail depuis contact@wibzo.ch à **info@girard-freres.ch** (adresse affichée sur local.ch, vérifiée le 31.10.2026).
 **Objet :** Vos couverts à voiture en 3D sur votre site (démo préparée pour vous)
-**Démo :** https://girard-freres.wibzo.ch (⚠️ à mettre en ligne avant l'envoi : `npx wrangler deploy` dans ce dossier)
+**Démo :** https://girard-freres.wibzo.ch (en ligne depuis le 31.10.2026 ; mise à jour : `npx wrangler deploy` dans ce dossier)
 
 Repris : ébénisterie, menuiserie, charpente (site) ; « Couvert à voiture » dans leur présentation local.ch. Aucune photo de couvert sur leur site : réglages standards. Logo carré et beige bois du logo. **À confirmer avec eux** : prix (fictifs), dimensions, portée entre poteaux, options.
 

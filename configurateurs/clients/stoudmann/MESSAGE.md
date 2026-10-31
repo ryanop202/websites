@@ -1,8 +1,8 @@
-# Stoudmann Charpente — prise de contact (démo prête le 31.10.2026, PAS ENCORE ENVOYÉ)
+# Stoudmann Charpente — prise de contact (démo en ligne le 31.10.2026, PAS ENCORE ENVOYÉ)
 
 **Canal :** e-mail depuis contact@wibzo.ch à **stoudmanncharpente@gmail.com** (adresse affichée sur local.ch, vérifiée le 31.10.2026).
 **Objet :** Vos couverts à voiture en 3D sur votre site (démo préparée pour vous)
-**Démo :** https://stoudmann.wibzo.ch (⚠️ à mettre en ligne avant l'envoi : `npx wrangler deploy` dans ce dossier)
+**Démo :** https://stoudmann.wibzo.ch (en ligne depuis le 31.10.2026 ; mise à jour : `npx wrangler deploy` dans ce dossier)
 
 Repris de leur site : charpente, couverture, ferblanterie, « couvert à voiture » dans la liste de leurs travaux ; local.ch : « Carports et abris », fondée en 2013 par Cédric Stoudmann. Aucune photo de couvert sur leur site : réglages standards. Logo et violet du logo. **À confirmer avec eux** : prix (fictifs), dimensions, portée entre poteaux, options.
 

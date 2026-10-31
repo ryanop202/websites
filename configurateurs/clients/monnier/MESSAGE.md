@@ -1,8 +1,8 @@
-# Monnier Bois SA — prise de contact (démo prête le 31.10.2026, PAS ENCORE ENVOYÉ)
+# Monnier Bois SA — prise de contact (démo en ligne le 31.10.2026, PAS ENCORE ENVOYÉ)
 
 **Canal :** e-mail depuis contact@wibzo.ch à **info@monnierbois.ch** (adresse affichée sur local.ch, vérifiée le 31.10.2026).
 **Objet :** Vos couverts à voiture en 3D sur votre site (démo préparée pour vous)
-**Démo :** https://monnier.wibzo.ch (⚠️ à mettre en ligne avant l'envoi : `npx wrangler deploy` dans ce dossier)
+**Démo :** https://monnier.wibzo.ch (en ligne depuis le 31.10.2026 ; mise à jour : `npx wrangler deploy` dans ce dossier)
 
 Repris de leur site : entreprise familiale fondée en 1988 à Arnex-sur-Orbe, « Couverts à voiture » dans leurs services, photos de Vallorbe (2 places, 2 pans en tuiles rouges, épicéa naturel ouvert, spots) et Agiez (gouttières), logo (texte blanc passé en gris foncé pour le fond blanc) et couleur or #BB7913. **À confirmer avec eux** : prix (fictifs), dimensions, portée entre poteaux, options.
 

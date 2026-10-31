@@ -1,8 +1,8 @@
-# Girardoz Charpente Sàrl — prise de contact (démo prête le 31.10.2026, PAS ENCORE ENVOYÉ)
+# Girardoz Charpente Sàrl — prise de contact (démo en ligne le 31.10.2026, PAS ENCORE ENVOYÉ)
 
 **Canal :** e-mail depuis contact@wibzo.ch à **info@girardoz-charpente.ch** (adresse affichée sur local.ch, vérifiée le 31.10.2026).
 **Objet :** Vos couverts à voiture en 3D sur votre site (démo préparée pour vous)
-**Démo :** https://girardoz.wibzo.ch (⚠️ à mettre en ligne avant l'envoi : `npx wrangler deploy` dans ce dossier)
+**Démo :** https://girardoz.wibzo.ch (en ligne depuis le 31.10.2026 ; mise à jour : `npx wrangler deploy` dans ce dossier)
 
 Repris : charpente et rénovation (site), « Carports et abris » dans leurs services local.ch (21 avis 5/5). Aucune photo de couvert identifiée : réglages standards. Logo sans la pastille « 10 ans » (2023), vert du logo. **À confirmer avec eux** : prix (fictifs), dimensions, portée entre poteaux, options.
 

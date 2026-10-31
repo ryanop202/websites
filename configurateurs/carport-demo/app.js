@@ -1290,15 +1290,29 @@ function placerEtiquettes() {
   if (!cotesVisibles) return;
   const w = viewer.clientWidth;
   const h = viewer.clientHeight;
-  for (const { el, pos } of etiquettes) {
+  const poses = [];
+  etiquettes.forEach(({ el, pos }, i) => {
     _v.copy(pos).project(camera);
-    const visible = _v.z < 1 && Math.abs(_v.x) < 1.1 && Math.abs(_v.y) < 1.1;
+    // Vue de dessus : la hauteur de passage n'a pas de sens (sa ligne devient un point)
+    const visible = _v.z < 1 && Math.abs(_v.x) < 1.1 && Math.abs(_v.y) < 1.1 && !(i === 2 && vueActive === 'dessus');
     el.style.display = visible ? '' : 'none';
+    if (!visible) return;
     // Garder l'étiquette entière dans le cadre
-    const demi = el.offsetWidth / 2 + 6;
-    el.style.left = `${Math.min(w - demi, Math.max(demi, ((_v.x + 1) / 2) * w))}px`;
-    el.style.top = `${((1 - _v.y) / 2) * h}px`;
-  }
+    const lw = el.offsetWidth;
+    const lh = el.offsetHeight;
+    const demi = lw / 2 + 6;
+    const x = Math.min(w - demi, Math.max(demi, ((_v.x + 1) / 2) * w));
+    let y = ((1 - _v.y) / 2) * h;
+    // Si elle chevauche une étiquette déjà placée : la décaler en dessous
+    for (let essai = 0; essai < poses.length; essai++) {
+      const autre = poses.find((p) => Math.abs(p.x - x) < (p.lw + lw) / 2 + 4 && Math.abs(p.y - y) < (p.lh + lh) / 2 + 3);
+      if (!autre) break;
+      y = autre.y + (autre.lh + lh) / 2 + 4;
+    }
+    poses.push({ x, y, lw, lh });
+    el.style.left = `${x}px`;
+    el.style.top = `${y}px`;
+  });
 }
 
 // ---------- Caméra ----------
@@ -1366,6 +1380,7 @@ function appliquerAmbiance() {
   scene.environment = nuit ? null : envJour;
   if (renderer) renderer.toneMappingExposure = nuit ? 1.35 : 1.15;
   decor?.ambiance(nuit);
+  viewer.classList.toggle('nuit', nuit);
   placerSpots();
 }
 

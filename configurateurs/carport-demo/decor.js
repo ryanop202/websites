@@ -189,7 +189,7 @@ export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0 
     for (const [x, y, z, r] of centres) { yMin = Math.min(yMin, y - r); yMax = Math.max(yMax, y + r); }
     const base = new THREE.Color(teinte);
     for (const [x, y, z, r] of centres) {
-      const geo = new THREE.IcosahedronGeometry(r, detail).toNonIndexed();
+      const geo = new THREE.IcosahedronGeometry(r, detail); // déjà non indexée
       const pos = geo.attributes.position;
       // Bosses : même déplacement pour les sommets qui se touchent (pas de trous)
       const bosses = new Map();
@@ -624,14 +624,32 @@ export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0 
       gauche: [[-13, -8, 1.2], [-8, 12.5, 0.9], [13.5, -6, 1.2], [14, 8, 1.0], [4, -14, 1.2], [-14.5, 4, 1.1]],
       droite: [[-15, 9, 1.0], [-12, -4, 1.2], [-6, -12, 1.1], [5, -12, 1.2], [16.5, -10, 1.2], [12, 13, 0.9]],
     }[adosse];
-    arbres.forEach(([x, z, s], i) => {
+    // Axe de la vue 3/4 (même direction que la caméra d'app.js) : rien de haut entre la caméra et le carport.
+    // Un arbre dans ce couloir est tourné autour du carport vers le côté libre, à la même distance.
+    const cote = adosse === 'droite' ? -1 : 1;
+    const cx = X0 + W / 2;
+    const cz = Z0 + L / 2;
+    const aCam = Math.atan2(0.72 * cote, 0.85);
+    const horsCouloir = (x, z) => {
+      const d = Math.hypot(x - cx, z - cz);
+      let ecart = Math.atan2(x - cx, z - cz) - aCam;
+      ecart = Math.atan2(Math.sin(ecart), Math.cos(ecart));
+      if (Math.abs(ecart) > 0.75) return [x, z];
+      const a = aCam + cote * 0.85;
+      const nx = cx + Math.sin(a) * d;
+      const nz = cz + Math.cos(a) * d;
+      return [Math.max(-17.5, Math.min(17.5, nx)), Math.max(-18, Math.min(Z_ROUTE - 1, nz))];
+    };
+    arbres.forEach(([x0, z0, s], i) => {
+      const [x, z] = horsCouloir(x0, z0);
       const a = poser(protoArbres[i % protoArbres.length], matVegetal, x, 0, z, rng(0, 6));
       a.scale.setScalar(s);
     });
     // Quelques buissons isolés dans la pelouse
     // (côté caméra laissé dégagé : la vue 3/4 se fait du côté libre)
     const buissons = adosse === 'droite' ? [[-15.5, -10], [-16, 4]] : [[-10, 8], [11, 2], [-15.5, -10]];
-    for (const [x, z] of buissons) {
+    for (const [x0, z0] of buissons) {
+      const [x, z] = horsCouloir(x0, z0);
       poser(protoBuissons[2], matVegetal, x, 0, z, rng(0, 6)).scale.setScalar(1.3);
     }
 

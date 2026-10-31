@@ -21,6 +21,7 @@ Points faibles : popups de pub, pas de voiture pour l'échelle, pas de cotes sur
 On imite les **fonctions**, jamais leur code, leurs modèles 3D, leur design ou leur marque.
 
 ## Démo : `carport-demo/`
+- **Décision de Ryan (31.10.2026) : `carport-demo/` (version publiée sur demo.wibzo.ch le 31.10) est la base de chaque nouveau configurateur client.** Pour un nouveau client : copier ce dossier, puis changer `config.js` (et `decor.js` seulement si besoin). Ne plus partir des démos clients plus anciennes (Abris Bois, Sirbatec : ancien `app.js`).
 - Ouvrir en local : il faut un petit serveur (les modules JS ne marchent pas en double-cliquant sur le fichier). Claude le lance.
 - **Tout ce qui change par client est dans `config.js`** : nom, initiales, e-mail, dimensions min/max, toits, couvertures, bois, tarifs.
 - ⚠️ Les tarifs actuels sont **FICTIFS** (badge « Démo · prix fictifs » affiché). Pour un vrai client : ses tarifs, et ses règles techniques (portée max entre poteaux, pentes, neige) validées par lui.

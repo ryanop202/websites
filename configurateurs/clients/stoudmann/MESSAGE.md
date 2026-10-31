@@ -1,4 +1,4 @@
-# Stoudmann Charpente — prise de contact (démo en ligne le 31.10.2026, PAS ENCORE ENVOYÉ)
+# Stoudmann Charpente — prise de contact (envoyé le 31.10.2026 ; relance le 06.11.2026 si pas de réponse)
 
 **Canal :** e-mail depuis contact@wibzo.ch à **stoudmanncharpente@gmail.com** (adresse affichée sur local.ch, vérifiée le 31.10.2026).
 **Objet :** Vos couverts à voiture en 3D sur votre site (démo préparée pour vous)

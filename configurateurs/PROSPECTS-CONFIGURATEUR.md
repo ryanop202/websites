@@ -74,3 +74,5 @@ Ordre = plus de preuves qu'ils font des couverts à voiture en premier.
 - **Monnier Bois SA : e-mail envoyé le 31.10.2026 (samedi matin)** par Ryan (contact@wibzo.ch → info@monnierbois.ch). Relance courte le **06.11.2026** si pas de réponse.
 - **Stoudmann Charpente : e-mail envoyé le 31.10.2026 (samedi matin)** par Ryan (contact@wibzo.ch → stoudmanncharpente@gmail.com). Relance courte le **06.11.2026** si pas de réponse.
 - **Girard Frères Sàrl : e-mail envoyé le 31.10.2026** par Ryan (contact@wibzo.ch → info@girard-freres.ch ; envoi immédiat supposé, pas programmé). Relance courte le **06.11.2026** si pas de réponse.
+- **Girardoz Charpente Sàrl : e-mail envoyé le 31.10.2026** par Ryan (contact@wibzo.ch → info@girardoz-charpente.ch). Relance courte le **06.11.2026** si pas de réponse.
+- ⚠️ Les 4 mails du 31.10 sont partis un **samedi** (test du samedi, voir discussion du 31.10 : études de vendeurs plutôt contre le week-end, jamais testé sur des charpentiers). Noter les réponses et leur délai pour comparer avec les envois en semaine.

@@ -1,4 +1,4 @@
-# Girardoz Charpente Sàrl — prise de contact (démo en ligne le 31.10.2026, PAS ENCORE ENVOYÉ)
+# Girardoz Charpente Sàrl — prise de contact (envoyé le 31.10.2026 ; relance le 06.11.2026 si pas de réponse)
 
 **Canal :** e-mail depuis contact@wibzo.ch à **info@girardoz-charpente.ch** (adresse affichée sur local.ch, vérifiée le 31.10.2026).
 **Objet :** Vos couverts à voiture en 3D sur votre site (démo préparée pour vous)

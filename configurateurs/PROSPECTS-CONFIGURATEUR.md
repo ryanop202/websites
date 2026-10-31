@@ -55,3 +55,18 @@ Vérifié sur leurs sites le 28.10.2026. Aucun contact pris.
 ## ⚠️ Avant de contacter
 - Ryan est apprenti chez Farmwood (Payerne, construction bois). **Farmwood a donné son accord le 29.10.2026** (confirmé par Ryan) pour vendre des configurateurs à des entreprises du bois de la région.
 - Prospection par e-mail : messages personnalisés, peu nombreux ; règles LCD à vérifier.
+
+## Prochains à contacter (vérifiés le 31.10.2026 : fiche local.ch + page d'accueil du site, aucun configurateur vu, aucun contact pris)
+Ordre = plus de preuves qu'ils font des couverts à voiture en premier.
+| # | Entreprise | Lieu | Preuve « couverts à voiture » | E-mail affiché (local.ch) | Téléphone | Avis local.ch |
+|---|---|---|---|---|---|---|
+| 1 | **Monnier Bois SA** — monnierbois.ch | Arnex-sur-Orbe (VD) | Site : « Couverts à voitures / Carports » (plusieurs fois) + local.ch « Carports et abris » | info@monnierbois.ch | 024 441 27 67 | 5,0 (2) |
+| 2 | **Stoudmann Charpente** (Cédric Stoudmann) — stoudmanncharpente.ch | Yverdon-les-Bains, atelier à Dommartin | Site : « couvert à voiture » + local.ch « Carports et abris » | stoudmanncharpente@gmail.com | 079 304 63 38 | 5,0 (4) |
+| 3 | **Girard Frères Sàrl** — girard-freres.ch | Enney (FR) | local.ch : « Couvert à voiture » dans la présentation + « Carports et abris » | info@girard-freres.ch | 079 563 17 00 | — |
+| 4 | **Girardoz Charpente Sàrl** — girardoz-charpente.ch | Villeneuve (VD) | local.ch « Carports et abris » (rien sur le site) | info@girardoz-charpente.ch | 021 960 45 65 | 5,0 (21) |
+| 5 | Origin'Bois Sàrl — originbois.ch | Orsonnens (FR) | local.ch « Carports et abris » seulement | secretariat@originbois.ch | 026 652 03 74 | 5,0 (3) |
+| 6 | Barras Jean Sàrl — barras-charpente.ch | Botterens (FR) | local.ch « Carports et abris » seulement | j.barras@barras-charpente.ch | 026 921 13 25 | 4,5 (2) |
+| 7 | Toucher du Bois Sàrl | Moudon (VD) | local.ch « Carports et abris » + photos « Couvert » | toucherdubois@bluewin.ch | 021 905 61 73 | 5,0 (2) |
+| 8 | Gothuey Charpente-Couverture Sàrl | Grattavache (FR) | local.ch « Carports et abris » seulement | goth.charpente@gmail.com | 079 542 94 75 | — |
+- Mis de côté : Stéphane Bertau Charpente (Charmey : pas d'e-mail sur local.ch), Picard Construction Bois et Maison Victoor (rien sur les couverts dans leurs services local.ch, juste une photo).
+- Déjà listés plus haut, toujours pas contactés : Menuiserie Gonçalves (moyen), Chant du Bois / Alibert (formulaire seulement, bois rond).

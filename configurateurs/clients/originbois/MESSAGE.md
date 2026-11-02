@@ -21,15 +21,11 @@ Bonjour,
 
 Je m'appelle Ryan, j'habite près de Payerne et je crée des configurateurs 3D pour les entreprises qui fabriquent sur mesure.
 
-En voyant les carports sur votre site, j'ai préparé une démo à votre nom, réglée comme votre couvert à toit plat blanc avec ses parois en épicéa :
+En voyant les carports sur votre site, j'ai préparé une démo à votre nom, réglée comme votre couvert à toit plat blanc :
 
 https://originbois.wibzo.ch
 
-Le client règle les dimensions, choisit isolé ou contre la maison, le toit (plat, 1 pan ou 2 pans), la couverture, la finition du bois, les parois et le local de rangement. Il voit son carport en 3D avec un prix indicatif, puis vous envoie une demande de devis déjà complète, avec l'image. Il peut aussi télécharger une estimation en PDF.
-
-Ce serait un bon moyen de vous démarquer de vos concurrents : vos clients voient leur carport et son prix avant même de vous contacter.
-
-Les prix sont fictifs pour l'instant, je les remplacerais par les vôtres.
+Vos clients dessinent leur carport en 3D, voient un prix indicatif et vous envoient une demande de devis complète. Les prix sont fictifs, je les remplacerais par les vôtres.
 
 Seriez-vous intéressés à intégrer ce configurateur sur votre site ?
 

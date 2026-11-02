@@ -1,0 +1,13 @@
+{
+  // Démo en ligne : https://toucher-du-bois.wibzo.ch
+  // Mise à jour : `npx wrangler deploy` dans ce dossier (fichiers exclus : .assetsignore)
+  "name": "toucher-du-bois-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [
+    { "pattern": "toucher-du-bois.wibzo.ch", "custom_domain": true }
+  ],
+  "assets": {
+    "directory": "."
+  }
+}

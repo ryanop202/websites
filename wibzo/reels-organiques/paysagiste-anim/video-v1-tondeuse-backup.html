@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wibzo Paysagiste</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --violet:#8b7bff; --lime:#c6ff3d; --red:#ff6b78; --text:#ecebf5; --muted:#8a8ca3; }
+  html,body{margin:0;height:100%;background:#05050a;overflow:hidden;font-family:Inter,system-ui,sans-serif}
+  body{display:flex;align-items:center;justify-content:center}
+  #stage{width:1080px;height:1920px;position:relative;background:#11121b;overflow:hidden;transform-origin:center center;flex:none}
+  svg{position:absolute;inset:0;width:100%;height:100%}
+  svg text{font-family:Inter,system-ui,sans-serif}
+  #grain{position:absolute;inset:-50px;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>")}
+  #subs{position:absolute;left:70px;right:70px;top:1440px;text-align:center;color:#fff;font-size:56px;font-weight:600;line-height:1.25;letter-spacing:-.01em;text-shadow:0 4px 24px rgba(0,0,0,.7)}
+  #subs span{display:inline-block;margin:0 .13em}
+  #subs .v{color:var(--violet)} #subs .r{color:var(--red)} #subs .l{color:var(--lime)}
+  #tag{position:absolute;top:120px;left:0;right:0;text-align:center;color:#9a9cb3;font-size:24px;font-weight:700;letter-spacing:.34em;text-transform:uppercase}
+  #hint{position:fixed;bottom:10px;left:0;right:0;text-align:center;color:#6b6d82;font:13px Inter,sans-serif}
+</style>
+</head>
+<body>
+<div id="stage">
+<svg viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#121731"/><stop offset=".55" stop-color="#1f2647"/><stop offset=".72" stop-color="#2c3157"/><stop offset="1" stop-color="#2c3157"/></linearGradient>
+  <linearGradient id="duskSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#141a36"/><stop offset=".7" stop-color="#272e55"/><stop offset="1" stop-color="#2e3459"/></linearGradient>
+  <radialGradient id="sunGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffcf85" stop-opacity=".42"/><stop offset=".35" stop-color="#ffb870" stop-opacity=".14"/><stop offset="1" stop-color="#ffb870" stop-opacity="0"/></radialGradient>
+  <linearGradient id="sunShaft" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#ffd59a" stop-opacity=".10"/><stop offset="1" stop-color="#ffd59a" stop-opacity="0"/></linearGradient>
+  <linearGradient id="lawnFront" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16251c"/><stop offset="1" stop-color="#0c120f"/></linearGradient>
+  <linearGradient id="jacket" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#36402f"/><stop offset=".65" stop-color="#525f46"/><stop offset="1" stop-color="#647357"/></linearGradient>
+  <linearGradient id="shirt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3a4a76"/><stop offset=".5" stop-color="#55689c"/><stop offset="1" stop-color="#3a4a76"/></linearGradient>
+  <linearGradient id="mowerG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e08a46"/><stop offset="1" stop-color="#a5582a"/></linearGradient>
+  <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e2b68e"/><stop offset="1" stop-color="#b98863"/></linearGradient>
+  <linearGradient id="faceLit" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9ac85"/><stop offset=".62" stop-color="#c99a7c"/><stop offset="1" stop-color="#b3a1dc"/></linearGradient>
+  <radialGradient id="vignette" cx=".5" cy=".45" r=".75"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".65"/></radialGradient>
+  <radialGradient id="glowV" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#8b7bff" stop-opacity=".9"/><stop offset="1" stop-color="#8b7bff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="glowR" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ff6b78" stop-opacity=".8"/><stop offset="1" stop-color="#ff6b78" stop-opacity="0"/></radialGradient>
+  <radialGradient id="screenGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#9a8cff" stop-opacity=".55"/><stop offset="1" stop-color="#9a8cff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="warmGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffd98a" stop-opacity=".5"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></radialGradient>
+  <filter id="blur4"><feGaussianBlur stdDeviation="4"/></filter>
+  <filter id="blur6"><feGaussianBlur stdDeviation="6"/></filter>
+  <filter id="blur30" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="30"/></filter>
+  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="cardShadow" x="-30%" y="-30%" width="160%" height="200%"><feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000" flood-opacity=".55"/></filter>
+  <clipPath id="scrClip"><rect x="252" y="162" width="576" height="1116" rx="62"/></clipPath>
+  <clipPath id="typeClip"><rect id="typeRect" x="345" y="300" width="0" height="60"/></clipPath>
+  <clipPath id="clipR1"><rect x="-100" y="-300" width="2700" height="2050" rx="40"/></clipPath>
+  <clipPath id="clipR2"><rect x="40" y="200" width="1000" height="1220" rx="34"/></clipPath>
+  <g id="shoeArt"><path d="M-24 -20 Q-24 -32 -10 -32 L26 -32 Q50 -30 54 -10 L54 0 L-24 0Z"/><rect x="-26" y="-8" width="82" height="10" rx="4" fill="#e3e4ee"/></g>
+  <path id="bladeArt" d="M-4 0 Q-1.6 -.55 1.2 -1 Q1.7 -.5 4 0Z"/>
+</defs>
+
+<g id="world">
+<rect x="-30000" y="-30000" width="60000" height="60000" fill="#0a0b13"/>
+
+<!-- =================== JARDIN (le paysagiste tond) =================== -->
+<g id="S_garden"><g clip-path="url(#clipR1)">
+  <rect x="-100" y="-300" width="2700" height="2050" fill="url(#skyG)"/>
+  <!-- soleil du matin, bas, derrière la haie -->
+  <circle cx="2080" cy="1100" r="1000" fill="url(#sunGlow)"/>
+  <circle cx="2080" cy="1150" r="80" fill="#ffe2a8" opacity=".5" filter="url(#blur6)"/>
+  <path d="M2080 1120 L-100 300 L-100 760Z" fill="url(#sunShaft)"/>
+  <path d="M2080 1120 L-100 900 L-100 1150Z" fill="url(#sunShaft)"/>
+  <!-- collines + arbres au loin -->
+  <path d="M-100 1190 Q300 1110 700 1170 T1500 1160 T2600 1180 V1750 H-100Z" fill="#1a2139"/>
+  <g fill="#141a2e">
+    <rect x="1150" y="980" width="16" height="220"/><circle cx="1158" cy="960" r="96"/><circle cx="1100" cy="1010" r="70"/><circle cx="1220" cy="1015" r="72"/>
+    <rect x="2390" y="940" width="18" height="260"/><circle cx="2400" cy="910" r="120"/><circle cx="2320" cy="980" r="80"/><circle cx="2480" cy="975" r="86"/>
+  </g>
+  <!-- la maison du client -->
+  <g>
+    <path d="M10 640 L330 430 L650 640Z" fill="#171a2c"/>
+    <rect x="40" y="640" width="580" height="660" fill="#1d2035"/>
+    <rect x="40" y="640" width="580" height="18" fill="#252943"/>
+    <rect x="96" y="720" width="150" height="190" rx="6" fill="#0f1019"/><rect x="106" y="730" width="130" height="170" fill="#3b3550"/>
+    <rect x="106" y="730" width="130" height="170" fill="url(#warmGlow)"/>
+    <path d="M171 730 V900 M106 815 H236" stroke="#0f1019" stroke-width="8"/>
+    <rect x="410" y="720" width="150" height="190" rx="6" fill="#0f1019"/><rect x="420" y="730" width="130" height="170" fill="#2a2d48"/>
+    <path d="M485 730 V900 M420 815 H550" stroke="#0f1019" stroke-width="8"/>
+    <rect x="270" y="1020" width="120" height="280" rx="6" fill="#151726"/>
+    <circle cx="370" cy="1170" r="7" fill="#3a3d58"/>
+  </g>
+  <!-- haie + barrière -->
+  <g fill="#17241d">
+    <path d="M620 1360 Q640 1250 720 1262 Q770 1210 850 1250 Q920 1200 1000 1252 Q1080 1214 1150 1262 Q1240 1220 1300 1270 Q1380 1230 1450 1275 Q1540 1235 1610 1282 Q1700 1246 1760 1290 Q1850 1252 1920 1296 Q2010 1262 2070 1300 Q2160 1268 2230 1306 Q2320 1276 2390 1310 Q2480 1284 2600 1312 V1400 H620Z"/>
+  </g>
+  <g id="fence" fill="#232a42"></g>
+  <!-- pelouse -->
+  <rect x="-100" y="1400" width="2700" height="350" fill="url(#lawnFront)"/>
+  <rect x="-100" y="1436" width="2700" height="118" fill="#1c3426"/>
+  <rect id="lawnCut" x="-100" y="1436" width="0" height="118" fill="#294834"/>
+  <g id="lawnStripes" stroke="#335a40" stroke-width="3" opacity=".6"><path d="M-100 1462 H0"/><path d="M-100 1494 H0"/><path d="M-100 1526 H0"/></g>
+  <g id="clips" fill="#6aa868"></g>
+  <ellipse id="shadow" rx="120" ry="16" fill="#000" opacity=".45" filter="url(#blur6)"/>
+  <!-- tondeuse -->
+  <ellipse id="mowerShadow" rx="200" ry="14" fill="#000" opacity=".45" filter="url(#blur6)"/>
+  <path id="handleFar" fill="none" stroke="#2a2d40" stroke-width="9" stroke-linecap="round"/>
+  <g id="mower">
+    <path d="M-238 -38 L-214 -122 Q-210 -132 -198 -128 L-150 -112 L-152 -38Z" fill="#363c5a"/>
+    <path d="M-226 -60 L-208 -118" stroke="#454c70" stroke-width="5" fill="none"/>
+    <path d="M-162 -30 Q-162 -88 -100 -94 L52 -94 Q112 -88 120 -30Z" fill="url(#mowerG)"/>
+    <path d="M-120 -86 L60 -86" stroke="#f0a160" stroke-width="5" opacity=".6"/>
+    <rect x="-168" y="-38" width="294" height="14" rx="6" fill="#2a2d40"/>
+    <rect x="-84" y="-126" width="100" height="36" rx="10" fill="#2a2d40"/>
+    <rect x="-74" y="-138" width="44" height="14" rx="5" fill="#3a3d58"/>
+    <g id="wheelB" transform="translate(-130 -22)"><circle r="27" fill="#0b0c12" stroke="#3a3f5a" stroke-width="9"/><path class="spoke" d="M-11 0 H11 M0 -11 V11" stroke="#4a4f70" stroke-width="4"/></g>
+    <g id="wheelF" transform="translate(82 -22)"><circle r="27" fill="#0b0c12" stroke="#3a3f5a" stroke-width="9"/><path class="spoke" d="M-11 0 H11 M0 -11 V11" stroke="#4a4f70" stroke-width="4"/></g>
+    <g id="noise" stroke="#c9cad8" stroke-width="4" fill="none" stroke-linecap="round"><path/><path/><path/></g>
+  </g>
+  <g id="blades"></g>
+  <path id="handleNear" fill="none" stroke="#3a3f5a" stroke-width="10" stroke-linecap="round"/>
+  <!-- le paysagiste -->
+  <g id="man">
+    <path id="legFar" fill="none" stroke="#1f2333" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
+    <use id="shoeFar" href="#shoeArt" fill="#2a2d40"/>
+    <path id="armFar" fill="none" stroke="#323b2c" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle id="gloveFar" r="17" fill="#9c7444"/>
+    <g id="torso">
+      <path d="M-44 10 C-56 -60 -54 -150 -34 -205 Q-4 -236 34 -212 C52 -150 54 -60 44 10 Q0 22 -44 10Z" fill="url(#jacket)"/>
+      <path d="M-44 10 Q0 24 44 10 L42 -6 Q0 6 -42 -6Z" fill="#2c3326"/>
+      <path d="M-36 -206 Q-58 -190 -48 -160 Q-30 -176 -18 -214Z" fill="#46523d"/>
+      <g id="phone">
+        <circle id="pGlow" cx="-40" cy="20" r="80" fill="url(#glowV)" opacity="0"/>
+        <path d="M-60 -2 L-30 -2 L-30 44 L-60 44Z" fill="#20233a"/>
+        <rect id="pScreen" x="-55" y="-14" width="22" height="38" rx="5" fill="#0b0c13" stroke="#8b7bff" stroke-width="2.5" transform="rotate(-8 -44 5)"/>
+        <g id="haptic" stroke="#a99dff" stroke-width="4" fill="none" stroke-linecap="round" opacity="0">
+          <path d="M-72 -6 Q-80 6 -72 18"/><path d="M-84 -14 Q-96 6 -84 26"/>
+        </g>
+      </g>
+      <rect x="-2" y="-236" width="24" height="30" rx="8" fill="#b98863"/>
+      <circle cx="14" cy="-262" r="40" fill="url(#skin)"/>
+      <path d="M-22 -268 Q-22 -306 16 -306 Q50 -304 54 -272 L54 -268Z" fill="#6d5df5"/>
+      <path d="M38 -272 L84 -266 Q86 -258 76 -258 L38 -262Z" fill="#5546d6"/>
+      <path d="M-24 -262 Q-26 -246 -14 -238" stroke="#2a2232" stroke-width="10" fill="none" stroke-linecap="round"/>
+      <!-- casque antibruit -->
+      <circle id="earGlow" cx="2" cy="-258" r="70" fill="url(#glowR)" opacity="0"/>
+      <path d="M2 -282 Q-4 -324 22 -322" stroke="#23263a" stroke-width="11" fill="none" stroke-linecap="round"/>
+      <ellipse cx="2" cy="-258" rx="18" ry="25" fill="#e85d6a" stroke="#a83e4a" stroke-width="3"/>
+      <ellipse cx="4" cy="-258" rx="8" ry="13" fill="#c94b58"/>
+    </g>
+    <path id="legNear" fill="none" stroke="#2b2f42" stroke-width="46" stroke-linecap="round" stroke-linejoin="round"/>
+    <use id="shoeNear" href="#shoeArt" fill="#383c55"/>
+    <path id="armNear" fill="none" stroke="#5b6a4e" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle id="handGlow" r="70" fill="url(#glowR)" opacity="0"/>
+    <circle id="gloveNear" r="18" fill="#c0904f"/>
+  </g>
+</g></g>
+
+<!-- =================== CHEZ MARC (nouvelle maison, jardin à refaire) =================== -->
+<g id="S_marc" transform="translate(-1450 -2200)">
+ <g clip-path="url(#clipR2)">
+  <rect width="1080" height="1920" fill="url(#duskSky)"/>
+  <circle cx="160" cy="980" r="560" fill="url(#sunGlow)"/>
+  <!-- maison -->
+  <path d="M600 600 L820 430 L1060 600Z" fill="#191c2f"/>
+  <rect x="620" y="600" width="440" height="660" fill="#212540"/>
+  <rect x="620" y="600" width="440" height="16" fill="#2a2e4a"/>
+  <rect x="670" y="680" width="130" height="170" rx="6" fill="#0f1019"/><rect x="680" y="690" width="110" height="150" fill="#3b3550"/><rect x="680" y="690" width="110" height="150" fill="url(#warmGlow)"/>
+  <path d="M735 690 V840 M680 765 H790" stroke="#0f1019" stroke-width="7"/>
+  <rect x="870" y="1040" width="110" height="220" rx="6" fill="#171928"/>
+  <!-- lierre sur la maison -->
+  <g fill="#1d3527"><circle cx="630" cy="760" r="34"/><circle cx="650" cy="820" r="40"/><circle cx="628" cy="900" r="44"/><circle cx="660" cy="980" r="50"/><circle cx="636" cy="1060" r="56"/><circle cx="676" cy="1140" r="60"/></g>
+  <!-- sol -->
+  <rect y="1240" width="1080" height="680" fill="#141f18"/>
+  <!-- buissons envahissants -->
+  <g fill="#1d3226"><circle cx="90" cy="1150" r="120"/><circle cx="210" cy="1180" r="104"/><circle cx="60" cy="1040" r="90"/><circle cx="960" cy="1210" r="110"/><circle cx="1050" cy="1150" r="90"/></g>
+  <g fill="#24402e"><circle cx="150" cy="1100" r="70"/><circle cx="250" cy="1220" r="66"/><circle cx="900" cy="1180" r="60"/></g>
+  <!-- panneau VENDU -->
+  <g transform="translate(300 0)">
+    <rect x="-6" y="1000" width="12" height="300" fill="#3a3550"/>
+    <rect x="-110" y="940" width="220" height="110" rx="10" fill="#e9e6f3"/>
+    <text x="0" y="1012" text-anchor="middle" fill="#e5484d" font-size="50" font-weight="900" letter-spacing="3">VENDU</text>
+  </g>
+  <g id="weedsBack"></g>
+  <!-- Marc -->
+  <g id="marc">
+    <rect x="500" y="1150" width="36" height="200" rx="14" fill="#2c3350"/>
+    <rect x="548" y="1150" width="36" height="200" rx="14" fill="#262c47"/>
+    <path d="M450 1180 Q440 960 500 928 Q542 914 584 928 Q644 960 634 1180Z" fill="url(#shirt)"/>
+    <path d="M512 924 Q542 956 572 924" stroke="#2e3a5f" stroke-width="6" fill="none"/>
+    <rect x="522" y="872" width="40" height="56" rx="14" fill="#b98863"/>
+    <g id="marcHead">
+      <ellipse cx="542" cy="826" rx="60" ry="66" fill="url(#faceLit)"/>
+      <path d="M482 822 Q478 752 542 748 Q606 752 602 822 Q594 790 562 784 Q522 790 490 806Z" fill="#3a2a22"/>
+    </g>
+    <path d="M466 966 Q440 1080 498 1124 Q528 1106 530 1080" stroke="#4a5b8c" stroke-width="40" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M618 966 Q644 1080 586 1124 Q556 1106 554 1080" stroke="#4a5b8c" stroke-width="40" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle id="marcGlow" cx="542" cy="1040" r="130" fill="url(#screenGlow)"/>
+    <rect x="502" y="990" width="80" height="140" rx="16" fill="#151726" stroke="#3a3d58" stroke-width="3"/>
+    <circle cx="524" cy="1012" r="8" fill="#0b0c13" stroke="#3a3d58" stroke-width="2"/>
+    <ellipse cx="508" cy="1100" rx="17" ry="14" fill="#d6a982"/><ellipse cx="576" cy="1100" rx="17" ry="14" fill="#d6a982"/>
+  </g>
+  <g id="weedsFront"></g>
+ </g>
+</g>
+<g fill="none" stroke="#252840" stroke-width="2.5"><rect x="-100" y="-300" width="2700" height="2050" rx="40" vector-effect="non-scaling-stroke"/><rect x="-1410" y="-2000" width="1000" height="1220" rx="34" vector-effect="non-scaling-stroke"/></g>
+
+<!-- =================== TÉLÉPHONE DE MARC (gros plan) =================== -->
+<g id="S_phone" opacity="0" transform="translate(-494 -1988) scale(.62)">
+ <g id="phoneCam">
+  <ellipse cx="540" cy="720" rx="460" ry="680" fill="#6d5df5" opacity=".13" filter="url(#blur30)"/>
+  <rect x="232" y="142" width="616" height="1156" rx="80" fill="#07070c" stroke="#2c2f44" stroke-width="5"/>
+  <rect x="470" y="168" width="140" height="34" rx="17" fill="#000"/>
+  <g clip-path="url(#scrClip)">
+    <rect x="252" y="162" width="576" height="1116" fill="#10111a"/>
+    <text x="300" y="196" fill="#c9cad8" font-size="22" font-weight="700">9:04</text>
+    <g fill="#c9cad8"><rect x="736" y="182" width="36" height="16" rx="4"/><rect x="704" y="186" width="6" height="12"/><rect x="714" y="183" width="6" height="15"/><rect x="724" y="180" width="6" height="18"/></g>
+    <g id="results">
+      <rect x="290" y="282" width="500" height="84" rx="42" fill="#1d1f2c"/>
+      <circle cx="330" cy="321" r="12" stroke="#8a8ca3" stroke-width="4" fill="none"/><line x1="339" y1="330" x2="349" y2="340" stroke="#8a8ca3" stroke-width="4" stroke-linecap="round"/>
+      <text id="query" clip-path="url(#typeClip)" x="362" y="334" fill="#ecebf5" font-size="28" font-weight="500">paysagiste</text>
+      <rect id="caret" x="362" y="306" width="3" height="36" fill="#8b7bff"/>
+      <g id="res1" opacity="0">
+        <rect x="290" y="400" width="500" height="320" rx="30" fill="#191b27" stroke="#2a2d3f" stroke-width="2"/>
+        <rect x="318" y="430" width="64" height="64" rx="16" fill="#2a2d3f"/><text x="350" y="472" text-anchor="middle" fill="#c9cad8" font-size="24" font-weight="800">JD</text>
+        <text x="398" y="458" fill="#ecebf5" font-size="30" font-weight="800">Jardins Dumont</text>
+        <text x="398" y="492" fill="#8a8ca3" font-size="22">Paysagiste · 4 km</text>
+        <g id="noSite"><rect x="318" y="522" width="240" height="48" rx="24" fill="#ff6b78" fill-opacity=".14"/>
+          <circle cx="344" cy="546" r="7" fill="#ff6b78"/><text x="360" y="554" fill="#ff6b78" font-size="22" font-weight="700">Pas de site web</text></g>
+        <rect id="btnCall" x="318" y="610" width="214" height="78" rx="39" fill="#6d5df5"/>
+        <path d="M368 636 q0 24 24 24 l6 -8 l-10 -7 l-5 4 q-8 -4 -11 -11 l4 -5 l-7 -10z" fill="#fff"/>
+        <text x="412" y="658" fill="#fff" font-size="27" font-weight="800">Appeler</text>
+        <rect x="548" y="610" width="214" height="78" rx="39" fill="#232634"/>
+        <text x="655" y="658" text-anchor="middle" fill="#8a8ca3" font-size="26" font-weight="700">Itinéraire</text>
+      </g>
+    </g>
+    <g id="callUI" opacity="0">
+      <rect x="252" y="162" width="576" height="1116" fill="#12131e"/>
+      <circle class="ring" cx="540" cy="520" r="100" fill="none" stroke="#8b7bff" stroke-width="3"/>
+      <circle class="ring" cx="540" cy="520" r="100" fill="none" stroke="#8b7bff" stroke-width="3"/>
+      <circle cx="540" cy="520" r="100" fill="#232634"/>
+      <text x="540" y="540" text-anchor="middle" fill="#c9cad8" font-size="52" font-weight="800">JD</text>
+      <text x="540" y="690" text-anchor="middle" fill="#ecebf5" font-size="36" font-weight="800">Jardins Dumont</text>
+      <text x="540" y="738" text-anchor="middle" fill="#8a8ca3" font-size="26">Appel en cours…</text>
+      <circle cx="540" cy="1140" r="60" fill="#e5484d"/>
+      <path d="M508 1142 Q540 1118 572 1142" stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round"/>
+    </g>
+  </g>
+  <g id="finger" opacity="0">
+    <circle id="ripple" r="40" fill="none" stroke="#fff" stroke-width="4" opacity="0"/>
+    <circle r="34" fill="#fff" fill-opacity=".25" stroke="#fff" stroke-opacity=".8" stroke-width="3"/>
+  </g>
+ </g>
+</g>
+
+<path id="wA" fill="none" stroke="#8b7bff" stroke-width="6" stroke-linecap="round" vector-effect="non-scaling-stroke" filter="url(#glow)" opacity="0"/>
+<g id="wANodes"><circle r="5" opacity="0"/><circle r="5" opacity="0"/><circle r="5" opacity="0"/><circle r="5" opacity="0"/><circle r="5" opacity="0"/></g>
+<circle id="wAHead" r="9" fill="#fff" filter="url(#glow)" opacity="0"/>
+</g>
+
+<!-- =================== CALQUES À L'ÉCRAN =================== -->
+<g id="ui">
+  <g id="pillIn" opacity="0" filter="url(#cardShadow)">
+    <rect width="330" height="92" rx="24" fill="#1b1d2c" stroke="#8b7bff" stroke-opacity=".55" stroke-width="2"/>
+    <circle cx="46" cy="46" r="24" fill="#6d5df5"/>
+    <path d="M37 38 q0 18 18 18 l5 -6 l-8 -5 l-4 3 q-6 -3 -8 -8 l3 -4 l-5 -8z" fill="#fff"/>
+    <text x="86" y="40" fill="#ecebf5" font-size="25" font-weight="700">Appel entrant</text>
+    <text id="pillInSub" x="86" y="70" fill="#8a8ca3" font-size="20" font-weight="500">Numéro inconnu</text>
+  </g>
+  <g id="pillMiss" opacity="0" filter="url(#cardShadow)">
+    <rect width="300" height="76" rx="38" fill="#1b1d2c" stroke="#ff6b78" stroke-opacity=".7" stroke-width="2"/>
+    <circle cx="40" cy="38" r="9" fill="#ff6b78"/>
+    <text x="62" y="47" fill="#ff6b78" font-size="26" font-weight="700">Appel manqué</text>
+  </g>
+  <g id="pillEar" opacity="0" filter="url(#cardShadow)">
+    <rect width="320" height="76" rx="38" fill="#1b1d2c" stroke="#ff6b78" stroke-opacity=".55" stroke-width="2"/>
+    <path d="M30 46 Q30 18 52 18 Q74 18 74 46" stroke="#ff6b78" stroke-width="5" fill="none"/>
+    <rect x="24" y="38" width="14" height="22" rx="6" fill="#ff6b78"/><rect x="66" y="38" width="14" height="22" rx="6" fill="#ff6b78"/>
+    <text x="96" y="47" fill="#ecebf5" font-size="26" font-weight="700">Casque antibruit</text>
+  </g>
+  <g id="pillHands" opacity="0" filter="url(#cardShadow)">
+    <rect width="320" height="76" rx="38" fill="#1b1d2c" stroke="#ff6b78" stroke-opacity=".55" stroke-width="2"/>
+    <circle cx="40" cy="38" r="9" fill="#ff6b78"/>
+    <text x="62" y="47" fill="#ecebf5" font-size="26" font-weight="700">Mains occupées</text>
+  </g>
+  <!-- accroche : le montant perdu -->
+  <g id="hookAmt">
+    <text id="amtText" x="540" y="390" text-anchor="middle" fill="#ffffff" font-size="150" font-weight="900" letter-spacing="-4">12 000 CHF</text>
+    <rect id="amtStrike" x="90" y="326" width="0" height="20" rx="10" fill="#ff4d5e"/>
+  </g>
+  <!-- le problème, dit en clair -->
+  <g id="probCard" opacity="0" filter="url(#cardShadow)">
+    <rect x="90" y="210" width="900" height="270" rx="40" fill="#161824" stroke="#ff6b78" stroke-opacity=".6" stroke-width="2.5"/>
+    <text id="probT1" x="540" y="318" text-anchor="middle" fill="#ff6b78" font-size="76" font-weight="900" letter-spacing="2">SANS SITE</text>
+    <g id="probRow">
+      <circle cx="226" cy="402" r="34" fill="#6d5df5"/>
+      <path d="M212 390 q0 28 28 28 l7 -9 l-12 -8 l-6 5 q-9 -5 -12 -12 l5 -6 l-8 -12z" fill="#fff"/>
+      <text x="280" y="418" fill="#ecebf5" font-size="42" font-weight="800">= le seul moyen de le joindre</text>
+    </g>
+  </g>
+</g>
+<rect width="1080" height="1920" fill="url(#vignette)" pointer-events="none"/>
+<rect id="fade" width="1080" height="1920" fill="#000" opacity="0" pointer-events="none"/>
+</svg>
+<div id="grain"></div>
+<div id="tag"></div>
+<div id="subs"></div>
+</div>
+<div id="hint">Brouillon du début, sans voix · clic = pause · ← → = reculer / avancer de 2 s · R = rejouer</div>
+
+<script>
+const stage = document.getElementById('stage');
+function fit(){ const s = Math.min(innerWidth/1080, (innerHeight-26)/1920); stage.style.transform = `scale(${s})`; }
+addEventListener('resize', fit); fit();
+const $ = id => document.getElementById(id);
+const A = (el, o) => { el = typeof el === 'string' ? $(el) : el; for (const k in o) el.setAttribute(k, o[k]); };
+const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+const lerp = (a,b,t) => a + (b-a)*t;
+const smooth = t => t*t*(3-2*t);
+const win = (t,a,b) => clamp((t-a)/(b-a), 0, 1);
+const easeOut = t => 1 - Math.pow(1-t, 3);
+const easeInOut = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3)/2;
+const backOut = t => { const c=1.9; return 1 + (c+1)*Math.pow(t-1,3) + c*Math.pow(t-1,2); };
+const bump = (t, a, b, r = .35) => Math.min(smooth(win(t, a, a + r)), 1 - smooth(win(t, b - r, b)));
+const VIOLET = '#8b7bff', LIME = '#c6ff3d', RED = '#ff6b78';
+
+/* ============ construction statique ============ */
+const STRIDE = 150, GROUND = 1500, P0 = 2.6, SPEED = .36;
+const BLADES = [];
+(function(){
+  // brins d'herbe de la pelouse (triés du fond vers l'avant)
+  const list = [];
+  for (let i = 0; i < 340; i++){
+    const x = -100 + i*8 + ((i*37) % 7), y = 1446 + ((i*53) % 100);
+    list.push({x, y, tall: 34 + ((i*29) % 28), short: 7 + ((i*13) % 5), sway: ((i*17) % 10)/10, c: ['#2f5a3d','#3a6a47','#4b7f52','#2a5038'][i % 4]});
+  }
+  list.sort((a,b) => a.y - b.y);
+  $('blades').innerHTML = list.map((b,i) => `<use href="#bladeArt" fill="${b.c}"/>`).join('');
+  list.forEach((b,i) => { b.el = $('blades').children[i]; BLADES.push(b); });
+  // barrière
+  let f = ''; for (let x = 640; x < 2600; x += 110) f += `<rect x="${x}" y="1300" width="12" height="110" rx="3"/>`;
+  f += `<rect x="620" y="1318" width="1980" height="9" rx="4"/><rect x="620" y="1360" width="1980" height="9" rx="4"/>`;
+  $('fence').innerHTML = f;
+  // brins coupés qui volent
+  let c = ''; for (let i = 0; i < 16; i++) c += `<rect width="7" height="3" rx="1.5"/>`;
+  $('clips').innerHTML = c;
+  // herbes folles chez Marc
+  const weeds = (n, y0, y1, h0, h1, seed) => { let s = '';
+    for (let i = 0; i < n; i++){ const x = 30 + ((i*83 + seed) % 1020), y = y0 + ((i*41 + seed) % (y1 - y0)), h = h0 + ((i*61 + seed) % (h1 - h0)), lean = ((i*7) % 9) - 4;
+      const col = ['#24402e','#2c4d36','#335a3e','#1f3828'][i % 4];
+      s += `<path d="M${x-5} ${y} Q${x+lean*2} ${y-h*.6} ${x+lean*6} ${y-h} Q${x+lean*2+3} ${y-h*.5} ${x+5} ${y}Z" fill="${col}"/>`;
+      if (i % 5 === 0) s += `<circle cx="${x+lean*6}" cy="${y-h-6}" r="7" fill="#5d6a4a"/>`; }
+    return s; };
+  $('weedsBack').innerHTML = weeds(70, 1240, 1300, 60, 170, 11);
+  $('weedsFront').innerHTML = weeds(60, 1330, 1420, 70, 190, 5);
+})();
+const QUERY_W = $('query').getComputedTextLength();
+
+/* ============ LE PAYSAGISTE ============ */
+function ik(hx, hy, fx, fy, a, b, pick){
+  const dx = fx-hx, dy = fy-hy, d = Math.hypot(dx,dy);
+  const dc = clamp(d, 1, a+b-1), th = Math.atan2(dy,dx);
+  const al = Math.acos(clamp((a*a + dc*dc - b*b)/(2*a*dc), -1, 1));
+  const k1 = [hx + a*Math.cos(th-al), hy + a*Math.sin(th-al)], k2 = [hx + a*Math.cos(th+al), hy + a*Math.sin(th+al)];
+  return { knee: pick(k1, k2), ankle: [hx + dc*Math.cos(th), hy + dc*Math.sin(th)] };
+}
+const forward = (k1, k2) => k1[0] > k2[0] ? k1 : k2;   // genou vers l'avant
+const below = (k1, k2) => k1[1] > k2[1] ? k1 : k2;     // coude vers le bas
+const foot = k => [k*STRIDE + 60, GROUND];
+function gait(t){
+  const p = P0 + SPEED*t, n = Math.floor(p), f = p - n;
+  return {p, n, f, hip:[p*STRIDE + 15, GROUND - 262 - 6*Math.sin(Math.PI*f)], lean: 14 + 1.2*Math.sin(2*Math.PI*f)};
+}
+const toWorld = (P, x, y) => { const r = P.lean*Math.PI/180, c = Math.cos(r), s = Math.sin(r); return [P.hip[0] + x*c - y*s, P.hip[1] + x*s + y*c]; };
+
+// opt.vib : le téléphone vibre · opt.ear / opt.hands : on souligne le casque / les mains
+function renderGarden(t, opt = {}){
+  const P = gait(t), {n, f, hip} = P;
+  const e = smooth(win(f, .15, .85));
+  const planted = foot(n), from = foot(n-1), to = foot(n+1);
+  const moving = [lerp(from[0], to[0], e), lerp(from[1], to[1], e) - 34*Math.sin(Math.PI*e)];
+  const nearPlanted = n % 2 === 0;
+  const fNear = nearPlanted ? planted : moving, fFar = nearPlanted ? moving : planted;
+  const leg = (id, shoe, fp) => {
+    const r = ik(hip[0], hip[1], fp[0], fp[1]-26, 135, 135, forward);
+    A(id, {d:`M${hip[0]} ${hip[1]} L${r.knee[0]} ${r.knee[1]} L${r.ankle[0]} ${r.ankle[1]}`});
+    A(shoe, {transform:`translate(${r.ankle[0]-8} ${r.ankle[1]+26}) rotate(${fp === moving ? -6*Math.sin(Math.PI*e) : 0})`});
+  };
+  leg('legFar','shoeFar',fFar); leg('legNear','shoeNear',fNear);
+  A('torso', {transform:`translate(${hip[0]} ${hip[1]}) rotate(${P.lean})`});
+  A('shadow', {cx:(fNear[0]+fFar[0])/2 + 10, cy: GROUND - 2});
+
+  // tondeuse, poussée à bout de bras
+  const jit = Math.sin(t*63)*1.3;
+  const mx = hip[0] + 480, my = GROUND + jit;
+  A('mower', {transform:`translate(${mx.toFixed(1)} ${my.toFixed(1)})`});
+  A('mowerShadow', {cx: mx - 40, cy: GROUND + 2});
+  const rot = (mx/27)*180/Math.PI;
+  document.querySelectorAll('#mower .spoke').forEach(s => A(s, {transform:`rotate(${(rot % 360).toFixed(1)})`}));
+  const grip = [hip[0] + 152, GROUND - 252 + jit*.5], gripFar = [grip[0] - 8, grip[1] - 6];
+  const deck = [mx - 150, my - 84];
+  A('handleNear', {d:`M${deck[0]} ${deck[1]} L${grip[0] + 10} ${grip[1] - 10}`});
+  A('handleFar', {d:`M${deck[0] - 6} ${deck[1] - 4} L${gripFar[0] + 10} ${gripFar[1] - 10}`});
+  const arm = (id, glove, sh, hand) => {
+    const r = ik(sh[0], sh[1], hand[0], hand[1], 122, 118, below);
+    A(id, {d:`M${sh[0]} ${sh[1]} L${r.knee[0]} ${r.knee[1]} L${r.ankle[0]} ${r.ankle[1]}`});
+    A(glove, {cx:r.ankle[0], cy:r.ankle[1]});
+  };
+  arm('armNear', 'gloveNear', toWorld(P, 14, -194), grip);
+  arm('armFar', 'gloveFar', toWorld(P, -4, -196), gripFar);
+  // bruit du moteur
+  [...$('noise').children].forEach((p, i) => {
+    const k = ((t*1.6 + i/3) % 1), r = 30 + k*70;
+    A(p, {d:`M${-30 - r*.7} ${-150 - r*.55} Q${-30} ${-150 - r*1.05} ${-30 + r*.7} ${-150 - r*.55}`, opacity:((1-k)*.45).toFixed(2)});
+  });
+  // pelouse : coupée derrière la tondeuse, haute devant
+  const cutX = mx - 40;
+  A('lawnCut', {width: Math.max(0, cutX + 100)});
+  [...$('lawnStripes').children].forEach((p, i) => A(p, {d:`M-100 ${1462 + i*32} H${cutX}`}));
+  for (const b of BLADES){
+    const cut = b.x < cutX;
+    const h = cut ? b.short : b.tall;
+    const near = !cut && b.x < cutX + 260 ? (1 - (b.x - cutX)/260) : 0;     // la tondeuse plie l'herbe devant elle
+    const sway = Math.sin(t*1.7 + b.sway*6)*4 + near*14;
+    A(b.el, {transform:`translate(${b.x} ${b.y}) rotate(${sway.toFixed(1)}) scale(1 ${h})`});
+  }
+  [...$('clips').children].forEach((c, i) => {
+    const k = ((t*1.9 + i/16) % 1), x = mx - 168 - k*150 - (i % 4)*12, y = GROUND - 20 - Math.sin(k*Math.PI)*(50 + (i % 5)*14);
+    A(c, {x:x.toFixed(1), y:y.toFixed(1), opacity:((1-k)*.9).toFixed(2), transform:`rotate(${(k*360 + i*40).toFixed(0)} ${x.toFixed(1)} ${y.toFixed(1)})`});
+  });
+
+  // téléphone dans la poche arrière
+  const vib = !!opt.vib;
+  A('phone', {transform:`translate(${vib ? (Math.sin(t*90)*2.2).toFixed(2) : 0} 0)`});
+  A('pGlow', {opacity: vib ? (.55 + .35*Math.sin(t*12)).toFixed(2) : 0});
+  A('haptic', {opacity: vib ? (.5 + .5*Math.sin(t*14)).toFixed(2) : 0});
+  A('pScreen', {stroke: opt.missed ? RED : VIOLET});
+  A('earGlow', {opacity: (opt.ear || 0)*(.45 + .25*Math.sin(t*6))});
+  const hw = toWorld(P, 0, 0);
+  A('handGlow', {cx: grip[0], cy: grip[1], opacity: (opt.hands || 0)*(.45 + .25*Math.sin(t*6))});
+
+  const ph = toWorld(P, -44, 6), head = toWorld(P, 6, -262);
+  return {ph, head, grip, hip, base: {cx: hip[0] + 300, cy: GROUND - 330, z: 1.25}};
+}
+
+/* ============ MARC ============ */
+function renderMarc(t){
+  A('marcHead', {transform:`rotate(${(1.6*Math.sin(t*1.2)).toFixed(2)} 542 880)`});
+  A('marcGlow', {opacity:(.7 + .3*Math.sin(t*3)).toFixed(2)});
+  const sw = (1.2*Math.sin(t*1.1)).toFixed(2);
+  A('weedsFront', {transform:`skewX(${sw})`}); A('weedsBack', {transform:`skewX(${(-sw*.7).toFixed(2)})`});
+}
+
+/* ============ TÉLÉPHONE DE MARC ============ */
+function tap(t, t0, x, y){
+  const a = win(t, t0-.5, t0-.05), r = win(t, t0, t0+.45);
+  return {a, x, y, press: t >= t0 && t < t0+.12, ripple: r};
+}
+function renderPhone(T){
+  const typed = win(T, 7.85, 8.35);
+  A('typeRect', {width: typed*(QUERY_W + 24)});
+  A('caret', {x: 362 + typed*QUERY_W + 2, opacity: T < 8.6 ? (Math.sin(T*9) > 0 ? 1 : 0) : 0});
+  const res1 = win(T, 8.4, 8.7);
+  A('res1', {opacity:res1.toFixed(2), transform:`translate(0 ${((1-easeOut(res1))*30).toFixed(1)})`});
+  const pulse = T > 9.3 && T < 10.9 ? Math.abs(Math.sin((T-9.3)*Math.PI*2)) : 0;
+  A('noSite', {transform:`translate(438 546) scale(${(1 + .09*pulse).toFixed(3)}) translate(-438 -546)`});
+  A('btnCall', {transform: T > 11.0 && T < 11.12 ? 'translate(425 649) scale(.95) translate(-425 -649)' : ''});
+  const call = win(T, 11.15, 11.35);
+  A('callUI', {opacity: call.toFixed(2)});
+  document.querySelectorAll('#callUI .ring').forEach((c,i) => {
+    const ph = (((T - 11.3) - i*.5) % 1.1 + 1.1) % 1.1, on = T > 11.3 + i*.5;
+    A(c, {r: 100 + ph*110, opacity: on ? ((1-ph/1.1)*.8).toFixed(2) : 0});
+  });
+  const f = T > 10.4 && T < 11.5 ? tap(T, 11.0, 425, 650) : null;
+  if (f){
+    A('finger', {opacity: (f.a*(1 - win(T, 11.2, 11.45))).toFixed(2), transform:`translate(${f.x + (1-f.a)*120} ${f.y + (1-f.a)*200}) scale(${f.press ? .85 : 1})`});
+    A('ripple', {r: 30 + f.ripple*50, opacity: f.ripple > 0 && f.ripple < 1 ? (1-f.ripple).toFixed(2) : 0});
+  } else A('finger', {opacity:0});
+}
+
+/* ============ FILS ============ */
+const wireCache = {};
+function wirePath(id, d){
+  const el = $(id), c = wireCache[id] || (wireCache[id] = {d:'', len:0});
+  if (d !== c.d){ A(el, {d}); c.d = d; c.len = el.getTotalLength(); }
+  return c.len;
+}
+function pointAt(id, frac){ const el = $(id), L = wireCache[id].len; const p = el.getPointAtLength(clamp(frac,0,1)*L); return [p.x, p.y]; }
+const NODES = [.14, .32, .5, .68, .86];
+function drawWire(id, a, b, color, show, z){
+  const el = $(id), L = wireCache[id] ? wireCache[id].len : 0;
+  const nodes = $(id + 'Nodes').children;
+  if (!L || b <= a || show <= 0){
+    A(el, {opacity:0}); A(id + 'Head', {opacity:0});
+    for (const nd of nodes) A(nd, {opacity:0});
+    return;
+  }
+  A(el, {stroke:color, opacity:show.toFixed(2), 'stroke-dasharray':`${(L*(b-a)).toFixed(1)} ${(L*3).toFixed(1)}`, 'stroke-dashoffset': (-L*a).toFixed(1)});
+  const hp = pointAt(id, b);
+  A(id + 'Head', {cx:hp[0], cy:hp[1], r:(9/z).toFixed(1), fill:'#ffffff', opacity: b < .999 ? show.toFixed(2) : 0});
+  NODES.forEach((fr, i) => {
+    const on = fr > a && fr < b, p = pointAt(id, fr);
+    A(nodes[i], {cx:p[0], cy:p[1], r:(5.5/z).toFixed(1), fill:color, opacity: on ? (show*.9).toFixed(2) : 0});
+  });
+}
+
+/* ============ CAMÉRA ============ */
+// le décor est une grande carte : chaque lieu a sa place, la caméra voyage entre eux
+const mixCam = (c1, c2, e) => ({cx: lerp(c1.cx, c2.cx, e), cy: lerp(c1.cy, c2.cy, e), z: Math.exp(lerp(Math.log(c1.z), Math.log(c2.z), e))});
+const PW = (x, y) => [-494 + .62*x, -1988 + .62*y];       // point de l'écran du téléphone de Marc -> décor
+const MARC_CAM  = {cx:-910, cy:-1390, z:.95};
+const PANEL_CAM = {cx:-159, cy:-1530, z:1.45};
+const RES_CAM   = {cx:-159.2, cy:-1650, z:1.95};
+const B_CALL = PW(540, 1298);
+const curve = (p, q, d1, d2) => `M${p[0]} ${p[1]} C ${p[0]+d1[0]} ${p[1]+d1[1]}, ${q[0]+d2[0]} ${q[1]+d2[1]}, ${q[0]} ${q[1]}`;
+
+/* ============ SOUS-TITRES & ÉTIQUETTES ============ */
+// *mot* violet · !mot! rouge · ~mot~ vert Wibzo
+const LINES = [
+  {a:0.2,  b:3.4,  d:2.6, text:'Ce paysagiste vient de perdre un chantier à !douze! !mille! !francs.!'},
+  {a:3.5,  b:5.2,  d:1.3, text:'Et il ne le sait même pas.'},
+  {a:5.3,  b:7.6,  d:2.0, text:'Ce matin, Marc cherche un *paysagiste* sur Google.'},
+  {a:7.7,  b:9.1,  d:1.1, text:'Il tombe sur ce paysagiste.'},
+  {a:9.2,  b:10.9, d:1.4, text:'!Pas! !de! !site.! Juste un *numéro.*'},
+  {a:11.0, b:11.8, d:.6,  text:'Il *appelle.*'},
+  {a:11.9, b:13.9, d:1.8, text:'Mais le paysagiste est en train de *tondre.*'},
+  {a:14.0, b:15.8, d:1.4, text:'Il n’entend rien. !Messagerie.!'},
+  {a:16.0, b:17.2, d:1.0, text:'Le problème est là :'},
+  {a:17.3, b:20.4, d:2.7, text:'sans site, son *téléphone* est la seule façon de le contacter.'},
+  {a:20.5, b:23.6, d:2.2, text:'Et quand il travaille, il ne peut pas !répondre.!'},
+];
+const TAGS = [
+  {a:6.4, b:9.0, text:'Ce matin · 9:04'},
+];
+let curLine = -2;
+function renderSubs(T){
+  const i = LINES.findIndex(l => T >= l.a && T < l.b);
+  const el = $('subs');
+  if (i !== curLine){
+    curLine = i;
+    el.innerHTML = i < 0 ? '' : LINES[i].text.split(' ').map(w => {
+      if (w.startsWith('*')) return `<span class="v">${w.replace(/\*/g,'')}</span>`;
+      if (w.startsWith('!')) return `<span class="r">${w.replace(/!/g,'')}</span>`;
+      if (w.startsWith('~')) return `<span class="l">${w.replace(/~/g,'')}</span>`;
+      return `<span>${w}</span>`; }).join(' ');
+  }
+  if (i >= 0){
+    const L = LINES[i], sp = el.children, n = sp.length;
+    for (let j=0;j<n;j++){ const r = clamp((T - L.a - j*L.d/n)/.14, 0, 1);
+      sp[j].style.opacity = (.18 + .82*r).toFixed(3); sp[j].style.transform = `translateY(${((1-r)*10).toFixed(1)}px)`; }
+  }
+  const tg = TAGS.find(g => T >= g.a && T < g.b), te = $('tag');
+  te.textContent = tg ? tg.text : '';
+  te.style.opacity = tg ? Math.min(win(T, tg.a, tg.a+.4), 1 - win(T, tg.b-.4, tg.b)).toFixed(2) : 0;
+}
+
+/* ============ MONTAGE ============ */
+const DUR = 24.0;
+
+function render(TT){
+  const vib = TT < 5.4 || (TT > 12.2 && TT < 14.9);
+  const missed = TT >= 14.9;
+  const ear = Math.max(bump(TT, 12.9, 15.8, .3), bump(TT, 20.5, 24.5, .3));
+  const hands = bump(TT, 20.7, 24.5, .3);
+  const st = renderGarden(TT, {vib, missed, ear, hands});
+  renderMarc(TT);
+  const pop = easeOut(win(TT, 7.45, 7.85));
+  A('S_phone', {opacity: pop.toFixed(2), transform:`translate(-159.2 -1541.6) scale(${(.62*(.9 + .1*pop)).toFixed(4)}) translate(-540 -720)`});
+  renderPhone(TT);
+
+  wirePath('wA', curve(B_CALL, st.ph, [40, 700], [-220, -1000]));
+  drawWire('wA', 0, 0, VIOLET, 0, 1);   // on efface, puis on redessine seulement si besoin
+  const wires = [];
+  // caméra du jardin : gros plan sur la poche, puis on recule
+  let gcam = st.base;
+  if (TT < 5.3){
+    const e2 = smooth(win(TT, 1.9, 4.3));
+    gcam = {cx: lerp(st.ph[0], st.base.cx, e2), cy: lerp(st.ph[1] + 40, st.base.cy, e2), z: lerp(2.4, 1.0, e2)*(1 + .04*smooth(win(TT, 4.3, 5.3)))};
+  } else if (TT >= 16){
+    gcam = {...st.base, cy: st.base.cy - 40*smooth(win(TT, 16, 17.2)), z: lerp(1.25, 1.12, smooth(win(TT, 16, 17.2)))};
+  }
+  const panelCam = mixCam(mixCam(MARC_CAM, PANEL_CAM, smooth(win(TT, 7.6, 8.2))), RES_CAM, bump(TT, 8.9, 11.6, .4));
+  let cam;
+
+  if (TT < 5.3){
+    // 1. accroche : l'appel arrive par le fil, il ne l'entend pas
+    cam = gcam;
+    wires.push(['wA', 0, lerp(.55, 1, easeOut(win(TT, 0, .45))), VIOLET, 1]);
+  } else if (TT < 6.5){
+    // 2. on remonte le fil jusqu'à Marc (pas de phrase de transition)
+    const k = easeInOut(win(TT, 5.3, 6.3)), b = 1 - k;
+    const hp = pointAt('wA', b);
+    cam = mixCam(mixCam(gcam, {cx: hp[0], cy: hp[1] + 120, z: .42}, smooth(win(TT, 5.3, 5.75))), MARC_CAM, smooth(win(TT, 5.95, 6.5)));
+    wires.push(['wA', 0, b, VIOLET, .85]);
+  } else if (TT < 11.35){
+    // 3. Marc, son jardin à refaire, puis son téléphone en grand
+    cam = panelCam;
+  } else if (TT < 12.95){
+    // 4. il appelle : on suit le fil jusqu'à la poche du paysagiste
+    const k = easeInOut(win(TT, 11.35, 12.75));
+    const hp = pointAt('wA', k);
+    cam = mixCam(mixCam(panelCam, {cx: hp[0], cy: hp[1] + 100, z: .45}, smooth(win(TT, 11.35, 11.8))), gcam, smooth(win(TT, 12.35, 12.95)));
+    wires.push(['wA', 0, k, VIOLET, 1]);
+  } else {
+    // 5. ça vibre sous le bruit de la tondeuse… messagerie. Puis le problème.
+    cam = gcam;
+    const red = win(TT, 14.9, 15.3);
+    wires.push(['wA', 0, 1, red > .5 ? RED : VIOLET, (1 - .6*red)*(1 - win(TT, 16.2, 16.8))]);
+  }
+
+  A('world', {transform:`translate(540 860) scale(${cam.z.toFixed(4)}) translate(${(-cam.cx).toFixed(1)} ${(-cam.cy).toFixed(1)})`});
+  wires.forEach(w => drawWire(w[0], w[1], w[2], w[3], w[4], cam.z));
+  const S = w => [540 + (w[0]-cam.cx)*cam.z, 860 + (w[1]-cam.cy)*cam.z];
+  const inGarden = TT < 5.3 || TT > 12.6;
+
+  // pastilles
+  const sp = S(st.ph), sh = S(st.head), sg = S(st.grip);
+  const inA = Math.max(win(TT, .45, .75)*(1 - win(TT, 5.0, 5.3)), win(TT, 12.75, 13.05)*(1 - win(TT, 14.75, 14.95)));
+  $('pillInSub').textContent = TT > 10 ? 'Marc · nouveau client' : 'Numéro inconnu';
+  const pinPos = TT < 5.3 ? [clamp(sp[0] - 170, 40, 700), sp[1] - 250] : [60, 470];
+  A('pillIn', {opacity:inA.toFixed(2), transform:`translate(${pinPos[0].toFixed(1)} ${(pinPos[1] + (1-easeOut(inA))*16).toFixed(1)})`});
+  const missA = win(TT, 14.9, 15.15)*(1 - win(TT, 16.6, 16.9));
+  A('pillMiss', {opacity:missA.toFixed(2), transform:`translate(60 478) scale(${(.85 + .15*smooth(missA)).toFixed(3)})`});
+  A('pillEar', {opacity:(inGarden ? ear : 0).toFixed(2), transform:`translate(${(sh[0] + 100).toFixed(1)} ${(sh[1] - 60).toFixed(1)})`});
+  A('pillHands', {opacity:(inGarden ? hands : 0).toFixed(2), transform:`translate(${(sg[0] - 60).toFixed(1)} ${(sg[1] + 70).toFixed(1)})`});
+
+  // accroche : 12 000 CHF, barré
+  const amtOut = win(TT, 4.9, 5.3);
+  A('hookAmt', {opacity:(1 - amtOut).toFixed(2), transform:`translate(0 ${(-amtOut*30).toFixed(1)})`});
+  const strike = easeOut(win(TT, .8, 1.15));
+  A('amtStrike', {width:(900*strike).toFixed(1)});
+  const hit = Math.max(0, 1 - Math.abs(TT - 1.15)/.25);
+  A('amtText', {fill: strike > .5 ? '#ffd6da' : '#ffffff', transform:`translate(540 340) scale(${(1 + .05*hit).toFixed(3)}) translate(-540 -340)`});
+
+  // le problème
+  const pc = easeOut(win(TT, 17.2, 17.6));
+  A('probCard', {opacity:pc.toFixed(2), transform:`translate(540 345) scale(${(.92 + .08*backOut(win(TT, 17.2, 17.6))).toFixed(3)}) translate(-540 -345)`});
+  A('probRow', {opacity: win(TT, 17.9, 18.3).toFixed(2)});
+
+  A('fade', {opacity: win(TT, DUR - .5, DUR).toFixed(2)});
+  renderSubs(TT);
+  $('grain').style.backgroundPosition = `${(TT*997)%240}px ${(TT*631)%240}px`;
+}
+
+/* ============ CALAGE SUR LA VOIX ============ */
+// pas encore de voix : temps réel = temps montage
+const ANCHORS = [[0, 0], [DUR, DUR]];
+const REAL_DUR = ANCHORS[ANCHORS.length - 1][1];
+function designAt(r){
+  for (let i = 0; i < ANCHORS.length - 1; i++){
+    const [d0, r0] = ANCHORS[i], [d1, r1] = ANCHORS[i + 1];
+    if (r <= r1) return d0 + (r - r0)*(d1 - d0)/(r1 - r0);
+  }
+  return DUR;
+}
+
+/* ============ LECTURE ============ */
+const q = new URLSearchParams(location.search);
+const STILL = q.get('t');
+let t0 = performance.now(), paused = false, pauseAt = 0;
+function loop(now){
+  if (!paused){ const T = ((now - t0)/1000) % (REAL_DUR + 1); render(designAt(Math.min(T, REAL_DUR))); }
+  requestAnimationFrame(loop);
+}
+if (STILL !== null){ render(+STILL); $('hint').remove(); }
+else requestAnimationFrame(loop);
+window.renderAt = r => render(designAt(r)); window.renderDesign = render; window.DUR = REAL_DUR;
+stage.addEventListener('click', () => { paused = !paused; if (paused) pauseAt = performance.now(); else t0 += performance.now() - pauseAt; });
+addEventListener('keydown', e => {
+  const k = e.key.toLowerCase();
+  if (k === 'r'){ t0 = performance.now(); paused = false; }
+  if (k === 'arrowright') t0 -= 2000;
+  if (k === 'arrowleft') t0 += 2000;
+});
+</script>
+</body>
+</html>

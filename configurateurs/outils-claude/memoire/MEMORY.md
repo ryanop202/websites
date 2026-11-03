@@ -1,0 +1,6 @@
+- [Profil utilisateur](user_profile.md) — débutant avec Claude Code, adapter les explications en conséquence
+- [MX Skin Studio](project_mx_skin_studio.md) — projet configurateur de skins MX Simulator, état et blocages
+- [Configurateurs carport](project_configurateurs_carport.md) — « configurateurs 3D » = carports Wibzo (websites/configurateurs), démos clients et prospects
+- [Pas de RDV ni appel](feedback_pas_de_rdv.md) — Ryan échange uniquement par e-mail/messages, jamais de RDV, appel ou visio
+- [Démos une par une](feedback_demos_un_par_un.md) — 15 prospects : démo → publier → mail (modèle de Ryan), au signal de Ryan, économiser les tokens
+- [« c'est bon » = envoyé](feedback_cbon_envoye.md) — après un mail préparé, « cbon »/« c'est publié » veut dire que Ryan l'a envoyé ; ne pas redemander

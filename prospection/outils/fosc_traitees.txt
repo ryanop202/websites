@@ -1,0 +1,124 @@
+# Entreprises FOSC déjà vérifiées (vérif. 20.10.2026). Une ligne par entreprise, champs séparés par ¦ :
+# IDE ¦ Nom ¦ Commune ¦ Numéro fixe ¦ Décision (garder / site / pas de fixe / hors cible) ¦ Message (
+ = retour à la ligne) ¦ Notes
+# Les lignes « garder » vont dans nouvelles-entreprises-broye.xlsx (py outils/fosc_broye.py excel).
+CHE-394.820.012 ¦ Viqa Protection Incendie Sàrl ¦ Lucens ¦ 026 912 79 85 ¦ garder ¦ Bonjour, ici Ryan de Wibzo, dans la Broye.\n\nJ'ai vu que Viqa Protection Incendie vient de s'inscrire au registre du commerce, à Lucens. Mais quand un nouveau client cherche une entreprise de protection incendie à Lucens, il ne trouve pas de site pour voir vos réalisations ou demander un devis, et il va ailleurs.\n\nJe vous ai préparé la maquette de votre site, gratuitement. Si elle ne vous plaît pas, on en reste là.\n\nJe vous l'envoie ? ¦ fixe search.ch (sans *), pas de site (proincendie.ch = domaine parqué), Instagram seulement. Existait avant à Bulle (moneyhouse, jobup)
+CHE-220.894.307 ¦ ASU Toiture Sàrl ¦ Lucens ¦  ¦ pas de fixe ¦  ¦ aucun numéro (Google, Maps, search.ch, local.ch)
+CHE-198.098.514 ¦ AXIOM construction Sàrl ¦ Lucens ¦  ¦ pas de fixe ¦  ¦ aucun numéro
+CHE-321.768.203 ¦ Chemitech Sàrl ¦ Vesin ¦  ¦ pas de fixe ¦  ¦ fiche Google sans numéro, search.ch sans numéro, Facebook seulement
+CHE-487.385.520 ¦ Swiss Tuned Motors Sàrl ¦ Moudon ¦  ¦ pas de fixe ¦  ¦ aucun numéro, Instagram seulement
+CHE-170.776.678 ¦ Vila Verde Froid ¦ Payerne ¦  ¦ site ¦  ¦ vilaverdefroid.ch
+CHE-398.883.796 ¦ Yamani Toiture ¦ Payerne ¦  ¦ pas de fixe ¦  ¦ aucun numéro
+CHE-136.791.279 ¦ Cuisine & Habitat Waeber Sàrl ¦ Domdidier ¦  ¦ pas de fixe ¦  ¦ aucun numéro, Facebook seulement
+CHE-325.263.592 ¦ Maspro Apolo Peña ¦ Estavayer-le-Lac ¦  ¦ site ¦  ¦ mas-pro.ch (+ mobile seulement)
+CHE-395.345.031 ¦ Michael Vernez Sàrl ¦ Marnand ¦  ¦ pas de fixe ¦  ¦ aucun numéro
+CHE-436.896.201 ¦ Jeton Halili - Façades & Rénovation ¦ Estavayer-le-Lac ¦  ¦ pas de fixe ¦  ¦ aucun numéro
+CHE-260.670.091 ¦ APEX étanchéité Abranches de Souza ¦ Moudon ¦  ¦ site ¦  ¦ apex-etancheite.ch
+CHE-409.868.202 ¦ Julian James Conservation Sàrl ¦ Estavayer-le-Lac ¦  ¦ site ¦  ¦ james-conservation.ch
+CHE-246.290.594 ¦ Chistol - CH Revêtements & Carrelages ¦ Estavayer-le-Lac ¦  ¦ pas de fixe ¦  ¦ aucun numéro
+CHE-305.384.749 ¦ SH Paysagiste Sàrl ¦ Payerne ¦  ¦ site ¦  ¦ shpaysagiste.ch (lien sur la fiche Google)
+CHE-265.367.501 ¦ BOX ENGINEERING CIVITILLO ¦ Moudon ¦  ¦ pas de fixe ¦  ¦ aucun numéro
+CHE-221.169.752 ¦ DEMAV Sàrl ¦ Corcelles-près-Payerne ¦  ¦ pas de fixe ¦  ¦ aucun numéro
+CHE-190.429.665 ¦ AEROVA Sàrl ¦ Vucherens ¦  ¦ pas de fixe ¦  ¦ aucun numéro
+CHE-146.302.647 ¦ Passion Charpente Sàrl ¦ Faoug ¦  ¦ site ¦  ¦ passion-charpente.ch
+CHE-291.067.401 ¦ Sefaj Solutions & Services Sàrl ¦ Fétigny ¦  ¦ pas de fixe ¦  ¦ aucun numéro
+CHE-346.680.642 ¦ Aleperia-groupe SNC ¦ Fétigny ¦  ¦ pas de fixe ¦  ¦ aucun numéro
+CHE-202.224.942 ¦ Amico Home Rider ¦ Payerne ¦  ¦ pas de fixe ¦  ¦ aucun numéro
+CHE-275.053.122 ¦ HF.Projet Sàrl ¦ Moudon ¦  ¦ pas de fixe ¦  ¦ aucun numéro
+CHE-134.589.258 ¦ CHOULAT ¦ Cudrefin ¦  ¦ pas de fixe ¦  ¦ mobile 079 seulement (search.ch, refuse la pub *), page choulatmecanique.ch
+CHE-495.876.346 ¦ Swiss Impact Repair Rodrigues Duraes ¦ Lucens ¦  ¦ pas de fixe ¦  ¦ aucun numéro
+CHE-195.364.493 ¦ Christophe Cuany Sàrl ¦ Chevroux ¦  ¦ pas de fixe ¦  ¦ seul fixe trouvé = ancienne adresse à Echallens (021 636 24 89), pas vérifié pour Chevroux
+CHE-187.837.348 ¦ RG Peinture Sàrl ¦ Avenches ¦  ¦ pas de fixe ¦  ¦ aucun numéro
+CHE-451.731.665 ¦ NINOVA Sàrl ¦ Lucens ¦  ¦ pas de fixe ¦  ¦ aucun numéro
+CHE-301.662.607 ¦ INVICTUS CONSTRUCTION SARL ¦ Moudon ¦  ¦ site ¦  ¦ invictus-construction.ch
+CHE-421.018.278 ¦ Prestige Métal Sàrl ¦ Moudon ¦  ¦ pas de fixe ¦  ¦ aucun numéro
+CHE-287.965.573 ¦ Patrick Delley métal ¦ Font ¦  ¦ site ¦  ¦ patrickmétal.ch (lien sur la fiche Google)
+CHE-272.869.400 ¦ Boni Groupe Immobilier Sàrl ¦ Payerne ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-369.586.391 ¦ Noverraz Romanono ¦ Payerne ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-428.552.426 ¦ Performance Lab SNC ¦ Domdidier ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-317.849.689 ¦ Garage Catillaz SA ¦ Estavayer-le-Lac ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-264.799.111 ¦ STEDI Sàrl ¦ Forel FR ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-397.083.563 ¦ OPHIR snc ¦ St-Aubin FR ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-343.297.821 ¦ La Paille Verte, titulaire Monteiro ¦ Estavayer-le-Lac ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-194.183.351 ¦ JEG INTERMED, titulaire Joël Egger ¦ Lully FR ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-160.891.711 ¦ Ali Rdwan ¦ Missy ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-475.825.239 ¦ SLE Sàrl ¦ Combremont-le-Grand ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-349.915.161 ¦ Weibel SA ¦ Lucens ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-146.707.240 ¦ Robert-Tissot Equi Performance ¦ Corcelles-près-Payerne ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-198.268.934 ¦ OTSEE Sàrl ¦ Payerne ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-378.352.797 ¦ Mafethover Immo SA ¦ Payerne ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-409.666.414 ¦ MDKS SARL ¦ Lucens ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-348.646.099 ¦ Selina Vogt-Rütti Personal Coaching ¦ St-Aubin FR ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-363.126.418 ¦ Optima Gastro SNC ¦ Chabrey ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-397.057.229 ¦ Carré d'As Médias Sàrl ¦ Moudon ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-295.616.005 ¦ DETECT66 MATHYS ¦ Cudrefin ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-341.160.743 ¦ Orchid Street SA ¦ Portalban ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-361.551.963 ¦ Strates, Dätwyler Pereira Duarte ¦ Nuvilly ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-411.311.386 ¦ Fiduciaire et Gérance Patrick Ridoux SA ¦ Avenches ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-165.242.253 ¦ Leandro Justo ¦ Moudon ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-492.978.909 ¦ Milavy Physio Sàrl ¦ Avenches ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-484.709.365 ¦ FVA Francis Valle Alonso ¦ Moudon ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-351.617.307 ¦ JM Marine Sàrl ¦ Estavayer-le-Lac ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-380.193.290 ¦ T3 Foundry SA ¦ Châtillon FR ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-352.358.999 ¦ Lureva Sàrl ¦ Villars-le-Grand ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-194.323.296 ¦ Christopher Gabriel ¦ Seigneux ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-247.079.211 ¦ NovaTool Sàrl ¦ Moudon ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-461.867.119 ¦ Élya Pro titulaire Cobas Perez ¦ Payerne ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-264.031.286 ¦ Montis Spirit Sàrl ¦ Estavayer-le-Lac ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-208.933.362 ¦ Ana Rita Miranda Claro Nettoyage ¦ Montagny-la-Ville ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-174.487.776 ¦ BalaiNet Services Ribeiro de Oliveira Rafael ¦ Villeneuve FR ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-287.926.840 ¦ Dzodzet Sàrl ¦ Estavayer-le-Lac ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-343.181.383 ¦ Arsis Spirits Sàrl ¦ Cheyres ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-388.973.860 ¦ Café-Restaurant le Beaulieu SNC ¦ Payerne ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-157.896.978 ¦ Afro shop mixte Monaye ¦ Lucens ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-168.425.933 ¦ Zenunaj IT Solutions ¦ Payerne ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-460.203.856 ¦ The Sphere Center SNC ¦ Seiry ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-168.308.434 ¦ HarmoniaVie Simon-Vermot ¦ Domdidier ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-185.135.494 ¦ Formation de coupe énergétique suisse SNC ¦ Domdidier ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-279.763.748 ¦ SNT Immo Sàrl ¦ Seigneux ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-286.574.359 ¦ Granovit SA, succursale de Lucens ¦ Lucens ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-220.328.692 ¦ GPS Genetics Sàrl ¦ Dompierre VD ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-147.531.104 ¦ Compagnie de Corse Sàrl ¦ Sévaz ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-231.327.633 ¦ PRINT48 Sàrl ¦ Avenches ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-245.251.195 ¦ RHONE CONSTRUCTION SA LTD, à Londres (GB), Succursale de Valbroye ¦ Granges-près-Marnand ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-445.678.057 ¦ Sam's Voyages Sàrl ¦ Cudrefin ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-353.464.115 ¦ Désinfection Piller Sàrl ¦ Rueyres-les-Prés ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-403.807.142 ¦ Prestige Events & Hospitality Sàrl ¦ Prévonloup ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-438.203.619 ¦ Patrimonium Focus GmbH ¦ Gletterens ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-377.050.856 ¦ Lidl Schweiz DL AG ¦ Sévaz ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-135.286.168 ¦ Alpincom Sàrl ¦ Moudon ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-227.164.701 ¦ Beith Karmsadde Editions, titulaire Aboud ¦ Cheyres ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-315.464.427 ¦ Bernadett Botos Reinigungsservice ¦ Bollion ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-275.165.413 ¦ MEIERHOFER MART ¦ Léchelles ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-265.325.052 ¦ L'usine fitness 23 Sévaz Sàrl ¦ Sévaz ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-497.693.667 ¦ Liliya Swiss Sàrl ¦ Estavayer-le-Lac ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-486.187.584 ¦ Bateaux & Locations, titulaire Strässle ¦ Domdidier ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-434.095.354 ¦ PizzaPhone Riccio ¦ Moudon ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-145.255.525 ¦ NAMANE SA LTD, à Londres (GB), Succursale de Valbroye ¦ Granges-près-Marnand ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-159.813.561 ¦ Solartech Group Sàrl ¦ Payerne ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-157.048.252 ¦ EFJ-Tech Sàrl ¦ Portalban ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-474.882.157 ¦ AS Patrium SA ¦ Cousset ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-336.995.618 ¦ Institut Beauty by Meryem Hamdouni (nom d'usage Le Quémener) ¦ Avenches ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-139.946.354 ¦ Spitz Mooser 36one ¦ Chesalles-sur-Moudon ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-349.185.853 ¦ Be You Tiful Dutaud ¦ Châbles FR ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-458.761.147 ¦ Cabinet médical Dre Emilie Donzé-Gallay ¦ Avenches ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-164.362.570 ¦ Strongflow Sàrl ¦ Estavayer-le-Lac ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-407.616.954 ¦ GREEN INVEST SOLUTIONS SA ¦ Domdidier ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-145.905.228 ¦ L-Levelup Corminboeuf ¦ Delley ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-440.687.480 ¦ Caeli Sàrl ¦ Vesin ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-181.013.455 ¦ Madeva Assurances SA ¦ Cudrefin ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-489.267.133 ¦ Monmomentamoi Sàrl ¦ Avenches ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-346.732.262 ¦ Blaser Energie Sàrl ¦ Seigneux ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-186.639.797 ¦ COFINA SNC ¦ Estavayer-le-Lac ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-314.566.485 ¦ Ngbilo Lima Tavares Consulting ¦ Payerne ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-442.341.041 ¦ Loup & Co SA ¦ Montmagny ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-474.703.071 ¦ 5G Invest SA ¦ Frasses ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-432.328.777 ¦ QUINTUOR Patrimoine Sàrl ¦ Estavayer-le-Lac ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-454.605.436 ¦ Zeferino SA ¦ St-Aubin FR ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-306.042.487 ¦ LIGNAE CONSULTING Sàrl ¦ Estavayer-le-Lac ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-130.340.398 ¦ Ma Petite Italie Sonia Belotti ¦ Payerne ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-483.100.799 ¦ Titulaire Couturier Lee Formation & accompagnement ¦ Cheyres ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-340.573.700 ¦ J.Sprunger Sàrl ¦ Estavayer-le-Lac ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+
+CHE-197.296.247 ¦ Roucault Contemporary Arts SNC ¦ Domdidier ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026
+CHE-446.286.702 ¦ La Ferme du Château de Marnand Sàrl ¦ Marnand ¦  ¦ hors cible ¦  ¦ tri du 20.10.2026

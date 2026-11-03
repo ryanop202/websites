@@ -48,11 +48,24 @@ Choisir un métier où, sans site, **on est obligé d'appeler** et où le client
 
 ## Outils
 - `export.js` / `check.js` : Node + `puppeteer-core` (déjà installé ici, sinon `npm install`) + Chrome installé.
-- ffmpeg : `C:/Users/Admin/AppData/Local/Python/pythoncore-3.14-64/Lib/site-packages/imageio_ffmpeg/binaries/ffmpeg-win-x86_64-v7.1.exe` (paquet Python `imageio-ffmpeg`).
+- ffmpeg : paquet Python `imageio-ffmpeg` (`py -m pip install --user imageio-ffmpeg`). `check.js` et `export.js` le trouvent tout seuls sur les deux ordinateurs (ou variable `FFMPEG`).
 - `video.html` expose `window.renderAt(tempsRéel)`, `window.renderDesign(tempsMontage)` et `window.DUR`. Chaque image est calculée à partir du temps, sans hasard : l'export est donc identique à l'aperçu.
 
 ## Pièges déjà rencontrés
 - Export : attendre que l'image soit dessinée avant la capture (déjà dans `export.js`), sinon on obtient des images qui « buggent ».
 - Fil qui sort à droite d'une scène = il doit rentrer à droite dans la suivante.
 - Pas de grand zoom sur un objet en arrière-plan : les mains deviennent des taches énormes.
+- Fils (`vector-effect=non-scaling-stroke`) : Chrome compte les pointillés en pixels d'écran → multiplier `stroke-dasharray` par le zoom de la caméra, sinon le fil s'arrête avant son arrivée quand on zoome. Un fil très long en gros plan peut aussi disparaître (lueur trop grande) : le raccourcir.
+- Animation qui démarre plus tard (temps négatif) : utiliser un modulo positif, sinon tailles négatives = erreurs.
+- Choisir une activité **typique du métier** (pas tondre pour un paysagiste : tout le monde tond) et la montrer dès la 1re image.
 - Aperçu en demi-résolution = Ryan trouve la qualité moins bonne : toujours montrer en 1080×1920.
+
+## Mise à jour 23.10.2026 (Reel paysagiste)
+- **Voix** : repérer les phrases avec `silencedetect`, les écrire dans `voix-clips.json` (`[[début, fin], ...]`, une par sous-titre), puis :
+  `py sync_voice.py ../NOUVEAU/video.html voix.mp3 voix-calee.wav ../NOUVEAU/voix-clips.json`
+  Le script lit la table `SPEED` de la page (bloc `VITESSE PAR PASSAGE`). Vitesse `Infinity` = passage coupé (saut net, la phrase suivante démarre aussitôt).
+- **Bruitages** : la liste des moments va dans un fichier par vidéo (`sfx_moments.py`), puis :
+  `py sfx.py ../NOUVEAU/video.html bruitages.wav ../NOUVEAU/sfx_moments.py`
+  Sons dispo en plus : `engine` (moteur / plaque vibrante), `thud`, `bird`, `beep`, `pop`, `rustle`. `rdur(d0, d1)` = durée réelle d'un passage.
+- **Volume** : les sons continus (moteur, vibration, sonnerie) doivent rester au moins ~8 dB sous la voix (`volumedetect` par passage). Final : environ -14 LUFS.
+- Sans fichier en plus, `sync_voice.py` et `sfx.py` refont le Reel déménageur comme avant.

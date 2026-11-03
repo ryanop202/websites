@@ -1,13 +1,17 @@
 # Bruitages synthétisés (sans fichier externe), placés sur les moments de l'animation.
-# Usage : python sfx.py video.html sortie_sfx.wav
+# Usage : python sfx.py video.html sortie_sfx.wav [moments.py]
+#   moments.py : remplit la liste E des sons de la vidéo, en temps montage (voir paysagiste-anim/sfx_moments.py).
+#   Sans fichier : les moments du Reel déménageur.
 import sys, re, math, random, wave, array
 html, out = sys.argv[1:3]
+events_file = sys.argv[3] if len(sys.argv) > 3 else None
 s = open(html, encoding='utf-8').read()
 ANCH = [tuple(map(float, p)) for p in re.findall(r"\[([0-9.]+),([0-9.]+)\]", re.search(r"const ANCHORS = \[(.*?)\];", s).group(1))]
 def real(d):
     for (d0, r0), (d1, r1) in zip(ANCH, ANCH[1:]):
-        if d <= d1: return r0 + (d - d0)*(r1 - r0)/(d1 - d0)
+        if d <= d1: return r0 + (d - d0)*(r1 - r0)/(d1 - d0) if d1 > d0 else r0
     return ANCH[-1][1]
+def rdur(d0, d1): return max(.05, real(d1) - real(d0))   # durée réelle d'un passage (temps montage)
 SR = 44100
 N = int((ANCH[-1][1] + .5)*SR)
 buf = [0.0]*N
@@ -80,30 +84,61 @@ def tick(): return tone(.03, [(3200, .5)], .006, .0005)
 def shimmer():
     return tone(1.4, [(1046.5, .3), (1568, .25), (2093, .2), (3136, .1)], .45, .01)
 
+def engine(dur, f0=31, rough=.35, fade=.4):   # moteur diesel (mini-pelle) ; f0 plus haut = plaque vibrante
+    n = int(dur*SR); out = []; lp = 0; ph = 0
+    for i in range(n):
+        t = i/SR
+        f = f0*(1 + .03*math.sin(2*math.pi*.7*t))
+        ph += 2*math.pi*f/SR
+        lp += .05*(random.uniform(-1, 1) - lp)
+        x = (math.sin(ph) + .55*math.sin(2*ph + .4) + .35*math.sin(3*ph + 1.1) + .2*math.sin(5*ph))*(.8 + .2*math.sin(ph*.5))
+        x = math.tanh(1.4*x)*.6 + lp*rough*4
+        out.append(x*min(1, t/fade, (dur - t)/fade))
+    return out
+def thud():          # terre qui tombe du godet
+    n = int(.45*SR); out = []; lp = 0
+    for i in range(n):
+        t = i/SR
+        lp += .04*(random.uniform(-1, 1) - lp)
+        out.append((lp*5 + .6*math.sin(2*math.pi*70*t))*math.exp(-t/.09))
+    return out
+def bird():          # gazouillis du matin
+    n = int(.22*SR); return [math.sin(2*math.pi*(3200 + 900*math.sin(2*math.pi*18*(i/SR)))*(i/SR))*math.sin(math.pi*i/n)**2 for i in range(n)]
+def beep():          # bip de messagerie
+    return tone(.45, [(1000, .5)], 1.5, .005)
+def pop():           # petite bulle / cœur
+    n = int(.18*SR); return [math.sin(2*math.pi*(500 + 900*(i/n))*(i/SR))*math.exp(-(i/SR)/.05) for i in range(n)]
+def rustle(dur):     # froissement (il enlève son casque)
+    return noise_sweep(dur, 1800, 3500)
+
 E = []   # (temps montage, son, gain)
-# ouverture : vibration, appel manqué
-E += [(.25, buzz(4.3), .16), (4.6, low_bloop(), .22)]
-# remonter le fil (deux minutes plus tôt)
-E += [(8.45, noise_sweep(1.8, 2400, 500), .30)]
-# téléphone de Julie : clics, sonnerie, messagerie, envoi
-for t in [3.0, 6.95, 7.85, 8.4, 8.95, 9.55]: E.append((12.6 + t, click(), .35))
-E += [(12.6 + 3.3, ringback(1.3), .07), (12.6 + 4.6, low_bloop(), .22), (12.6 + 9.7, chirp(), .16)]
-# le fil part chez le concurrent, nouvelle demande
-E += [(22.45, noise_sweep(1.7, 500, 2600), .30), (24.1, ding(), .20)]
-# on prend du recul, il rappelle, ça sonne chez Julie
-E += [(26.0, noise_sweep(1.0, 900, 300, 'fall'), .20), (27.0, noise_sweep(1.3, 600, 2000), .24), (28.8 + .3, buzz(1.9), .10)]
-# maintenant, imagine : rembobinage puis éclat
-E += [(32.0, rewind(1.5), .22), (33.5, shimmer(), .16), (33.5, impact(), .25)]
-# site de Martin : clic, envoi, le fil vert file jusqu'à sa poche, ding
-E += [(35.9 + .65, click(), .35), (35.9 + .8, chirp(), .16), (35.9 + 1.0, noise_sweep(1.6, 500, 2600), .30), (38.5 + .1, buzz(1.4), .12), (38.65, ding(), .22)]
-# la nuit : trois demandes
-for h in [.9, 2.3, 3.7]: E += [(41.3 + h - .55, noise_sweep(.55, 800, 2600, 'rise'), .14), (41.3 + h, ding(), .17)]
-# l'offre : impacts, compteur, demandes
-E += [(47.0 + .95, impact(), .32), (47.0 + 2.8, impact(), .18), (47.0 + 6.25, impact(), .36)]
-for k in range(12): E.append((47.0 + 2.05 + k*.055, tick(), .25))
-for h in [4.25, 4.6, 4.95]: E.append((47.0 + h, ding(), .12))
-# logo : le fil tombe dans le point
-E += [(54.65, noise_sweep(.6, 600, 2400, 'rise'), .22), (55.4 + .62, tone(.8, [(784, .4), (1568, .25)], .2), .22)]
+if events_file:
+    exec(open(events_file, encoding='utf-8').read())
+else:
+    # --- Reel déménageur ---
+    # ouverture : vibration, appel manqué
+    E += [(.25, buzz(4.3), .16), (4.6, low_bloop(), .22)]
+    # remonter le fil (deux minutes plus tôt)
+    E += [(8.45, noise_sweep(1.8, 2400, 500), .30)]
+    # téléphone de Julie : clics, sonnerie, messagerie, envoi
+    for t in [3.0, 6.95, 7.85, 8.4, 8.95, 9.55]: E.append((12.6 + t, click(), .35))
+    E += [(12.6 + 3.3, ringback(1.3), .07), (12.6 + 4.6, low_bloop(), .22), (12.6 + 9.7, chirp(), .16)]
+    # le fil part chez le concurrent, nouvelle demande
+    E += [(22.45, noise_sweep(1.7, 500, 2600), .30), (24.1, ding(), .20)]
+    # on prend du recul, il rappelle, ça sonne chez Julie
+    E += [(26.0, noise_sweep(1.0, 900, 300, 'fall'), .20), (27.0, noise_sweep(1.3, 600, 2000), .24), (28.8 + .3, buzz(1.9), .10)]
+    # maintenant, imagine : rembobinage puis éclat
+    E += [(32.0, rewind(1.5), .22), (33.5, shimmer(), .16), (33.5, impact(), .25)]
+    # site de Martin : clic, envoi, le fil vert file jusqu'à sa poche, ding
+    E += [(35.9 + .65, click(), .35), (35.9 + .8, chirp(), .16), (35.9 + 1.0, noise_sweep(1.6, 500, 2600), .30), (38.5 + .1, buzz(1.4), .12), (38.65, ding(), .22)]
+    # la nuit : trois demandes
+    for h in [.9, 2.3, 3.7]: E += [(41.3 + h - .55, noise_sweep(.55, 800, 2600, 'rise'), .14), (41.3 + h, ding(), .17)]
+    # l'offre : impacts, compteur, demandes
+    E += [(47.0 + .95, impact(), .32), (47.0 + 2.8, impact(), .18), (47.0 + 6.25, impact(), .36)]
+    for k in range(12): E.append((47.0 + 2.05 + k*.055, tick(), .25))
+    for h in [4.25, 4.6, 4.95]: E.append((47.0 + h, ding(), .12))
+    # logo : le fil tombe dans le point
+    E += [(54.65, noise_sweep(.6, 600, 2400, 'rise'), .22), (55.4 + .62, tone(.8, [(784, .4), (1568, .25)], .2), .22)]
 
 for d, snd, g in E: add(real(d), snd, g)
 peak = max(1e-9, max(abs(v) for v in buf))

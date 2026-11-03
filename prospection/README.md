@@ -76,3 +76,12 @@ Plan des 2 vidéos :
 - **Le Bar à Tif'** (Payerne, 077 921 09 45) : pas sur WhatsApp → le contacter par **SMS** (même message), appel ou passage au salon. Reste dans la liste.
 - **Zéro'Un - Barbershop** (Payerne, 078 334 39 38) : pas sur WhatsApp → **SMS** (même message), appel ou passage. Reste dans la liste.
 - **Arwend barber** (Payerne, 078 208 69 80) : pas sur WhatsApp → **SMS** (même message), appel ou passage. Reste dans la liste.
+
+## Nouvelles entreprises FOSC (ajouté le 20.10.2026)
+
+Fichier : `nouvelles-entreprises-broye.xlsx` (Nom | Numéro | Message | Réponse).
+Chaque semaine :
+1. `py outils/fosc_broye.py chercher 14` → `outils/fosc_candidats.xlsx` (nouvelles inscriptions de la Broye, triées par NPA, « Cible ? » à relire).
+2. Demander à Claude de vérifier les « oui » / « à voir » dans Chrome (site ? numéro fixe ?) et d'écrire le résultat dans `outils/fosc_traitees.txt`.
+3. `py outils/fosc_broye.py excel` (Excel fermé) → met à jour l'Excel final en gardant la colonne Réponse.
+Vérif. du 20.10.2026 (3 derniers mois) : 118 inscriptions Broye, 31 artisans/garages, 8 avec site, 22 sans fixe, 1 gardée.

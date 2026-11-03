@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 980930e1-4e8e-4d77-8282-079e3d7dbb90
-  modified: 2026-10-29T06:42:45.784Z
+  modified: 2026-11-03T10:30:15.219Z
 ---
 
 « Les configurateurs 3D » = carports bois (Three.js) dans C:\Users\dessinateur22\websites\configurateurs, PAS MX Skin Studio ([[project-mx-skin-studio]]). Notes de référence : A-LIRE.md et PROSPECTS-CONFIGURATEUR.md dans ce dossier.
@@ -26,4 +26,11 @@ Au 2026-10-29 (vérifié) :
 - GBC Entreprise (Romont) : démo en ligne gbc.wibzo.ch, mail ENVOYÉ le 29.10 à construction@gbcentreprise.ch, relance 05.11 (configurateur + nouveau site).
 - Sirbatec : offre ENVOYÉE le 29.10 (1 200 CHF mise en place + 700 CHF/an, facture QR 30 j, résiliable fin d'année). Autorisation des parents : faite (29.10). Outil facture QR et version réelle : seulement quand Sirbatec accepte (choix de Ryan).
 - 29.10.2026 : Ryan fait du configurateur 3D son OFFRE PRINCIPALE (sites internet = complément). Nouvel accueil wibzo.ch PUBLIÉ le 29.10 : configurateur 3D général (Ryan ne veut pas « carport » sur l'accueil : le carport n'est qu'une démo, on peut faire tout produit sur mesure), sans prix, contact e-mail + WhatsApp ; ancienne page sur /sites-internet/. Démo publique en ligne sur demo.wibzo.ch (carport-demo, alertes Web3Forms). CLAUDE.md de websites décrit encore l'ancienne offre : proposer la mise à jour à Ryan.
+- Offre type (texte de Ryan) : configurateurs/OFFRE-TYPE.md — à envoyer quand un prospect demande une offre.
+- 03.11.2026 (dit par Ryan) : 15 mails envoyés → 2 positifs (Sirbatec, Nicolet : demande d'offre, Ryan lui a envoyé la même offre que Sirbatec), 1 refus (Jean Barras). On garde le même message.
+- 03.11.2026 : 15 nouveaux prospects (David Giller, Robatel, Eloi Bosson, Atelier Z, Voeffray, Guillod, B2 bois…) dans PROSPECTS-CONFIGURATEUR.md, section « 15 prochains prospects ». Méthode : local.ch/fr/s/<ville>/carport puis fiche + site. Aucune démo ni contact encore.
+- 03.11.2026 : un prospect ayant reçu l'offre (probablement Nicolet, non confirmé) refuse à cause des 700 CHF/an. Contre-proposition validée par Ryan : 1 600 CHF une fois, sans frais annuel (texte dans OFFRE-TYPE.md, section « Formule sans abonnement »).
+- Google (03.11.2026) : Search Console wibzo.ch et fiche Google « Wibzo » sont sur le compte ryanoppliger2021 (2e compte Chrome → URL /u/1/), PAS sur broyeweb. Ce jour : sitemap envoyé, indexation accueil demandée, fiche mise à jour (description configurateur 3D, zones = cantons FR/VD/VS/NE/JU + Broye, services « Configurateur 3D sur mesure » et « … carport et pergola »). Catégorie laissée « Web designer » (aucune catégorie logiciel/3D proposée). Restent : photos des démos, posts, avis.
 - 29.10.2026 : 2e démo publique « pergola en bois » (configurateurs/demo-pergola, https://pergola.wibzo.ch), même moteur ; nouvelles clés config : local, sol, entraxeChevrons, couverture ouverte, libelles produit. wibzo.ch montre les 2 démos (Démo 01 construction en bois, Démo 02 pergola).
+- 03.11.2026 : les 15 démos prospects faites (clients/<nom>/MESSAGE.md). wibzo.ch = wibzo/site-v5 (style inspiré de meridiem.be, vrai logo = favicon.svg rond noir W + point vert). demo.wibzo.ch = assistant : étape Produit (carport, pergola ; configs dans carport-demo/produits/, choix par ?produit=) puis étapes + pied Retour/Suivant (CONFIG.assistant). Pergola posée sur terrasse dallée (decor terrasse). VÉRANDA ajoutée le 03.11 (produits/veranda.js, veranda: true = parois vitrées + façade avant ; bardages[].vitrage). Pergola et véranda posées contre la façade ARRIÈRE de la maison, centrées sur la baie (decor terrasse).
+- 03.11.2026 : 42 prospects vérandas/pergolas (+ carport si vendu) dans PROSPECTS-CONFIGURATEUR.md, section « Prospects vérandas / pergolas ». Démo par entreprise = seulement ses produits (étape Produit). Beaucoup de vendeurs de stores → pergola ALU bioclimatique à créer.

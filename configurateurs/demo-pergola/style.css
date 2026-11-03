@@ -163,6 +163,19 @@ button, input, textarea { font: inherit; color: inherit; }
   pointer-events: none;
 }
 
+/* Vue étroite : l'aide passerait sous les boutons de vue */
+.viewer { container-type: inline-size; }
+@container (max-width: 640px) {
+  .aide { display: none; }
+  /* Le badge passe sous le nom de l'entreprise (sinon ils se chevauchent) */
+  .viewer .badge-demo { top: 84px; left: 16px; right: auto; }
+}
+
+/* Vue de nuit : textes posés sur la 3D en clair */
+.viewer.nuit .marque strong { color: var(--papier); }
+.viewer.nuit .marque small,
+.viewer.nuit .aide { color: #B9B4AA; }
+
 .erreur-3d {
   position: absolute;
   inset: 40% 20px auto;

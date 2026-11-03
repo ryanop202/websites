@@ -5,6 +5,7 @@ import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.j
 import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
 import { CONFIG } from './config.js';
 import { creerPDF } from './pdf.js';
+import { creerDecor } from './decor.js';
 
 const $ = (s) => document.querySelector(s);
 const nf = new Intl.NumberFormat('fr-CH', { maximumFractionDigits: 0 });
@@ -21,6 +22,8 @@ const ALU = CONFIG.materiau === 'alu';
 const EQUIPEMENTS = CONFIG.equipements ?? ['gouttieres', 'led', 'borne'];
 const LOCAL = CONFIG.local !== false; // local de rangement proposé
 const VEHICULES = Object.values(CONFIG.vehicules).some((v) => v.fichier); // au moins un véhicule à afficher
+// Maison complète + jardin autour du produit (`decor: false` dans config.js = ancien décor : façade seule)
+const DECOR = CONFIG.decor !== false;
 
 // ---------- État (lu depuis le lien partagé si présent) ----------
 
@@ -219,6 +222,7 @@ const scene = new THREE.Scene();
 const sceneCotes = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 300);
 let controls;
+let envJour = null;
 
 function textureCanvas(l, h, dessiner, couleur = true) {
   const c = document.createElement('canvas');
@@ -237,7 +241,7 @@ const PETIT_APPAREIL = window.matchMedia('(max-width: 900px)').matches || (navig
 
 // Ciel : dégradé derrière la scène (le bas = couleur de la brume, l'horizon disparaît)
 const HORIZON = '#E6E2D8';
-scene.background = textureCanvas(4, 512, (g, l, h) => {
+const cielJour = textureCanvas(4, 512, (g, l, h) => {
   const d = g.createLinearGradient(0, 0, 0, h);
   d.addColorStop(0, '#A9BBC8');
   d.addColorStop(0.35, '#CBD3D6');
@@ -246,7 +250,18 @@ scene.background = textureCanvas(4, 512, (g, l, h) => {
   g.fillStyle = d;
   g.fillRect(0, 0, l, h);
 });
-scene.fog = new THREE.Fog(HORIZON, 22, 60);
+const HORIZON_NUIT = '#2A3242';
+const cielNuit = textureCanvas(4, 512, (g, l, h) => {
+  const d = g.createLinearGradient(0, 0, 0, h);
+  d.addColorStop(0, '#0B1322');
+  d.addColorStop(0.55, '#1B2436');
+  d.addColorStop(1, HORIZON_NUIT);
+  g.fillStyle = d;
+  g.fillRect(0, 0, l, h);
+});
+scene.background = cielJour;
+// Avec la maison et le jardin, la brume commence plus loin (elle ne voile que le lointain)
+scene.fog = DECOR ? new THREE.Fog(HORIZON, 34, 110) : new THREE.Fog(HORIZON, 22, 60);
 
 if (renderer) {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, PETIT_APPAREIL ? 1.5 : 2));
@@ -259,26 +274,50 @@ if (renderer) {
   viewer.prepend(renderer.domElement);
 
   const pmrem = new THREE.PMREMGenerator(renderer);
-  scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+  envJour = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+  scene.environment = envJour;
 
   controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.maxPolarAngle = Math.PI * 0.47;
   controls.minDistance = 3.5;
-  controls.maxDistance = 34;
+  controls.maxDistance = DECOR ? 48 : 34;
+  controls.autoRotateSpeed = 0.7;
   controls.addEventListener('start', () => { animCam = null; });
   // Pas d'occlusion ambiante (GTAO) : elle faisait apparaître un bloc sombre sur le sol et la paroi du fond
 }
 
-scene.add(new THREE.HemisphereLight('#EEF2F5', '#7D7A62', 0.3));
+const ciel = new THREE.HemisphereLight('#EEF2F5', '#7D7A62', 0.3);
+scene.add(ciel);
 const soleil = new THREE.DirectionalLight('#FFF1DC', 3.4);
 soleil.castShadow = true;
-soleil.shadow.mapSize.setScalar(PETIT_APPAREIL ? 1024 : 2048);
-Object.assign(soleil.shadow.camera, { left: -11, right: 11, top: 11, bottom: -11, near: 1, far: 50 });
+// La maison et les arbres doivent aussi porter leur ombre : zone d'ombre plus grande, carte plus fine
+const ZONE_OMBRE = DECOR ? 21 : 11;
+soleil.shadow.mapSize.setScalar(DECOR ? (PETIT_APPAREIL ? 2048 : 4096) : (PETIT_APPAREIL ? 1024 : 2048));
+Object.assign(soleil.shadow.camera, { left: -ZONE_OMBRE, right: ZONE_OMBRE, top: ZONE_OMBRE, bottom: -ZONE_OMBRE, near: 1, far: 70 });
 soleil.shadow.bias = -0.0003;
 soleil.shadow.normalBias = 0.025;
 soleil.shadow.radius = 3;
 scene.add(soleil, soleil.target);
+
+// Vue de nuit : spots LED du carport qui éclairent vraiment (nombre fixe de lumières : pas de recompilation)
+let nuit = false;
+let positionsLed = [];
+const spots = PETIT_APPAREIL ? [] : Array.from({ length: 4 }, () => {
+  const s = new THREE.SpotLight('#FFE2B8', 0, 7, 1.0, 0.6, 1.4);
+  scene.add(s, s.target);
+  return s;
+});
+function placerSpots() {
+  spots.forEach((s, i) => {
+    const p = positionsLed[i];
+    if (p) {
+      s.position.copy(p);
+      s.target.position.copy(p).setY(0);
+    }
+    s.intensity = nuit && p ? 14 : 0;
+  });
+}
 
 // ---------- Matériaux ----------
 
@@ -443,18 +482,29 @@ const texFondu = textureCanvas(256, 256, (g, l, h) => {
   g.fillRect(0, 0, l, h);
 }, false);
 const matSol = new THREE.MeshStandardMaterial({ map: texGazon, alphaMap: texFondu, transparent: true, depthWrite: false, roughness: 1, envMapIntensity: 0.3 });
-// Les taches multiplient la couleur du gazon (2e texture, sans toucher au matériau de base)
+// Pelouse plus grande avec le décor (le jardin + les champs autour), même finesse du gazon
+const TAILLE_SOL = DECOR ? 170 : 80;
+texGazon.repeat.set(TAILLE_SOL / 2, TAILLE_SOL / 2);
+if (DECOR) matSol.color.setRGB(1.0, 1.16, 0.84); // gazon plus clair et plus vert
+// Les taches multiplient la couleur du gazon (2e texture, sans toucher au matériau de base).
+// Avec le décor : bandes de tonte claires / foncées de 1,6 m
+const tonte = DECOR ? `diffuseColor.rgb *= mix(0.9, 1.07, step(0.5, fract(vAlphaMapUv.x * ${(TAILLE_SOL / 3.2).toFixed(2)})));` : '';
 matSol.onBeforeCompile = (s) => {
   s.uniforms.tTaches = { value: texTaches };
   s.fragmentShader = s.fragmentShader
     .replace('#include <common>', '#include <common>\nuniform sampler2D tTaches;')
-    .replace('#include <map_fragment>', '#include <map_fragment>\ndiffuseColor.rgb *= 2.0 * texture2D(tTaches, vAlphaMapUv * 3.0).rgb;');
+    .replace('#include <map_fragment>', `#include <map_fragment>\ndiffuseColor.rgb *= 2.0 * texture2D(tTaches, vAlphaMapUv * ${DECOR ? '6.0' : '3.0'}).rgb;\n${tonte}`);
 };
-const sol = new THREE.Mesh(new THREE.PlaneGeometry(80, 80), matSol);
+const sol = new THREE.Mesh(new THREE.PlaneGeometry(TAILLE_SOL, TAILLE_SOL), matSol);
 sol.renderOrder = -1;
 sol.rotation.x = -Math.PI / 2;
 sol.receiveShadow = true;
 scene.add(sol);
+
+const decor = DECOR
+  ? creerDecor({ textureCanvas, texPaves, matBordure, petit: PETIT_APPAREIL, X0: X_GAUCHE, Z0: Z_ARRIERE })
+  : null;
+if (decor) scene.add(decor.groupe);
 
 // Tuiles : une texture par teinte (rangs de tuiles dans le sens +x = vers le bas de la pente)
 const cacheTuiles = {};
@@ -872,21 +922,24 @@ function construire() {
   }
 
   // Base : pavés + allée devant (ou terrasse en lames de bois, sans allée), bordures
+  // (avec le décor, l'allée pavée jusqu'à la rue est dessinée par decor.js)
   const terrasse = CONFIG.sol === 'terrasse';
-  const allee = terrasse ? 0.6 : 4;
-  const largP = W + 0.6;
-  const longP = L + 0.6 + allee;
-  const zP = allee / 2;
-  const paves = boite(largP, 0.06, longP, matPaves.clone(), 0, Y_SOL - 0.03, zP, false);
-  paves.material.map = (terrasse ? texTerrasse : texPaves).clone();
-  paves.material.map.needsUpdate = true;
-  paves.material.map.repeat.set(largP / 2, longP / 2);
-  paves.material.bumpMap = paves.material.map;
-  temporaires.push(paves.material);
-  for (const s of [-1, 1]) {
-    if (!g.maison(s)) boite(0.08, 0.08, longP, matBordure, s * (largP / 2 + 0.04), 0.04, zP, false);
+  if (!DECOR || terrasse) {
+    const allee = terrasse ? 0.6 : 4;
+    const largP = W + 0.6;
+    const longP = L + 0.6 + allee;
+    const zP = allee / 2;
+    const paves = boite(largP, 0.06, longP, matPaves.clone(), 0, Y_SOL - 0.03, zP, false);
+    paves.material.map = (terrasse ? texTerrasse : texPaves).clone();
+    paves.material.map.needsUpdate = true;
+    paves.material.map.repeat.set(largP / 2, longP / 2);
+    paves.material.bumpMap = paves.material.map;
+    temporaires.push(paves.material);
+    for (const s of [-1, 1]) {
+      if (!g.maison(s)) boite(0.08, 0.08, longP, matBordure, s * (largP / 2 + 0.04), 0.04, zP, false);
+    }
+    boite(largP + 0.16, 0.08, 0.08, matBordure, 0, 0.04, -L / 2 - 0.34, false);
   }
-  boite(largP + 0.16, 0.08, 0.08, matBordure, 0, 0.04, -L / 2 - 0.34, false);
 
   // Ombre d'ambiance sous le toit (plus marquée quand des parois ferment l'abri)
   const fermes = [state.paroiArriere || g.posL === 'arriere', state.paroiGauche, state.paroiDroite].filter(Boolean).length;
@@ -896,7 +949,8 @@ function construire() {
   ombreToit.renderOrder = 1;
   matOmbreToit.opacity = 0.26 + fermes * 0.05;
 
-  if (g.adosse !== 'non') facade(g);
+  if (decor) decor.maj(g);
+  else if (g.adosse !== 'non') facade(g);
 
   // Poteaux sur plots béton + pieds en U métalliques (pas de poteaux côté façade)
   const lignes = [...g.lignesPoteaux.map((s) => s * xR)];
@@ -1140,14 +1194,17 @@ function construire() {
 
   const xcV = (g.xMinV + g.xMaxV) / 2;
 
-  // Éclairage LED : spots sous la charpente, entre les poteaux
+  // Éclairage LED : spots sous la charpente, entre les poteaux (ils éclairent vraiment en vue de nuit)
+  positionsLed = [];
   if (state.led) {
     const zs = g.zPoteaux.slice(1).map((z, i) => (z + g.zPoteaux[i]) / 2).filter((z) => z > zCloison);
     for (const z of zs) {
       const y = deuxPans ? ySup(xF) - BH - 0.012 : ySup(xcV) - 0.012;
       ajouter(new THREE.CylinderGeometry(0.06, 0.06, 0.02, 20), matLed, deuxPans ? xF : xcV, y, z, false);
+      positionsLed.push(new THREE.Vector3(deuxPans ? xF : xcV, y - 0.03, z).add(g.decalage));
     }
   }
+  placerSpots();
 
   // Borne de recharge côté gauche de la zone voitures (poteau, cloison ou façade)
   if (state.borne) {
@@ -1233,15 +1290,29 @@ function placerEtiquettes() {
   if (!cotesVisibles) return;
   const w = viewer.clientWidth;
   const h = viewer.clientHeight;
-  for (const { el, pos } of etiquettes) {
+  const poses = [];
+  etiquettes.forEach(({ el, pos }, i) => {
     _v.copy(pos).project(camera);
-    const visible = _v.z < 1 && Math.abs(_v.x) < 1.1 && Math.abs(_v.y) < 1.1;
+    // Vue de dessus : la hauteur de passage n'a pas de sens (sa ligne devient un point)
+    const visible = _v.z < 1 && Math.abs(_v.x) < 1.1 && Math.abs(_v.y) < 1.1 && !(i === 2 && vueActive === 'dessus');
     el.style.display = visible ? '' : 'none';
+    if (!visible) return;
     // Garder l'étiquette entière dans le cadre
-    const demi = el.offsetWidth / 2 + 6;
-    el.style.left = `${Math.min(w - demi, Math.max(demi, ((_v.x + 1) / 2) * w))}px`;
-    el.style.top = `${((1 - _v.y) / 2) * h}px`;
-  }
+    const lw = el.offsetWidth;
+    const lh = el.offsetHeight;
+    const demi = lw / 2 + 6;
+    const x = Math.min(w - demi, Math.max(demi, ((_v.x + 1) / 2) * w));
+    let y = ((1 - _v.y) / 2) * h;
+    // Si elle chevauche une étiquette déjà placée : la décaler en dessous
+    for (let essai = 0; essai < poses.length; essai++) {
+      const autre = poses.find((p) => Math.abs(p.x - x) < (p.lw + lw) / 2 + 4 && Math.abs(p.y - y) < (p.lh + lh) / 2 + 3);
+      if (!autre) break;
+      y = autre.y + (autre.lh + lh) / 2 + 4;
+    }
+    poses.push({ x, y, lw, lh });
+    el.style.left = `${x}px`;
+    el.style.top = `${y}px`;
+  });
 }
 
 // ---------- Caméra ----------
@@ -1258,15 +1329,16 @@ function tailleScene() {
 function poseVue(nom) {
   const g = geometrie();
   const taille = tailleScene();
-  const cible = g.decalage.clone().add(new THREE.Vector3(0, g.H * 0.55, 0.6));
+  // Avec la maison : un peu plus de recul et visée plus haute pour voir le carport devant la maison
+  const cible = g.decalage.clone().add(new THREE.Vector3(DECOR && g.adosse === 'non' ? -0.6 : 0, g.H * 0.55 + (DECOR ? 0.7 : 0), DECOR && g.adosse === 'non' ? -0.4 : 0.6));
   const etroit = viewer.clientWidth < viewer.clientHeight * 1.1;
-  const recul = taille * (etroit ? 2.3 : 1.8) * (g.adosse !== 'non' ? 1.15 : 1);
+  const recul = taille * (etroit ? 2.3 : 1.8) * (DECOR ? 1.75 : g.adosse !== 'non' ? 1.15 : 1);
   // Vue 3/4 du côté libre quand la maison est à droite
   const cote = g.adosse === 'droite' ? -1 : 1;
   let dir;
   if (nom === 'face') dir = new THREE.Vector3(0, 0.22, 1);
   else if (nom === 'dessus') dir = new THREE.Vector3(0, 1.45, 0.01);
-  else dir = new THREE.Vector3(0.72 * cote, 0.42, 0.85);
+  else dir = new THREE.Vector3(0.72 * cote, DECOR ? 0.3 : 0.42, 0.85);
   const pos = cible.clone().add(dir.normalize().multiplyScalar(recul * (nom === 'dessus' ? 1.3 : 1)));
   return { pos, cible, taille };
 }
@@ -1296,6 +1368,36 @@ for (const b of document.querySelectorAll('[data-vue]')) {
     allerVers(b.dataset.vue);
   });
 }
+
+function appliquerAmbiance() {
+  scene.background = nuit ? cielNuit : cielJour;
+  scene.fog.color.set(nuit ? HORIZON_NUIT : HORIZON);
+  ciel.color.set(nuit ? '#8FA6CC' : '#EEF2F5');
+  ciel.groundColor.set(nuit ? '#1E2230' : '#7D7A62');
+  ciel.intensity = nuit ? 0.4 : 0.3;
+  soleil.color.set(nuit ? '#9DB4E6' : '#FFF1DC');
+  soleil.intensity = nuit ? 0.5 : 3.4;
+  scene.environment = nuit ? null : envJour;
+  if (renderer) renderer.toneMappingExposure = nuit ? 1.35 : 1.15;
+  decor?.ambiance(nuit);
+  viewer.classList.toggle('nuit', nuit);
+  placerSpots();
+}
+
+$('#btn-nuit').addEventListener('click', (e) => {
+  nuit = !nuit;
+  e.currentTarget.setAttribute('aria-pressed', String(nuit));
+  appliquerAmbiance();
+});
+
+// ?nuit dans l'adresse : ouvre directement la vue de nuit
+if (new URLSearchParams(location.search).has('nuit')) $('#btn-nuit').click();
+
+$('#btn-tourner').addEventListener('click', (e) => {
+  if (!controls) return;
+  controls.autoRotate = !controls.autoRotate;
+  e.currentTarget.setAttribute('aria-pressed', String(controls.autoRotate));
+});
 
 $('#btn-cotes').addEventListener('click', (e) => {
   cotesVisibles = !cotesVisibles;

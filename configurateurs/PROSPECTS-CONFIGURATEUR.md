@@ -104,3 +104,10 @@ Régions cherchées : Lausanne, Fribourg, Bulle, Neuchâtel, Sion, Morges, Yverd
 - ⚠️ Stauffacher Charpentes SA (Donatyre, à côté de Payerne) : catégorie « Carports et abris » seulement, et entreprise voisine de Farmwood → demander à Ryan avant.
 - Métal (pour une démo alu comme SURTECH) : Bematech SA (Ependes VD, info@bematechsa.ch, présente dans presque toutes les régions de la recherche « carport », mais sa fiche ne cite que des portes de garage), Crettaz Constructions Métalliques (Villeneuve VD), R & L Rapin (Payerne), Pernet SA (Yverdon).
 - ⚠️ Atelier Z (n° 4) a son propre produit d'abris « DegréParc » : rien trouvé en ligne sur ce produit, vérifier qu'il n'a pas déjà un configurateur avant de faire la démo.
+
+## Résultats au 03.11.2026 (dit par Ryan)
+- **15 mails envoyés → 2 réponses positives, 1 refus.** Tendance, pas une preuve (trop peu d'envois). Décision : on garde le même message.
+- ✅ **Sirbatec SA** : positif, offre envoyée le 29.10.2026 (voir plus haut).
+- ✅ **Nicolet Charpente SA** : **réponse positive, demande d'offre**. Ryan a envoyé **la même offre que Sirbatec** (`clients/sirbatec/OFFRE.md` : 1 200 CHF mise en place + 700 CHF/an, facture QR à 30 jours). Plus de relance ; on attend leur réponse à l'offre.
+- ❌ **Jean Barras Sàrl** : pas intéressé. On arrête (pas de relance).
+- Les 12 autres : pas encore de réponse → une seule relance à la date prévue.

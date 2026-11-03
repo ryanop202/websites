@@ -1,4 +1,4 @@
-# Jean Barras Sàrl — prise de contact (démo en ligne le 02.11.2026 ; mail PAS encore envoyé)
+# Jean Barras Sàrl — prise de contact (mail envoyé ; réponse : PAS INTÉRESSÉ — dit par Ryan le 03.11.2026 ; on arrête)
 
 **Canal :** e-mail depuis contact@wibzo.ch à **j.barras@barras-charpente.ch** (affichée sur barras-charpente.ch/contact sous la forme « j.barras (at) barras-charpente.ch » et sur local.ch, vérifiée le 02.11.2026). Tél. affiché : +41 79 751 88 85.
 **Objet :** Vos couverts à voiture en 3D sur votre site (démo préparée pour vous)

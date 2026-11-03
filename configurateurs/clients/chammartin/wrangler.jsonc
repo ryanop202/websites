@@ -1,0 +1,13 @@
+{
+  // Démo en ligne : https://chammartin.wibzo.ch
+  // Mise à jour : `npx wrangler deploy` dans ce dossier (fichiers exclus : .assetsignore)
+  "name": "chammartin-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [
+    { "pattern": "chammartin.wibzo.ch", "custom_domain": true }
+  ],
+  "assets": {
+    "directory": "."
+  }
+}

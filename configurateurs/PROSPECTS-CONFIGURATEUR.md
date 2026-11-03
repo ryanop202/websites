@@ -139,3 +139,5 @@ Régions cherchées : Lausanne, Fribourg, Bulle, Neuchâtel, Sion, Morges, Yverd
 - **Bois de Bout Charpente (n° 13, Movelier JU)** : démo https://bois-de-bout.wibzo.ch (03.11.2026), mail dans `clients/bois-de-bout/MESSAGE.md` (≠ Bois Debout Thiriot, n° 8).
 - Bois de Bout Charpente : mail ENVOYÉ le 03.11.2026.
 - **De Micheli (n° 14)** : démo https://demicheli.wibzo.ch (03.11.2026), mail dans `clients/demicheli/MESSAGE.md`.
+- De Micheli : mail ENVOYÉ le 03.11.2026.
+- **Pierre Chammartin & Fils (n° 15)** : démo https://chammartin.wibzo.ch (03.11.2026), mail dans `clients/chammartin/MESSAGE.md`. Pas de site → possible offre site internet plus tard.

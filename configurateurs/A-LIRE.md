@@ -38,3 +38,11 @@ On imite les **fonctions**, jamais leur code, leurs modèles 3D, leur design ou 
 - Badge « Démo préparée pour… » : passe sous le nom de l'entreprise quand la vue 3D est étroite (sinon chevauchement avec un nom long, vu sur Girard Frères le 31.10.2026).
 - Pas encore fait : envoi réel de la demande à l'entreprise (aujourd'hui : copie à Wibzo via Web3Forms).
 - ⚠️ Les démos Abris Bois et Sirbatec tournent sur l'ancien `app.js` (sans la version alu). Ne les mettre à jour que si besoin.
+
+## Prochaine niche (recherche rapide du 03.11.2026)
+| Niche | Constat | Verdict |
+|---|---|---|
+| **Vérandas / jardins d'hiver** | local.ch « véranda » Vaud : 89 résultats (Equibat, Véranda Design Lonay, AC Aluminium Créations Yverdon, Karlen SA, Chapuis Stores…). Aucun configurateur de vendeur romand trouvé par la recherche web. Concurrence : modèles tout faits de Salesqueze (vérandas à toit vitré), Meridiem (Belgique). Moteur proche de `demo-pergola/` + version alu | ✅ **choisie pour la prochaine démo** |
+| Piscines | Desjoyaux, AstralPool ont déjà des configurateurs ; logiciel pro Logyconcept3D chez les piscinistes ; moteur 3D très différent (terrain, eau, margelles) | ❌ |
+| Boxes chevaux / écuries | Peu de vendeurs en Romandie, LCI Cheval (France) a déjà un configurateur ; Farmwood (employeur de Ryan) travaille dans l'équestre → risque de concurrence avec Farmwood | ⚠️ seulement avec l'accord de Farmwood |
+- À faire avant la démo : ouvrir les sites d'une dizaine de vendeurs de vérandas romands pour vérifier qu'ils n'ont pas de configurateur (la recherche web ne prouve pas l'absence).

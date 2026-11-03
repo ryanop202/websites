@@ -25,3 +25,27 @@ Pour commencer, dites-moi simplement les changements que vous aimeriez apporter 
 Meilleures salutations,
 Ryan
 Wibzo · contact@wibzo.ch
+
+---
+
+# Formule sans abonnement (03.11.2026)
+
+À envoyer quand un prospect trouve l'abonnement de 700 CHF/an trop cher (peu de demandes par an).
+Attention : Sirbatec et Nicolet ont reçu l'offre 1 200 CHF + 700 CHF/an.
+
+---
+
+Bonjour,
+
+Merci pour votre retour, c'est très clair. Avec quelques demandes par an, un abonnement n'a effectivement pas de sens pour vous.
+
+Je vous propose donc une formule sans abonnement :
+
+**1 600 CHF, en une seule fois.** Le configurateur est à votre nom, l'hébergement est compris, et vous n'avez **aucun frais annuel**.
+
+Le configurateur devrait aussi vous amener **beaucoup plus de clients**. Vos visiteurs créent eux-mêmes leur couvert à voiture ou leur pergola en 3D, voient le résultat tout de suite et vous envoient une demande déjà précise. Ils ont ainsi bien plus envie de vous contacter qu'avec une simple page de photos. Et un seul chantier gagné grâce au configurateur suffit déjà à le rembourser.
+
+Si cela vous convient, je peux le mettre en ligne rapidement.
+
+Meilleures salutations,
+Ryan

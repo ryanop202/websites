@@ -66,7 +66,7 @@ function cuire(groupe) {
   return cuit;
 }
 
-export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0 }) {
+export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0, terrasse = false }) {
   const racine = new THREE.Group();
   const dyn = new THREE.Group(); // reconstruit à chaque réglage
   racine.add(dyn);
@@ -579,16 +579,34 @@ export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0 
     maison.position.set(maisonX, 0, maisonZ);
 
     // Allée pavée du fond jusqu'à la rue
-    const xA1 = adosse === 'gauche' ? xC1 : xC1 - (adosse === 'droite' ? 2.2 : 0.6);
-    const xA2 = adosse === 'droite' ? xC2 : xC2 + 2.2;
-    dalle(xA1, zArriereAllee, xA2, Z_ROUTE, matAllee, 0.025);
-    if (adosse !== 'gauche') bordure(xA1 - 0.08, zArriereAllee, xA1, Z_ROUTE);
-    if (adosse !== 'droite') bordure(xA2, zArriereAllee, xA2 + 0.08, Z_ROUTE);
+    // (terrasse : grandes dalles claires autour du produit, puis un chemin étroit vers la rue)
+    let xA1 = adosse === 'gauche' ? xC1 : xC1 - (adosse === 'droite' ? 2.2 : 0.6);
+    let xA2 = adosse === 'droite' ? xC2 : xC2 + 2.2;
+    let zDebut = Z0 + L + 1.2;
+    if (terrasse) {
+      const zFinT = Z0 + L + 2.4;
+      dalle(xA1, zArriereAllee, xA2, zFinT, matDalles, 0.03, 3);
+      if (adosse !== 'gauche') bordure(xA1 - 0.08, zArriereAllee, xA1, zFinT + 0.08);
+      if (adosse !== 'droite') bordure(xA2, zArriereAllee, xA2 + 0.08, zFinT + 0.08);
+      bordure(xA1, zFinT, xA2, zFinT + 0.08);
+      // Chemin vers la rue, côté libre (à l'opposé de la maison)
+      const sC = adosse === 'droite' ? -1 : 1;
+      const xBord = sC > 0 ? xA2 : xA1;
+      xA1 = sC > 0 ? xBord - 1.3 : xBord;
+      xA2 = sC > 0 ? xBord : xBord + 1.3;
+      dalle(xA1, zFinT + 0.08, xA2, Z_ROUTE, matAllee, 0.025);
+      bordure(xA1 - 0.08, zFinT + 0.08, xA1, Z_ROUTE);
+      bordure(xA2, zFinT + 0.08, xA2 + 0.08, Z_ROUTE);
+      zDebut = zFinT + 1.0;
+    } else {
+      dalle(xA1, zArriereAllee, xA2, Z_ROUTE, matAllee, 0.025);
+      if (adosse !== 'gauche') bordure(xA1 - 0.08, zArriereAllee, xA1, Z_ROUTE);
+      if (adosse !== 'droite') bordure(xA2, zArriereAllee, xA2 + 0.08, Z_ROUTE);
+    }
 
     // Côté libre de l'allée (lavandes + bornes) : à l'opposé de la maison
     const sLibre = adosse === 'droite' ? -1 : 1;
     const xLibre = sLibre > 0 ? xA2 : xA1;
-    const zDebut = Z0 + L + 1.2;
     lavandes(xLibre + sLibre * 0.55, zDebut, Z_ROUTE - 1.2, rng);
     const bornes = [];
     for (let z = zDebut + 0.4; z < Z_ROUTE - 1 && bornes.length < 4; z += 3.4) bornes.push([xLibre + sLibre * 0.2, z]);
@@ -605,8 +623,11 @@ export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0 
     // Terrasse devant la maison (isolé) et massifs fleuris
     if (adosse === 'non') {
       const xT1 = maisonX - LM / 2 + 0.2;
-      dalle(xT1, zArriereAllee, xA1, zArriereAllee + 2.8, matDalles, 0.03, 3);
-      bordure(xT1, zArriereAllee + 2.8, xA1, zArriereAllee + 2.88);
+      // (terrasse : la grande terrasse dallée est déjà dessinée plus haut)
+      if (!terrasse) {
+        dalle(xT1, zArriereAllee, xA1, zArriereAllee + 2.8, matDalles, 0.03, 3);
+        bordure(xT1, zArriereAllee + 2.8, xA1, zArriereAllee + 2.88);
+      }
       massif(xT1 + 1.5, zArriereAllee + 3.6, 1.4, 0.55, 3, rng);
       massif(xT1 + 5.2, zArriereAllee + 3.6, 1.2, 0.5, 2, rng);
     } else {

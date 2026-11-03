@@ -3,9 +3,14 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
-import { CONFIG } from './config.js';
+import * as CFG from './config.js';
 import { creerPDF } from './pdf.js';
 import { creerDecor } from './decor.js';
+
+const { CONFIG } = CFG;
+// Assistant (démo publique) : choix du produit puis une étape à la fois, prix et Retour / Suivant en bas
+const ASSISTANT = Boolean(CONFIG.assistant);
+const PRODUITS = CFG.PRODUITS;
 
 const $ = (s) => document.querySelector(s);
 const nf = new Intl.NumberFormat('fr-CH', { maximumFractionDigits: 0 });
@@ -502,7 +507,7 @@ sol.receiveShadow = true;
 scene.add(sol);
 
 const decor = DECOR
-  ? creerDecor({ textureCanvas, texPaves, matBordure, petit: PETIT_APPAREIL, X0: X_GAUCHE, Z0: Z_ARRIERE })
+  ? creerDecor({ textureCanvas, texPaves, matBordure, petit: PETIT_APPAREIL, X0: X_GAUCHE, Z0: Z_ARRIERE, terrasse: CONFIG.sol === 'terrasse' })
   : null;
 if (decor) scene.add(decor.groupe);
 
@@ -1883,6 +1888,29 @@ for (const input of document.querySelectorAll('input[type="checkbox"][data-cle]'
 }
 const etapeEquip = [...document.querySelectorAll('.etape')].find((e) => e.dataset.court === 'Équipements');
 if (etapeEquip && !etapeEquip.querySelector('.option')) etapeEquip.remove();
+// Étape « Produit » en tête (assistant) : changer de produit recharge la page avec ?produit=…
+if (ASSISTANT && PRODUITS) {
+  const s = document.createElement('section');
+  s.className = 'etape etape-produit';
+  s.dataset.court = 'Produit';
+  s.innerHTML = '<h2><span>01</span>Choisissez votre projet</h2><p class="aide-etape">Le modèle se construit devant la maison, le prix suit chaque réglage.</p><div class="produits" role="radiogroup" aria-label="Produit"></div>';
+  for (const [cle, p] of Object.entries(PRODUITS)) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'carte-produit';
+    b.setAttribute('role', 'radio');
+    b.setAttribute('aria-checked', String(cle === CFG.PRODUIT));
+    b.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${p.icone}</svg><span><strong>${p.label}</strong><small>${p.aide}</small></span>`;
+    b.addEventListener('click', () => {
+      if (cle === CFG.PRODUIT) { allerEtape(1); return; }
+      try { sessionStorage.setItem('etape', '1'); } catch (e) { /* stockage bloqué : on repart de l'étape 1 */ }
+      location.href = `?produit=${cle}`;
+    });
+    s.querySelector('.produits').append(b);
+  }
+  $('#onglets').after(s);
+}
+
 // Numéros des étapes recalculés (01, 02…)
 document.querySelectorAll('.etape h2 span').forEach((s, i) => { s.textContent = String(i + 1).padStart(2, '0'); });
 
@@ -1902,6 +1930,7 @@ function allerEtape(i) {
   const b = onglets.children[i];
   onglets.scrollTo({ left: b.offsetLeft - onglets.clientWidth / 2 + b.offsetWidth / 2, behavior: 'smooth' });
   if (modeMobile.matches) window.scrollTo({ top: 0, behavior: 'smooth' });
+  majPied(i);
 }
 
 etapes.forEach((e, i) => {
@@ -1921,13 +1950,42 @@ etapes.forEach((e, i) => {
 });
 
 function majModeMobile() {
-  panel.classList.toggle('par-etapes', modeMobile.matches);
+  panel.classList.toggle('par-etapes', modeMobile.matches || ASSISTANT);
   redimensionner();
 }
 
 modeMobile.addEventListener('change', majModeMobile);
 majModeMobile();
-allerEtape(0);
+
+// Pied de l'assistant : total estimé, Retour / Suivant (dernière étape : demande de devis)
+let etapeCourante = 0;
+if (ASSISTANT) {
+  panel.classList.add('assistant');
+  document.body.classList.add('avec-assistant');
+  const pied = document.createElement('footer');
+  pied.className = 'pied-assistant';
+  pied.innerHTML = '<p class="pied-total"><small>Total estimé</small><span><b id="total-pied">—</b> CHF TTC</span><small>Prix indicatif · démonstration, prix fictifs</small></p><div class="pied-boutons"><button type="button" class="pied-retour" id="btn-retour">‹ Retour</button><button type="button" class="cta pied-suivant" id="btn-suivant"></button></div>';
+  panel.append(pied);
+  new MutationObserver(() => { $('#total-pied').textContent = $('#total').textContent; })
+    .observe($('#total'), { childList: true, characterData: true, subtree: true });
+  $('#btn-retour').addEventListener('click', () => allerEtape(Math.max(0, etapeCourante - 1)));
+  $('#btn-suivant').addEventListener('click', () => {
+    if (etapeCourante < etapes.length - 1) allerEtape(etapeCourante + 1);
+    else $('#btn-devis').click();
+  });
+}
+function majPied(i) {
+  if (!ASSISTANT) return;
+  etapeCourante = i;
+  $('#btn-retour').disabled = i === 0;
+  const produit = PRODUITS?.[CFG.PRODUIT]?.label.toLowerCase();
+  $('#btn-suivant').textContent = i === 0 && produit ? `Configurer : ${produit} ›`
+    : i < etapes.length - 1 ? 'Suivant ›' : 'Recevoir mon devis';
+  panel.querySelector('.etape.active')?.scrollTo({ top: 0 });
+}
+let etapeDepart = 0;
+try { etapeDepart = Number(sessionStorage.getItem('etape')) || 0; sessionStorage.removeItem('etape'); } catch (e) { /* pas de stockage */ }
+allerEtape(Math.min(etapeDepart, etapes.length - 1));
 
 // ---------- Marque et textes ----------
 

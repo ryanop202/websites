@@ -968,7 +968,8 @@ function construire() {
   // Base : pavés + allée devant (ou terrasse en lames de bois, sans allée), bordures
   // (avec le décor, l'allée pavée jusqu'à la rue est dessinée par decor.js)
   const terrasse = CONFIG.sol === 'terrasse';
-  if (!DECOR || terrasse) {
+  // (avec le décor, la terrasse dallée de decor.js sert de sol : pas de plancher bois en double, il scintillait)
+  if (!DECOR) {
     const allee = terrasse ? 0.6 : 4;
     const largP = W + 0.6;
     const longP = L + 0.6 + allee;

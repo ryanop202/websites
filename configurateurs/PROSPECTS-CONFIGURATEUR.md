@@ -115,3 +115,5 @@ Régions cherchées : Lausanne, Fribourg, Bulle, Neuchâtel, Sion, Morges, Yverd
 - **Robatel (n° 2) : démo en ligne le 03.11.2026** (vérifiée) : https://robatel.wibzo.ch, dossier `clients/robatel/`. Réglages = leur photo « Garage et couvert » (2 pans, épicéa naturel, tuiles, côtés ouverts). Mail dans `MESSAGE.md`, à domrobatel@bluewin.ch. **PAS encore envoyé**.
 - David Giller et Robatel : mails ENVOYÉS le 03.11.2026.
 - **Eloi Bosson (n° 3)** : démo en ligne https://bosson.wibzo.ch (03.11.2026), mail dans `clients/bosson/MESSAGE.md`.
+- Eloi Bosson : mail ENVOYÉ le 03.11.2026.
+- **Atelier Z (n° 4)** : démo https://atelierz.wibzo.ch (03.11.2026, aucun configurateur vu sur leur site), mail dans `clients/atelierz/MESSAGE.md`.

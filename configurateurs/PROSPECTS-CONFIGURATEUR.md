@@ -112,3 +112,4 @@ Régions cherchées : Lausanne, Fribourg, Bulle, Neuchâtel, Sion, Morges, Yverd
 - ❌ **Jean Barras Sàrl** : pas intéressé. On arrête (pas de relance).
 - Les 12 autres : pas encore de réponse → une seule relance à la date prévue.
 - **David Giller (n° 1 de la liste du 03.11) : démo en ligne le 03.11.2026** (vérifiée) : https://giller.wibzo.ch, dossier `clients/giller/`. Réglages = leur photo de couvert (toit plat, structure anthracite, lames horizontales grises). Mail dans `MESSAGE.md`, à info@davidgiller.ch. **PAS encore envoyé**.
+- **Robatel (n° 2) : démo en ligne le 03.11.2026** (vérifiée) : https://robatel.wibzo.ch, dossier `clients/robatel/`. Réglages = leur photo « Garage et couvert » (2 pans, épicéa naturel, tuiles, côtés ouverts). Mail dans `MESSAGE.md`, à domrobatel@bluewin.ch. **PAS encore envoyé**.

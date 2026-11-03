@@ -146,3 +146,52 @@ Régions cherchées : Lausanne, Fribourg, Bulle, Neuchâtel, Sion, Morges, Yverd
 - Un prospect qui avait reçu l'offre (1 200 CHF + 700 CHF/an), **probablement Nicolet** (à confirmer par Ryan), a répondu : « le prix de l'hébergement est assez conséquent », difficile à répercuter sur « les quelques demandes de couvert à voiture et pergola que nous recevons chaque année ». Il garde nos coordonnées.
 - Analyse : seul l'abonnement annuel le gêne, pas la mise en place. Petit artisan avec peu de demandes → il n'aime pas payer chaque année.
 - Contre-proposition préparée : **1 600 CHF en une seule fois, hébergement compris, aucun frais annuel** + argument « le configurateur devrait vous amener beaucoup plus de clients, un seul chantier gagné le rembourse ». Texte dans `OFFRE-TYPE.md` (section « Formule sans abonnement »).
+
+## Prospects vérandas / pergolas (recherche du 03.11.2026) — 42 entreprises
+Méthode : local.ch « veranda » et « pergola » dans 20 villes romandes (Lausanne, Morges, Nyon, Yverdon, Vevey, Aigle, Payerne, Echallens, Fribourg, Bulle, Estavayer, Romont, Neuchâtel, La Chaux-de-Fonds, Sion, Sierre, Martigny, Monthey, Delémont, Genève) → 258 fiches, restaurants/paysagistes/alémaniques/déjà contactés retirés → mots trouvés sur la **page d’accueil** de leur site. Aucun vrai configurateur vu (les mentions « configuration » = code du site ou cookies).
+Démo = seulement les produits que l’entreprise vend (étape 1 « Produit » de demo.wibzo.ch). Les vendeurs de stores font surtout des **pergolas alu bioclimatiques** : il faudra une pergola alu (lames orientables) en plus de la pergola bois. Ordre : véranda + pergola en premier. ⚠️ « Vu sur la page d’accueil » seulement : vérifier les produits sur le site avant chaque démo.
+
+| # | Entreprise | Lieu | Site | E-mail (local.ch) | Téléphone | Vu sur la page d’accueil | Démo à faire | Note |
+|---|---|---|---|---|---|---|---|---|
+| 1 | **Renovat-Veranco** | Plan-les-Ouates (GE) | veranda-veranco-geneve.ch | info@bullingersa.ch | +41774488492 |  véranda, pergola, carport | véranda + pergola + carport | e-mail local.ch = Bullinger SA, vérifier sur le site |
+| 2 | **CEI Habitat SA** | Meyrin (GE) | cei-habitat.ch | contact@cei-habitat.ch | +41227823580 |  véranda, pergola, bioclimatique, carport | véranda + pergola + carport |  |
+| 3 | **Live in Véranda Sàrl** | Genève | conceptalu.com | christophe.galland@liveinveranda.com | +41227924459 |  véranda, pergola, bioclimatique, carport | véranda + pergola + carport |  |
+| 4 | **Lamatec SA** | Sierre (VS) | lamatec.ch | info@lamatec.ch | +41274555050 |  véranda, pergola, bioclimatique | véranda + pergola |  |
+| 5 | **BTA SA** | Sion (VS) | btasion.ch | info@btasion.ch | +41273236700 |  véranda, pergola, bioclimatique | véranda + pergola |  |
+| 6 | **AC Aluminium Créations SA** | Yverdon-les-Bains (VD) | alucreations.ch | info@alucreations.ch | +41582060206 |  véranda, pergola, bioclimatique | véranda + pergola |  |
+| 7 | **Lejan EG Sàrl** | Monthey (VS) | lejaneg.ch | lejan.lejan2020@gmail.com | +41792604390 |  véranda, pergola | véranda + pergola |  |
+| 8 | **Lamelle Glass et Stores SA** | Vernier (GE) | lamelle-glass.ch | info@lamelle-glass.ch | +41227820888 |  véranda, pergola, bioclimatique | véranda + pergola |  |
+| 9 | **Alain Zufferey** | Chippis (VS) | alainzufferey.ch | alainzufferey@netplus.ch | +41274557228 |  véranda, pergola, bioclimatique | véranda + pergola |  |
+| 10 | **Melly Stores Sàrl** | St-Pierre-de-Clages (VS) | mellystores.ch | info@mellystores.ch | +41274550583 |  véranda, pergola, bioclimatique | véranda + pergola |  |
+| 11 | **Saillard Suisse Sàrl** | Fribourg | saillard.ch | alexandre@saillard.fr | 0264222590 |  véranda, pergola, bioclimatique | véranda + pergola | e-mail en .fr (maison mère française), vérifier |
+| 12 | **ABC Forgeron Sàrl** | Collex (GE) | abcforgeron.ch | abc@abcforgeron.ch | +41223414500 |  véranda | véranda |  |
+| 13 | **Technique Métal Sàrl** | La Chaux-de-Fonds (NE) | technique-metal.ch | info@technique-metal.ch | +41329680447 |  véranda | véranda |  |
+| 14 | **Alutech Marendaz** | Sévery (VD) | alutech.info | info@alutech.info | +41218003655 |  véranda | véranda |  |
+| 15 | **Equibat SA** | Alle (JU) | equibat.ch | contact@equibat.ch | +41794800525 |  pergola, bioclimatique, carport | pergola + carport |  |
+| 16 | **Vision d'Extérieurs Valais Sàrl** | Martigny (VS) | visiondexterieurs.ch | martigny@visiondexterieurs.ch | +41275655930 |  pergola, bioclimatique, carport | pergola + carport |  |
+| 17 | **Metal Plus Serrurerie (Cover-Car)** | Neuchâtel | cover-car.ch | metalplus@bluewin.ch | +41327314144 |  pergola, carport | pergola + carport | carports métal |
+| 18 | **Erregi Indoor Outdoor Sàrl** | Bussigny (VD) | erregi.ch | info@erregi.ch | +41216128316 |  pergola, bioclimatique, carport | pergola + carport |  |
+| 19 | **Chapuis Stores SA** | Le Mont-sur-Lausanne (VD) | chapuisstores.ch | info@chapuisstores.ch | +41216256181 |  pergola, bioclimatique | pergola |  |
+| 20 | **VS Pergolas Sàrl** | Bramois (VS) | vs-pergolas.com | info.pergolas.vs@gmail.com | +41797550284 |  pergola, bioclimatique | pergola |  |
+| 21 | **My Extérieur** | Étagnières (VD) | my-exterieur.ch | contact@my-exterieur.ch | +41796420839 |  pergola, bioclimatique | pergola |  |
+| 22 | **Storea Fournier C. & L.** | Siviriez (FR) | storea-ch.com | office@dougoud.ch | +41219480508 |  pergola, bioclimatique | pergola | e-mail local.ch = dougoud.ch, vérifier |
+| 23 | **Val-Stores Sàrl** | Monthey (VS) | valstores.ch | info@aphpeinture.ch | +41244722588 |  pergola, bioclimatique | pergola | e-mail local.ch = aphpeinture.ch, vérifier |
+| 24 | **Stormatic SA** | Meyrin (GE) | stormatic.ch | info@stormatic.ch | +41227270500 |  pergola, bioclimatique | pergola |  |
+| 25 | **Déco-Stores SA** | Vuisternens-devant-Romont (FR) | deco-stores.ch | info@deco-stores.ch | +41787104595 |  pergola | pergola |  |
+| 26 | **Sellerie et Stores du Bourgo SA** | Bulle (FR) | bourgo.ch | info@bourgo.ch | +41269130404 |  pergola | pergola |  |
+| 27 | **Protec Stores Volets Sàrl** | Romont (FR) | protec-stores.ch | info@protec-stores.ch | +41266581762 |  pergola | pergola |  |
+| 28 | **BP Stores SA** | Genève | bpstores.ch | info@bpstores.ch | +41228190815 |  pergola | pergola |  |
+| 29 | **JS Store Sàrl** | Nyon (VD) | js-store.ch | contact@js-store.ch | +41797283729 |  pergola, bioclimatique | pergola |  |
+| 30 | **XM Stores Sàrl** | Yverdon-les-Bains (VD) | xmstores.ch | info@xmstores.ch | +41244239777 |  pergola | pergola |  |
+| 31 | **Fistores Sàrl** | Le Mont-sur-Lausanne (VD) | fistores.ch | info@fistores.ch | 0216256181 |  pergola, bioclimatique | pergola |  |
+| 32 | **Pro-Tech Stores Sàrl** | Cornaux (NE) | pro-tech-stores.ch | info@protechstores.ch | +41789075876 |  pergola | pergola |  |
+| 33 | **Stoll Stores et Bâches SA** | Yverdon-les-Bains (VD) | stoll.ch | info@stoll.ch | +41244474707 |  pergola | pergola |  |
+| 34 | **Lamelmatic Sàrl** | Puidoux (VD) | lamelmatic.ch | kaya@lamelmatic.ch | +41796416474 |  pergola | pergola |  |
+| 35 | **Aquinox Sàrl** | Saxon (VS) | aquinox.ch | secretariat@aquinox-vs.ch | +41277441030 |  pergola | pergola |  |
+| 36 | **Bitz & Savoye SA** | Sion (VS) | bitz-savoye.ch | info@bitz-savoye.ch | +41273274477 |  pergola | pergola |  |
+| 37 | **Alde EG SA** | Chavannes-de-Bogis (VD) | menuiseries-alde.ch | contact@menuiseries-alde.ch | +41225563938 |  pergola | pergola |  |
+| 38 | **Bâches Panchaud SA** | Meinier (GE) | bachespanchaud.ch | magic.stores@bluewin.ch | +41227722722 |  pergola | pergola |  |
+| 39 | **Mathieu Walther Constructions Métalliques** | Nyon (VD) | walther-construction.ch | info@walther-construction.ch | +41223611036 |  pergola | pergola |  |
+| 40 | **Neuchastores Sàrl** | Valangin (NE) | neuchastores.ch | info@neuchastores.ch | +41796635887 |  pergola | pergola |  |
+| 41 | **Storexpress Sàrl** | Éclépens (VD) | storexpress.ch | contact@storexpress.ch | +41218666520 |  pergola | pergola |  |
+| 42 | **Bertusi & Strehl SA** | Lausanne | bertusi-strehl.ch | geneve@bertusi-strehl.ch | +41216240116 |  pergola | pergola |  |

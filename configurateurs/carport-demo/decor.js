@@ -571,9 +571,10 @@ export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0,
       zArriereAllee = Z0 - 3.2;
     } else {
       const s = adosse === 'gauche' ? -1 : 1;
-      maison.rotation.y = -s * Math.PI / 2;
+      // Terrasse (pergola, véranda) : contre la façade arrière, centré sur la grande baie vitrée (pas devant la porte d'entrée)
+      maison.rotation.y = -s * Math.PI / 2 + (terrasse ? Math.PI : 0);
       maisonX = (s < 0 ? xC1 : xC2) + s * PM / 2;
-      maisonZ = Z0 - 0.8 + LM / 2;
+      maisonZ = terrasse ? Z0 + L / 2 : Z0 - 0.8 + LM / 2;
       zArriereAllee = Z0 - 0.8;
     }
     maison.position.set(maisonX, 0, maisonZ);

@@ -3,6 +3,7 @@
 // ⚠️ Pour une démo client : remplacer ce fichier par la config du client (comme avant), sans assistant ni produits.
 import { CONFIG as carport } from './produits/carport.js';
 import { CONFIG as pergola } from './produits/pergola.js';
+import { CONFIG as veranda } from './produits/veranda.js';
 
 // Cartes de l'étape « Produit » (icône dessinée en SVG, dans l'ordre d'affichage)
 export const PRODUITS = {
@@ -13,6 +14,10 @@ export const PRODUITS = {
   pergola: {
     label: 'Pergola', aide: 'Une structure contre la maison, sur votre terrasse, avec brise-vue en option.',
     icone: '<path d="M3 20h18M6 20V9M18 20V9M3 9h18M5 6h14M8 6v3M12 6v3M16 6v3"/>', config: pergola,
+  },
+  veranda: {
+    label: 'Véranda', aide: 'Une pièce vitrée en aluminium, accolée à la façade.',
+    icone: '<path d="M3 20h18M4 20V8l16-3v15M4 8h16M9 20V8M14 20V7"/>', config: veranda,
   },
 };
 

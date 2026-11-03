@@ -24,6 +24,8 @@ const hasard = (min, max) => min + Math.random() * (max - min);
 
 // Structure en aluminium thermolaqué (sinon charpente bois) : voir `materiau` dans config.js
 const ALU = CONFIG.materiau === 'alu';
+// Véranda : pièce vitrée contre la maison, tous les côtés libres fermés et façade avant vitrée
+const VERANDA = Boolean(CONFIG.veranda);
 const EQUIPEMENTS = CONFIG.equipements ?? ['gouttieres', 'led', 'borne'];
 const LOCAL = CONFIG.local !== false; // local de rangement proposé
 const VEHICULES = Object.values(CONFIG.vehicules).some((v) => v.fichier); // au moins un véhicule à afficher
@@ -51,7 +53,8 @@ function valider() {
     const v = state[cle];
     state[cle] = Number.isFinite(v) ? Math.min(max, Math.max(min, v)) : CONFIG.defauts[cle];
   }
-  if (!CONFIG.implantations[state.adosse]) state.adosse = 'non';
+  if (!CONFIG.implantations[state.adosse]) state.adosse = CONFIG.implantations.non ? 'non' : CONFIG.defauts.adosse;
+  if (VERANDA) { state.paroiArriere = true; state.paroiGauche = true; state.paroiDroite = true; }
   if (!LOCAL) state.rangement = false;
   if (!CONFIG.toits[state.toit]) state.toit = CONFIG.defauts.toit;
   // Contre une façade, le toit descend à l'opposé de la maison : pas de 2 pans
@@ -176,6 +179,7 @@ function calculerPrix() {
   if (state.paroiArriere && g.posL !== 'arriere') lignes.push(['Paroi arrière', g.Wv * hMur * T.paroiM2 * fBardage]);
   if (state.paroiGauche && !g.maison(-1) && !localCote(-1)) lignes.push(['Paroi gauche', g.Dc * hMur * T.paroiM2 * fBardage]);
   if (state.paroiDroite && !g.maison(1) && !localCote(1)) lignes.push(['Paroi droite', g.Dc * hMur * T.paroiM2 * fBardage]);
+  if (VERANDA) lignes.push([`Façade avant vitrée, porte coulissante`, g.Wv * hMur * T.paroiM2 * fBardage + (T.porteCoulissante ?? 0)]);
   if (g.S) {
     const aire = g.S * (g.lateral ? g.L : g.W);
     lignes.push([`${LIB.rangementLigne} · ${fmtM(g.S)} (${CONFIG.positionsLocal[g.posL].label.toLowerCase()})`, aire * T.rangementM2 * fBardage]);
@@ -868,7 +872,40 @@ function bardageH(x1, z1, x2, z2, yHaut, porte) {
   bardageV(x1, z1, x2, z2, yHaut, null, y);
 }
 
+// Vitrage entre deux points au sol : verre + montants tous les ~1 m + traverse basse (couleur de la structure)
+const matVerre = new THREE.MeshStandardMaterial({ color: '#CFE2E8', transparent: true, opacity: 0.22, roughness: 0.04, metalness: 0.1, envMapIntensity: 1.6, depthWrite: false });
+function vitrage(x1, z1, x2, z2, yHaut) {
+  const long = Math.hypot(x2 - x1, z2 - z1);
+  if (long < 0.1) return;
+  const dx = (x2 - x1) / long;
+  const dz = (z2 - z1) / long;
+  const rot = -Math.atan2(dz, dx);
+  const teinte = CONFIG.bardages[state.bardage].verre;
+  matVerre.color.set(teinte ?? '#CFE2E8');
+  matVerre.opacity = teinte ? 0.42 : 0.22;
+  const n = Math.max(1, Math.round(long / 1.0));
+  const pas = long / n;
+  const yBas = Y_SOL + 0.1;
+  for (let i = 0; i <= n; i++) {
+    const u = i * pas;
+    const x = x1 + dx * u;
+    const z = z1 + dz * u;
+    const yH = yHaut(x, z);
+    boite(0.055, yH - Y_SOL, 0.07, matBois, x, (Y_SOL + yH) / 2, z).rotation.y = rot;
+    if (i === n) break;
+    const uc = u + pas / 2;
+    const xc = x1 + dx * uc;
+    const zc = z1 + dz * uc;
+    const yHc = Math.min(yH, yHaut(x1 + dx * (u + pas), z1 + dz * (u + pas)));
+    const vitre = boite(pas - 0.05, yHc - yBas, 0.012, matVerre, xc, (yBas + yHc) / 2, zc, false);
+    vitre.rotation.y = rot;
+    vitre.renderOrder = 2;
+  }
+  boite(long, 0.1, 0.075, matBois, (x1 + x2) / 2, Y_SOL + 0.05, (z1 + z2) / 2).rotation.y = rot;
+}
+
 function paroi(...args) {
+  if (CONFIG.bardages[state.bardage].vitrage) { vitrage(...args); return; }
   if (state.bardage === 'horizontal' || CONFIG.bardages[state.bardage].sens === 'horizontal') bardageH(...args);
   else bardageV(...args);
 }
@@ -1065,12 +1102,15 @@ function construire() {
       mat.roughness = 0.12;
       mat.metalness = 0.35;
       mat.envMapIntensity = 1.1;
-    } else if (state.couverture === 'polycarbonate') {
-      mat.map = texPoly.clone();
-      mat.map.needsUpdate = true;
-      mat.map.repeat.set(1, profC / 0.6);
+    } else if (state.couverture === 'polycarbonate' || state.couverture === 'verre') {
+      // Verre (véranda) : sans nervures, plus transparent
+      if (state.couverture === 'polycarbonate') {
+        mat.map = texPoly.clone();
+        mat.map.needsUpdate = true;
+        mat.map.repeat.set(1, profC / 0.6);
+      }
       mat.transparent = true;
-      mat.opacity = state.teinteCouverture === 'opale' ? 0.82 : 0.45;
+      mat.opacity = state.couverture === 'verre' ? 0.28 : state.teinteCouverture === 'opale' ? 0.82 : 0.45;
       mat.roughness = 0.15;
       mat.depthWrite = false;
     } else if (state.couverture === 'gravier' || state.couverture === 'vegetal') {
@@ -1088,7 +1128,7 @@ function construire() {
     }
     // Couverture « ouverte » (pergola) : seulement les chevrons, pas de plaque
     if (!couv.ouverte) {
-      boite(longC, ep, profC, mat, pan.cx, ySup(pan.cx) + (RH + ep / 2) / pan.cs, 0, state.couverture !== 'polycarbonate')
+      boite(longC, ep, profC, mat, pan.cx, ySup(pan.cx) + (RH + ep / 2) / pan.cs, 0, !['polycarbonate', 'verre'].includes(state.couverture))
         .rotation.z = pan.rot;
     }
 
@@ -1160,6 +1200,8 @@ function construire() {
     if (s < 0) paroi(x, -zR - P / 2, x, fin, () => hautCote(x));
     else paroi(x, fin, x, -zR - P / 2, () => hautCote(x));
   }
+
+  if (VERANDA) paroi(xMurMin, zAvant, xMurMax, zAvant, hautPignon);
 
   // Local de rangement arrière : cloison avec porte
   if (g.posL === 'arriere') {
@@ -1868,6 +1910,11 @@ $('#implantations').previousElementSibling.textContent = LIB.implantationAide;
 $('#viewer').setAttribute('aria-label', `Aperçu 3D : ${LIB.objet}`);
 const etapeParois = $('#bardages').closest('.etape');
 etapeParois.querySelector('h2').lastChild.textContent = LIB.parois;
+if (VERANDA) {
+  etapeParois.dataset.court = LIB.paroisCourt ?? 'Vitrage';
+  etapeParois.querySelector('.aide-etape').textContent = LIB.paroisAide ?? 'Les côtés libres sont vitrés, avec une porte coulissante en façade.';
+  $('#plan').style.display = 'none';
+}
 // Pas de local de rangement pour ce produit : option retirée
 if (!LOCAL) {
   $('[data-cle="rangement"]').closest('.option').remove();

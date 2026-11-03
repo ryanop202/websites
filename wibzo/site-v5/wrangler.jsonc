@@ -1,0 +1,12 @@
+{
+  "name": "wibzo",
+  "compatibility_date": "2026-10-12",
+  "workers_dev": true,
+  "routes": [
+    { "pattern": "wibzo.ch", "custom_domain": true },
+    { "pattern": "www.wibzo.ch", "custom_domain": true }
+  ],
+  "assets": {
+    "directory": "."
+  }
+}

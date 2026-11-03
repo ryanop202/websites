@@ -121,3 +121,5 @@ Régions cherchées : Lausanne, Fribourg, Bulle, Neuchâtel, Sion, Morges, Yverd
 - **Voeffray (n° 5)** : démo https://voeffray.wibzo.ch (03.11.2026), mail dans `clients/voeffray/MESSAGE.md`.
 - Voeffray : mail ENVOYÉ le 03.11.2026.
 - **Guillod (n° 6)** : démo https://guillod.wibzo.ch (03.11.2026), mail dans `clients/guillod/MESSAGE.md`.
+- Guillod : mail ENVOYÉ le 03.11.2026.
+- **B2 bois (n° 7)** : démo https://b2bois.wibzo.ch (03.11.2026), mail dans `clients/b2bois/MESSAGE.md`.

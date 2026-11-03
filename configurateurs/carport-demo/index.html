@@ -69,7 +69,7 @@
           <input type="range" id="largeur" data-cle="largeur">
         </div>
         <div class="curseur">
-          <label for="profondeur">Profondeur</label>
+          <label for="profondeur">Profondeur <small></small></label>
           <output id="out-profondeur" for="profondeur"></output>
           <input type="range" id="profondeur" data-cle="profondeur">
         </div>
@@ -96,6 +96,11 @@
         <div class="liste-choix" id="couvertures" role="radiogroup" aria-label="Couverture"></div>
         <h3 class="sous-titre">Teinte <span id="nom-teinte"></span></h3>
         <div class="nuancier" id="teintes" role="radiogroup" aria-label="Teinte de la couverture"></div>
+        <div class="curseur">
+          <label for="angleLames">Orientation des lames <small>0° fermé · 90° grand ouvert</small></label>
+          <output id="out-angleLames" for="angleLames"></output>
+          <input type="range" id="angleLames" data-cle="angleLames">
+        </div>
       </section>
 
       <section class="etape" data-court="Bois">
@@ -112,6 +117,12 @@
           <svg class="plan-dessin" id="plan-dessin" viewBox="0 0 120 150" aria-hidden="true"></svg>
           <button type="button" class="cote-plan cote-droite" data-paroi="paroiDroite" aria-pressed="false">Droite</button>
           <p class="plan-entree">Entrée ↓</p>
+          <button type="button" class="cote-plan cote-avant" data-paroi="paroiAvant" aria-pressed="false">Avant</button>
+        </div>
+        <div class="curseur">
+          <label for="vantaux">Baies ouvertes <small>pour voir les vantaux coulisser</small></label>
+          <output id="out-vantaux" for="vantaux"></output>
+          <input type="range" id="vantaux" data-cle="vantaux">
         </div>
         <h3 class="sous-titre">Type de bardage</h3>
         <div class="segments segments-2" id="bardages" role="radiogroup" aria-label="Type de bardage"></div>
@@ -132,6 +143,8 @@
           <label class="option"><span>Gouttières et descentes</span><em class="delta" data-delta="gouttieres"></em><input type="checkbox" data-cle="gouttieres"><i></i></label>
           <label class="option"><span>Éclairage LED <small>spots sous la charpente</small></span><em class="delta" data-delta="led"></em><input type="checkbox" data-cle="led"><i></i></label>
           <label class="option"><span>Préparation borne de recharge <small>gaine et prise sur un poteau</small></span><em class="delta" data-delta="borne"></em><input type="checkbox" data-cle="borne"><i></i></label>
+          <label class="option"><span>Stores de toiture <small>toile motorisée sous le vitrage</small></span><em class="delta" data-delta="storeToit"></em><input type="checkbox" data-cle="storeToit"><i></i></label>
+          <label class="option"><span>Chauffage d'appoint <small>deux radiants infrarouges</small></span><em class="delta" data-delta="chauffage"></em><input type="checkbox" data-cle="chauffage"><i></i></label>
         </div>
       </section>
 

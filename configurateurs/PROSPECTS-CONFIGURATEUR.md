@@ -143,7 +143,7 @@ Régions cherchées : Lausanne, Fribourg, Bulle, Neuchâtel, Sion, Morges, Yverd
 - **Pierre Chammartin & Fils (n° 15)** : démo https://chammartin.wibzo.ch (03.11.2026), mail dans `clients/chammartin/MESSAGE.md`. Pas de site → possible offre site internet plus tard.
 
 ## Refus pour le prix de l'abonnement (03.11.2026)
-- Un prospect qui avait reçu l'offre (1 200 CHF + 700 CHF/an), **probablement Nicolet** (à confirmer par Ryan), a répondu : « le prix de l'hébergement est assez conséquent », difficile à répercuter sur « les quelques demandes de couvert à voiture et pergola que nous recevons chaque année ». Il garde nos coordonnées.
+- **Nicolet Charpente SA** (confirmé par Ryan le 03.11.2026), qui avait reçu l'offre (1 200 CHF + 700 CHF/an), a répondu : « le prix de l'hébergement est assez conséquent », difficile à répercuter sur « les quelques demandes de couvert à voiture et pergola que nous recevons chaque année ». Il garde nos coordonnées.
 - Analyse : seul l'abonnement annuel le gêne, pas la mise en place. Petit artisan avec peu de demandes → il n'aime pas payer chaque année.
 - Contre-proposition préparée : **1 600 CHF en une seule fois, hébergement compris, aucun frais annuel** + argument « le configurateur devrait vous amener beaucoup plus de clients, un seul chantier gagné le rembourse ». Texte dans `OFFRE-TYPE.md` (section « Formule sans abonnement »).
 

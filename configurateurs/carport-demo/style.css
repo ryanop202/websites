@@ -523,6 +523,7 @@ h1 {
 .cote-arriere { grid-area: arriere; }
 .cote-gauche { grid-area: gauche; justify-self: end; }
 .cote-droite { grid-area: droite; justify-self: start; }
+.cote-avant { grid-area: entree; }
 
 .plan-entree {
   grid-area: entree;

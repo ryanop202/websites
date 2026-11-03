@@ -18,7 +18,11 @@ export const CONFIG = {
     titre: 'Pergola en bois sur mesure',
     objet: 'pergola',
     passage: 'hauteur',
-    largeurAide: 'le long de la façade',
+    inverserCotes: true,
+    largeur: 'Avancée',
+    largeurAide: 'depuis la façade',
+    profondeur: 'Largeur',
+    profondeurAide: 'le long de la façade',
     hauteur: 'Hauteur',
     hauteurAide: 'sous les poutres',
     implantationAide: 'Contre la maison, la pergola se fixe à la façade : une rangée de poteaux en moins.',
@@ -32,8 +36,8 @@ export const CONFIG = {
 
   // [min, max, pas] en mètres
   limites: {
-    largeur: [2.5, 6, 0.1],
-    profondeur: [2.5, 5, 0.1],
+    largeur: [2.5, 5, 0.1],    // avancée depuis la façade
+    profondeur: [2.5, 6, 0.1], // le long de la façade
     hauteur: [2.2, 2.6, 0.05],
   },
   porteeMax: 3.0, // distance max entre deux poteaux (règle technique, à valider par l'entreprise)
@@ -50,15 +54,16 @@ export const CONFIG = {
     droite: { label: 'Droite' },
   },
 
+  // (raccourcis : largeur le long de la façade × avancée)
   raccourcis: [
-    { label: '3 × 3 m', largeur: 3, profondeur: 3, hauteur: 2.3 },
-    { label: '4 × 3,5 m', largeur: 4, profondeur: 3.5, hauteur: 2.3 },
-    { label: '5 × 4 m', largeur: 5, profondeur: 4, hauteur: 2.4 },
+    { label: '3 × 3 m', profondeur: 3, largeur: 3, hauteur: 2.3 },
+    { label: '4 × 3,5 m', profondeur: 4, largeur: 3.5, hauteur: 2.3 },
+    { label: '5 × 4 m', profondeur: 5, largeur: 4, hauteur: 2.4 },
   ],
 
   defauts: {
-    largeur: 4.5,
-    profondeur: 3.5,
+    largeur: 3.5,
+    profondeur: 4.5,
     hauteur: 2.3,
     adosse: 'gauche',
     toit: 'plat',

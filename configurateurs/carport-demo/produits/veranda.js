@@ -16,30 +16,39 @@ export const CONFIG = {
   chapo: 'Réglez votre véranda étape par étape. Le prix se met à jour à chaque choix.',
   materiau: 'alu',
   veranda: true,
+  // Modèle 3D dédié (produits3d.js, 03.11.2026) : toit vitré sur chevrons, chéneau, baies coulissantes, pignons vitrés
+  modele3d: 'veranda',
   libelles: {
     titre: 'Véranda alu sur mesure',
     objet: 'véranda',
     passage: 'hauteur',
-    largeurAide: 'le long de la façade',
+    inverserCotes: true,
+    largeur: 'Avancée',
+    largeurAide: 'depuis la façade',
+    profondeur: 'Largeur',
+    profondeurAide: 'le long de la façade',
     hauteur: 'Hauteur',
-    hauteurAide: 'côté jardin',
+    hauteurAide: 'sous le chéneau, côté jardin',
     implantationAide: 'La véranda se fixe à la façade de la maison : choisissez le côté.',
-    parois: 'Vitrage',
+    parois: 'Vitrages et baies',
     paroisCourt: 'Vitrage',
+    paroisAide: 'Pignons vitrés sur les côtés, baies coulissantes côté jardin.',
     bardage: 'Type de verre',
     finition: 'Coloris de l’aluminium',
     finitionCourt: 'Coloris',
     finitionLigne: 'Structure',
+    ledAide: 'spots encastrés dans les chevrons',
   },
   local: false,
-  equipements: ['gouttieres', 'led'],
+  equipements: ['gouttieres', 'led', 'storeToit'],
   sol: 'terrasse',
 
   // [min, max, pas] en mètres
   limites: {
-    largeur: [3, 7, 0.1],
-    profondeur: [2.5, 5, 0.1],
+    largeur: [2.5, 5, 0.1],    // avancée depuis la façade
+    profondeur: [3, 7, 0.1],   // le long de la façade
     hauteur: [2.3, 2.8, 0.05],
+    vantaux: [0, 4, 1],        // baies ouvertes sur l'image (le maximum suit la taille)
   },
   porteeMax: 3.5, // distance max entre deux poteaux (règle technique, à valider par l'entreprise)
   profondeursLocal: [1.2, 1.8, 2.4],
@@ -55,15 +64,16 @@ export const CONFIG = {
     droite: { label: 'Droite' },
   },
 
+  // (raccourcis : largeur le long de la façade × avancée)
   raccourcis: [
-    { label: '3,5 × 3 m', largeur: 3.5, profondeur: 3, hauteur: 2.5 },
-    { label: '4,5 × 3,5 m', largeur: 4.5, profondeur: 3.5, hauteur: 2.5 },
-    { label: '6 × 4 m', largeur: 6, profondeur: 4, hauteur: 2.6 },
+    { label: '3,5 × 3 m', profondeur: 3.5, largeur: 3, hauteur: 2.5 },
+    { label: '4,5 × 3,5 m', profondeur: 4.5, largeur: 3.5, hauteur: 2.5 },
+    { label: '6 × 4 m', profondeur: 6, largeur: 4, hauteur: 2.6 },
   ],
 
   defauts: {
-    largeur: 4.5,
-    profondeur: 3.5,
+    largeur: 3.5,
+    profondeur: 4.5,
     hauteur: 2.5,
     adosse: 'gauche',
     toit: 'unPan',
@@ -80,6 +90,8 @@ export const CONFIG = {
     gouttieres: true,
     led: false,
     borne: false,
+    storeToit: false,
+    vantaux: 0,
     vehicule: 'aucun',
   },
 
@@ -138,6 +150,7 @@ export const CONFIG = {
     descente: 180,
     led: 650,
     borne: 0,
+    storeToitM2: 115,
     poseTaux: 0.18,
     poseMin: 2500,
   },

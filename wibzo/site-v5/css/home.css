@@ -136,7 +136,7 @@ p { margin: 0; }
 .tag--wait { color: var(--wait); background: var(--wait-bg); border-color: #CCDBEF; }
 
 /* Démos */
-.demos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.demos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 .demo { display: block; background: #fff; border: 1px solid var(--trait); border-radius: var(--rayon); overflow: hidden; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; }
 .demo:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(70, 45, 20, .1); }
 .demo__img { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-bottom: 1px solid var(--trait); }

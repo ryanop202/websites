@@ -133,3 +133,7 @@ Régions cherchées : Lausanne, Fribourg, Bulle, Neuchâtel, Sion, Morges, Yverd
 - **Menuiserie Spart (n° 11)** : démo https://spart.wibzo.ch (03.11.2026), mail dans `clients/spart/MESSAGE.md`.
 - Spart : mail ENVOYÉ le 03.11.2026.
 - **Charpenteplus Schwery (n° 12)** : démo https://schwery.wibzo.ch (03.11.2026), mail dans `clients/schwery/MESSAGE.md`.
+- Charpenteplus Schwery : mail ENVOYÉ le 03.11.2026.
+- **Bois de Bout Charpente (n° 13, Movelier JU)** : démo https://bois-de-bout.wibzo.ch (03.11.2026), mail dans `clients/bois-de-bout/MESSAGE.md` (≠ Bois Debout Thiriot, n° 8).
+- Charpenteplus Schwery : mail ENVOYÉ le 03.11.2026.
+- **Bois de Bout Charpente (n° 13, Movelier JU)** : démo https://bois-de-bout.wibzo.ch (03.11.2026), mail dans `clients/bois-de-bout/MESSAGE.md` (≠ Bois Debout Thiriot, n° 8).

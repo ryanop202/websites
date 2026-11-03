@@ -125,3 +125,5 @@ Régions cherchées : Lausanne, Fribourg, Bulle, Neuchâtel, Sion, Morges, Yverd
 - **B2 bois (n° 7)** : démo https://b2bois.wibzo.ch (03.11.2026), mail dans `clients/b2bois/MESSAGE.md`.
 - B2 bois : mail ENVOYÉ le 03.11.2026.
 - **Bois Debout Thiriot (n° 8)** : démo https://boisdebout.wibzo.ch (03.11.2026), mail dans `clients/boisdebout/MESSAGE.md`.
+- Bois Debout Thiriot : mail ENVOYÉ le 03.11.2026.
+- **Humbert & Fils (n° 9)** : démo https://humbert.wibzo.ch (03.11.2026), mail dans `clients/humbert/MESSAGE.md`.

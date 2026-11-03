@@ -129,3 +129,5 @@ Régions cherchées : Lausanne, Fribourg, Bulle, Neuchâtel, Sion, Morges, Yverd
 - **Humbert & Fils (n° 9)** : démo https://humbert.wibzo.ch (03.11.2026), mail dans `clients/humbert/MESSAGE.md`.
 - Humbert & Fils : mail ENVOYÉ le 03.11.2026.
 - **Menuiserie Jollien (n° 10)** : démo https://jollien.wibzo.ch (03.11.2026), mail dans `clients/jollien/MESSAGE.md`.
+- Jollien : mail ENVOYÉ le 03.11.2026.
+- **Menuiserie Spart (n° 11)** : démo https://spart.wibzo.ch (03.11.2026), mail dans `clients/spart/MESSAGE.md`.

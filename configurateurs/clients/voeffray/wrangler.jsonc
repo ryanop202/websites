@@ -1,0 +1,13 @@
+{
+  // Démo en ligne : https://voeffray.wibzo.ch
+  // Mise à jour : `npx wrangler deploy` dans ce dossier (fichiers exclus : .assetsignore)
+  "name": "voeffray-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [
+    { "pattern": "voeffray.wibzo.ch", "custom_domain": true }
+  ],
+  "assets": {
+    "directory": "."
+  }
+}

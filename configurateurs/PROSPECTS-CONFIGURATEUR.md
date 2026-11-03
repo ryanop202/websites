@@ -131,3 +131,5 @@ Régions cherchées : Lausanne, Fribourg, Bulle, Neuchâtel, Sion, Morges, Yverd
 - **Menuiserie Jollien (n° 10)** : démo https://jollien.wibzo.ch (03.11.2026), mail dans `clients/jollien/MESSAGE.md`.
 - Jollien : mail ENVOYÉ le 03.11.2026.
 - **Menuiserie Spart (n° 11)** : démo https://spart.wibzo.ch (03.11.2026), mail dans `clients/spart/MESSAGE.md`.
+- Spart : mail ENVOYÉ le 03.11.2026.
+- **Charpenteplus Schwery (n° 12)** : démo https://schwery.wibzo.ch (03.11.2026), mail dans `clients/schwery/MESSAGE.md`.

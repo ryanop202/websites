@@ -31,6 +31,8 @@ const LOCAL = CONFIG.local !== false; // local de rangement proposé
 const VEHICULES = Object.values(CONFIG.vehicules).some((v) => v.fichier); // au moins un véhicule à afficher
 // Maison complète + jardin autour du produit (`decor: false` dans config.js = ancien décor : façade seule)
 const DECOR = CONFIG.decor !== false;
+// Pergola, véranda : produit sur la terrasse, contre la façade arrière (vue plus de face)
+const TERRASSE_DECOR = DECOR && CONFIG.sol === 'terrasse';
 
 // ---------- État (lu depuis le lien partagé si présent) ----------
 
@@ -1379,12 +1381,13 @@ function poseVue(nom) {
   // Avec la maison : un peu plus de recul et visée plus haute pour voir le carport devant la maison
   const cible = g.decalage.clone().add(new THREE.Vector3(DECOR && g.adosse === 'non' ? -0.6 : 0, g.H * 0.55 + (DECOR ? 0.7 : 0), DECOR && g.adosse === 'non' ? -0.4 : 0.6));
   const etroit = viewer.clientWidth < viewer.clientHeight * 1.1;
-  const recul = taille * (etroit ? 2.3 : 1.8) * (DECOR ? 1.75 : g.adosse !== 'non' ? 1.15 : 1);
+  const recul = taille * (etroit ? 2.3 : 1.8) * (TERRASSE_DECOR ? 1.55 : DECOR ? 1.75 : g.adosse !== 'non' ? 1.15 : 1);
   // Vue 3/4 du côté libre quand la maison est à droite
   const cote = g.adosse === 'droite' ? -1 : 1;
   let dir;
   if (nom === 'face') dir = new THREE.Vector3(0, 0.22, 1);
   else if (nom === 'dessus') dir = new THREE.Vector3(0, 1.45, 0.01);
+  else if (TERRASSE_DECOR && g.adosse !== 'non') dir = new THREE.Vector3(1.0 * cote, 0.34, 0.55); // terrasse : plus de face sur la façade
   else dir = new THREE.Vector3(0.72 * cote, DECOR ? 0.3 : 0.42, 0.85);
   const pos = cible.clone().add(dir.normalize().multiplyScalar(recul * (nom === 'dessus' ? 1.3 : 1)));
   return { pos, cible, taille };
@@ -1947,7 +1950,7 @@ if (ASSISTANT && PRODUITS) {
     b.className = 'carte-produit';
     b.setAttribute('role', 'radio');
     b.setAttribute('aria-checked', String(cle === CFG.PRODUIT));
-    b.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${p.icone}</svg><span><strong>${p.label}</strong><small>${p.aide}</small></span>`;
+    b.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${p.icone}</svg><span><strong>${p.label}</strong><small>${p.aide}</small>${p.exemple ? `<em class="exemple">Exemple : <b>${p.exemple}</b> CHF TTC</em>` : ''}</span>`;
     b.addEventListener('click', () => {
       if (cle === CFG.PRODUIT) { allerEtape(1); return; }
       try { sessionStorage.setItem('etape', '1'); } catch (e) { /* stockage bloqué : on repart de l'étape 1 */ }
@@ -2013,6 +2016,29 @@ if (ASSISTANT) {
   pied.className = 'pied-assistant';
   pied.innerHTML = '<p class="pied-total"><small>Total estimé</small><span><b id="total-pied">—</b> CHF TTC</span><small>Prix indicatif · démonstration, prix fictifs</small></p><div class="pied-boutons"><button type="button" class="pied-retour" id="btn-retour">‹ Retour</button><button type="button" class="cta pied-suivant" id="btn-suivant"></button></div>';
   panel.append(pied);
+
+  // Barres du haut et du bas (démo Wibzo)
+  const logo = '<img src="https://wibzo.ch/assets/favicon.svg" alt="">';
+  const haut = document.createElement('header');
+  haut.className = 'barre-haut';
+  haut.innerHTML = `<a href="https://wibzo.ch">${logo}Wibzo</a><span class="sep-v"></span><span>Une démo Wibzo</span><a class="lien-site" href="https://wibzo.ch">wibzo.ch ↗</a>`;
+  const bas = document.createElement('footer');
+  bas.className = 'barre-bas';
+  bas.innerHTML = `<b>${logo}Wibzo</b><span>Configurateur réalisé par Wibzo · <a href="https://wibzo.ch">wibzo.ch</a></span><span class="droite">Démonstration : marque, prix et modèles fictifs</span>`;
+  document.body.prepend(haut);
+  $('.app').after(bas);
+
+  [...$('#onglets').children].forEach((b, i) => { const n = b.querySelector('span'); if (n) n.textContent = i + 1; });
+  // « Étape n sur N » au-dessus de chaque titre
+  etapes.forEach((e, i) => e.querySelector('h2')?.setAttribute('data-numero', `Étape ${i + 1} sur ${etapes.length}`));
+
+  // Étiquette du produit en haut de la vue 3D : nom + dimensions
+  const nomProduit = PRODUITS?.[CFG.PRODUIT]?.label ?? LIB.objet;
+  const majEtiquette = () => {
+    $('#badge-demo').innerHTML = `${nomProduit} <span>· ${fmtM(state.largeur)} × ${fmtM(state.profondeur)}</span>`;
+  };
+  majEtiquette();
+  new MutationObserver(majEtiquette).observe($('#total'), { childList: true, characterData: true, subtree: true });
   new MutationObserver(() => { $('#total-pied').textContent = $('#total').textContent; })
     .observe($('#total'), { childList: true, characterData: true, subtree: true });
   $('#btn-retour').addEventListener('click', () => allerEtape(Math.max(0, etapeCourante - 1)));

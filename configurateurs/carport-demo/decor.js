@@ -585,11 +585,16 @@ export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0,
     let xA2 = adosse === 'droite' ? xC2 : xC2 + 2.2;
     let zDebut = Z0 + L + 1.2;
     if (terrasse) {
-      const zFinT = Z0 + L + 2.4;
-      dalle(xA1, zArriereAllee, xA2, zFinT, matDalles, 0.03, 3);
-      if (adosse !== 'gauche') bordure(xA1 - 0.08, zArriereAllee, xA1, zFinT + 0.08);
-      if (adosse !== 'droite') bordure(xA2, zArriereAllee, xA2 + 0.08, zFinT + 0.08);
+      // Grande terrasse le long de la façade (plus large et plus longue que le produit)
+      const zDebT = adosse === 'non' ? zArriereAllee : Z0 - 2.4;
+      const zFinT = Z0 + L + 2.2;
+      if (adosse === 'gauche') xA2 += 0.8;
+      if (adosse === 'droite') xA1 -= 0.8;
+      dalle(xA1, zDebT, xA2, zFinT, matDalles, 0.03, 3);
+      if (adosse !== 'gauche') bordure(xA1 - 0.08, zDebT, xA1, zFinT + 0.08);
+      if (adosse !== 'droite') bordure(xA2, zDebT, xA2 + 0.08, zFinT + 0.08);
       bordure(xA1, zFinT, xA2, zFinT + 0.08);
+      bordure(xA1, zDebT - 0.08, xA2, zDebT);
       // Chemin vers la rue, côté libre (à l'opposé de la maison)
       const sC = adosse === 'droite' ? -1 : 1;
       const xBord = sC > 0 ? xA2 : xA1;
@@ -651,7 +656,7 @@ export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0,
     const cote = adosse === 'droite' ? -1 : 1;
     const cx = X0 + W / 2;
     const cz = Z0 + L / 2;
-    const aCam = Math.atan2(0.72 * cote, 0.85);
+    const aCam = terrasse && adosse !== 'non' ? Math.atan2(1.0 * cote, 0.55) : Math.atan2(0.72 * cote, 0.85);
     const horsCouloir = (x, z) => {
       const d = Math.hypot(x - cx, z - cz);
       let ecart = Math.atan2(x - cx, z - cz) - aCam;

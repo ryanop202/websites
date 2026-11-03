@@ -67,7 +67,7 @@ export const CONFIG = {
     bois: 'epicea',
     paroiArriere: false,
     paroiGauche: false,
-    paroiDroite: true,
+    paroiDroite: false,
     bardage: 'horizontal',
     rangement: false,
     posLocal: 'arriere',

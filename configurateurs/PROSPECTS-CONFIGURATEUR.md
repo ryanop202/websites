@@ -119,3 +119,5 @@ Régions cherchées : Lausanne, Fribourg, Bulle, Neuchâtel, Sion, Morges, Yverd
 - **Atelier Z (n° 4)** : démo https://atelierz.wibzo.ch (03.11.2026, aucun configurateur vu sur leur site), mail dans `clients/atelierz/MESSAGE.md`.
 - Atelier Z : mail ENVOYÉ le 03.11.2026.
 - **Voeffray (n° 5)** : démo https://voeffray.wibzo.ch (03.11.2026), mail dans `clients/voeffray/MESSAGE.md`.
+- Voeffray : mail ENVOYÉ le 03.11.2026.
+- **Guillod (n° 6)** : démo https://guillod.wibzo.ch (03.11.2026), mail dans `clients/guillod/MESSAGE.md`.

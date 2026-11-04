@@ -1,0 +1,8 @@
+﻿{
+  // Démo Alutech Marendaz : https://alutech.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "alutech-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "alutech.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

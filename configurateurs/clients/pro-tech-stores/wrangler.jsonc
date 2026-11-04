@@ -1,0 +1,8 @@
+﻿{
+  // Démo Pro-Tech Stores Sàrl : https://pro-tech-stores.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "pro-tech-stores-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "pro-tech-stores.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

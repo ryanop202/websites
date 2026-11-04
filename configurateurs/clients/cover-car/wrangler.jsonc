@@ -1,0 +1,8 @@
+﻿{
+  // Démo Metal Plus Serrurerie · Cover-Car : https://cover-car.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "cover-car-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "cover-car.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

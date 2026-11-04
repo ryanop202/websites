@@ -1,0 +1,8 @@
+﻿{
+  // Démo Vision d'Extérieurs Valais Sàrl : https://visiondexterieurs.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "visiondexterieurs-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "visiondexterieurs.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

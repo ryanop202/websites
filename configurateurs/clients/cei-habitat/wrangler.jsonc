@@ -1,0 +1,8 @@
+﻿{
+  // Démo CEI Habitat SA : https://cei-habitat.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "cei-habitat-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "cei-habitat.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

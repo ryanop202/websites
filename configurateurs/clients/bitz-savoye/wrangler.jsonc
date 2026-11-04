@@ -1,0 +1,8 @@
+﻿{
+  // Démo Bitz & Savoye SA : https://bitz-savoye.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "bitz-savoye-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "bitz-savoye.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

@@ -1,0 +1,8 @@
+﻿{
+  // Démo Mathieu Walther Constructions Métalliques : https://walther.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "walther-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "walther.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

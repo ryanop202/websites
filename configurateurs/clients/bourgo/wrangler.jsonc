@@ -1,0 +1,8 @@
+﻿{
+  // Démo Sellerie et Stores du Bourgo SA : https://bourgo.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "bourgo-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "bourgo.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

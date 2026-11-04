@@ -195,3 +195,37 @@ Démo = seulement les produits que l’entreprise vend (étape 1 « Produit » d
 | 40 | **Neuchastores Sàrl** | Valangin (NE) | neuchastores.ch | info@neuchastores.ch | +41796635887 |  pergola | pergola |  |
 | 41 | **Storexpress Sàrl** | Éclépens (VD) | storexpress.ch | contact@storexpress.ch | +41218666520 |  pergola | pergola |  |
 | 42 | **Bertusi & Strehl SA** | Lausanne | bertusi-strehl.ch | geneve@bertusi-strehl.ch | +41216240116 |  pergola | pergola |  |
+
+## Envois vérandas / pergolas (03.11.2026) — démo à leur nom faite par `outils/demo-terrasse.ps1`
+- ❌ n° 1 Renovat-Veranco : mis de côté (aucun e-mail sur le site, e-mail local.ch = Bullinger SA, site de franchise Veranco).
+- ✅ n° 2 **CEI Habitat SA** : https://cei-habitat.wibzo.ch (pergola bioclimatique + véranda), **mail ENVOYÉ le 03.11.2026** à contact@cei-habitat.ch. Relance le 10.11.2026.
+- n° 3 Live in Véranda : site conceptalu.com injoignable le 03.11 → à revoir.
+- n° 4 Lamatec SA : https://lamatec.wibzo.ch, mail préparé (info@lamatec.ch).
+- n° 5 BTA SA : https://bta.wibzo.ch, mail préparé (info@btasion.ch).
+- n° 6 AC Aluminium Créations SA : https://alucreations.wibzo.ch, mail préparé (info@alucreations.ch).
+- Lamatec, BTA, AC Aluminium Créations : mails ENVOYÉS le 03.11.2026 (Ryan : « continue »). Relance le 10.11.2026.
+- n° 7 Lejan EG : https://lejan.wibzo.ch, mail préparé (lejan.lejan2020@gmail.com, pas de logo).
+- n° 8 Lamelle Glass : https://lamelle-glass.wibzo.ch (pergola bioclimatique seule), mail préparé (info@lamelle-glass.ch).
+- n° 9 Alain Zufferey : https://zufferey.wibzo.ch, mail préparé (alainzufferey@netplus.ch, e-mail de local.ch : aucun sur le site).
+- n° 10 Melly Stores : https://melly.wibzo.ch (pergola bioclimatique seule), mail préparé (info@mellystores.ch).
+- Lejan, Lamelle Glass, Alain Zufferey, Melly Stores : mails ENVOYÉS le 03.11.2026. Relance le 10.11.2026.
+- ❌ n° 11 Saillard Suisse : mis de côté (site de la maison mère française, pas d'e-mail suisse).
+- n° 12 ABC Forgeron : https://abcforgeron.wibzo.ch (véranda), mail préparé (abc@abcforgeron.ch).
+- n° 13 Technique Métal : https://technique-metal.wibzo.ch (véranda), mail préparé (info@technique-metal.ch).
+- n° 14 Alutech Marendaz : https://alutech.wibzo.ch (véranda / jardin d'hiver), mail préparé (info@alutech.info, e-mail de local.ch).
+- n° 15 Equibat : https://equibat.wibzo.ch (pergola bioclimatique), mail préparé (contact@equibat.ch).
+- ABC Forgeron, Technique Métal, Alutech Marendaz, Equibat : mails ENVOYÉS le 03.11.2026. Relance le 10.11.2026.
+- n° 16 Vision d'Extérieurs Valais : https://visiondexterieurs.wibzo.ch, mail préparé (contact@visiondexterieurs.ch, vu sur le site).
+- n° 17 Cover-Car (Metal Plus) : https://cover-car.wibzo.ch, mail préparé (metalplus@bluewin.ch, e-mail de local.ch).
+- n° 18 Erregi : https://erregi.wibzo.ch (pergola bioclimatique + véranda), mail préparé (info@erregi.ch).
+- n° 19 Chapuis Stores : https://chapuis.wibzo.ch, mail préparé (info@chapuisstores.ch). ⚠️ Fistores (n° 31) a le même téléphone : même groupe, ne pas écrire aux deux.
+- n° 20 VS Pergolas : https://vs-pergolas.wibzo.ch, mail préparé (info.pergolas.vs@gmail.com).
+- Vision d'Extérieurs, Cover-Car, Erregi, Chapuis Stores, VS Pergolas : mails ENVOYÉS le 03.11.2026. Relance le 10.11.2026.
+- ⚠️ 03.11.2026 : les démos à un seul produit étaient cassées (bug du script, corrigé puis republiées) : Lamelle Glass, Melly, ABC Forgeron, Technique Métal, Alutech, Equibat avaient déjà reçu le mail.
+- ❌ n° 22 Storea Fournier et n° 23 Val-Stores : mis de côté (aucun e-mail sur le site, l'e-mail de local.ch est celui d'une autre entreprise).
+- n° 21 My Extérieur, 24 Stormatic, 25 Déco-Stores, 26 Bourgo, 27 Protec Stores, 28 BP Stores, 29 JS Store (pergola + véranda), 30 XM Stores : démos <id>.wibzo.ch, mails préparés.
+- My Extérieur, Stormatic, Déco-Stores, Bourgo, Protec Stores, BP Stores, JS Store, XM Stores : mails ENVOYÉS le 03.11.2026. Relance le 10.11.2026.
+- ❌ n° 31 Fistores : pas écrit (même téléphone que Chapuis Stores). n° 3 Live in Véranda : site toujours injoignable.
+- n° 32 à 42 : démos <id>.wibzo.ch (pro-tech-stores, stoll, lamelmatic, aquinox, bitz-savoye, alde, panchaud, walther, neuchastores, storexpress, bertusi-strehl), mails préparés le 03.11.2026.
+- n° 32 à 42 (Pro-Tech Stores, Stoll, Lamelmatic, Aquinox, Bitz & Savoye, Alde, Panchaud, Walther, Neuchastores, Storexpress, Bertusi & Strehl) : mails ENVOYÉS le 03.11.2026. Relance le 10.11.2026.
+- **Bilan 03.11.2026 : 36 mails vérandas / pergolas envoyés** (sur 42 de la liste : 5 mis de côté, Live in Véranda injoignable). Liste terminée.

@@ -266,4 +266,20 @@ Méthode : local.ch « terrasse bois » / « terrasse composite » dans 29 ville
 - **En ligne : https://demo.wibzo.ch/?produit=piscine** (6e produit de la démo publique). Inspirée des FONCTIONS du configurateur de Meridiem (meridiem.be/configurateur-3d, concurrent belge qui vend la même chose : piscine, véranda, pergola, carport), sans reprendre leur code ni leur design.
 - Étapes : Dimensions (largeur, longueur, profondeur d'eau) · Bassin (escalier droit / d'angle / avec banquette, liner, membrane armée ou mosaïque + couleur qui teinte l'eau) · Margelles (4 pierres) · Plage par côté (bois, composite, dalles) · Équipements (volet immergé, LED sous l'eau, contre-courant, pompe à chaleur) · Prix. En plus de Meridiem : vue de nuit avec spots allumés, transats, PAC contre la maison, prix en CHF TTC détaillé.
 - Config : `carport-demo/produits/piscine.js` ; modèle : `produits3d.js` (`piscine`) ; moteur : `PISCINE` dans app.js. Prix fictifs (8 × 4 m par défaut ≈ 70 630 CHF TTC).
-- Prochaine étape : trouver des pisciniers en Suisse romande (aucun contact pris).
+
+## Prospects pisciniers (recherche du 05.11.2026) — aucun contact pris
+Méthode : local.ch « piscines » (10 villes romandes, page 1), puis page d'accueil du site. Aucun configurateur vu sur ces sites. Démo à faire : produit `piscine` (copie de carport-demo, comme les autres clients).
+| # | Entreprise | Lieu | Preuve sur le site | E-mail |
+|---|---|---|---|---|
+| 1 | **Piscine Essentielle Sàrl** — piscinessentielle.ch | St-Aubin-Sauges (NE) | « construction neuve, rénovation », béton armé et coques polyester | info@piscinessentielle.ch |
+| 2 | **MAD inoxial SA** — madinoxial.com | Grolley (FR) | « réalisation de piscines/SPA en acier inoxydable » | info@madinoxial.com |
+| 3 | **Piscines Concept Services SA** — piscines-concept-services.ch | Gland (VD), bureaux VS/GE | « Conception et réalisation de piscines sur mesure » | info@piscines-concept-services.ch |
+| 4 | **Perroud Piscines Sàrl** — perroudpiscines.ch | Nyon | « piscine minérale 100% béton » | perroudpiscines@etik.com |
+| 5 | **Piscines Lagon Bleu** — piscines-lagon-bleu.ch | Crans-près-Céligny (VD) | « construction et rénovation de piscines » | piscines.lagonbleu@hotmail.com |
+| 6 | **FLO piscine Sàrl** — flopiscine.ch | Saxon (VS) | « Création et entretien de piscines », 20 ans d'expérience | info@flopiscine.ch |
+| 7 | **Profil Piscines Sàrl** — profilpiscines.ch | Martigny | « Piscine et Jacuzzi sur mesure » (construction à confirmer) | info@profilpiscines.ch |
+| 8 | **BE Piscines SA** — bepiscines.ch | Genève | « Créateur et constructeur de piscine de père en fils depuis 1960 » | info@bepiscines.ch |
+| 9 | **Astro Piscines SA** — astro-piscines.ch | Chêne-Bourg (GE), magasin à Nyon | « Constructeur de piscine en Suisse depuis 1974 » (grande entreprise) | info@astro-piscines.ch |
+- À vérifier (site non trouvé, e-mail vu seulement sur local.ch) : **AquaZen Sàrl** (Montbrelloz FR, « construction de piscines sur mesure en béton armé », info@aqua-zen.ch), SM Piscines (Le Lignon GE, info@smpiscine.ch), Piscines Spas Valais - Christophe Legat (Sion, info@piscinesspasvalais.ch), reflet bleu Sàrl (Delémont, info@refletbleu.ch), Astier-Justin Piscines & Spas (Martigny, info@astier-justin.ch).
+- Écartés : Jean-Claude Parisod SA (paysagiste), Swiss SPA-Pool (a déjà un configurateur de devis), Desjoyaux Crissier (vente), traitement de l'eau, abris de piscine.
+

@@ -66,7 +66,7 @@ function cuire(groupe) {
   return cuit;
 }
 
-export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0, terrasse = false }) {
+export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0, terrasse = false, dalleTerrasse = true }) {
   const racine = new THREE.Group();
   const dyn = new THREE.Group(); // reconstruit à chaque réglage
   racine.add(dyn);
@@ -653,12 +653,15 @@ export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0,
       const zFinT = Z0 + L + 2.2;
       if (adosse === 'gauche') xA2 += 0.8;
       if (adosse === 'droite') xA1 -= 0.8;
-      dalle(xA1, zDebT, xA2, zFinT, matDalles, 0.03, 3);
       const bT = 0.12;
-      if (adosse !== 'gauche') bordure(xA1 - bT, zDebT - bT, xA1, zFinT + bT, matBordureT);
-      if (adosse !== 'droite') bordure(xA2, zDebT - bT, xA2 + bT, zFinT + bT, matBordureT);
-      bordure(xA1, zFinT, xA2, zFinT + bT, matBordureT);
-      bordure(xA1, zDebT - bT, xA2, zDebT, matBordureT);
+      // (produit « terrasse » : le plancher est le produit lui-même, pas de dallage dessous ni autour)
+      if (dalleTerrasse) {
+        dalle(xA1, zDebT, xA2, zFinT, matDalles, 0.03, 3);
+        if (adosse !== 'gauche') bordure(xA1 - bT, zDebT - bT, xA1, zFinT + bT, matBordureT);
+        if (adosse !== 'droite') bordure(xA2, zDebT - bT, xA2 + bT, zFinT + bT, matBordureT);
+        bordure(xA1, zFinT, xA2, zFinT + bT, matBordureT);
+        bordure(xA1, zDebT - bT, xA2, zDebT, matBordureT);
+      }
       // Chemin vers la rue, côté libre (à l'opposé de la maison)
       const sC = adosse === 'droite' ? -1 : 1;
       const xBord = sC > 0 ? xA2 : xA1;

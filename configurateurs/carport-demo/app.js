@@ -36,6 +36,22 @@ const DECOR = CONFIG.decor !== false;
 const TERRASSE_DECOR = DECOR && CONFIG.sol === 'terrasse';
 // Modèle 3D dédié (produits3d.js) : 'veranda' ou 'pergolaBio' ; sinon charpente générique (carport, pergola bois)
 const MODELE = CONFIG.modele3d ?? null;
+// Terrasse (04.11.2026) : plancher bois / composite / grès, marches et garde-corps (prix et textes propres)
+const TERRASSE = CONFIG.type === 'terrasse';
+// Piscine (05.11.2026) : bassin creusé dans la pelouse, modèle dédié (produits3d.js, `piscine`)
+const PISCINE = CONFIG.type === 'piscine';
+// Largeur occupée autour du bassin de chaque côté : margelle + plage (si ce côté a une plage)
+function abordsPiscine() {
+  const m = CONFIG.margelle ?? 0.3;
+  const p = CONFIG.largeurPlage ?? 1.2;
+  return {
+    arriere: m + (state.paroiArriere ? p : 0), avant: m + (state.paroiAvant ? p : 0),
+    gauche: m + (state.paroiGauche ? p : 0), droite: m + (state.paroiDroite ? p : 0),
+  };
+}
+// Côté des marches : côté libre opposé à la maison (ou devant si la terrasse est isolée)
+const coteMarches = (adosse) => (adosse === 'gauche' ? 'paroiDroite' : adosse === 'droite' ? 'paroiGauche' : 'paroiAvant');
+const nbMarches = (H) => (H <= (CONFIG.hauteurSansMarche ?? 0.2) ? 0 : Math.ceil(H / (CONFIG.hauteurMarche ?? 0.18)) - 1 || 1);
 // Équipements possibles (chacun s'affiche seulement si l'entreprise le propose : `equipements` dans config.js)
 const TOUS_EQUIPEMENTS = ['gouttieres', 'led', 'borne', 'chauffage', 'storeToit'];
 
@@ -168,8 +184,88 @@ function geometrie() {
 
 // ---------- Prix ----------
 
+// Terrasse : revêtement + sous-structure (plus chère quand le plancher est haut), habillage des côtés, marches, garde-corps
+function prixTerrasse(g) {
+  const T = CONFIG.tarifs;
+  const pose = CONFIG.bois[state.bois];
+  const couv = CONFIG.couvertures[state.couverture];
+  const surface = g.W * g.L;
+  const lignes = [];
+  lignes.push([`${couv.label} · ${fmtM2(surface)}`, surface * T.revetementM2[state.couverture] * pose.facteur]);
+  lignes.push([`Sous-structure, plancher à ${fmtM(g.H)}`, surface * (T.structureM2 + g.H * T.structureHauteurM2)]);
+  // Côtés libres (pas contre la maison) : longueur et habillage quand le plancher est surélevé
+  const cotes = { paroiArriere: g.W, paroiAvant: g.W, paroiGauche: g.L, paroiDroite: g.L };
+  const libre = (cle) => !(cle === 'paroiGauche' && g.maison(-1)) && !(cle === 'paroiDroite' && g.maison(1));
+  const perimetreLibre = Object.keys(cotes).filter(libre).reduce((s, c) => s + cotes[c], 0);
+  if (g.H > 0.12) lignes.push([`Habillage des côtés · ${fmtM(perimetreLibre)}`, perimetreLibre * g.H * T.habillageM2]);
+  const n = nbMarches(g.H);
+  if (n) lignes.push([`Marches d'accès (${n})`, n * T.marche]);
+  const gc = CONFIG.bardages[state.bardage];
+  const ouverture = n ? (CONFIG.largeurMarches ?? 1.4) : 0;
+  let longGC = 0;
+  for (const cle of Object.keys(cotes)) {
+    if (state[cle] && libre(cle)) longGC += cotes[cle] - (cle === coteMarches(g.adosse) ? ouverture : 0);
+  }
+  if (longGC > 0) lignes.push([`${LIB.paroiLigne} ${gc.label.toLowerCase()} · ${fmtM(longGC)}`, longGC * T.gardeCorpsMl * gc.facteur]);
+  if (state.led) lignes.push(['Éclairage LED encastré', T.led]);
+  const materiel = lignes.reduce((s, [, v]) => s + v, 0);
+  lignes.push(['Livraison et pose', Math.max(T.poseMin, materiel * T.poseTaux)]);
+  const ht = lignes.reduce((s, [, v]) => s + v, 0);
+  const tva = ht * CONFIG.tva;
+  const ttc = arrondi10(ht + tva);
+  return {
+    lignes, ht, tva, ttc,
+    bas: arrondi50(ttc * (1 - CONFIG.fourchette)),
+    haut: arrondi50(ttc * (1 + CONFIG.fourchette)),
+    nbPoteaux: 0, surface, marches: n, longGC,
+  };
+}
+
+// Piscine : terrassement, bassin maçonné, revêtement, escalier, margelles, plage, filtration, options
+function prixPiscine(g) {
+  const T = CONFIG.tarifs;
+  const { W, L, H } = g;
+  const couv = CONFIG.couvertures[state.couverture];
+  const teinte = couv.teintes[state.teinteCouverture];
+  const m = CONFIG.margelle ?? 0.3;
+  const a = abordsPiscine();
+  const surface = W * L;
+  const parois = 2 * (W + L) * (H + 0.14);
+  const volume = W * L * (H + 0.35);
+  const lignes = [];
+  lignes.push([`Terrassement et évacuation · ${volume.toFixed(1).replace('.', ',')} m³`, volume * T.terrassementM3]);
+  lignes.push([`Bassin maçonné ${fmtM(L)} × ${fmtM(W)}, profondeur ${fmtM(H)}`, (surface + parois) * T.structureM2]);
+  lignes.push([`${couv.label}, ${teinte.label.toLowerCase()} · ${fmtM2(surface + parois)}`, (surface + parois) * T.revetementM2[state.couverture]]);
+  lignes.push([`Escalier ${CONFIG.toits[state.toit].label.toLowerCase()}`, T.escalier[state.toit]]);
+  const perimetre = 2 * (W + L) + 4 * m;
+  const marg = CONFIG.bois[state.bois];
+  lignes.push([`Margelles ${marg.label.toLowerCase()} · ${fmtM(perimetre)}`, perimetre * T.margelleMl * marg.facteur]);
+  const aire = (W + a.gauche + a.droite) * (L + a.arriere + a.avant) - (W + 2 * m) * (L + 2 * m);
+  const plage = CONFIG.bardages[state.bardage];
+  if (aire > 0.01) lignes.push([`Plage ${plage.label.toLowerCase()} · ${fmtM2(aire)}`, aire * T.plageM2 * plage.facteur]);
+  lignes.push(['Filtration, local technique et skimmers', T.filtration]);
+  if (state.gouttieres) lignes.push(['Volet roulant immergé motorisé', T.voletBase + surface * T.voletM2]);
+  const spots = nbSpotsPiscine(L);
+  if (state.led) lignes.push([`Éclairage LED sous l'eau (${spots} spots)`, spots * T.spot]);
+  if (state.chauffage) lignes.push(['Pompe à chaleur', T.pac]);
+  if (state.borne) lignes.push(['Nage à contre-courant', T.nage]);
+  lignes.push(['Mise en eau et mise en service', T.miseEnService]);
+  const ht = lignes.reduce((s, [, v]) => s + v, 0);
+  const tva = ht * CONFIG.tva;
+  const ttc = arrondi10(ht + tva);
+  return {
+    lignes, ht, tva, ttc,
+    bas: arrondi50(ttc * (1 - CONFIG.fourchette)),
+    haut: arrondi50(ttc * (1 + CONFIG.fourchette)),
+    nbPoteaux: 0, surface, aire, spots, volumeEau: surface * H,
+  };
+}
+function nbSpotsPiscine(L) { return L > 8.5 ? 3 : 2; }
+
 function calculerPrix() {
   const g = geometrie();
+  if (TERRASSE) return prixTerrasse(g);
+  if (PISCINE) return prixPiscine(g);
   const T = CONFIG.tarifs;
   const toit = CONFIG.toits[state.toit];
   const bois = CONFIG.bois[state.bois];
@@ -239,7 +335,7 @@ const viewer = $('#viewer');
 const cotesEl = $('#cotes');
 let renderer;
 try {
-  renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+  renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true, stencil: true });
 } catch {
   $('#erreur-3d').hidden = false;
 }
@@ -525,12 +621,18 @@ matSol.onBeforeCompile = (s) => {
 };
 const sol = new THREE.Mesh(new THREE.PlaneGeometry(TAILLE_SOL, TAILLE_SOL), matSol);
 sol.renderOrder = -1;
+// Piscine : la pelouse n'est pas dessinée là où le bassin « troue » le sol (masque stencil posé par produits3d.js)
+if (PISCINE) {
+  matSol.stencilWrite = true;
+  matSol.stencilRef = 1;
+  matSol.stencilFunc = THREE.NotEqualStencilFunc;
+}
 sol.rotation.x = -Math.PI / 2;
 sol.receiveShadow = true;
 scene.add(sol);
 
 const decor = DECOR
-  ? creerDecor({ textureCanvas, texPaves, matBordure, petit: PETIT_APPAREIL, X0: X_GAUCHE, Z0: Z_ARRIERE, terrasse: CONFIG.sol === 'terrasse' })
+  ? creerDecor({ textureCanvas, texPaves, matBordure, petit: PETIT_APPAREIL, X0: X_GAUCHE, Z0: Z_ARRIERE, terrasse: CONFIG.sol === 'terrasse', dalleTerrasse: !TERRASSE && !PISCINE })
   : null;
 if (decor) scene.add(decor.groupe);
 
@@ -1025,6 +1127,7 @@ function construire() {
   ombreToit.receiveShadow = false;
   ombreToit.renderOrder = 1;
   matOmbreToit.opacity = 0.26 + fermes * 0.05;
+  if (PISCINE) ombreToit.visible = false; // (sinon ce voile assombrirait l'eau)
 
   if (decor) decor.maj(g);
   else if (g.adosse !== 'non') facade(g);
@@ -1361,6 +1464,31 @@ function construireCotes(g) {
     }
   };
   const y = Y_SOL + 0.02;
+  if (PISCINE) {
+    // Largeur et longueur du bassin hors des plages, profondeur d'eau dans l'angle avant droit
+    const a = abordsPiscine();
+    const zL = L / 2 + a.avant + 0.45;
+    const xL = W / 2 + a.droite + 0.45;
+    const yE = Y_SOL + 0.05 - 0.14;
+    const xP = W / 2 - 0.35;
+    const zP = L / 2 - 0.35;
+    ligne(new THREE.Vector3(-W / 2, y, zL), new THREE.Vector3(W / 2, y, zL), new THREE.Vector3(0, 0, 1));
+    ligne(new THREE.Vector3(xL, y, -L / 2), new THREE.Vector3(xL, y, L / 2), new THREE.Vector3(1, 0, 0));
+    ligne(new THREE.Vector3(xP, yE, zP), new THREE.Vector3(xP, yE - H, zP), new THREE.Vector3(1, 0, 0));
+    groupeCotes.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(points), matCote));
+    const etiq = (texte, pos) => {
+      const el = document.createElement('span');
+      el.className = 'cote';
+      el.textContent = texte;
+      cotesEl.append(el);
+      etiquettes.push({ el, pos: pos.add(g.decalage) });
+    };
+    etiq(fmtM(W), new THREE.Vector3(0, y, zL));
+    etiq(fmtM(L), new THREE.Vector3(xL, y, 0));
+    etiq(`${LIB.passage} ${fmtM(H)}`, new THREE.Vector3(xP, yE - H / 2, zP));
+    groupeCotes.visible = cotesVisibles;
+    return;
+  }
   const zLargeur = L / 2 + OVZ + 0.6;
   // Cotes du côté libre (jamais dans la façade)
   const sProf = g.maison(1) ? -1 : 1;
@@ -1425,6 +1553,10 @@ let tailleCadree = 0;
 
 function tailleScene() {
   const g = geometrie();
+  if (PISCINE) {
+    const a = abordsPiscine();
+    return Math.max(g.W + a.gauche + a.droite + 1, g.L + a.arriere + a.avant + 0.5, 6);
+  }
   return Math.max(g.W + 2, g.L + 1.5, 6);
 }
 
@@ -1432,16 +1564,19 @@ function poseVue(nom) {
   const g = geometrie();
   const taille = tailleScene();
   // Avec la maison : un peu plus de recul et visée plus haute pour voir le carport devant la maison
-  const cible = g.decalage.clone().add(new THREE.Vector3(DECOR && g.adosse === 'non' ? -0.6 : 0, g.H * 0.55 + (DECOR ? 0.7 : 0), DECOR && g.adosse === 'non' ? -0.4 : 0.6));
+  const cible = PISCINE
+    ? g.decalage.clone().add(new THREE.Vector3(0, -0.2, 0.4)) // piscine : on vise le bassin (pas de hauteur au-dessus du sol)
+    : g.decalage.clone().add(new THREE.Vector3(DECOR && g.adosse === 'non' ? -0.6 : 0, g.H * 0.55 + (DECOR ? 0.7 : 0), DECOR && g.adosse === 'non' ? -0.4 : 0.6));
   const etroit = viewer.clientWidth < viewer.clientHeight * 1.1;
   // (terrasse + produit autoportant : moins de recul, sinon la caméra passe derrière les arbres du jardin)
   const recul = taille * (etroit ? 2.3 : 1.8)
-    * (TERRASSE_DECOR ? (g.adosse !== 'non' ? 1.55 : 1.2) : DECOR ? 1.75 : g.adosse !== 'non' ? 1.15 : 1);
+    * (PISCINE ? 1.0 : TERRASSE_DECOR ? (g.adosse !== 'non' ? 1.55 : 1.2) : DECOR ? 1.75 : g.adosse !== 'non' ? 1.15 : 1);
   // Vue 3/4 du côté libre quand la maison est à droite
   const cote = g.adosse === 'droite' ? -1 : 1;
   let dir;
   if (nom === 'face') dir = new THREE.Vector3(0, 0.22, 1);
   else if (nom === 'dessus') dir = new THREE.Vector3(0, 1.45, 0.01);
+  else if (PISCINE) dir = new THREE.Vector3(0.8, 0.78, 0.95); // piscine : vue plongeante, on voit le fond du bassin
   else if (TERRASSE_DECOR && g.adosse !== 'non') dir = new THREE.Vector3(1.0 * cote, 0.34, 0.55); // terrasse : plus de face sur la façade
   else dir = new THREE.Vector3(0.72 * cote, DECOR ? 0.3 : 0.42, 0.85);
   const pos = cible.clone().add(dir.normalize().multiplyScalar(recul * (nom === 'dessus' ? 1.3 : 1)));
@@ -1581,6 +1716,10 @@ if (!renderer) chargementEl.hidden = true;
 // ---------- Panneau de réglages ----------
 
 const ICONES_TOIT = {
+  // Escaliers de piscine (vus de dessus)
+  droit: '<svg viewBox="0 0 46 26"><rect x="6" y="4" width="34" height="18"/><path d="M6 8h34M6 12h34"/></svg>',
+  angle: '<svg viewBox="0 0 46 26"><rect x="6" y="4" width="34" height="18"/><path d="M6 13a9 9 0 0 0 9-9M6 9a5 5 0 0 0 5-5"/></svg>',
+  banquette: '<svg viewBox="0 0 46 26"><rect x="6" y="4" width="34" height="18"/><path d="M6 8h12M6 12h12M18 4v8M18 7h22"/></svg>',
   plat: '<svg viewBox="0 0 46 26"><path d="M4 9h38M8 9v15M38 9v15"/></svg>',
   unPan: '<svg viewBox="0 0 46 26"><path d="M4 5l38 6M8 6v18M38 10v14"/></svg>',
   deuxPans: '<svg viewBox="0 0 46 26"><path d="M3 13L23 3l20 10M8 11v13M38 11v13"/></svg>',
@@ -1705,7 +1844,7 @@ function majListesDependantes() {
     $(sel).hidden = n < 2;
     $(sel).previousElementSibling.hidden = n < 2;
   }
-  $('#aide-toit').hidden = state.adosse === 'non';
+  $('#aide-toit').hidden = state.adosse === 'non' || TERRASSE;
 }
 
 function majRadios(prixActuel) {
@@ -1860,6 +1999,29 @@ function lignesConfig() {
   const couv = CONFIG.couvertures[state.couverture];
   const parois = paroisFermees(g);
   const implantation = g.adosse === 'non' ? 'Isolé (4 côtés libres)' : `Contre la maison, façade à ${g.adosse}`;
+  if (PISCINE) {
+    return [
+      ['Bassin', `${fmtM(g.L)} × ${fmtM(g.W)} · ${fmtM2(p.surface)} · profondeur d'eau ${fmtM(g.H)}`],
+      ['Escalier', CONFIG.toits[state.toit].label],
+      ['Revêtement', `${couv.label}, ${couv.teintes[state.teinteCouverture].label.toLowerCase()}`],
+      ['Margelles', CONFIG.bois[state.bois].label],
+      ['Plage', parois.length ? `${parois.join(', ')} · ${CONFIG.bardages[state.bardage].label.toLowerCase()} · ${fmtM2(p.aire)}` : 'aucune'],
+      ['Équipements', [state.gouttieres && 'volet roulant immergé', state.led && `éclairage LED (${p.spots} spots)`,
+        state.chauffage && 'pompe à chaleur', state.borne && 'nage à contre-courant', 'filtration et local technique',
+        ...(CONFIG.inclus ?? [])].filter(Boolean).join(', ')],
+    ];
+  }
+  if (TERRASSE) {
+    return [
+      ['Dimensions', `${fmtM(g.Dc)} ${LIB.profondeurAide} × ${fmtM(g.Wv)} ${LIB.largeurAide} · ${fmtM2(p.surface)}`],
+      ['Hauteur du plancher', `${fmtM(g.H)}${p.marches ? ` · ${p.marches} marche${p.marches > 1 ? 's' : ''} d'accès` : ''}`],
+      ['Implantation', g.adosse === 'non' ? 'Isolée (4 côtés libres)' : `Contre la maison, façade à ${g.adosse}`],
+      ['Revêtement', `${couv.label}, ${couv.teintes[state.teinteCouverture].label.toLowerCase()}`],
+      [LIB.finitionLigne, CONFIG.bois[state.bois].label],
+      [LIB.parois, parois.length ? `${parois.join(', ')} · ${CONFIG.bardages[state.bardage].label.toLowerCase()}` : 'aucun'],
+      ['Équipements', [state.led && 'éclairage LED encastré', ...(CONFIG.inclus ?? [])].filter(Boolean).join(', ') || 'aucun'],
+    ];
+  }
   return [
     ['Dimensions', INVERSER
       ? `${fmtM(g.Dc)} ${LIB.profondeurAide} × ${fmtM(g.Wv)} ${LIB.largeurAide} · ${LIB.passage} ${fmtM(g.H)}`
@@ -1881,6 +2043,34 @@ function resume() {
   const g = geometrie();
   const couv = CONFIG.couvertures[state.couverture];
   const parois = paroisFermees(g);
+  if (PISCINE) {
+    return [
+      `Bassin ${fmtM(g.L)} × ${fmtM(g.W)}`,
+      `Profondeur ${fmtM(g.H)}`,
+      `Escalier ${CONFIG.toits[state.toit].label.toLowerCase()}`,
+      `${couv.label} ${couv.teintes[state.teinteCouverture].label.toLowerCase()}`,
+      `Margelles ${CONFIG.bois[state.bois].label.toLowerCase()}`,
+      parois.length ? `Plage ${CONFIG.bardages[state.bardage].label.toLowerCase()} : ${parois.join(', ')}` : 'Sans plage',
+      state.gouttieres ? 'Volet immergé' : null,
+      state.led ? 'LED' : null,
+      state.chauffage ? 'Pompe à chaleur' : null,
+      state.borne ? 'Contre-courant' : null,
+    ].filter(Boolean);
+  }
+  if (TERRASSE) {
+    const n = nbMarches(g.H);
+    return [
+      dimsTexte(),
+      `Plancher à ${fmtM(g.H)}`,
+      g.adosse !== 'non' ? `Contre la maison (${g.adosse})` : null,
+      `${couv.label} ${couv.teintes[state.teinteCouverture].label.toLowerCase()}`,
+      CONFIG.bois[state.bois].label,
+      n ? `${n} marche${n > 1 ? 's' : ''}` : null,
+      parois.length ? `${LIB.parois} : ${parois.join(', ')}` : `Sans ${LIB.parois.toLowerCase()}`,
+      parois.length ? CONFIG.bardages[state.bardage].label : null,
+      state.led ? 'LED' : null,
+    ].filter(Boolean);
+  }
   return [
     dimsTexte(),
     g.adosse !== 'non' ? `Contre la maison (${g.adosse})` : null,
@@ -1931,8 +2121,11 @@ function majPrix() {
   ajout(`TVA ${(CONFIG.tva * 100).toFixed(1).replace('.', ',')} %`, fmtCHF(p.tva));
   ajout('Total TTC', fmtCHF(p.ttc), 'fort');
 
-  $('#note-technique').textContent =
-    `${p.nbPoteaux} poteaux · portée max ${fmtM(CONFIG.porteeMax)} · surface couverte ${fmtM2(p.surface)}`;
+  $('#note-technique').textContent = PISCINE
+    ? `Plan d'eau ${fmtM2(p.surface)} · environ ${Math.round(p.volumeEau)} m³ d'eau`
+    : TERRASSE
+    ? `Surface ${fmtM2(p.surface)}${p.marches ? ` · ${p.marches} marche${p.marches > 1 ? 's' : ''} d'accès` : ''}${CONFIG.noteGardeCorps && state.hauteur >= (CONFIG.hauteurGardeCorps ?? 1) ? ` · ${CONFIG.noteGardeCorps}` : ''}`
+    : `${p.nbPoteaux} poteaux · portée max ${fmtM(CONFIG.porteeMax)} · surface couverte ${fmtM2(p.surface)}`;
   return p.ttc;
 }
 
@@ -2007,6 +2200,16 @@ if (INVERSER) {
   const etapeToit = $('#toits').closest('.etape');
   etapeToit.dataset.court = LIB.toitureCourt;
   etapeToit.querySelector('h2').lastChild.textContent = LIB.toiture;
+  if (LIB.forme) $('#toits').previousElementSibling.textContent = LIB.forme;
+}
+// Libellés des options propres au produit (piscine : volet, pompe à chaleur, contre-courant)
+for (const [cle, [titre, aide]] of Object.entries(CONFIG.libellesOptions ?? {})) {
+  const span = $(`[data-cle="${cle}"]`)?.closest('.option').querySelector('span');
+  if (!span) continue;
+  span.firstChild.textContent = `${titre} `;
+  let small = span.querySelector('small');
+  if (!small) { small = document.createElement('small'); span.append(small); }
+  small.textContent = aide;
 }
 if (LIB.ledAide) $('[data-cle="led"]')?.closest('.option').querySelector('small').replaceChildren(LIB.ledAide);
 // Paroi avant fermable (pergola bioclimatique : 4 côtés) ; sinon l'entrée reste ouverte
@@ -2031,6 +2234,15 @@ if (!LOCAL) {
   $('[data-cle="rangement"]').closest('.option').remove();
   $('#choix-local').remove();
 }
+// Piscine : une seule implantation (dans le jardin) → étape retirée (ses éléments restent cachés pour le moteur)
+if (PISCINE) {
+  const etapeImpl = $('#implantations').closest('.etape');
+  const cache = document.createElement('div');
+  cache.hidden = true;
+  cache.append(...etapeImpl.children);
+  document.body.append(cache);
+  etapeImpl.remove();
+}
 // Aucun véhicule à afficher : étape retirée
 if (!VEHICULES) [...document.querySelectorAll('.etape')].find((e) => e.dataset.court === 'Véhicule')?.remove();
 const etapeFinition = $('#bois').closest('.etape');
@@ -2038,6 +2250,8 @@ etapeFinition.dataset.court = LIB.finitionCourt;
 etapeFinition.querySelector('h2').lastChild.textContent = LIB.finition;
 $('#bois').setAttribute('aria-label', LIB.finition);
 $('#bardages').previousElementSibling.textContent = LIB.bardage;
+if (LIB.couverture) $('#couvertures').previousElementSibling.textContent = LIB.couverture;
+if (LIB.teinte) $('#teintes').previousElementSibling.firstChild.textContent = `${LIB.teinte} `;
 $('#bardages').setAttribute('aria-label', LIB.bardage);
 const optLocal = $('[data-cle="rangement"]')?.closest('.option');
 if (optLocal) optLocal.querySelector('span').firstChild.textContent = `${LIB.rangement} `;

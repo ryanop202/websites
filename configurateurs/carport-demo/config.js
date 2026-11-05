@@ -5,6 +5,8 @@ import { CONFIG as carport } from './produits/carport.js';
 import { CONFIG as pergola } from './produits/pergola.js';
 import { CONFIG as veranda } from './produits/veranda.js';
 import { CONFIG as pergolaBio } from './produits/pergola-bio.js';
+import { CONFIG as terrasse } from './produits/terrasse.js';
+import { CONFIG as piscine } from './produits/piscine.js';
 
 // Cartes de l'étape « Produit » (icône dessinée en SVG, dans l'ordre d'affichage)
 export const PRODUITS = {
@@ -23,6 +25,14 @@ export const PRODUITS = {
   veranda: {
     label: 'Véranda', aide: 'Une pièce vitrée en aluminium, accolée à la façade.',
     icone: '<path d="M3 20h18M4 20V8l16-3v15M4 8h16M9 20V8M14 20V7"/>', config: veranda, exemple: '30 750',
+  },
+  terrasse: {
+    label: 'Terrasse', aide: 'Lames bois ou composite, dalles de grès, marches et garde-corps.',
+    icone: '<path d="M2 15h20M4 15v5M20 15v5M4 18h16M6 12h12M8 9h8"/>', config: terrasse, exemple: '8 330',
+  },
+  piscine: {
+    label: 'Piscine', aide: 'Bassin enterré, liner ou mosaïque, margelles et plage, volet immergé en option.',
+    icone: '<path d="M3 9h18v9H3zM6 12c1.5 1 3 1 4.5 0s3-1 4.5 0 3 1 4.5 0M7 9V5h2M7 7h2"/>', config: piscine, exemple: '70 630',
   },
 };
 

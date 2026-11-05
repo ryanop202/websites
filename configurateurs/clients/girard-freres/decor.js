@@ -66,7 +66,7 @@ function cuire(groupe) {
   return cuit;
 }
 
-export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0 }) {
+export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0, terrasse = false }) {
   const racine = new THREE.Group();
   const dyn = new THREE.Group(); // reconstruit à chaque réglage
   racine.add(dyn);
@@ -142,22 +142,49 @@ export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0 
   const matMarquise = new THREE.MeshStandardMaterial({ color: '#9FB0B8', roughness: 0.1, metalness: 0.3, transparent: true, opacity: 0.55 });
   const matPot = new THREE.MeshStandardMaterial({ color: '#9C4A30', roughness: 0.85 });
 
-  // Dalles claires de la terrasse
-  const texDalles = textureCanvas(512, 512, (g, l, h) => {
-    g.fillStyle = '#B8B1A3';
+  // Dalles claires de la terrasse : grand format 100 × 50 cm posées à joints décalés, pierre légèrement nuancée
+  const texDalles = textureCanvas(1024, 1024, (g, l, h) => {
+    g.fillStyle = '#A9A397';
     g.fillRect(0, 0, l, h);
-    const n = 5;
-    const c = l / n;
-    for (let i = 0; i < n; i++) {
-      for (let j = 0; j < n * 2; j++) {
-        const v = Math.random() * 14 - 7;
-        g.fillStyle = `rgb(${222 + v},${215 + v},${200 + v})`;
-        g.fillRect(i * c + 1.5 + (j % 2) * c / 2, j * c / 2 + 1.5, c - 3, c / 2 - 3);
-        g.fillRect(i * c + 1.5 + (j % 2) * c / 2 - l, j * c / 2 + 1.5, c - 3, c / 2 - 3);
+    const cols = 3;
+    const rangs = 6;
+    const cw = l / cols;
+    const rh = h / rangs;
+    for (let r = 0; r < rangs; r++) {
+      const dec = (r % 2) * cw / 2;
+      for (let c = -1; c <= cols; c++) {
+        const x = c * cw + dec + 2;
+        const y = r * rh + 2;
+        const v = Math.random() * 12 - 6;
+        g.fillStyle = `rgb(${226 + v},${219 + v},${205 + v})`;
+        g.fillRect(x, y, cw - 4, rh - 4);
+        // Nuances de la pierre (taches douces) et grain fin
+        for (let k = 0; k < 5; k++) {
+          const px = x + Math.random() * cw;
+          const py = y + Math.random() * rh;
+          const rg = g.createRadialGradient(px, py, 0, px, py, 30 + Math.random() * 50);
+          rg.addColorStop(0, `rgba(${Math.random() < 0.5 ? '120,110,95' : '255,250,240'},0.10)`);
+          rg.addColorStop(1, 'rgba(0,0,0,0)');
+          g.fillStyle = rg;
+          g.save();
+          g.beginPath();
+          g.rect(x, y, cw - 4, rh - 4);
+          g.clip();
+          g.fillRect(px - 80, py - 80, 160, 160);
+          g.restore();
+        }
       }
     }
+    for (let i = 0; i < 14000; i++) {
+      g.fillStyle = `rgba(${Math.random() < 0.5 ? '0,0,0' : '255,255,255'},0.05)`;
+      g.fillRect(Math.random() * l, Math.random() * h, 1.5, 1.5);
+    }
   });
-  const matDalles = new THREE.MeshStandardMaterial({ map: texDalles, bumpMap: texDalles, bumpScale: 0.8, roughness: 0.85 });
+  // (reflet d'ambiance réduit : sinon les ombres du soleil sont délavées sur les dalles claires)
+  // (teinte un peu foncée : une dalle presque blanche « écrase » les ombres une fois le rendu ajusté)
+  const matDalles = new THREE.MeshStandardMaterial({ color: '#CDC5B6', map: texDalles, bumpMap: texDalles, bumpScale: 0.6, roughness: 0.8, envMapIntensity: 0.4 });
+  // Bordure foncée autour de la terrasse
+  const matBordureT = new THREE.MeshStandardMaterial({ color: '#5A5C5F', roughness: 0.85 });
   const matAllee = new THREE.MeshStandardMaterial({ map: texPaves, bumpMap: texPaves, bumpScale: 1.2, roughness: 0.92 });
 
   const matVegetal = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.95, envMapIntensity: 0.35 });
@@ -271,12 +298,19 @@ export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0 
   const rngProto = alea(7);
   const protoArbres = Array.from({ length: 4 }, (_, i) => geoArbre(rngProto, 1 + i * 0.12));
   const protoBuissons = [geoBuisson(rngProto, 1, true), geoBuisson(rngProto, 1.1, true), geoBuisson(rngProto, 0.9, false)];
-  const geoLavande = new THREE.ConeGeometry(0.035, 0.3, 5);
-  geoLavande.translate(0, 0.38, 0);
-  const geoTouffe = new THREE.SphereGeometry(0.17, 8, 6);
-  geoTouffe.scale(1, 0.75, 1);
-  geoTouffe.translate(0, 0.12, 0);
-  for (const geo of [...protoArbres, ...protoBuissons, geoLavande, geoTouffe]) geo.userData.partage = true;
+  // Brin de lavande : tige fine gris-vert + épi violet
+  const tige = new THREE.CylinderGeometry(0.004, 0.006, 0.36, 4);
+  tige.translate(0, 0.18, 0);
+  const epi = new THREE.CapsuleGeometry(0.014, 0.085, 2, 6);
+  epi.translate(0, 0.4, 0);
+  const geoLavande = fusionner([{ geo: tige, couleur: '#7C8A62' }, { geo: epi, couleur: '#7E68B6' }]);
+  // Touffe de feuillage gris-vert (bosselée)
+  const geoTouffe = fusionner(boules(alea(5), [[0, 0.11, 0, 0.16], [0.08, 0.09, 0.05, 0.11], [-0.07, 0.09, -0.04, 0.11]], '#7F9470', 0.75));
+  // Buis taillé en boule
+  const geoBuis = new THREE.SphereGeometry(0.3, 24, 16);
+  geoBuis.scale(1, 0.9, 1);
+  geoBuis.translate(0, 0.27, 0);
+  for (const geo of [...protoArbres, ...protoBuissons, geoLavande, geoTouffe, geoBuis]) geo.userData.partage = true;
 
   function poser(geo, mat, x, y, z, rotY = 0, ombre = true, parent = dyn) {
     const m = new THREE.Mesh(geo, mat);
@@ -478,8 +512,8 @@ export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0 
     dyn.add(m);
     return m;
   }
-  function bordure(x1, z1, x2, z2) {
-    const b = new THREE.Mesh(new THREE.BoxGeometry(Math.max(0.08, x2 - x1), 0.07, Math.max(0.08, z2 - z1)), matBordure);
+  function bordure(x1, z1, x2, z2, mat = matBordure) {
+    const b = new THREE.Mesh(new THREE.BoxGeometry(Math.max(0.08, x2 - x1), 0.07, Math.max(0.08, z2 - z1)), mat);
     b.position.set((x1 + x2) / 2, 0.035, (z1 + z2) / 2);
     b.receiveShadow = true;
     dyn.add(b);
@@ -505,32 +539,61 @@ export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0 
       poser(protoBuissons[i % protoBuissons.length], matVegetal, px, 0.04, pz, rng(0, 6));
     }
   }
-  function lavandes(x, z1, z2, rng) {
-    const n = Math.max(0, Math.floor((z2 - z1) / 0.32));
-    if (n === 0) return;
-    const p = poser(new THREE.BoxGeometry(0.8, 0.05, z2 - z1), matPaillis, x, 0.025, (z1 + z2) / 2, 0, false);
-    p.userData.partage = false;
-    const brins = new THREE.InstancedMesh(geoLavande, matLavande, n * 9);
-    const touffes = new THREE.InstancedMesh(geoTouffe, matTouffe, n);
+  // Touffes de lavande aux points donnés (feuillage + une gerbe d'épis en éventail)
+  function touffesLavande(centres, rng) {
+    if (!centres.length) return;
+    const parTouffe = 16;
+    const brins = new THREE.InstancedMesh(geoLavande, matVegetal, centres.length * parTouffe);
+    const touffes = new THREE.InstancedMesh(geoTouffe, matVegetal, centres.length);
     const mat4 = new THREE.Matrix4();
     const q = new THREE.Quaternion();
     const e = new THREE.Euler();
     let k = 0;
-    for (let i = 0; i < n; i++) {
-      const cx = x + rng(-0.15, 0.15);
-      const cz = z1 + (i + 0.5) * (z2 - z1) / n;
-      touffes.setMatrixAt(i, mat4.compose(new THREE.Vector3(cx, 0, cz), q.identity(), new THREE.Vector3(1, 1, 1)));
-      for (let j = 0; j < 9; j++) {
-        e.set(rng(-0.35, 0.35), 0, rng(-0.35, 0.35));
-        brins.setMatrixAt(k++, mat4.compose(new THREE.Vector3(cx + rng(-0.12, 0.12), 0, cz + rng(-0.12, 0.12)), q.setFromEuler(e), new THREE.Vector3(1, rng(0.8, 1.25), 1)));
+    centres.forEach(([cx, cz], i) => {
+      const s = rng(0.85, 1.15);
+      touffes.setMatrixAt(i, mat4.compose(new THREE.Vector3(cx, 0, cz), q.setFromEuler(e.set(0, rng(0, 6), 0)), new THREE.Vector3(s, s, s)));
+      for (let j = 0; j < parTouffe; j++) {
+        const a = rng(0, Math.PI * 2);
+        const ouv = rng(0.08, 0.5);
+        e.set(Math.cos(a) * ouv, 0, Math.sin(a) * ouv);
+        brins.setMatrixAt(k++, mat4.compose(new THREE.Vector3(cx + rng(-0.05, 0.05), 0.04, cz + rng(-0.05, 0.05)), q.setFromEuler(e), new THREE.Vector3(1, rng(0.85, 1.25) * s, 1)));
       }
-    }
+    });
     for (const im of [brins, touffes]) {
       im.castShadow = true;
       im.receiveShadow = true;
       im.userData.partage = true;
       dyn.add(im);
     }
+  }
+  function lavandes(x, z1, z2, rng) {
+    const n = Math.max(0, Math.floor((z2 - z1) / 0.32));
+    if (n === 0) return;
+    const p = poser(new THREE.BoxGeometry(0.8, 0.05, z2 - z1), matPaillis, x, 0.025, (z1 + z2) / 2, 0, false);
+    p.userData.partage = false;
+    touffesLavande(Array.from({ length: n }, (_, i) => [x + rng(-0.15, 0.15), z1 + (i + 0.5) * (z2 - z1) / n]), rng);
+  }
+  // Plate-bande le long d'un bord : paillis, lavandes en quinconce, buis en boule aux extrémités et au milieu.
+  // u1 → u2 le long du bord, « v » = position du milieu de la bande ; axe 'x' (bord selon x) ou 'z'
+  function plateBande(u1, u2, v, prof, rng, axe = 'x') {
+    const l = u2 - u1;
+    if (l < 1.2) return;
+    const pt = (u, w) => (axe === 'x' ? [u, w] : [w, u]);
+    const [cx, cz] = pt((u1 + u2) / 2, v);
+    const geo = axe === 'x' ? new THREE.BoxGeometry(l, 0.05, prof) : new THREE.BoxGeometry(prof, 0.05, l);
+    const p = poser(geo, matPaillis, cx, 0.025, cz, 0, false);
+    p.userData.partage = false;
+    const buis = l > 3 ? [u1 + 0.4, u2 - 0.4, (u1 + u2) / 2] : [u1 + 0.4];
+    for (const b of buis) {
+      const [bx, bz] = pt(b, v + rng(-0.05, 0.05));
+      poser(geoBuis, matHaie, bx, 0.03, bz, rng(0, 6)).scale.setScalar(rng(0.85, 1.1));
+    }
+    const centres = [];
+    for (let u = u1 + 0.35; u < u2 - 0.3; u += 0.36) {
+      if (buis.some((b) => Math.abs(b - u) < 0.42)) continue;
+      centres.push(pt(u + rng(-0.04, 0.04), v + (centres.length % 2 ? 0.13 : -0.13) * (prof / 0.8)));
+    }
+    touffesLavande(centres, rng);
   }
 
   // Bornes lumineuses (et leurs lumières la nuit : nombre fixe, pour ne pas recompiler les matériaux)
@@ -571,24 +634,51 @@ export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0 
       zArriereAllee = Z0 - 3.2;
     } else {
       const s = adosse === 'gauche' ? -1 : 1;
-      maison.rotation.y = -s * Math.PI / 2;
+      // Terrasse (pergola, véranda) : contre la façade arrière, centré sur la grande baie vitrée (pas devant la porte d'entrée)
+      maison.rotation.y = -s * Math.PI / 2 + (terrasse ? Math.PI : 0);
       maisonX = (s < 0 ? xC1 : xC2) + s * PM / 2;
-      maisonZ = Z0 - 0.8 + LM / 2;
+      maisonZ = terrasse ? Z0 + L / 2 : Z0 - 0.8 + LM / 2;
       zArriereAllee = Z0 - 0.8;
     }
     maison.position.set(maisonX, 0, maisonZ);
 
     // Allée pavée du fond jusqu'à la rue
-    const xA1 = adosse === 'gauche' ? xC1 : xC1 - (adosse === 'droite' ? 2.2 : 0.6);
-    const xA2 = adosse === 'droite' ? xC2 : xC2 + 2.2;
-    dalle(xA1, zArriereAllee, xA2, Z_ROUTE, matAllee, 0.025);
-    if (adosse !== 'gauche') bordure(xA1 - 0.08, zArriereAllee, xA1, Z_ROUTE);
-    if (adosse !== 'droite') bordure(xA2, zArriereAllee, xA2 + 0.08, Z_ROUTE);
+    // (terrasse : grandes dalles claires autour du produit, puis un chemin étroit vers la rue)
+    let xA1 = adosse === 'gauche' ? xC1 : xC1 - (adosse === 'droite' ? 2.2 : 0.6);
+    let xA2 = adosse === 'droite' ? xC2 : xC2 + 2.2;
+    let zDebut = Z0 + L + 1.2;
+    if (terrasse) {
+      // Grande terrasse le long de la façade (plus large et plus longue que le produit)
+      const zDebT = adosse === 'non' ? zArriereAllee : Z0 - 2.4;
+      const zFinT = Z0 + L + 2.2;
+      if (adosse === 'gauche') xA2 += 0.8;
+      if (adosse === 'droite') xA1 -= 0.8;
+      dalle(xA1, zDebT, xA2, zFinT, matDalles, 0.03, 3);
+      const bT = 0.12;
+      if (adosse !== 'gauche') bordure(xA1 - bT, zDebT - bT, xA1, zFinT + bT, matBordureT);
+      if (adosse !== 'droite') bordure(xA2, zDebT - bT, xA2 + bT, zFinT + bT, matBordureT);
+      bordure(xA1, zFinT, xA2, zFinT + bT, matBordureT);
+      bordure(xA1, zDebT - bT, xA2, zDebT, matBordureT);
+      // Chemin vers la rue, côté libre (à l'opposé de la maison)
+      const sC = adosse === 'droite' ? -1 : 1;
+      const xBord = sC > 0 ? xA2 : xA1;
+      // Plate-bande le long du bord libre de la terrasse, au premier plan de la vue (lavandes, buis)
+      plateBande(zDebT - bT, zFinT + bT, xBord + sC * (bT + 0.45), 0.8, rng, 'z');
+      xA1 = sC > 0 ? xBord - 1.3 : xBord;
+      xA2 = sC > 0 ? xBord : xBord + 1.3;
+      dalle(xA1, zFinT + 0.08, xA2, Z_ROUTE, matAllee, 0.025);
+      bordure(xA1 - 0.08, zFinT + 0.08, xA1, Z_ROUTE);
+      bordure(xA2, zFinT + 0.08, xA2 + 0.08, Z_ROUTE);
+      zDebut = zFinT + 1.0;
+    } else {
+      dalle(xA1, zArriereAllee, xA2, Z_ROUTE, matAllee, 0.025);
+      if (adosse !== 'gauche') bordure(xA1 - 0.08, zArriereAllee, xA1, Z_ROUTE);
+      if (adosse !== 'droite') bordure(xA2, zArriereAllee, xA2 + 0.08, Z_ROUTE);
+    }
 
     // Côté libre de l'allée (lavandes + bornes) : à l'opposé de la maison
     const sLibre = adosse === 'droite' ? -1 : 1;
     const xLibre = sLibre > 0 ? xA2 : xA1;
-    const zDebut = Z0 + L + 1.2;
     lavandes(xLibre + sLibre * 0.55, zDebut, Z_ROUTE - 1.2, rng);
     const bornes = [];
     for (let z = zDebut + 0.4; z < Z_ROUTE - 1 && bornes.length < 4; z += 3.4) bornes.push([xLibre + sLibre * 0.2, z]);
@@ -605,8 +695,11 @@ export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0 
     // Terrasse devant la maison (isolé) et massifs fleuris
     if (adosse === 'non') {
       const xT1 = maisonX - LM / 2 + 0.2;
-      dalle(xT1, zArriereAllee, xA1, zArriereAllee + 2.8, matDalles, 0.03, 3);
-      bordure(xT1, zArriereAllee + 2.8, xA1, zArriereAllee + 2.88);
+      // (terrasse : la grande terrasse dallée est déjà dessinée plus haut)
+      if (!terrasse) {
+        dalle(xT1, zArriereAllee, xA1, zArriereAllee + 2.8, matDalles, 0.03, 3);
+        bordure(xT1, zArriereAllee + 2.8, xA1, zArriereAllee + 2.88);
+      }
       massif(xT1 + 1.5, zArriereAllee + 3.6, 1.4, 0.55, 3, rng);
       massif(xT1 + 5.2, zArriereAllee + 3.6, 1.2, 0.5, 2, rng);
     } else {
@@ -629,7 +722,7 @@ export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0 
     const cote = adosse === 'droite' ? -1 : 1;
     const cx = X0 + W / 2;
     const cz = Z0 + L / 2;
-    const aCam = Math.atan2(0.72 * cote, 0.85);
+    const aCam = terrasse && adosse !== 'non' ? Math.atan2(1.0 * cote, 0.55) : Math.atan2(0.72 * cote, 0.85);
     const horsCouloir = (x, z) => {
       const d = Math.hypot(x - cx, z - cz);
       let ecart = Math.atan2(x - cx, z - cz) - aCam;

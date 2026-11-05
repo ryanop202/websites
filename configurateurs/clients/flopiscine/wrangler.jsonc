@@ -1,0 +1,8 @@
+{
+  // Démo FLO piscine : https://flopiscine.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "flopiscine-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "flopiscine.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

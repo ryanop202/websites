@@ -169,7 +169,7 @@ export const CONFIG = {
   tarifs: {
     terrassementM3: 85,                 // excavation et évacuation (volume du bassin + 35 cm)
     structureM2: 420,                   // bassin maçonné (fond + parois)
-    revetementM2: { liner: 70, membrane: 115, mosaique: 260 },
+    revetementM2: { liner: 70, membrane: 115, mosaique: 260, beton: 115, coque: 150, inox: 520, mineral: 150 }, // (béton, coque, inox, minéral : démos clients)
     escalier: { droit: 2400, angle: 2900, banquette: 3900 },
     margelleMl: 160,
     plageM2: 230,                       // × facteur du matériau

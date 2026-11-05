@@ -1,4 +1,4 @@
-// Démo préparée pour Abris Bois - Tout en Bois Sàrl (Leysin), 28.10.2026.
+// Carport Abris Bois (repris de la démo du 28.10.2026, passé sur la nouvelle base le 04.11.2026).
 // Modèles et dimensions repris de abrisbois.ch/carport (vérifié le 28.10.2026).
 // ⚠️ Tous les PRIX sont FICTIFS, ainsi que les options de bois et de couverture (exemples).
 // Pas de raccourci pour le modèle « asymétrique » : ses dimensions « (300 x 350) + 150 cm »
@@ -17,7 +17,6 @@ export const CONFIG = {
   // Notifications par e-mail à Ryan (utilisation de la démo, PDF, demandes).
   // Clé gratuite à créer sur web3forms.com avec contact@wibzo.ch, puis à coller ici.
   suivi: { cleWeb3Forms: '73b06b18-08c3-4c83-9ca8-42288a70dd2b' }, // clé publique, faite pour le code de la page
-  badge: 'Démo préparée pour Abris Bois · prix fictifs',
   chapo: 'Modèles standards ou sur mesure, fabrication suisse. Réglez votre carport, le prix se met à jour à chaque choix.',
   // Vert d'Abris Bois (#77AD1B), assombri pour rester lisible en texte
   couleurs: { plan: '#4E7A12', 'plan-clair': '#EAF2DC' },

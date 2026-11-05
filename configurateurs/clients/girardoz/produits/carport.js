@@ -1,4 +1,4 @@
-// Démo préparée pour Girardoz Charpente Sàrl (Villeneuve VD), 31.10.2026.
+// Démo préparée pour Girardoz Charpente Sàrl (Villeneuve VD), 31.10.2026. Passé sur la nouvelle base le 04.11.2026.
 // Repris de girardoz-charpente.ch et local.ch (vérifié le 31.10.2026) : charpente et rénovation, « Carports et abris »
 // dans leurs services local.ch. Aucune photo de couvert identifiée sur leur site.
 // ⚠️ Tous les PRIX sont FICTIFS. Aucun modèle ni dimension publiés : raccourcis = tailles courantes.
@@ -13,7 +13,6 @@ export const CONFIG = {
   },
   produit: 'Couvert à voiture en bois',
   demo: true,
-  badge: 'Démo préparée pour Girardoz Charpente · prix fictifs',
   chapo: 'Charpente et rénovation à Villeneuve. Le prix se met à jour à chaque choix.',
   libelles: {
     titre: 'Couvert à voiture sur mesure',

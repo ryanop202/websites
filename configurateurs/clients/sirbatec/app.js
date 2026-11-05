@@ -3,8 +3,15 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
-import { CONFIG } from './config.js';
+import * as CFG from './config.js';
 import { creerPDF } from './pdf.js';
+import { creerDecor } from './decor.js';
+import { creerModeles } from './produits3d.js';
+
+const { CONFIG } = CFG;
+// Assistant (démo publique) : choix du produit puis une étape à la fois, prix et Retour / Suivant en bas
+const ASSISTANT = Boolean(CONFIG.assistant);
+const PRODUITS = CFG.PRODUITS;
 
 const $ = (s) => document.querySelector(s);
 const nf = new Intl.NumberFormat('fr-CH', { maximumFractionDigits: 0 });
@@ -15,6 +22,22 @@ const fmtM2 = (v) => v.toFixed(1).replace('.', ',') + ' m²';
 const arrondi10 = (v) => Math.round(v / 10) * 10;
 const arrondi50 = (v) => Math.round(v / 50) * 50;
 const hasard = (min, max) => min + Math.random() * (max - min);
+
+// Structure en aluminium thermolaqué (sinon charpente bois) : voir `materiau` dans config.js
+const ALU = CONFIG.materiau === 'alu';
+// Véranda : pièce vitrée contre la maison, tous les côtés libres fermés et façade avant vitrée
+const VERANDA = Boolean(CONFIG.veranda);
+const EQUIPEMENTS = CONFIG.equipements ?? ['gouttieres', 'led', 'borne'];
+const LOCAL = CONFIG.local !== false; // local de rangement proposé
+const VEHICULES = Object.values(CONFIG.vehicules).some((v) => v.fichier); // au moins un véhicule à afficher
+// Maison complète + jardin autour du produit (`decor: false` dans config.js = ancien décor : façade seule)
+const DECOR = CONFIG.decor !== false;
+// Pergola, véranda : produit sur la terrasse, contre la façade arrière (vue plus de face)
+const TERRASSE_DECOR = DECOR && CONFIG.sol === 'terrasse';
+// Modèle 3D dédié (produits3d.js) : 'veranda' ou 'pergolaBio' ; sinon charpente générique (carport, pergola bois)
+const MODELE = CONFIG.modele3d ?? null;
+// Équipements possibles (chacun s'affiche seulement si l'entreprise le propose : `equipements` dans config.js)
+const TOUS_EQUIPEMENTS = ['gouttieres', 'led', 'borne', 'chauffage', 'storeToit'];
 
 // ---------- État (lu depuis le lien partagé si présent) ----------
 
@@ -37,10 +60,17 @@ function valider() {
     const v = state[cle];
     state[cle] = Number.isFinite(v) ? Math.min(max, Math.max(min, v)) : CONFIG.defauts[cle];
   }
-  if (!CONFIG.implantations[state.adosse]) state.adosse = 'non';
+  if (!CONFIG.implantations[state.adosse]) state.adosse = CONFIG.implantations.non ? 'non' : CONFIG.defauts.adosse;
+  if (VERANDA) { state.paroiArriere = true; state.paroiGauche = true; state.paroiDroite = true; }
+  if (!LOCAL) state.rangement = false;
   if (!CONFIG.toits[state.toit]) state.toit = CONFIG.defauts.toit;
   // Contre une façade, le toit descend à l'opposé de la maison : pas de 2 pans
-  if (state.adosse !== 'non' && CONFIG.toits[state.toit].faitage) state.toit = 'unPan';
+  if (state.adosse !== 'non' && CONFIG.toits[state.toit].faitage) {
+    state.toit = Object.keys(CONFIG.toits).find((id) => !CONFIG.toits[id].faitage) ?? state.toit;
+  }
+  // Équipements que l'entreprise ne propose pas : toujours désactivés (même via un lien)
+  for (const cle of TOUS_EQUIPEMENTS) if (!EQUIPEMENTS.includes(cle)) state[cle] = false;
+  if (!CONFIG.paroiAvant) state.paroiAvant = false;
   const permises = CONFIG.toits[state.toit].couvertures;
   if (!permises.includes(state.couverture)) state.couverture = permises[0];
   const teintes = CONFIG.couvertures[state.couverture].teintes;
@@ -69,8 +99,10 @@ const P = 0.12;   // section des poteaux
 const BH = 0.2;   // hauteur des sablières
 const RH = 0.14;  // hauteur des chevrons
 const RW = 0.07;  // largeur des chevrons
-const OV = 0.35;  // débord de toit sur les côtés
-const OVZ = 0.2;  // débord de toit devant / derrière
+// Alu : cadre presque à fleur des poteaux, bandeau plus haut qui cache la couverture
+const OV = ALU ? 0.03 : 0.35;  // débord de toit sur les côtés
+const OVZ = ALU ? 0.03 : 0.2;  // débord de toit devant / derrière
+const HAUT_RIVE = ALU ? 0.27 : 0.2; // hauteur des planches de rive / du bandeau alu
 const Y_SOL = 0.03; // dessus des pavés
 
 // Coin fixe : le côté gauche et l'arrière ne bougent pas, le carport s'agrandit vers la droite et vers l'avant
@@ -147,17 +179,25 @@ function calculerPrix() {
 
   const fStructure = g.adosse !== 'non' ? T.adosseFacteur : 1;
   lignes.push([`Structure, toit ${toit.label} · ${fmtM2(surface)}`, surface * T.structureM2[state.toit] * bois.facteur * fStructure]);
-  lignes.push([CONFIG.couvertures[state.couverture].label, surface * T.couvertureM2[state.couverture]]);
-  if (g.adosse !== 'non') lignes.push(['Fixation à la façade et solin', g.L * T.fixationMl]);
+  if (T.couvertureM2[state.couverture]) lignes.push([CONFIG.couvertures[state.couverture].label, surface * T.couvertureM2[state.couverture]]);
+  if (g.adosse !== 'non') lignes.push([CONFIG.couvertures[state.couverture].ouverte ? 'Fixation à la façade' : 'Fixation à la façade et solin', g.L * T.fixationMl]);
 
   const hMur = g.H + BH;
   const localCote = (s) => g.lateral && (s < 0 ? g.posL === 'gauche' : g.posL === 'droite');
-  if (state.paroiArriere && g.posL !== 'arriere') lignes.push(['Paroi arrière', g.Wv * hMur * T.paroiM2 * fBardage]);
-  if (state.paroiGauche && !g.maison(-1) && !localCote(-1)) lignes.push(['Paroi gauche', g.Dc * hMur * T.paroiM2 * fBardage]);
-  if (state.paroiDroite && !g.maison(1) && !localCote(1)) lignes.push(['Paroi droite', g.Dc * hMur * T.paroiM2 * fBardage]);
+  if (VERANDA) {
+    // Véranda : 2 pignons vitrés (perpendiculaires à la maison) + façade côté jardin en baies coulissantes
+    lignes.push(['Pignons vitrés (2 côtés)', 2 * g.W * hMur * T.paroiM2 * fBardage]);
+    lignes.push(['Façade côté jardin, baies coulissantes', g.L * hMur * T.paroiM2 * fBardage + (T.porteCoulissante ?? 0)]);
+  } else {
+    const nom = `${LIB.paroiLigne} ${CONFIG.bardages[state.bardage].label.toLowerCase()}`;
+    if (state.paroiArriere && g.posL !== 'arriere') lignes.push([`${nom} · arrière`, g.Wv * hMur * T.paroiM2 * fBardage]);
+    if (state.paroiAvant) lignes.push([`${nom} · avant`, g.Wv * hMur * T.paroiM2 * fBardage]);
+    if (state.paroiGauche && !g.maison(-1) && !localCote(-1)) lignes.push([`${nom} · gauche`, g.Dc * hMur * T.paroiM2 * fBardage]);
+    if (state.paroiDroite && !g.maison(1) && !localCote(1)) lignes.push([`${nom} · droite`, g.Dc * hMur * T.paroiM2 * fBardage]);
+  }
   if (g.S) {
     const aire = g.S * (g.lateral ? g.L : g.W);
-    lignes.push([`Local de rangement · ${fmtM(g.S)} (${CONFIG.positionsLocal[g.posL].label.toLowerCase()})`, aire * T.rangementM2 * fBardage]);
+    lignes.push([`${LIB.rangementLigne} · ${fmtM(g.S)} (${CONFIG.positionsLocal[g.posL].label.toLowerCase()})`, aire * T.rangementM2 * fBardage]);
   }
   if (state.gouttieres) {
     const n = g.deuxPans ? 2 : 1;
@@ -165,6 +205,8 @@ function calculerPrix() {
   }
   if (state.led) lignes.push(['Éclairage LED', T.led]);
   if (state.borne) lignes.push(['Préparation borne de recharge', T.borne]);
+  if (state.chauffage) lignes.push(['Chauffage infrarouge (2 radiants)', T.chauffage ?? 0]);
+  if (state.storeToit) lignes.push([`Stores de toiture motorisés · ${fmtM2(surface)}`, surface * (T.storeToitM2 ?? 0)]);
 
   const materiel = lignes.reduce((s, [, v]) => s + v, 0);
   lignes.push(['Livraison et pose', Math.max(T.poseMin, materiel * T.poseTaux)]);
@@ -206,6 +248,7 @@ const scene = new THREE.Scene();
 const sceneCotes = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 300);
 let controls;
+let envJour = null;
 
 function textureCanvas(l, h, dessiner, couleur = true) {
   const c = document.createElement('canvas');
@@ -219,47 +262,90 @@ function textureCanvas(l, h, dessiner, couleur = true) {
   return tex;
 }
 
-// Ciel : dégradé derrière la scène
-scene.background = textureCanvas(4, 256, (g, l, h) => {
+// Qualité selon l'appareil : petits écrans / peu de mémoire = ombres plus légères, moins de pixels
+const PETIT_APPAREIL = window.matchMedia('(max-width: 900px)').matches || (navigator.deviceMemory ?? 8) <= 4;
+
+// Ciel : dégradé derrière la scène (le bas = couleur de la brume, l'horizon disparaît)
+const HORIZON = '#E6E2D8';
+const cielJour = textureCanvas(4, 512, (g, l, h) => {
   const d = g.createLinearGradient(0, 0, 0, h);
-  d.addColorStop(0, '#B9C6CF');
-  d.addColorStop(0.55, '#DCDDD8');
-  d.addColorStop(1, '#E9E4D8');
+  d.addColorStop(0, '#A9BBC8');
+  d.addColorStop(0.35, '#CBD3D6');
+  d.addColorStop(0.62, '#E2E1DA');
+  d.addColorStop(1, HORIZON);
   g.fillStyle = d;
   g.fillRect(0, 0, l, h);
 });
-scene.fog = new THREE.Fog('#E3DFD4', 30, 90);
+const HORIZON_NUIT = '#2A3242';
+const cielNuit = textureCanvas(4, 512, (g, l, h) => {
+  const d = g.createLinearGradient(0, 0, 0, h);
+  d.addColorStop(0, '#0B1322');
+  d.addColorStop(0.55, '#1B2436');
+  d.addColorStop(1, HORIZON_NUIT);
+  g.fillStyle = d;
+  g.fillRect(0, 0, l, h);
+});
+scene.background = cielJour;
+// Avec la maison et le jardin, la brume commence plus loin (elle ne voile que le lointain)
+scene.fog = DECOR ? new THREE.Fog(HORIZON, 34, 110) : new THREE.Fog(HORIZON, 22, 60);
 
 if (renderer) {
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, PETIT_APPAREIL ? 1.5 : 2));
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.95;
+  // AgX : couleurs plus naturelles que ACES (le bois ne vire plus au jaune, les tuiles moins saturées)
+  renderer.toneMapping = THREE.AgXToneMapping;
+  renderer.toneMappingExposure = 1.15;
   renderer.autoClear = false;
   viewer.prepend(renderer.domElement);
 
   const pmrem = new THREE.PMREMGenerator(renderer);
-  scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+  envJour = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+  scene.environment = envJour;
 
   controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.maxPolarAngle = Math.PI * 0.47;
   controls.minDistance = 3.5;
-  controls.maxDistance = 34;
+  controls.maxDistance = DECOR ? 48 : 34;
+  controls.autoRotateSpeed = 0.7;
   controls.addEventListener('start', () => { animCam = null; });
   // Pas d'occlusion ambiante (GTAO) : elle faisait apparaître un bloc sombre sur le sol et la paroi du fond
 }
 
-scene.add(new THREE.HemisphereLight('#F4F1EA', '#8C8A73', 0.45));
-const soleil = new THREE.DirectionalLight('#FFF0D8', 2.2);
+const ciel = new THREE.HemisphereLight('#EEF2F5', '#7D7A62', 0.3);
+scene.add(ciel);
+const soleil = new THREE.DirectionalLight('#FFF1DC', 3.4);
 soleil.castShadow = true;
-soleil.shadow.mapSize.set(2048, 2048);
-Object.assign(soleil.shadow.camera, { left: -11, right: 11, top: 11, bottom: -11, near: 1, far: 50 });
+// La maison et les arbres doivent aussi porter leur ombre : zone d'ombre plus grande, carte plus fine
+const ZONE_OMBRE = DECOR ? 21 : 11;
+soleil.shadow.mapSize.setScalar(DECOR ? (PETIT_APPAREIL ? 2048 : 4096) : (PETIT_APPAREIL ? 1024 : 2048));
+Object.assign(soleil.shadow.camera, { left: -ZONE_OMBRE, right: ZONE_OMBRE, top: ZONE_OMBRE, bottom: -ZONE_OMBRE, near: 1, far: 70 });
 soleil.shadow.bias = -0.0003;
 soleil.shadow.normalBias = 0.025;
 soleil.shadow.radius = 3;
 scene.add(soleil, soleil.target);
+// ?debug dans l'adresse : accès à la scène depuis la console (réglages du rendu)
+if (new URLSearchParams(location.search).has('debug')) window.__dbg = { scene, soleil, camera, renderer, THREE };
+
+// Vue de nuit : spots LED du carport qui éclairent vraiment (nombre fixe de lumières : pas de recompilation)
+let nuit = false;
+let positionsLed = [];
+const spots = PETIT_APPAREIL ? [] : Array.from({ length: 4 }, () => {
+  const s = new THREE.SpotLight('#FFE2B8', 0, 7, 1.0, 0.6, 1.4);
+  scene.add(s, s.target);
+  return s;
+});
+function placerSpots() {
+  spots.forEach((s, i) => {
+    const p = positionsLed[i];
+    if (p) {
+      s.position.copy(p);
+      s.target.position.copy(p).setY(0);
+    }
+    s.intensity = nuit && p ? 14 : 0;
+  });
+}
 
 // ---------- Matériaux ----------
 
@@ -302,6 +388,20 @@ const optBois = { roughness: 0.72, bumpScale: 0.5, envMapIntensity: 0.55 };
 const matBois = new THREE.MeshStandardMaterial({ ...optBois, map: texVeinage, bumpMap: texVeinage });
 const matBoisV = new THREE.MeshStandardMaterial({ ...optBois, map: texVeinageV, bumpMap: texVeinageV });
 const matBoisFonce = new THREE.MeshStandardMaterial({ ...optBois, map: texVeinageV, bumpMap: texVeinageV });
+// Alu thermolaqué : mêmes pièces que la charpente, sans veinage, finition satinée
+if (ALU) {
+  for (const m of [matBois, matBoisV, matBoisFonce]) {
+    Object.assign(m, { map: null, bumpMap: null, roughness: 0.48, metalness: 0.45, envMapIntensity: 0.8 });
+  }
+}
+// Parois : même matériau que la charpente, sauf lames composite (alu) ou bardage avec sa propre teinte (`bardages[].couleur`)
+const PAROI_PROPRE = ALU || Object.values(CONFIG.bardages).some((b) => b.couleur);
+const optParoi = ALU ? { ...optBois, bumpScale: 0.25, roughness: 0.6 } : optBois;
+const matParoi = PAROI_PROPRE ? new THREE.MeshStandardMaterial({ ...optParoi, map: texVeinage, bumpMap: texVeinage }) : matBois;
+const matParoiV = PAROI_PROPRE ? new THREE.MeshStandardMaterial({ ...optParoi, map: texVeinageV, bumpMap: texVeinageV }) : matBoisV;
+// Chaque pièce / lame reçoit une nuance et un veinage à elle (voir varierPiece) : bois ±7 %, alu presque uniforme
+const VARIATION = ALU ? 0.015 : 0.07;
+for (const m of new Set([matBois, matBoisV, matBoisFonce, matParoi, matParoiV])) m.vertexColors = true;
 const matMetal = new THREE.MeshStandardMaterial({ color: '#5A5D60', roughness: 0.35, metalness: 0.85 });
 const matZinc = new THREE.MeshStandardMaterial({ color: '#8E9396', roughness: 0.32, metalness: 0.8, side: THREE.DoubleSide });
 const matBeton = new THREE.MeshStandardMaterial({ color: '#A9A69E', roughness: 0.95 });
@@ -347,13 +447,33 @@ const texPaves = textureCanvas(512, 512, (g, l, h) => {
 });
 const matPaves = new THREE.MeshStandardMaterial({ map: texPaves, bumpMap: texPaves, bumpScale: 1.2, roughness: 0.92 });
 
+// Terrasse en lames de bois (2 m × 2 m par motif) : `sol: 'terrasse'` dans config.js
+const texTerrasse = textureCanvas(512, 512, (g, l, h) => {
+  g.fillStyle = '#5E4532';
+  g.fillRect(0, 0, l, h);
+  const n = 14;
+  const lh = h / n;
+  for (let r = 0; r < n; r++) {
+    const coupe = hasard(0.25, 0.75) * l;
+    for (const [x0, x1] of [[0, coupe], [coupe, l]]) {
+      const v = hasard(-16, 16);
+      g.fillStyle = `rgb(${158 + v},${118 + v * 0.8},${82 + v * 0.6})`;
+      g.fillRect(x0 + 1, r * lh + 2, x1 - x0 - 2, lh - 4);
+      for (let k = 0; k < 6; k++) {
+        g.fillStyle = `rgba(80,52,30,${hasard(0.06, 0.16)})`;
+        g.fillRect(x0 + 1, r * lh + hasard(3, lh - 4), x1 - x0 - 2, 1);
+      }
+    }
+  }
+});
+
 // Gazon (2 m × 2 m par motif)
 const texGazon = textureCanvas(256, 256, (g, l, h) => {
-  g.fillStyle = '#7A8160';
+  g.fillStyle = '#6F8350';
   g.fillRect(0, 0, l, h);
-  for (let i = 0; i < 5000; i++) {
+  for (let i = 0; i < 6000; i++) {
     const v = hasard(-22, 22);
-    g.strokeStyle = `rgba(${108 + v},${118 + v},${80 + v * 0.5},0.55)`;
+    g.strokeStyle = `rgba(${100 + v},${128 + v},${72 + v * 0.5},0.6)`;
     g.lineWidth = 1;
     const x = hasard(0, l);
     const y = hasard(0, h);
@@ -363,14 +483,56 @@ const texGazon = textureCanvas(256, 256, (g, l, h) => {
     g.stroke();
   }
 });
-texGazon.repeat.set(90, 90);
-const sol = new THREE.Mesh(
-  new THREE.PlaneGeometry(180, 180),
-  new THREE.MeshStandardMaterial({ map: texGazon, roughness: 1, envMapIntensity: 0.3 }),
-);
+texGazon.repeat.set(40, 40);
+// Taches claires / sombres à grande échelle : casse la répétition du motif de gazon
+const texTaches = textureCanvas(256, 256, (g, l, h) => {
+  g.fillStyle = '#808080';
+  g.fillRect(0, 0, l, h);
+  for (let i = 0; i < 60; i++) {
+    const x = hasard(0, l);
+    const y = hasard(0, h);
+    const r = hasard(12, 46);
+    const clair = Math.random() < 0.5;
+    const rg = g.createRadialGradient(x, y, 0, x, y, r);
+    rg.addColorStop(0, clair ? 'rgba(255,255,235,0.22)' : 'rgba(30,40,10,0.22)');
+    rg.addColorStop(1, 'rgba(128,128,128,0)');
+    g.fillStyle = rg;
+    g.fillRect(x - r, y - r, 2 * r, 2 * r);
+  }
+});
+texTaches.repeat.set(3, 3);
+// Le gazon s'efface en douceur vers le bord (plus de ligne d'horizon nette)
+const texFondu = textureCanvas(256, 256, (g, l, h) => {
+  const d = g.createRadialGradient(l / 2, h / 2, l * 0.18, l / 2, h / 2, l / 2);
+  d.addColorStop(0, '#ffffff');
+  d.addColorStop(1, '#000000');
+  g.fillStyle = d;
+  g.fillRect(0, 0, l, h);
+}, false);
+const matSol = new THREE.MeshStandardMaterial({ map: texGazon, alphaMap: texFondu, transparent: true, depthWrite: false, roughness: 1, envMapIntensity: 0.3 });
+// Pelouse plus grande avec le décor (le jardin + les champs autour), même finesse du gazon
+const TAILLE_SOL = DECOR ? 170 : 80;
+texGazon.repeat.set(TAILLE_SOL / 2, TAILLE_SOL / 2);
+if (DECOR) matSol.color.setRGB(1.02, 1.24, 0.78); // gazon plus clair et plus vert
+// Les taches multiplient la couleur du gazon (2e texture, sans toucher au matériau de base).
+// Avec le décor : bandes de tonte claires / foncées de 1,6 m (discrètes)
+const tonte = DECOR ? `diffuseColor.rgb *= mix(0.94, 1.045, step(0.5, fract(vAlphaMapUv.x * ${(TAILLE_SOL / 3.2).toFixed(2)})));` : '';
+matSol.onBeforeCompile = (s) => {
+  s.uniforms.tTaches = { value: texTaches };
+  s.fragmentShader = s.fragmentShader
+    .replace('#include <common>', '#include <common>\nuniform sampler2D tTaches;')
+    .replace('#include <map_fragment>', `#include <map_fragment>\ndiffuseColor.rgb *= 2.0 * texture2D(tTaches, vAlphaMapUv * ${DECOR ? '6.0' : '3.0'}).rgb;\n${tonte}`);
+};
+const sol = new THREE.Mesh(new THREE.PlaneGeometry(TAILLE_SOL, TAILLE_SOL), matSol);
+sol.renderOrder = -1;
 sol.rotation.x = -Math.PI / 2;
 sol.receiveShadow = true;
 scene.add(sol);
+
+const decor = DECOR
+  ? creerDecor({ textureCanvas, texPaves, matBordure, petit: PETIT_APPAREIL, X0: X_GAUCHE, Z0: Z_ARRIERE, terrasse: CONFIG.sol === 'terrasse' })
+  : null;
+if (decor) scene.add(decor.groupe);
 
 // Tuiles : une texture par teinte (rangs de tuiles dans le sens +x = vers le bas de la pente)
 const cacheTuiles = {};
@@ -418,6 +580,26 @@ const texPoly = textureCanvas(64, 256, (g, l, h) => {
   g.fillRect(0, 0, l, h);
   g.fillStyle = 'rgba(0,0,0,0.25)';
   g.fillRect(0, 0, l, 6);
+});
+// Panneaux photovoltaïques (module ~1,13 × 1,72 m) : cellules sombres, joints clairs, cadre fin
+const texSolaire = textureCanvas(256, 384, (g, l, h) => {
+  g.fillStyle = '#C9CDD2';
+  g.fillRect(0, 0, l, h);
+  g.fillStyle = '#10151E';
+  g.fillRect(4, 4, l - 8, h - 8);
+  const nx = 6;
+  const ny = 10;
+  const cw = (l - 8) / nx;
+  const ch = (h - 8) / ny;
+  for (let i = 0; i < nx; i++) {
+    for (let j = 0; j < ny; j++) {
+      const v = hasard(-4, 4);
+      g.fillStyle = `rgb(${22 + v},${30 + v},${48 + v})`;
+      g.fillRect(4 + i * cw + 1, 4 + j * ch + 1, cw - 2, ch - 2);
+      g.fillStyle = 'rgba(190,200,215,0.18)';
+      for (let k = 1; k < 4; k++) g.fillRect(4 + i * cw + (k * cw) / 4, 4 + j * ch + 1, 0.8, ch - 2);
+    }
+  }
 });
 // Toit plat : gravier (gris, teinté par la couleur choisie) et végétalisé (sedum, couleurs propres)
 const texGravier = textureCanvas(256, 256, (g, l, h) => {
@@ -473,6 +655,30 @@ const matOmbreVoiture = new THREE.MeshBasicMaterial({
   depthWrite: false,
 });
 
+// Ombre d'ambiance sous le toit : sol plus sombre au centre de l'abri, dégradé vers les bords
+const matOmbreToit = new THREE.MeshBasicMaterial({
+  map: textureCanvas(256, 256, (g, l, h) => {
+    g.filter = 'blur(22px)';
+    g.fillStyle = 'rgba(0,0,0,1)';
+    g.fillRect(l * 0.16, h * 0.16, l * 0.68, h * 0.68);
+  }),
+  transparent: true,
+  opacity: 0.32,
+  depthWrite: false,
+});
+// Petite ombre de contact au pied de chaque poteau
+const matOmbrePied = new THREE.MeshBasicMaterial({
+  map: textureCanvas(64, 64, (g, l, h) => {
+    const d = g.createRadialGradient(l / 2, h / 2, 2, l / 2, h / 2, l / 2);
+    d.addColorStop(0, 'rgba(0,0,0,0.7)');
+    d.addColorStop(1, 'rgba(0,0,0,0)');
+    g.fillStyle = d;
+    g.fillRect(0, 0, l, h);
+  }),
+  transparent: true,
+  depthWrite: false,
+});
+
 const modeles = {};
 const chargeur = new FBXLoader();
 
@@ -484,6 +690,50 @@ function chargerVehicule(id) {
     modeles[id] = preparerModele(obj, v);
     construire();
   }, undefined, () => { modeles[id] = false; });
+}
+
+// Normales adoucies entre faces presque alignées (angle < seuil) : carrosserie moins « en facettes »,
+// les vraies arêtes (vitres, passages de roue) restent nettes
+function lisser(geo, seuilDeg) {
+  const pos = geo.attributes.position;
+  const idx = geo.index;
+  const nbFaces = (idx ? idx.count : pos.count) / 3;
+  const sommet = (f, k) => (idx ? idx.getX(f * 3 + k) : f * 3 + k);
+  const cle = (i) => `${Math.round(pos.getX(i) * 1e4)},${Math.round(pos.getY(i) * 1e4)},${Math.round(pos.getZ(i) * 1e4)}`;
+  const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3();
+  const nFaces = [];
+  const parPoint = new Map();
+  for (let f = 0; f < nbFaces; f++) {
+    a.fromBufferAttribute(pos, sommet(f, 0));
+    b.fromBufferAttribute(pos, sommet(f, 1));
+    c.fromBufferAttribute(pos, sommet(f, 2));
+    const n = new THREE.Vector3().crossVectors(c.sub(b), a.sub(b)).normalize();
+    nFaces.push(n);
+    for (let k = 0; k < 3; k++) {
+      const ck = cle(sommet(f, k));
+      if (!parPoint.has(ck)) parPoint.set(ck, []);
+      parPoint.get(ck).push(f);
+    }
+  }
+  // Géométrie non indexée : chaque coin de face reçoit sa propre normale
+  const plat = idx ? geo.toNonIndexed() : geo;
+  const normales = new Float32Array(nbFaces * 9);
+  const cosSeuil = Math.cos(THREE.MathUtils.degToRad(seuilDeg));
+  const somme = new THREE.Vector3();
+  for (let f = 0; f < nbFaces; f++) {
+    for (let k = 0; k < 3; k++) {
+      somme.set(0, 0, 0);
+      for (const g of parPoint.get(cle(sommet(f, k)))) {
+        if (nFaces[g].dot(nFaces[f]) >= cosSeuil) somme.add(nFaces[g]);
+      }
+      somme.normalize();
+      normales.set([somme.x, somme.y, somme.z], (f * 3 + k) * 3);
+    }
+  }
+  if (idx) {
+    geo.copy(plat);
+  }
+  geo.setAttribute('normal', new THREE.BufferAttribute(normales, 3));
 }
 
 function preparerModele(obj, v) {
@@ -508,6 +758,7 @@ function preparerModele(obj, v) {
   };
   obj.traverse((o) => {
     if (!o.isMesh) return;
+    lisser(o.geometry, 65);
     // Pas d'ombre portée (le modèle anguleux faisait un bloc noir sur le sol et la paroi) : ombre douce posée au sol à la place
     o.castShadow = false;
     o.receiveShadow = true;
@@ -555,6 +806,21 @@ let etiquettes = [];
 let cotesVisibles = true;
 let temporaires = [];
 
+// Petite ombre de contact au pied d'un poteau
+function ombrePied(x, z) {
+  const p = ajouter(new THREE.PlaneGeometry(0.75, 0.75), matOmbrePied, x, Y_SOL + 0.005, z, false);
+  p.rotation.x = -Math.PI / 2;
+  p.receiveShadow = false;
+  p.renderOrder = 1;
+}
+
+// Modèles dédiés (véranda, pergola bioclimatique) : voir produits3d.js
+const modeles3d = creerModeles({
+  state, CONFIG, Y_SOL, groupe, texVeinage, textureCanvas, matLed, ombrePied,
+  ajouter: (...args) => ajouter(...args),
+  led: (x, y, z) => positionsLed.push(new THREE.Vector3(x, y, z).add(groupe.position)),
+});
+
 function vider(obj) {
   obj.traverse((o) => {
     if (o.geometry && !o.userData.partage) o.geometry.dispose();
@@ -562,7 +828,19 @@ function vider(obj) {
   obj.clear();
 }
 
+// Nuance (couleur de sommets) + décalage du veinage propres à une pièce
+function varierPiece(geo) {
+  const k = 1 + hasard(-VARIATION, VARIATION);
+  const n = geo.attributes.position.count;
+  geo.setAttribute('color', new THREE.Float32BufferAttribute(new Array(n * 3).fill(k), 3));
+  const uv = geo.attributes.uv;
+  const du = Math.random();
+  const dv = Math.random();
+  for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) + du, uv.getY(i) + dv);
+}
+
 function ajouter(geo, mat, x, y, z, ombre = true, parent = groupe) {
+  if (mat.vertexColors && !geo.attributes.color) varierPiece(geo);
   const m = new THREE.Mesh(geo, mat);
   m.position.set(x, y, z);
   m.castShadow = ombre;
@@ -595,10 +873,10 @@ function bardageV(x1, z1, x2, z2, yHaut, porte, yDepart = Y_SOL + 0.1) {
     if (porte && Math.abs(u - porte.u) < porte.l / 2) yBas = Math.max(yBas, Y_SOL + porte.h + 0.08);
     const yH = yHaut(x, z);
     if (yH - yBas < 0.05) continue;
-    boite(pas - 0.006, yH - yBas, 0.022, matBoisV, x, (yBas + yH) / 2, z).rotation.y = rot;
-    // Couvre-joint une lame sur deux
-    if (i % 2 === 1) {
-      const cj = boite(0.05, yH - yBas, 0.018, matBoisV, x - (dx * pas) / 2, (yBas + yH) / 2, z);
+    boite(pas - 0.006, yH - yBas, 0.022, matParoiV, x, (yBas + yH) / 2, z).rotation.y = rot;
+    // Couvre-joint une lame sur deux (bardage bois seulement)
+    if (!ALU && i % 2 === 1) {
+      const cj = boite(0.05, yH - yBas, 0.018, matParoiV, x - (dx * pas) / 2, (yBas + yH) / 2, z);
       cj.rotation.y = rot;
       cj.translateZ(0.018);
     }
@@ -622,14 +900,47 @@ function bardageH(x1, z1, x2, z2, yHaut, porte) {
     for (const [u1, u2] of morceaux) {
       if (u2 - u1 < 0.05) continue;
       const u = (u1 + u2) / 2;
-      boite(u2 - u1, hl, 0.022, matBois, x1 + dx * u, y + hl / 2, z1 + dz * u).rotation.y = rot;
+      boite(u2 - u1, hl, 0.022, matParoi, x1 + dx * u, y + hl / 2, z1 + dz * u).rotation.y = rot;
     }
   }
   bardageV(x1, z1, x2, z2, yHaut, null, y);
 }
 
+// Vitrage entre deux points au sol : verre + montants tous les ~1 m + traverse basse (couleur de la structure)
+const matVerre = new THREE.MeshStandardMaterial({ color: '#CFE2E8', transparent: true, opacity: 0.22, roughness: 0.04, metalness: 0.1, envMapIntensity: 1.6, depthWrite: false });
+function vitrage(x1, z1, x2, z2, yHaut) {
+  const long = Math.hypot(x2 - x1, z2 - z1);
+  if (long < 0.1) return;
+  const dx = (x2 - x1) / long;
+  const dz = (z2 - z1) / long;
+  const rot = -Math.atan2(dz, dx);
+  const teinte = CONFIG.bardages[state.bardage].verre;
+  matVerre.color.set(teinte ?? '#CFE2E8');
+  matVerre.opacity = teinte ? 0.42 : 0.22;
+  const n = Math.max(1, Math.round(long / 1.0));
+  const pas = long / n;
+  const yBas = Y_SOL + 0.1;
+  for (let i = 0; i <= n; i++) {
+    const u = i * pas;
+    const x = x1 + dx * u;
+    const z = z1 + dz * u;
+    const yH = yHaut(x, z);
+    boite(0.055, yH - Y_SOL, 0.07, matBois, x, (Y_SOL + yH) / 2, z).rotation.y = rot;
+    if (i === n) break;
+    const uc = u + pas / 2;
+    const xc = x1 + dx * uc;
+    const zc = z1 + dz * uc;
+    const yHc = Math.min(yH, yHaut(x1 + dx * (u + pas), z1 + dz * (u + pas)));
+    const vitre = boite(pas - 0.05, yHc - yBas, 0.012, matVerre, xc, (yBas + yHc) / 2, zc, false);
+    vitre.rotation.y = rot;
+    vitre.renderOrder = 2;
+  }
+  boite(long, 0.1, 0.075, matBois, (x1 + x2) / 2, Y_SOL + 0.05, (z1 + z2) / 2).rotation.y = rot;
+}
+
 function paroi(...args) {
-  if (state.bardage === 'horizontal') bardageH(...args);
+  if (CONFIG.bardages[state.bardage].vitrage) { vitrage(...args); return; }
+  if (state.bardage === 'horizontal' || CONFIG.bardages[state.bardage].sens === 'horizontal') bardageH(...args);
   else bardageV(...args);
 }
 
@@ -680,24 +991,58 @@ function construire() {
   matBois.color.set(teinte);
   matBoisV.color.set(teinte);
   matBoisFonce.color.set(teinte).multiplyScalar(0.7);
-
-  // Base : pavés sous le carport + allée devant, bordures
-  const allee = 4;
-  const largP = W + 0.6;
-  const longP = L + 0.6 + allee;
-  const zP = allee / 2;
-  const paves = boite(largP, 0.06, longP, matPaves.clone(), 0, Y_SOL - 0.03, zP, false);
-  paves.material.map = texPaves.clone();
-  paves.material.map.needsUpdate = true;
-  paves.material.map.repeat.set(largP / 2, longP / 2);
-  paves.material.bumpMap = paves.material.map;
-  temporaires.push(paves.material);
-  for (const s of [-1, 1]) {
-    if (!g.maison(s)) boite(0.08, 0.08, longP, matBordure, s * (largP / 2 + 0.04), 0.04, zP, false);
+  if (PAROI_PROPRE) {
+    const lames = CONFIG.bardages[state.bardage].couleur ?? teinte;
+    matParoi.color.set(lames);
+    matParoiV.color.set(lames);
   }
-  boite(largP + 0.16, 0.08, 0.08, matBordure, 0, 0.04, -L / 2 - 0.34, false);
 
-  if (g.adosse !== 'non') facade(g);
+  // Base : pavés + allée devant (ou terrasse en lames de bois, sans allée), bordures
+  // (avec le décor, l'allée pavée jusqu'à la rue est dessinée par decor.js)
+  const terrasse = CONFIG.sol === 'terrasse';
+  // (avec le décor, la terrasse dallée de decor.js sert de sol : pas de plancher bois en double, il scintillait)
+  if (!DECOR) {
+    const allee = terrasse ? 0.6 : 4;
+    const largP = W + 0.6;
+    const longP = L + 0.6 + allee;
+    const zP = allee / 2;
+    const paves = boite(largP, 0.06, longP, matPaves.clone(), 0, Y_SOL - 0.03, zP, false);
+    paves.material.map = (terrasse ? texTerrasse : texPaves).clone();
+    paves.material.map.needsUpdate = true;
+    paves.material.map.repeat.set(largP / 2, longP / 2);
+    paves.material.bumpMap = paves.material.map;
+    temporaires.push(paves.material);
+    for (const s of [-1, 1]) {
+      if (!g.maison(s)) boite(0.08, 0.08, longP, matBordure, s * (largP / 2 + 0.04), 0.04, zP, false);
+    }
+    boite(largP + 0.16, 0.08, 0.08, matBordure, 0, 0.04, -L / 2 - 0.34, false);
+  }
+
+  // Ombre d'ambiance sous le toit (plus marquée quand des parois ferment l'abri)
+  const fermes = [state.paroiArriere || g.posL === 'arriere', state.paroiGauche, state.paroiDroite].filter(Boolean).length;
+  const ombreToit = ajouter(new THREE.PlaneGeometry(W * 1.5, L * 1.45), matOmbreToit, 0, Y_SOL + 0.004, -0.1, false);
+  ombreToit.rotation.x = -Math.PI / 2;
+  ombreToit.receiveShadow = false;
+  ombreToit.renderOrder = 1;
+  matOmbreToit.opacity = 0.26 + fermes * 0.05;
+
+  if (decor) decor.maj(g);
+  else if (g.adosse !== 'non') facade(g);
+
+  // Produit avec son propre modèle 3D (véranda, pergola bioclimatique)
+  if (MODELE) {
+    positionsLed = [];
+    const res = modeles3d[MODELE](g) ?? {};
+    if (res.ombre !== undefined) matOmbreToit.opacity = res.ombre + fermes * 0.03;
+    if (res.maxVantaux !== undefined && CONFIG.limites.vantaux) {
+      CONFIG.limites.vantaux[1] = Math.max(1, res.maxVantaux);
+      if (state.vantaux > res.maxVantaux) state.vantaux = res.maxVantaux;
+    }
+    placerSpots();
+    placerSoleil(g);
+    construireCotes(g);
+    return;
+  }
 
   // Poteaux sur plots béton + pieds en U métalliques (pas de poteaux côté façade)
   const lignes = [...g.lignesPoteaux.map((s) => s * xR)];
@@ -705,13 +1050,19 @@ function construire() {
   if (g.lateral) lignes.push(g.xCloison + (g.posL === 'gauche' ? -P / 2 : P / 2));
   for (const x of lignes) {
     const haut = ySup(x) - BH;
-    const bas = Y_SOL + 0.13;
+    // Alu : poteau sur platine directement ; bois : pied en U qui décolle le poteau du sol
+    const bas = ALU ? Y_SOL + 0.06 : Y_SOL + 0.13;
     for (const z of g.zPoteaux) {
+      const pied = ajouter(new THREE.PlaneGeometry(0.75, 0.75), matOmbrePied, x, Y_SOL + 0.005, z, false);
+      pied.rotation.x = -Math.PI / 2;
+      pied.receiveShadow = false;
+      pied.renderOrder = 1;
       boite(0.26, 0.05, 0.26, matBeton, x, Y_SOL + 0.025, z);
       boite(0.18, 0.01, 0.18, matMetal, x, Y_SOL + 0.055, z);
-      for (const s of [-1, 1]) boite(0.006, 0.16, 0.1, matMetal, x + s * (P / 2 + 0.003), Y_SOL + 0.14, z);
+      if (!ALU) for (const s of [-1, 1]) boite(0.006, 0.16, 0.1, matMetal, x + s * (P / 2 + 0.003), Y_SOL + 0.14, z);
       piece(P, haut - bas, P, matBoisV, x, bas + (haut - bas) / 2, z);
-      // Contrefiches vers la sablière (sens de la longueur)
+      // Contrefiches vers la sablière (sens de la longueur) : charpente bois seulement
+      if (ALU) continue;
       for (const s of [-1, 1]) {
         if (Math.abs(z + s * 0.32) > zR) continue;
         piece(0.08, 0.6, 0.08, matBois, x, haut - 0.22, z + s * 0.2).rotation.x = s * Math.PI / 4;
@@ -739,7 +1090,7 @@ function construire() {
 
   // Chevrons (pas de débord côté façade) ; chaque pan a sa propre pente
   const longZ = L + 2 * OVZ;
-  const nChev = Math.max(2, Math.ceil(longZ / 0.65) + 1);
+  const nChev = Math.max(2, Math.ceil(longZ / (CONFIG.entraxeChevrons ?? 0.65)) + 1);
   const zChev = Array.from({ length: nChev }, (_, i) => -longZ / 2 + RW / 2 + (i * (longZ - RW)) / (nChev - 1));
   const cos = Math.cos(a);
   let pans;
@@ -781,20 +1132,35 @@ function construire() {
       mat.bumpScale = 1.5;
       mat.roughness = 0.88;
       mat.envMapIntensity = 0.45;
-    } else if (state.couverture === 'tole') {
+    } else if (state.couverture === 'tole' || state.couverture === 'panneau') {
+      // Le panneau isolé (sandwich) a la même face nervurée que la tôle, nervures plus espacées
+      const panneau = state.couverture === 'panneau';
       mat.map = texTole.clone();
       mat.map.needsUpdate = true;
-      mat.map.repeat.set(1, profC / 0.25);
+      mat.map.repeat.set(1, profC / (panneau ? 0.33 : 0.25));
       mat.bumpMap = mat.map;
-      mat.bumpScale = 3;
-      mat.roughness = 0.42;
-      mat.metalness = 0.6;
-    } else if (state.couverture === 'polycarbonate') {
-      mat.map = texPoly.clone();
+      mat.bumpScale = panneau ? 2.2 : 3;
+      mat.roughness = panneau ? 0.5 : 0.42;
+      mat.metalness = panneau ? 0.45 : 0.6;
+    } else if (state.couverture === 'solaire') {
+      mat.color.set('#ffffff');
+      mat.map = texSolaire.clone();
       mat.map.needsUpdate = true;
-      mat.map.repeat.set(1, profC / 0.6);
+      mat.map.repeat.set(longC / 1.72, profC / 1.13);
+      mat.map.center.set(0.5, 0.5);
+      mat.map.rotation = Math.PI / 2;
+      mat.roughness = 0.12;
+      mat.metalness = 0.35;
+      mat.envMapIntensity = 1.1;
+    } else if (state.couverture === 'polycarbonate' || state.couverture === 'verre') {
+      // Verre (véranda) : sans nervures, plus transparent
+      if (state.couverture === 'polycarbonate') {
+        mat.map = texPoly.clone();
+        mat.map.needsUpdate = true;
+        mat.map.repeat.set(1, profC / 0.6);
+      }
       mat.transparent = true;
-      mat.opacity = state.teinteCouverture === 'opale' ? 0.82 : 0.45;
+      mat.opacity = state.couverture === 'verre' ? 0.28 : state.teinteCouverture === 'opale' ? 0.82 : 0.45;
       mat.roughness = 0.15;
       mat.depthWrite = false;
     } else if (state.couverture === 'gravier' || state.couverture === 'vegetal') {
@@ -810,23 +1176,26 @@ function construire() {
     } else {
       mat.roughness = 0.95;
     }
-    boite(longC, ep, profC, mat, pan.cx, ySup(pan.cx) + (RH + ep / 2) / pan.cs, 0, state.couverture !== 'polycarbonate')
-      .rotation.z = pan.rot;
+    // Couverture « ouverte » (pergola) : seulement les chevrons, pas de plaque
+    if (!couv.ouverte) {
+      boite(longC, ep, profC, mat, pan.cx, ySup(pan.cx) + (RH + ep / 2) / pan.cs, 0, !['polycarbonate', 'verre'].includes(state.couverture))
+        .rotation.z = pan.rot;
+    }
 
     // Planches de rive devant et derrière (suivent la pente)
     for (const s of [-1, 1]) {
-      piece(pan.long + 0.02, 0.2, 0.024, matBois, pan.cx, ySup(pan.cx) + (RH / 2) / pan.cs, s * (profC / 2 + 0.012)).rotation.z = pan.rot;
+      piece(pan.long + 0.02, HAUT_RIVE, 0.024, matBois, pan.cx, ySup(pan.cx) + (RH / 2) / pan.cs + (HAUT_RIVE - 0.2) / 2, s * (profC / 2 + 0.012)).rotation.z = pan.rot;
     }
     // Planche d'égout le long des bords bas (et haut pour le toit à 1 pan isolé)
     for (const xb of [pan.xBas, pan.xHaut]) {
       if (xb === undefined) continue;
-      piece(0.024, 0.2, profC + 0.05, matBois, xb, ySup(xb) + (RH / 2) / pan.cs - 0.02, 0);
+      piece(0.024, HAUT_RIVE, profC + 0.05, matBois, xb, ySup(xb) + (RH / 2) / pan.cs - 0.02 + (HAUT_RIVE - 0.2) / 2, 0);
     }
   }
 
-  // Solin : bande métallique qui raccorde le toit à la façade
+  // Solin : bande métallique qui raccorde le toit à la façade (rien à raccorder si le toit est ouvert)
   for (const s of [-1, 1]) {
-    if (!g.maison(s)) continue;
+    if (!g.maison(s) || couv.ouverte) continue;
     const xs = s * (W / 2 - 0.06);
     const ys = ySup(xs) + (RH + ep) / cos + 0.01;
     boite(0.14, 0.008, profC, matZinc, xs, ys, 0);
@@ -834,10 +1203,10 @@ function construire() {
   }
 
   // Faîtage posé SUR la couverture (encastré pour ne pas flotter au-dessus de la pente)
-  if (deuxPans) {
+  if (deuxPans && !couv.ouverte) {
     const yFaite = ySup(xF) + (RH + ep) / Math.min(Math.cos(aG), Math.cos(aD));
     if (state.couverture === 'tuiles') {
-      const mat = new THREE.MeshStandardMaterial({ color: new THREE.Color(teinteCouv).multiplyScalar(0.68), roughness: 0.85 });
+      const mat = new THREE.MeshStandardMaterial({ color: new THREE.Color(teinteCouv).multiplyScalar(0.62), roughness: 0.88, envMapIntensity: 0.4 });
       temporaires.push(mat);
       const geoF = new THREE.CylinderGeometry(0.11, 0.11, profC + 0.04, 18, 1, false, 0, Math.PI);
       geoF.rotateX(Math.PI / 2);
@@ -882,6 +1251,8 @@ function construire() {
     else paroi(x, fin, x, -zR - P / 2, () => hautCote(x));
   }
 
+  if (VERANDA) paroi(xMurMin, zAvant, xMurMax, zAvant, hautPignon);
+
   // Local de rangement arrière : cloison avec porte
   if (g.posL === 'arriere') {
     const zC = zCloison + P / 2 + 0.012;
@@ -920,14 +1291,17 @@ function construire() {
 
   const xcV = (g.xMinV + g.xMaxV) / 2;
 
-  // Éclairage LED : spots sous la charpente, entre les poteaux
+  // Éclairage LED : spots sous la charpente, entre les poteaux (ils éclairent vraiment en vue de nuit)
+  positionsLed = [];
   if (state.led) {
     const zs = g.zPoteaux.slice(1).map((z, i) => (z + g.zPoteaux[i]) / 2).filter((z) => z > zCloison);
     for (const z of zs) {
       const y = deuxPans ? ySup(xF) - BH - 0.012 : ySup(xcV) - 0.012;
       ajouter(new THREE.CylinderGeometry(0.06, 0.06, 0.02, 20), matLed, deuxPans ? xF : xcV, y, z, false);
+      positionsLed.push(new THREE.Vector3(deuxPans ? xF : xcV, y - 0.03, z).add(g.decalage));
     }
   }
+  placerSpots();
 
   // Borne de recharge côté gauche de la zone voitures (poteau, cloison ou façade)
   if (state.borne) {
@@ -951,12 +1325,20 @@ function construire() {
     }
   }
 
-  // Soleil et ombres centrés sur le carport
+  placerSoleil(g);
+  construireCotes(g);
+}
+
+// Soleil et ombres centrés sur le produit
+function placerSoleil(g) {
   const centre = g.decalage.clone().setY(1);
   soleil.target.position.copy(centre);
-  soleil.position.copy(centre).add(new THREE.Vector3(g.adosse === 'droite' ? -8 : 8, 14, 10));
-
-  construireCotes(g);
+  // Isolé : soleil de côté, à l'opposé de la caméra (l'ombre du toit se voit sous l'abri et à côté).
+  // Contre la maison : soleil du côté libre, sinon la façade mettrait tout le carport à l'ombre.
+  const xSoleil = g.adosse === 'non' ? -10 : g.adosse === 'droite' ? -7 : 7;
+  // Terrasse (pergola, véranda) contre la maison : soleil plus de côté, l'ombre des lames / chevrons tombe sur la terrasse
+  if (TERRASSE_DECOR && g.adosse !== 'non') soleil.position.copy(centre).add(new THREE.Vector3(Math.sign(xSoleil) * 3, 12, 9));
+  else soleil.position.copy(centre).add(new THREE.Vector3(xSoleil, 13, g.adosse === 'non' ? 5 : 9));
 }
 
 // ---------- Cotes (signature : lecture « plan technique ») ----------
@@ -1001,7 +1383,7 @@ function construireCotes(g) {
   };
   etiquette(g.lateral ? `${fmtM(W)} (dont local ${fmtM(g.S)})` : fmtM(W), new THREE.Vector3(0, y, zLargeur));
   etiquette(g.posL === 'arriere' ? `${fmtM(L)} (dont local ${fmtM(g.S)})` : fmtM(L), new THREE.Vector3(xProf, y, 0));
-  etiquette(`passage ${fmtM(H)}`, new THREE.Vector3(xH, Y_SOL + H / 2, zH));
+  etiquette(`${LIB.passage} ${fmtM(H)}`, new THREE.Vector3(xH, Y_SOL + H / 2, zH));
   groupeCotes.visible = cotesVisibles;
 }
 
@@ -1010,15 +1392,29 @@ function placerEtiquettes() {
   if (!cotesVisibles) return;
   const w = viewer.clientWidth;
   const h = viewer.clientHeight;
-  for (const { el, pos } of etiquettes) {
+  const poses = [];
+  etiquettes.forEach(({ el, pos }, i) => {
     _v.copy(pos).project(camera);
-    const visible = _v.z < 1 && Math.abs(_v.x) < 1.1 && Math.abs(_v.y) < 1.1;
+    // Vue de dessus : la hauteur de passage n'a pas de sens (sa ligne devient un point)
+    const visible = _v.z < 1 && Math.abs(_v.x) < 1.1 && Math.abs(_v.y) < 1.1 && !(i === 2 && vueActive === 'dessus');
     el.style.display = visible ? '' : 'none';
+    if (!visible) return;
     // Garder l'étiquette entière dans le cadre
-    const demi = el.offsetWidth / 2 + 6;
-    el.style.left = `${Math.min(w - demi, Math.max(demi, ((_v.x + 1) / 2) * w))}px`;
-    el.style.top = `${((1 - _v.y) / 2) * h}px`;
-  }
+    const lw = el.offsetWidth;
+    const lh = el.offsetHeight;
+    const demi = lw / 2 + 6;
+    const x = Math.min(w - demi, Math.max(demi, ((_v.x + 1) / 2) * w));
+    let y = ((1 - _v.y) / 2) * h;
+    // Si elle chevauche une étiquette déjà placée : la décaler en dessous
+    for (let essai = 0; essai < poses.length; essai++) {
+      const autre = poses.find((p) => Math.abs(p.x - x) < (p.lw + lw) / 2 + 4 && Math.abs(p.y - y) < (p.lh + lh) / 2 + 3);
+      if (!autre) break;
+      y = autre.y + (autre.lh + lh) / 2 + 4;
+    }
+    poses.push({ x, y, lw, lh });
+    el.style.left = `${x}px`;
+    el.style.top = `${y}px`;
+  });
 }
 
 // ---------- Caméra ----------
@@ -1035,15 +1431,19 @@ function tailleScene() {
 function poseVue(nom) {
   const g = geometrie();
   const taille = tailleScene();
-  const cible = g.decalage.clone().add(new THREE.Vector3(0, g.H * 0.55, 0.6));
+  // Avec la maison : un peu plus de recul et visée plus haute pour voir le carport devant la maison
+  const cible = g.decalage.clone().add(new THREE.Vector3(DECOR && g.adosse === 'non' ? -0.6 : 0, g.H * 0.55 + (DECOR ? 0.7 : 0), DECOR && g.adosse === 'non' ? -0.4 : 0.6));
   const etroit = viewer.clientWidth < viewer.clientHeight * 1.1;
-  const recul = taille * (etroit ? 2.3 : 1.8) * (g.adosse !== 'non' ? 1.15 : 1);
+  // (terrasse + produit autoportant : moins de recul, sinon la caméra passe derrière les arbres du jardin)
+  const recul = taille * (etroit ? 2.3 : 1.8)
+    * (TERRASSE_DECOR ? (g.adosse !== 'non' ? 1.55 : 1.2) : DECOR ? 1.75 : g.adosse !== 'non' ? 1.15 : 1);
   // Vue 3/4 du côté libre quand la maison est à droite
   const cote = g.adosse === 'droite' ? -1 : 1;
   let dir;
   if (nom === 'face') dir = new THREE.Vector3(0, 0.22, 1);
   else if (nom === 'dessus') dir = new THREE.Vector3(0, 1.45, 0.01);
-  else dir = new THREE.Vector3(0.72 * cote, 0.42, 0.85);
+  else if (TERRASSE_DECOR && g.adosse !== 'non') dir = new THREE.Vector3(1.0 * cote, 0.34, 0.55); // terrasse : plus de face sur la façade
+  else dir = new THREE.Vector3(0.72 * cote, DECOR ? 0.3 : 0.42, 0.85);
   const pos = cible.clone().add(dir.normalize().multiplyScalar(recul * (nom === 'dessus' ? 1.3 : 1)));
   return { pos, cible, taille };
 }
@@ -1073,6 +1473,36 @@ for (const b of document.querySelectorAll('[data-vue]')) {
     allerVers(b.dataset.vue);
   });
 }
+
+function appliquerAmbiance() {
+  scene.background = nuit ? cielNuit : cielJour;
+  scene.fog.color.set(nuit ? HORIZON_NUIT : HORIZON);
+  ciel.color.set(nuit ? '#8FA6CC' : '#EEF2F5');
+  ciel.groundColor.set(nuit ? '#1E2230' : '#7D7A62');
+  ciel.intensity = nuit ? 0.4 : 0.3;
+  soleil.color.set(nuit ? '#9DB4E6' : '#FFF1DC');
+  soleil.intensity = nuit ? 0.5 : 3.4;
+  scene.environment = nuit ? null : envJour;
+  if (renderer) renderer.toneMappingExposure = nuit ? 1.35 : 1.15;
+  decor?.ambiance(nuit);
+  viewer.classList.toggle('nuit', nuit);
+  placerSpots();
+}
+
+$('#btn-nuit').addEventListener('click', (e) => {
+  nuit = !nuit;
+  e.currentTarget.setAttribute('aria-pressed', String(nuit));
+  appliquerAmbiance();
+});
+
+// ?nuit dans l'adresse : ouvre directement la vue de nuit
+if (new URLSearchParams(location.search).has('nuit')) $('#btn-nuit').click();
+
+$('#btn-tourner').addEventListener('click', (e) => {
+  if (!controls) return;
+  controls.autoRotate = !controls.autoRotate;
+  e.currentTarget.setAttribute('aria-pressed', String(controls.autoRotate));
+});
 
 $('#btn-cotes').addEventListener('click', (e) => {
   cotesVisibles = !cotesVisibles;
@@ -1202,7 +1632,7 @@ function construirePanneau() {
     const b = document.createElement('button');
     b.type = 'button';
     b.textContent = rc.label;
-    b.title = `${fmtM(rc.largeur)} × ${fmtM(rc.profondeur)}`;
+    b.title = INVERSER ? `${fmtM(rc.profondeur)} × ${fmtM(rc.largeur)}` : `${fmtM(rc.largeur)} × ${fmtM(rc.profondeur)}`;
     b.setAttribute('aria-pressed', 'false');
     b.dataset.raccourci = i;
     b.addEventListener('click', () => {
@@ -1225,13 +1655,22 @@ function construirePanneau() {
   radios('#bois', 'bois', Object.entries(CONFIG.bois),
     (id, b) => `${pastille(b.couleur)}<span>${b.label}<em class="delta"></em></span>`);
   radios('#bardages', 'bardage', Object.entries(CONFIG.bardages),
-    (id, b) => `<span>${b.label}</span><small class="delta"></small>`);
-  radios('#pos-local', 'posLocal', Object.entries(CONFIG.positionsLocal),
-    (id, p) => `<span>${p.label}</span><small class="delta"></small>`);
-  radios('#profs-local', 'profLocal', CONFIG.profondeursLocal.map((v) => [v, v]),
-    (id) => `<span>${fmtM(id)}</span><small class="delta"></small>`);
-  radios('#vehicules', 'vehicule', Object.entries(CONFIG.vehicules),
-    (id, v) => `<span>${v.label}</span>`, { delta: false });
+    (id, b) => `${b.couleur ? pastille(b.couleur) : ''}<span>${b.label}</span><small class="delta"></small>`);
+  $('#bardages').className = `segments segments-${Math.min(4, Object.keys(CONFIG.bardages).length)}`;
+  // Une seule forme de toit : pas de choix à montrer
+  const uneForme = Object.keys(CONFIG.toits).length < 2;
+  $('#toits').hidden = uneForme;
+  $('#toits').previousElementSibling.hidden = uneForme;
+  if (LOCAL) {
+    radios('#pos-local', 'posLocal', Object.entries(CONFIG.positionsLocal),
+      (id, p) => `<span>${p.label}</span><small class="delta"></small>`);
+    radios('#profs-local', 'profLocal', CONFIG.profondeursLocal.map((v) => [v, v]),
+      (id) => `<span>${fmtM(id)}</span><small class="delta"></small>`);
+  }
+  if (VEHICULES) {
+    radios('#vehicules', 'vehicule', Object.entries(CONFIG.vehicules),
+      (id, v) => `<span>${v.label}</span>`, { delta: false });
+  }
 
   for (const b of document.querySelectorAll('[data-paroi]')) {
     b.addEventListener('click', () => {
@@ -1261,6 +1700,11 @@ function majListesDependantes() {
     }
   }
   $('#nom-teinte').textContent = `· ${CONFIG.couvertures[state.couverture].teintes[state.teinteCouverture].label}`;
+  // Un seul choix possible : rien à montrer (ex. verre clair seul, lames de la pergola bioclimatique)
+  for (const [sel, n] of [['#couvertures', permises.length], ['#teintes', teintes.length]]) {
+    $(sel).hidden = n < 2;
+    $(sel).previousElementSibling.hidden = n < 2;
+  }
   $('#aide-toit').hidden = state.adosse === 'non';
 }
 
@@ -1287,6 +1731,7 @@ function majRadios(prixActuel) {
 function majParois() {
   const g = geometrie();
   const raisons = {
+    paroiAvant: '',
     paroiArriere: g.posL === 'arriere' ? 'Fermé par le local de rangement' : '',
     paroiGauche: g.maison(-1) ? 'Façade de la maison' : g.posL === 'gauche' ? 'Fermé par le local de rangement' : '',
     paroiDroite: g.maison(1) ? 'Façade de la maison' : g.posL === 'droite' ? 'Fermé par le local de rangement' : '',
@@ -1297,9 +1742,10 @@ function majParois() {
     b.setAttribute('aria-pressed', String(state[cle] || Boolean(force)));
     b.disabled = Boolean(force);
     b.title = force;
-    b.textContent = force === 'Façade de la maison' ? 'Maison' : { paroiArriere: 'Arrière', paroiGauche: 'Gauche', paroiDroite: 'Droite' }[cle];
+    b.textContent = force === 'Façade de la maison' ? 'Maison' : { paroiArriere: 'Arrière', paroiAvant: 'Avant', paroiGauche: 'Gauche', paroiDroite: 'Droite' }[cle];
   }
-  $('#choix-local').hidden = !state.rangement;
+  const choixLocal = $('#choix-local');
+  if (choixLocal) choixLocal.hidden = !state.rangement;
   dessinerPlan(g);
 }
 
@@ -1341,7 +1787,9 @@ function dessinerPlan(g) {
     svg += `<line x1="${x}" y1="${y0}" x2="${x}" y2="${y0 + l}" ${fermeIci ? ferme : ouvert}/>`;
     if (!fermeIci && g.posL === 'arriere') svg += `<line x1="${x}" y1="${y0}" x2="${x}" y2="${y0 + g.S * s}" ${ferme}/>`;
   }
-  svg += `<line x1="${x0}" y1="${y0 + l}" x2="${x0 + w}" y2="${y0 + l}" stroke="${COULEUR_PLAN}" stroke-width="1" stroke-dasharray="1 3"/>`;
+  svg += state.paroiAvant
+    ? `<line x1="${x0}" y1="${y0 + l}" x2="${x0 + w}" y2="${y0 + l}" ${ferme}/>`
+    : `<line x1="${x0}" y1="${y0 + l}" x2="${x0 + w}" y2="${y0 + l}" stroke="${COULEUR_PLAN}" stroke-width="1" stroke-dasharray="1 3"/>`;
   const xs = g.lignesPoteaux.map((c) => (c < 0 ? x0 : x0 + w));
   for (const z of g.zPoteaux) {
     const py = y0 + (z + g.L / 2) * s;
@@ -1350,7 +1798,12 @@ function dessinerPlan(g) {
   $('#plan-dessin').innerHTML = svg;
 }
 
+// Curseurs propres à un produit (lames orientables, baies ouvertes) : retirés si le produit n'en a pas
+for (const input of document.querySelectorAll('input[type="range"][data-cle]')) {
+  if (!CONFIG.limites[input.dataset.cle]) input.closest('.curseur').remove();
+}
 const curseurs = document.querySelectorAll('input[type="range"][data-cle]');
+const texteCurseur = (cle, v) => (cle === 'angleLames' ? `${Math.round(v)}°` : cle === 'vantaux' ? `${v} sur ${CONFIG.limites.vantaux[1]}` : fmtM(v));
 for (const input of curseurs) {
   const [min, max, pas] = CONFIG.limites[input.dataset.cle];
   Object.assign(input, { min, max, step: pas });
@@ -1375,10 +1828,11 @@ for (const input of cases) {
 function majCurseurs() {
   for (const input of curseurs) {
     const cle = input.dataset.cle;
-    input.value = state[cle];
     const [min, max] = CONFIG.limites[cle];
+    input.max = max;
+    input.value = state[cle];
     input.style.setProperty('--rempli', `${((state[cle] - min) / (max - min)) * 100}%`);
-    $(`#out-${cle}`).textContent = fmtM(state[cle]);
+    $(`#out-${cle}`).textContent = texteCurseur(cle, state[cle]);
   }
   for (const input of cases) input.checked = state[input.dataset.cle];
 }
@@ -1392,6 +1846,7 @@ function majOptions() {
 
 function paroisFermees(g) {
   return [
+    state.paroiAvant ? 'avant' : null,
     state.paroiArriere || g.posL === 'arriere' ? 'arrière' : null,
     g.maison(-1) ? null : state.paroiGauche || g.posL === 'gauche' ? 'gauche' : null,
     g.maison(1) ? null : state.paroiDroite || g.posL === 'droite' ? 'droite' : null,
@@ -1406,14 +1861,18 @@ function lignesConfig() {
   const parois = paroisFermees(g);
   const implantation = g.adosse === 'non' ? 'Isolé (4 côtés libres)' : `Contre la maison, façade à ${g.adosse}`;
   return [
-    ['Dimensions', `${fmtM(g.Wv)} × ${fmtM(g.Dc)} pour les véhicules · passage ${fmtM(g.H)}`],
+    ['Dimensions', INVERSER
+      ? `${fmtM(g.Dc)} ${LIB.profondeurAide} × ${fmtM(g.Wv)} ${LIB.largeurAide} · ${LIB.passage} ${fmtM(g.H)}`
+      : `${fmtM(g.Wv)} × ${fmtM(g.Dc)} ${LIB.largeurAide} · ${LIB.passage} ${fmtM(g.H)}`],
     ['Emprise totale', `${fmtM(g.W)} × ${fmtM(g.L)} · ${fmtM2(p.surface)}`],
     ['Implantation', implantation],
     ['Toit', `${CONFIG.toits[state.toit].label} (${CONFIG.toits[state.toit].pente}°) · ${couv.label}, ${couv.teintes[state.teinteCouverture].label.toLowerCase()}`],
-    ['Bois', CONFIG.bois[state.bois].label],
+    [LIB.finitionLigne, CONFIG.bois[state.bois].label],
     ['Parois', parois.length ? `${parois.join(', ')} · ${CONFIG.bardages[state.bardage].label.toLowerCase()}` : 'aucune'],
-    ['Local de rangement', g.S ? `${CONFIG.positionsLocal[g.posL].label.toLowerCase()}, ${fmtM(g.S)}, porte comprise` : 'non'],
-    ['Équipements', [state.gouttieres && 'gouttières', state.led && 'éclairage LED', state.borne && 'préparation borne de recharge'].filter(Boolean).join(', ') || 'aucun'],
+    [LIB.rangementLigne, g.S ? `${CONFIG.positionsLocal[g.posL].label.toLowerCase()}, ${fmtM(g.S)}, porte comprise` : 'non'],
+    ...(state.angleLames !== undefined ? [['Lames orientables', `réglées à ${Math.round(state.angleLames)}° sur l'image (motorisées)`]] : []),
+    ['Équipements', [state.gouttieres && 'gouttières', state.led && 'éclairage LED', state.borne && 'préparation borne de recharge',
+      state.storeToit && 'stores de toiture', state.chauffage && 'chauffage infrarouge', ...(CONFIG.inclus ?? [])].filter(Boolean).join(', ') || 'aucun'],
     ['Structure', `${p.nbPoteaux} poteaux · portée max ${fmtM(CONFIG.porteeMax)}`],
   ];
 }
@@ -1423,17 +1882,19 @@ function resume() {
   const couv = CONFIG.couvertures[state.couverture];
   const parois = paroisFermees(g);
   return [
-    `${fmtM(state.largeur)} × ${fmtM(state.profondeur)}`,
+    dimsTexte(),
     g.adosse !== 'non' ? `Contre la maison (${g.adosse})` : null,
     `Toit ${CONFIG.toits[state.toit].label}`,
     `${couv.label} ${couv.teintes[state.teinteCouverture].label.toLowerCase()}`,
     CONFIG.bois[state.bois].label,
     parois.length ? `Parois : ${parois.join(', ')}` : 'Sans paroi',
     parois.length ? CONFIG.bardages[state.bardage].label : null,
-    g.S ? `Local ${CONFIG.positionsLocal[g.posL].label.toLowerCase()} ${fmtM(g.S)}` : null,
+    g.S ? `${LIB.rangementCourt} ${CONFIG.positionsLocal[g.posL].label.toLowerCase()} ${fmtM(g.S)}` : null,
     state.gouttieres ? 'Gouttières' : null,
     state.led ? 'LED' : null,
     state.borne ? 'Borne' : null,
+    state.storeToit ? 'Stores de toiture' : null,
+    state.chauffage ? 'Chauffage' : null,
   ].filter(Boolean);
 }
 
@@ -1490,6 +1951,7 @@ function majTout({ curseur = false } = {}) {
   }
   majParois();
   construire();
+  majCurseurs(); // le nombre de baies dépend de la taille construite
   ecrireLien();
   if (!curseur && demarre) compterReglage();
   // Recadrer quand la forme générale change (toit, maison à gauche/droite)
@@ -1498,6 +1960,117 @@ function majTout({ curseur = false } = {}) {
   else if (!curseur) verifierCadrage();
   derniereForme = forme;
 }
+
+// ---------- Textes propres au produit (bois ou alu) ----------
+// Lu avant la création des onglets : une étape retirée ici n'apparaît nulle part
+
+const LIB = {
+  titre: 'Carport en bois sur mesure',
+  finition: 'Finition du bois',
+  finitionCourt: 'Bois',
+  finitionLigne: 'Bois',
+  bardage: 'Type de bardage',
+  rangement: 'Local de rangement fermé',
+  rangementLigne: 'Local de rangement',
+  rangementCourt: 'Local',
+  objet: 'carport', // dans les phrases, le nom du PDF et l'objet de l'e-mail
+  passage: 'passage', // étiquette de la cote de hauteur
+  largeurAide: 'pour les véhicules',
+  hauteur: 'Hauteur de passage',
+  hauteurAide: 'sous la charpente',
+  implantationAide: 'Contre la maison, le carport se fixe à la façade : une rangée de poteaux en moins.',
+  parois: 'Parois et rangement',
+  paroiLigne: 'Paroi', // début des lignes du détail du prix
+  largeur: 'Largeur',
+  profondeur: 'Profondeur',
+  profondeurAide: '',
+  toiture: 'Toiture',
+  toitureCourt: 'Toit',
+  ...CONFIG.libelles,
+};
+// Produits contre la façade (pergola, véranda) : « largeur » = le long de la façade (axe z du moteur),
+// « avancée » = depuis la façade (axe x). Les deux curseurs sont alors inversés à l'écran.
+const INVERSER = Boolean(LIB.inverserCotes);
+const dimsTexte = () => (INVERSER
+  ? `${fmtM(state.profondeur)} × ${fmtM(state.largeur)}`
+  : `${fmtM(state.largeur)} × ${fmtM(state.profondeur)}`);
+$('.intro h1').textContent = LIB.titre;
+$('label[for="largeur"]').firstChild.textContent = `${LIB.largeur} `;
+$('label[for="largeur"] small').textContent = LIB.largeurAide;
+$('label[for="profondeur"]').firstChild.textContent = `${LIB.profondeur} `;
+$('label[for="profondeur"] small').textContent = LIB.profondeurAide;
+if (INVERSER) {
+  const blocL = $('#largeur').closest('.curseur');
+  blocL.before($('#profondeur').closest('.curseur'));
+}
+{
+  const etapeToit = $('#toits').closest('.etape');
+  etapeToit.dataset.court = LIB.toitureCourt;
+  etapeToit.querySelector('h2').lastChild.textContent = LIB.toiture;
+}
+if (LIB.ledAide) $('[data-cle="led"]')?.closest('.option').querySelector('small').replaceChildren(LIB.ledAide);
+// Paroi avant fermable (pergola bioclimatique : 4 côtés) ; sinon l'entrée reste ouverte
+if (CONFIG.paroiAvant) $('.plan-entree').remove();
+else $('[data-paroi="paroiAvant"]').remove();
+// Curseur « baies ouvertes » : seulement pour la véranda (avec son plan masqué)
+$('label[for="hauteur"]').firstChild.textContent = `${LIB.hauteur} `;
+$('label[for="hauteur"] small').textContent = LIB.hauteurAide;
+$('#implantations').previousElementSibling.textContent = LIB.implantationAide;
+$('#viewer').setAttribute('aria-label', `Aperçu 3D : ${LIB.objet}`);
+const etapeParois = $('#bardages').closest('.etape');
+etapeParois.querySelector('h2').lastChild.textContent = LIB.parois;
+if (LIB.paroisCourt) etapeParois.dataset.court = LIB.paroisCourt;
+if (LIB.paroisAide) etapeParois.querySelector('.aide-etape').textContent = LIB.paroisAide;
+if (VERANDA) {
+  etapeParois.dataset.court = LIB.paroisCourt ?? 'Vitrage';
+  etapeParois.querySelector('.aide-etape').textContent = LIB.paroisAide ?? 'Les côtés libres sont vitrés, avec une porte coulissante en façade.';
+  $('#plan').style.display = 'none';
+}
+// Pas de local de rangement pour ce produit : option retirée
+if (!LOCAL) {
+  $('[data-cle="rangement"]').closest('.option').remove();
+  $('#choix-local').remove();
+}
+// Aucun véhicule à afficher : étape retirée
+if (!VEHICULES) [...document.querySelectorAll('.etape')].find((e) => e.dataset.court === 'Véhicule')?.remove();
+const etapeFinition = $('#bois').closest('.etape');
+etapeFinition.dataset.court = LIB.finitionCourt;
+etapeFinition.querySelector('h2').lastChild.textContent = LIB.finition;
+$('#bois').setAttribute('aria-label', LIB.finition);
+$('#bardages').previousElementSibling.textContent = LIB.bardage;
+$('#bardages').setAttribute('aria-label', LIB.bardage);
+const optLocal = $('[data-cle="rangement"]')?.closest('.option');
+if (optLocal) optLocal.querySelector('span').firstChild.textContent = `${LIB.rangement} `;
+for (const input of document.querySelectorAll('input[type="checkbox"][data-cle]')) {
+  if (TOUS_EQUIPEMENTS.includes(input.dataset.cle) && !EQUIPEMENTS.includes(input.dataset.cle)) input.closest('.option').remove();
+}
+const etapeEquip = [...document.querySelectorAll('.etape')].find((e) => e.dataset.court === 'Équipements');
+if (etapeEquip && !etapeEquip.querySelector('.option')) etapeEquip.remove();
+// Étape « Produit » en tête (assistant) : changer de produit recharge la page avec ?produit=…
+if (ASSISTANT && PRODUITS) {
+  const s = document.createElement('section');
+  s.className = 'etape etape-produit';
+  s.dataset.court = 'Produit';
+  s.innerHTML = '<h2><span>01</span>Choisissez votre projet</h2><p class="aide-etape">Le modèle se construit devant la maison, le prix suit chaque réglage.</p><div class="produits" role="radiogroup" aria-label="Produit"></div>';
+  for (const [cle, p] of Object.entries(PRODUITS)) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'carte-produit';
+    b.setAttribute('role', 'radio');
+    b.setAttribute('aria-checked', String(cle === CFG.PRODUIT));
+    b.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${p.icone}</svg><span><strong>${p.label}</strong><small>${p.aide}</small>${p.exemple ? `<em class="exemple">Exemple : <b>${p.exemple}</b> CHF TTC</em>` : ''}</span>`;
+    b.addEventListener('click', () => {
+      if (cle === CFG.PRODUIT) { allerEtape(1); return; }
+      try { sessionStorage.setItem('etape', '1'); } catch (e) { /* stockage bloqué : on repart de l'étape 1 */ }
+      location.href = `?produit=${cle}`;
+    });
+    s.querySelector('.produits').append(b);
+  }
+  $('#onglets').after(s);
+}
+
+// Numéros des étapes recalculés (01, 02…)
+document.querySelectorAll('.etape h2 span').forEach((s, i) => { s.textContent = String(i + 1).padStart(2, '0'); });
 
 // ---------- Étapes sur mobile (onglets) ----------
 
@@ -1515,6 +2088,7 @@ function allerEtape(i) {
   const b = onglets.children[i];
   onglets.scrollTo({ left: b.offsetLeft - onglets.clientWidth / 2 + b.offsetWidth / 2, behavior: 'smooth' });
   if (modeMobile.matches) window.scrollTo({ top: 0, behavior: 'smooth' });
+  majPied(i);
 }
 
 etapes.forEach((e, i) => {
@@ -1534,13 +2108,65 @@ etapes.forEach((e, i) => {
 });
 
 function majModeMobile() {
-  panel.classList.toggle('par-etapes', modeMobile.matches);
+  panel.classList.toggle('par-etapes', modeMobile.matches || ASSISTANT);
   redimensionner();
 }
 
 modeMobile.addEventListener('change', majModeMobile);
 majModeMobile();
-allerEtape(0);
+
+// Pied de l'assistant : total estimé, Retour / Suivant (dernière étape : demande de devis)
+let etapeCourante = 0;
+if (ASSISTANT) {
+  panel.classList.add('assistant');
+  document.body.classList.add('avec-assistant');
+  const pied = document.createElement('footer');
+  pied.className = 'pied-assistant';
+  pied.innerHTML = '<p class="pied-total"><small>Total estimé</small><span><b id="total-pied">—</b> CHF TTC</span><small>Prix indicatif · démonstration, prix fictifs</small></p><div class="pied-boutons"><button type="button" class="pied-retour" id="btn-retour">‹ Retour</button><button type="button" class="cta pied-suivant" id="btn-suivant"></button></div>';
+  panel.append(pied);
+
+  // Barres du haut et du bas (démo Wibzo)
+  const logo = '<img src="https://wibzo.ch/assets/favicon.svg" alt="">';
+  const haut = document.createElement('header');
+  haut.className = 'barre-haut';
+  haut.innerHTML = `<a href="https://wibzo.ch">${logo}Wibzo</a><span class="sep-v"></span><span>Une démo Wibzo</span><a class="lien-site" href="https://wibzo.ch">wibzo.ch ↗</a>`;
+  const bas = document.createElement('footer');
+  bas.className = 'barre-bas';
+  bas.innerHTML = `<b>${logo}Wibzo</b><span>Configurateur réalisé par Wibzo · <a href="https://wibzo.ch">wibzo.ch</a></span><span class="droite">Démonstration : marque, prix et modèles fictifs</span>`;
+  document.body.prepend(haut);
+  $('.app').after(bas);
+
+  [...$('#onglets').children].forEach((b, i) => { const n = b.querySelector('span'); if (n) n.textContent = i + 1; });
+  // « Étape n sur N » au-dessus de chaque titre
+  etapes.forEach((e, i) => e.querySelector('h2')?.setAttribute('data-numero', `Étape ${i + 1} sur ${etapes.length}`));
+
+  // Étiquette du produit en haut de la vue 3D : nom + dimensions
+  const nomProduit = PRODUITS?.[CFG.PRODUIT]?.label ?? LIB.objet;
+  const majEtiquette = () => {
+    $('#badge-demo').innerHTML = `${nomProduit} <span>· ${dimsTexte()}</span>`;
+  };
+  majEtiquette();
+  new MutationObserver(majEtiquette).observe($('#total'), { childList: true, characterData: true, subtree: true });
+  new MutationObserver(() => { $('#total-pied').textContent = $('#total').textContent; })
+    .observe($('#total'), { childList: true, characterData: true, subtree: true });
+  $('#btn-retour').addEventListener('click', () => allerEtape(Math.max(0, etapeCourante - 1)));
+  $('#btn-suivant').addEventListener('click', () => {
+    if (etapeCourante < etapes.length - 1) allerEtape(etapeCourante + 1);
+    else $('#btn-devis').click();
+  });
+}
+function majPied(i) {
+  if (!ASSISTANT) return;
+  etapeCourante = i;
+  $('#btn-retour').disabled = i === 0;
+  const produit = PRODUITS?.[CFG.PRODUIT]?.label.toLowerCase();
+  $('#btn-suivant').textContent = i === 0 && produit ? `Configurer : ${produit} ›`
+    : i < etapes.length - 1 ? 'Suivant ›' : 'Recevoir mon devis';
+  panel.querySelector('.etape.active')?.scrollTo({ top: 0 });
+}
+let etapeDepart = 0;
+try { etapeDepart = Number(sessionStorage.getItem('etape')) || 0; sessionStorage.removeItem('etape'); } catch (e) { /* pas de stockage */ }
+allerEtape(Math.min(etapeDepart, etapes.length - 1));
 
 // ---------- Marque et textes ----------
 
@@ -1576,7 +2202,7 @@ if (CONFIG.entreprise.logo) {
 $('#badge-demo').hidden = !CONFIG.demo;
 if (CONFIG.badge) $('#badge-demo').textContent = CONFIG.badge;
 if (CONFIG.chapo) $('.chapo').textContent = CONFIG.chapo;
-if (CONFIG.entreprise.nom !== 'Votre entreprise') document.title = `Configurateur carport — ${CONFIG.entreprise.nom}`;
+document.title = `Configurateur ${LIB.objet} — ${CONFIG.entreprise.nom === 'Votre entreprise' ? 'démo' : CONFIG.entreprise.nom}`;
 // Couleurs de l'entreprise (variables CSS)
 for (const [nom, valeur] of Object.entries(CONFIG.couleurs ?? {})) document.documentElement.style.setProperty(`--${nom}`, valeur);
 
@@ -1610,7 +2236,7 @@ function compterReglage() {
     sessionStorage.setItem('demo-signalee', '1');
   } catch { /* stockage indisponible : on signale quand même une fois */ }
   utilisationSignalee = true;
-  signaler('La démo est utilisée', ['Quelqu\'un configure un carport en ce moment.', '', ...lignesConfig().map(([l, v]) => `${l} : ${v}`), '', `Lien : ${location.href}`].join('\n'));
+  signaler('La démo est utilisée', [`Quelqu'un configure un ${LIB.objet} en ce moment.`, '', ...lignesConfig().map(([l, v]) => `${l} : ${v}`), '', `Lien : ${location.href}`].join('\n'));
 }
 
 if (CONFIG.suivi?.cleWeb3Forms) $('#mention-suivi').hidden = false;
@@ -1658,7 +2284,7 @@ function telechargerPDF() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `estimation-carport-${ref}.pdf`;
+  a.download = `estimation-${LIB.objet.replace(/\s+/g, '-')}-${ref}.pdf`;
   document.body.append(a);
   a.click();
   a.remove();
@@ -1722,7 +2348,7 @@ form.addEventListener('submit', (e) => {
   const mail = $('#btn-mail');
   if (CONFIG.entreprise.email) {
     mail.hidden = false;
-    mail.href = `mailto:${CONFIG.entreprise.email}?subject=${encodeURIComponent('Demande de devis carport')}&body=${encodeURIComponent(texte)}`;
+    mail.href = `mailto:${CONFIG.entreprise.email}?subject=${encodeURIComponent(`Demande de devis ${LIB.objet}`)}&body=${encodeURIComponent(texte)}`;
     $('#recap-intro').textContent = "Voici exactement ce que l'entreprise reçoit :";
   } else {
     mail.hidden = true;

@@ -1,4 +1,4 @@
-// Démo préparée pour Esto-Dip SA (Yverdon-les-Bains VD), 29.10.2026.
+// Démo préparée pour Esto-Dip SA (Yverdon-les-Bains VD), 29.10.2026. Passé sur la nouvelle base le 04.11.2026.
 // Repris de estodip.ch (vérifié le 29.10.2026) : charpente, couverture, ferblanterie ; « Couverts à voitures,
 // porches d'entrée, séparations de terrasse, balcons ». Page « Couvert à voiture » (photos) : toits plats en tôle,
 // 1 pan et 2 pans en tuiles, couverts adossés, poteaux lasurés gris, local avec bardage, un couvert avec panneaux solaires.
@@ -14,7 +14,6 @@ export const CONFIG = {
   },
   produit: 'Couvert à voiture en bois',
   demo: true,
-  badge: 'Démo préparée pour Esto-Dip · prix fictifs',
   chapo: 'Charpente, couverture et ferblanterie par la même équipe, à Yverdon-les-Bains. Le prix se met à jour à chaque choix.',
   libelles: { titre: 'Couvert à voiture sur mesure' },
   // LED et borne non mentionnées sur leur site ; gouttières = leur métier (ferblanterie)

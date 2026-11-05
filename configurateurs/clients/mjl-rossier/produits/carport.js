@@ -1,4 +1,4 @@
-// Démo préparée pour MJL Rossier Charpente-Menuiserie Sàrl (Château-d'Œx VD), 29.10.2026.
+// Démo préparée pour MJL Rossier Charpente-Menuiserie Sàrl (Château-d'Œx VD), 29.10.2026. Passé sur la nouvelle base le 04.11.2026.
 // Repris de mjl-rossier-charpente-menuiserie.ch (vérifié le 29.10.2026) : charpente et menuiserie, chalets en madrier,
 // « chalets, hangars, cabanes de jardin ou encore couverts pour vos voitures » ; logo avec label Bois Suisse.
 // Aucune photo de couvert à voiture sur leur site : style repris de leurs chalets (2 pans, épicéa naturel), à confirmer.
@@ -14,7 +14,6 @@ export const CONFIG = {
   },
   produit: 'Couvert à voiture en bois',
   demo: true,
-  badge: 'Démo préparée pour MJL Rossier · prix fictifs',
   chapo: "Couverts à voiture en bois, par un charpentier du Pays-d'Enhaut. Le prix se met à jour à chaque choix.",
   libelles: { titre: 'Couvert à voiture sur mesure' },
   // Leur site ne parle ni de gouttières, ni d'éclairage, ni de borne : étape masquée

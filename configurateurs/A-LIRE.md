@@ -47,7 +47,7 @@ On imite les **fonctions**, jamais leur code, leurs modèles 3D, leur design ou 
   - `?debug` dans l'adresse : `window.__dbg` (scène, soleil, caméra) pour régler le rendu depuis la console.
   - **Publié sur https://demo.wibzo.ch le 03.11.2026** (vérifié : 4 produits, aucune erreur). Pergola bioclimatique : https://demo.wibzo.ch/?produit=pergola-bio
 - Pas encore fait : envoi réel de la demande à l'entreprise (aujourd'hui : copie à Wibzo via Web3Forms).
-- ⚠️ Les démos Abris Bois et Sirbatec tournent sur l'ancien `app.js` (sans la version alu). Ne les mettre à jour que si besoin.
+- ⚠️ La démo Sirbatec tourne sur l'ancien `app.js`. Abris Bois et SURTECH ont été passées sur la nouvelle base le 04.11.2026 (ancienne config déplacée dans `produits/carport.js`, `config.js` multi-produits avec assistant).
 
 ## Prochaine niche (recherche rapide du 03.11.2026)
 | Niche | Constat | Verdict |
@@ -56,3 +56,4 @@ On imite les **fonctions**, jamais leur code, leurs modèles 3D, leur design ou 
 | Piscines | Desjoyaux, AstralPool ont déjà des configurateurs ; logiciel pro Logyconcept3D chez les piscinistes ; moteur 3D très différent (terrain, eau, margelles) | ❌ |
 | Boxes chevaux / écuries | Peu de vendeurs en Romandie, LCI Cheval (France) a déjà un configurateur ; Farmwood (employeur de Ryan) travaille dans l'équestre → risque de concurrence avec Farmwood | ⚠️ seulement avec l'accord de Farmwood |
 - À faire avant la démo : ouvrir les sites d'une dizaine de vendeurs de vérandas romands pour vérifier qu'ils n'ont pas de configurateur (la recherche web ne prouve pas l'absence).
+- **Produit « Terrasse » (04.11.2026)**, 5e produit de demo.wibzo.ch (`produits/terrasse.js`, `?produit=terrasse`) : `type: 'terrasse'` (prix et textes propres dans `app.js` : `prixTerrasse`), modèle 3D `terrasse` dans `produits3d.js` : lames bois (veinage) ou composite (rainures) avec 3 nuances, dalles grès cérame 120 × 60 (texture), sens de pose parallèle / perpendiculaire à la façade / avec cadre, habillage des côtés, marches automatiques dès 20 cm (marche max 18 cm, largeur 1,40 m, côté jardin), garde-corps verre / bois à barreaux / câbles inox sur les côtés choisis (ouverture au droit des marches), spots LED encastrés (vue de nuit), mobilier pour l'échelle. Le décor ne dessine pas de dallage sous une terrasse (`dalleTerrasse`). Note SIA 358 affichée dès 1 m de hauteur. Prix d'exemple : 8 330 CHF TTC. Publié et vérifié le 04.11.2026.

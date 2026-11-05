@@ -796,7 +796,8 @@ export function creerModeles(ctx) {
     for (const mat of [matBassin, matFond]) {
       mat.color.set(teinte.couleur).lerp(new THREE.Color(teinte.eau), mat === matFond ? 0.7 : 0.5);
       if (Boolean(mat.map) !== mosa) { mat.map = mosa ? texMosaique : null; mat.needsUpdate = true; }
-      mat.roughness = mosa ? 0.2 : 0.4;
+      mat.roughness = couv.metal ? 0.28 : mosa ? 0.2 : 0.4;
+      mat.metalness = couv.metal ? 0.55 : 0; // inox : reflets métalliques
       mat.emissiveIntensity = (mat === matFond ? 0.42 : 0.3) * (0.35 + clair);
     }
     matFond.color.multiplyScalar(0.9);

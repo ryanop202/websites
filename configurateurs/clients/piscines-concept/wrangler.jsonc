@@ -1,0 +1,8 @@
+{
+  // Démo Piscines Concept Services : https://piscines-concept.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "piscines-concept-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "piscines-concept.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

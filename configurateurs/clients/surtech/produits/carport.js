@@ -1,4 +1,4 @@
-// Démo préparée pour SURTECH Sàrl (Ardon VS), 29.10.2026.
+// Carport SURTECH (repris de la démo du 29.10.2026, passé sur la nouvelle base le 04.11.2026).
 // Repris de surtech.ch/carport (vérifié le 29.10.2026) : carport aluminium sur mesure, « toit isolé renforcé »,
 // option panneaux photovoltaïques, box fermé intégrable, structure autoportante ou adossée,
 // évacuation des eaux intégrée dans les poteaux, fermeture latérale par clôture intégrée.
@@ -16,7 +16,6 @@ export const CONFIG = {
   produit: 'Carport aluminium',
   materiau: 'alu',
   demo: true,
-  badge: 'Démo préparée pour SURTECH · prix fictifs',
   chapo: 'Structure en aluminium thermolaqué, autoportante ou adossée, évacuation des eaux intégrée dans les poteaux. Le prix se met à jour à chaque choix.',
   libelles: {
     titre: 'Carport aluminium sur mesure',

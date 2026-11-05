@@ -1,4 +1,4 @@
-// Démo préparée pour GBC Entreprise SA (Romont FR), 29.10.2026.
+// Démo préparée pour GBC Entreprise SA (Romont FR), 29.10.2026. Passé sur la nouvelle base le 04.11.2026.
 // Repris de gbc-entreprise.digitalone.site et local.ch (vérifié le 29.10.2026) : charpente, couverture, terrassement, génie civil,
 // aménagements extérieurs ; prestations « Couverts et garages à voiture » ; chantiers en cours « de couverts à voitures ».
 // Aucune photo de couvert à voiture dans leur galerie : style classique (2 pans en tuiles, épicéa naturel), à confirmer.
@@ -14,7 +14,6 @@ export const CONFIG = {
   },
   produit: 'Couvert à voiture en bois',
   demo: true,
-  badge: 'Démo préparée pour GBC Entreprise · prix fictifs',
   chapo: 'Couverts et garages à voiture, de la charpente aux aménagements extérieurs, à Romont. Le prix se met à jour à chaque choix.',
   libelles: { titre: 'Couvert à voiture sur mesure' },
   // Gouttières, éclairage et borne non mentionnés sur leur site : étape masquée

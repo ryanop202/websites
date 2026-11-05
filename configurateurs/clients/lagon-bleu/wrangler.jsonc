@@ -1,0 +1,8 @@
+{
+  // Démo Piscines Lagon Bleu : https://lagon-bleu.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "lagon-bleu-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "lagon-bleu.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

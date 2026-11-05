@@ -1,4 +1,4 @@
-// Démo préparée pour Sirbatec SA (Auboranges FR), 28.10.2026.
+// Démo préparée pour Sirbatec SA (Auboranges FR), 28.10.2026. Passé sur la nouvelle base le 04.11.2026.
 // Repris de sirbatec.ch (vérifié le 28.10.2026) : couverts simples et doubles, local de rangement / vélos,
 // toit plat gravier ou végétalisé, tuiles, tôle thermolaquée, bois suisse certifié, livraison et pose par leur équipe.
 // ⚠️ Tous les PRIX sont FICTIFS. Aucun modèle ni dimension publiés sur leur site : raccourcis = tailles courantes.
@@ -13,7 +13,6 @@ export const CONFIG = {
   },
   produit: 'Couvert à voitures en bois',
   demo: true,
-  badge: 'Démo préparée pour Sirbatec · prix fictifs',
   chapo: 'Couverts sur mesure en bois suisse certifié, livrés et posés par notre équipe. Le prix se met à jour à chaque choix.',
   couleurs: { plan: '#1F2345', 'plan-clair': '#E5E7F0' },
   // Notifications par e-mail à Ryan (utilisation de la démo, PDF, demandes)

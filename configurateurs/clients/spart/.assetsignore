@@ -3,3 +3,5 @@ MESSAGE.md
 wrangler.jsonc
 .assetsignore
 .wrangler
+OFFRE.md
+*.md

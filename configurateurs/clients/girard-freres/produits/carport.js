@@ -1,4 +1,4 @@
-// Démo préparée pour Girard Frères Sàrl (Enney FR, Gruyère), 31.10.2026.
+// Démo préparée pour Girard Frères Sàrl (Enney FR, Gruyère), 31.10.2026. Passé sur la nouvelle base le 04.11.2026.
 // Repris de girard-freres.ch et local.ch (vérifié le 31.10.2026) : ébénisterie, menuiserie, charpente ; « Couvert à voiture »
 // dans leur présentation local.ch. Aucune photo de couvert sur leur site.
 // ⚠️ Tous les PRIX sont FICTIFS. Aucun modèle ni dimension publiés : raccourcis = tailles courantes.
@@ -13,7 +13,6 @@ export const CONFIG = {
   },
   produit: 'Couvert à voiture en bois',
   demo: true,
-  badge: 'Démo préparée pour Girard Frères · prix fictifs',
   chapo: 'Menuiserie, ébénisterie et charpente à Enney, en Gruyère. Le prix se met à jour à chaque choix.',
   libelles: {
     titre: 'Couvert à voiture sur mesure',

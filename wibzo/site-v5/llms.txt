@@ -1,0 +1,21 @@
+# Wibzo
+
+> Wibzo développe des configurateurs 3D sur mesure pour les entreprises de Suisse romande qui fabriquent ou construisent sur mesure. Basé à Payerne (Broye, canton de Vaud), Suisse.
+
+Le client final configure son projet en 3D sur le site de l'entreprise (dimensions, matériaux, couleurs, options), voit un prix indicatif et envoie une demande de devis complète, avec l'image 3D. Le configurateur s'ajoute au site existant avec un simple bouton.
+
+- Zone : Suisse romande (Vaud, Fribourg, Valais, Neuchâtel, Jura), Broye.
+- Produits déjà configurables (démos) : construction en bois, pergola en bois, véranda alu, pergola bioclimatique, terrasse, piscine.
+- Démo personnalisée au nom de l'entreprise, offerte et sans engagement. Prix sur offre écrite.
+- Contact : contact@wibzo.ch (échanges par e-mail ou WhatsApp).
+- Aussi : création de sites internet pour petites entreprises.
+
+## Liens
+
+- [Accueil](https://wibzo.ch/) : présentation du configurateur 3D, démos, questions fréquentes
+- [Démo publique du configurateur 3D](https://demo.wibzo.ch/)
+- [Démo piscine](https://demo.wibzo.ch/?produit=piscine)
+- [Démo véranda](https://demo.wibzo.ch/?produit=veranda)
+- [Démo pergola bioclimatique](https://demo.wibzo.ch/?produit=pergola-bio)
+- [Démo terrasse](https://demo.wibzo.ch/?produit=terrasse)
+- [Création de sites internet](https://wibzo.ch/sites-internet/)

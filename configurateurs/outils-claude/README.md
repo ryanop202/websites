@@ -27,6 +27,14 @@ Pour réinstaller ckw-design sur un autre ordinateur : copier `websites/claude-s
 - Tableau de bord : dans PowerShell, `cd C:\Users\dessinateur22\harvey` puis `.venv\Scripts\harvey dashboard`, ouvrir le lien affiché.
 - Limite : OpenStreetMap recense peu d'artisans en Suisse (45 trouvés au 29.10.2026, dont 25 sans site web), et ses serveurs gratuits saturent souvent (relancer `harvey discover` plus tard).
 
+## Vidéos (reel Instagram, 06.11.2026)
+
+- **Playwright** (Python, `pip install playwright`) avec le Chrome installé (`channel="chrome"`) : filme la démo et rend l'animation image par image (horloge virtuelle, donc fluide à 30 i/s).
+- **imageio-ffmpeg** (`pip install imageio-ffmpeg`) : fournit ffmpeg pour le montage (images + voix → MP4).
+- **ElevenLabs** (connecteur claude.ai) : voix off française, voix « Thierry » (léger accent suisse), modèle eleven_v4. Coûte des crédits ElevenLabs (518 crédits pour 2 prises de 12 s).
+- Skill **frontend-design** : direction artistique du motion design.
+- Tout est dans `configurateurs/marketing/reel-apporteur/` (README avec les étapes pour refaire la vidéo).
+
 ## Réglages (`C:\Users\<nom>\.claude\settings.json`)
 
 Ajouté le 28.10.2026 à la demande de Ryan, pour que la mise en ligne des démos ne demande pas de confirmation :

@@ -292,16 +292,16 @@ Démos en allemand (outils/demo-de.py), mails en allemand dans clients/<id>/MESS
 
 | # | Entreprise | Lieu | Produit démo | E-mail | Démo | Statut |
 |---|---|---|---|---|---|---|
-| 1 | swisscarport.ch (Max Zumstein AG) | Attiswil BE | carport bois + solaire | info@swisscarport.ch | https://swisscarport.wibzo.ch | en ligne, mail prêt |
-| 2 | Texbau AG | Däniken SO | carport acier | info@texbau.ch | https://texbau.wibzo.ch | en ligne, mail prêt |
-| 3 | SIO AG | Olten SO | véranda (Wintergarten) | info@sio-ag.ch | https://sio.wibzo.ch | en ligne, mail prêt |
-| 4 | Baumberger Bau AG | Gerlafingen SO | carport bois | info@baumberger-holzbau.ch | https://baumberger.wibzo.ch | en ligne, mail prêt |
-| 5 | Simel Home | Neuheim ZG | véranda | info@simelhome.ch | https://simelhome.wibzo.ch | en ligne, mail prêt |
-| 6 | Hans Hunziker Holzbau | Moosleerau AG | carport bois | info@hanshunziker.ch | https://hunziker.wibzo.ch | en ligne, mail prêt |
-| 7 | Holzbau Ott | Bünzen AG | carport bois | info@holzbau-ott.ch | https://holzbau-ott.wibzo.ch | en ligne, mail prêt |
-| 8 | Doppelpunkt AG | Kölliken AG | carport bois | christoph.widmer@doppelpunkt-ag.ch | https://doppelpunkt.wibzo.ch | en ligne, mail prêt |
-| 9 | Schreinerei Nabholz GmbH | Schönenwerd SO | carport bois | info@schreinerei-nabholz.ch | https://nabholz.wibzo.ch | en ligne, mail prêt |
-| 10 | Knecht GmbH | Nunningen SO | véranda | info@knechtgmbh.ch | https://knecht.wibzo.ch | en ligne (adresse active sous ~1 h), mail prêt |
+| 1 | swisscarport.ch (Max Zumstein AG) | Attiswil BE | carport bois + solaire | info@swisscarport.ch | https://swisscarport.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
+| 2 | Texbau AG | Däniken SO | carport acier | info@texbau.ch | https://texbau.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
+| 3 | SIO AG | Olten SO | véranda (Wintergarten) | info@sio-ag.ch | https://sio.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
+| 4 | Baumberger Bau AG | Gerlafingen SO | carport bois | info@baumberger-holzbau.ch | https://baumberger.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
+| 5 | Simel Home | Neuheim ZG | véranda | info@simelhome.ch | https://simelhome.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
+| 6 | Hans Hunziker Holzbau | Moosleerau AG | carport bois | info@hanshunziker.ch | https://hunziker.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
+| 7 | Holzbau Ott | Bünzen AG | carport bois | info@holzbau-ott.ch | https://holzbau-ott.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
+| 8 | Doppelpunkt AG | Kölliken AG | carport bois | christoph.widmer@doppelpunkt-ag.ch | https://doppelpunkt.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
+| 9 | Schreinerei Nabholz GmbH | Schönenwerd SO | carport bois | info@schreinerei-nabholz.ch | https://nabholz.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
+| 10 | Knecht GmbH | Nunningen SO | véranda | info@knechtgmbh.ch | https://knecht.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 
 Réponses du 11.11.2026 (Suisse romande) : Alain Zufferey = pas d'intérêt pour l'instant (trop de travail), pas de relance, recontacter au printemps 2027 au plus tôt.
 

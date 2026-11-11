@@ -10,7 +10,7 @@ from pathlib import Path
 
 RACINE = Path(__file__).resolve().parent.parent
 SRC = RACINE / 'carport-demo-de'
-LOGOS = Path(sys.argv[1]) if len(sys.argv) > 1 else None
+LOGOS = Path(sys.argv[1]) if len(sys.argv) > 1 and sys.argv[1] != '--mails' else None
 
 # Carport en métal (Texbau : acier galvanisé) : moteur « alu », coloris de la structure
 METAL = {
@@ -82,15 +82,16 @@ PRODUITS_DE = {
 
 MAIL = """Guten Tag
 
-Ich heisse Ryan, wohne in der Nähe von Payerne und entwickle 3D-Konfiguratoren für Unternehmen, die nach Mass fertigen.
+Mein Name ist Ryan, ich entwickle 3D-Konfiguratoren für Unternehmen, die nach Mass fertigen.
 
-{phrase}
+{phrase} Ich bin überzeugt, dass ein Konfigurator auf Ihrer Website Ihren Verkauf deutlich steigern und Ihre Offertanfragen stark vereinfachen kann. Deshalb habe ich eine Demo auf Ihren Namen vorbereitet:
 
-3D-Konfigurator — Demo
 https://{id}.wibzo.ch/
 
-Ihre Kunden stellen ihren {objet} in 3D zusammen, sehen einen Richtpreis und senden Ihnen eine vollständige Offertanfrage.
-Das kann Sie von der Konkurrenz abheben, und die Einbindung auf Ihrer Website ist einfach und schnell.
+So funktioniert es:
+- Ihre Kunden stellen ihren {objet} selbst in 3D zusammen und sehen sofort einen Richtpreis.
+- Sie erhalten eine vollständige Anfrage mit allen Massen, Optionen und einem 3D-Bild, ohne langes Hin und Her.
+- Ihre Website hebt sich klar von der Konkurrenz ab.
 
 Das ist erst eine erste Version mit fiktiven Preisen. Wenn Sie interessiert sind, gehe ich gerne weiter und passe sie an Ihre Modelle, Optionen, Farben und Preise an.
 
@@ -103,8 +104,32 @@ Wibzo · contact@wibzo.ch"""
 IGNORER = shutil.ignore_patterns('.wrangler', 'config.js', 'wrangler.jsonc', 'MESSAGE.md', '*.pdf')
 js = lambda v: json.dumps(v, ensure_ascii=False)
 
+def ecrire_mail(c, dst, objet):
+    # La phrase « preuve » des clients finit par « Deshalb habe ich… » : le modèle MAIL la contient déjà
+    phrase = c['phrase'].replace(' Deshalb habe ich eine Demo auf Ihren Namen vorbereitet:', '')
+    mail = MAIL.format(phrase=phrase, id=c['id'], objet=objet)
+    (dst / 'MESSAGE.md').write_text(f"""# {c['nom']} — prise de contact en allemand (préparé le 11.11.2026)
+
+**À :** {c['email']}
+**Objet :** 3D-Demo für {c['nom']}
+**Démo :** https://{c['id']}.wibzo.ch/
+**Preuve :** {c['site']} : {c['preuve']}
+
+```
+{mail}
+```
+""", encoding='utf-8')
+
+
+SEULEMENT_MAILS = '--mails' in sys.argv  # `py outils/demo-de.py --mails` : réécrit seulement les MESSAGE.md
+
 for c in CLIENTS:
     dst = RACINE / 'clients' / c['id']
+    if SEULEMENT_MAILS:
+        objet = PRODUITS_DE[c['produit']][3]
+        ecrire_mail(c, dst, objet)
+        print('mail', c['id'])
+        continue
     if dst.exists():
         shutil.rmtree(dst)
     shutil.copytree(SRC, dst, ignore=IGNORER)
@@ -162,16 +187,5 @@ export const CONFIG = {{ ...produit, assistant: true, couleurs: {{ plan: '#3D3A3
   "assets": {{ "directory": "." }}
 }}
 """, encoding='utf-8')
-    mail = MAIL.format(phrase=c['phrase'], id=c['id'], objet=objet)
-    (dst / 'MESSAGE.md').write_text(f"""# {c['nom']} — prise de contact en allemand (préparé le 11.11.2026)
-
-**À :** {c['email']}
-**Objet :** 3D-Demo für {c['nom']}
-**Démo :** https://{c['id']}.wibzo.ch/
-**Preuve :** {c['site']} : {c['preuve']}
-
-```
-{mail}
-```
-""", encoding='utf-8')
+    ecrire_mail(c, dst, objet)
     print('ok', c['id'])

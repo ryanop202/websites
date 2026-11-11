@@ -1,7 +1,7 @@
 # Prépare les démos ALLEMANDES (Suisse alémanique, 11.11.2026) : copie de carport-demo-de/ + config au nom
 # de l'entreprise, son logo, et le mail prêt (MESSAGE.md, en allemand).
 # carport-demo-de/ est fabriqué par outils/traduire-de.py (à lancer avant si carport-demo/ a changé).
-# Usage : py outils/demo-de.py <dossier des logos>   puis `npx wrangler deploy` dans clients/<id>.
+# Usage : py outils/demo-de.py <dossier des logos>   puis `npx wrangler deploy` dans hebergement-demos/ (application unique, voir README).
 # Preuves : vues sur le site de chaque entreprise le 11.11.2026 (voir « preuve »). Tous les PRIX sont FICTIFS.
 import json
 import shutil

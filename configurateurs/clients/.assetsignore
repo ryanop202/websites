@@ -1,0 +1,11 @@
+# Fichiers jamais publiés (application unique hebergement-demos/) : notes privées, mails, offres
+*.md
+*.pdf
+wrangler.jsonc
+.wrangler
+.assetsignore
+# Démos retirées (refus, 11.11.2026)
+barras/
+staviabois/
+xmstores/
+zufferey/

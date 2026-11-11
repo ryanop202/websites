@@ -1,0 +1,16 @@
+{
+  // Application unique pour toutes les démos clients (11.11.2026) : voir worker.js
+  // Mise à jour après une nouvelle démo : `npx wrangler deploy` dans ce dossier.
+  "name": "wibzo-demos",
+  "main": "worker.js",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": true,
+  "routes": [{ "pattern": "*.wibzo.ch/*", "zone_name": "wibzo.ch" }],
+  "assets": { "directory": "../clients", "binding": "ASSETS", "run_worker_first": true },
+  // La route *.wibzo.ch passe avant les adresses propres : on transmet www, demo et pergola à leur application
+  "services": [
+    { "binding": "SITE", "service": "wibzo" },
+    { "binding": "DEMO", "service": "demo-3d-configurateur" },
+    { "binding": "PERGOLA", "service": "pergola-3d-configurateur" }
+  ]
+}

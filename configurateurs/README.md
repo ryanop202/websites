@@ -78,15 +78,20 @@ puis ouvrir http://127.0.0.1:8765 dans le navigateur. (Ou demander à Claude de 
 
 ## Mettre en ligne (Cloudflare)
 
-Chaque démo est un Worker Cloudflare sur le compte de Ryan, avec une adresse `<nom>.wibzo.ch` (réglée dans `wrangler.jsonc`).
+**Depuis le 11.11.2026 : une seule application Cloudflare (`wibzo-demos`) pour toutes les démos clients** (la version gratuite est limitée à 100 applications et 100 adresses par domaine).
+`<nom>.wibzo.ch` affiche automatiquement le dossier `clients/<nom>/` (ligne DNS « * » + route `*.wibzo.ch/*`, voir `hebergement-demos/`).
+
+Nouvelle démo ou démo modifiée :
 
 ```
-cd clients/<nom>
+cd hebergement-demos
 npx wrangler deploy
 ```
 
-- `.assetsignore` empêche de publier `MESSAGE.md`, les PDF et `wrangler.jsonc` (notes privées).
-- Une nouvelle adresse peut mettre 30 à 60 min à marcher sur un ordinateur qui l'a ouverte trop tôt : tester sur un téléphone en 4G.
+- Plus besoin de `npx wrangler deploy` dans `clients/<nom>` (les `wrangler.jsonc` des clients ne servent plus). L'adresse marche tout de suite.
+- `clients/.assetsignore` empêche de publier les `.md` (mails, offres), les PDF et les `wrangler.jsonc`, et liste les démos retirées (refus).
+- `wibzo.ch`, `demo.wibzo.ch` et `pergola.wibzo.ch` gardent leur propre application ; `wibzo-demos` leur transmet les demandes (`services` dans `hebergement-demos/wrangler.jsonc`). Ne pas supprimer ces 3 applications.
+- Test sans adresse : https://wibzo-demos.ryanoppliger2021.workers.dev/<nom>/
 
 ## Outils et services utilisés
 

@@ -1,0 +1,8 @@
+{
+  // Démo DAMAK Wintergarten-Service (allemand) : https://damak.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "damak-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "damak.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

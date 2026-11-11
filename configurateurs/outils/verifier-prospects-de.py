@@ -58,7 +58,8 @@ def verifier(dom):
         'titre': unescape(titre.group(1).strip())[:120] if titre else '',
         'nom_site': unescape(site.group(1)) if site else '',
         'mails': sorted(set(m.lower() for m in mails))[:4],
-        'produits': [p for p, rx in PRODUITS.items() if re.search(rx, t, re.I)],
+        # Produit cité sur la page d'accueil ou dans un lien du menu (ex. /carport, /wintergarten)
+        'produits': [p for p, rx in PRODUITS.items() if re.search(rx, t + ' ' + ' '.join(re.findall(r'href=["\']([^"\']+)', html)), re.I)],
         'konfig': sorted(set(m.lower() for m in re.findall(KONFIG, texte(pages), re.I)))[:3],
         'shop': bool(re.search(SHOP, t, re.I)),
         'allemand': len(re.findall(r'\b(und|der|die|das|wir|Ihr)\b', t)) > 15,

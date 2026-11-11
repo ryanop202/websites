@@ -1,0 +1,8 @@
+{
+  // Démo Meier AG Metallbau (allemand) : https://meier-metallbau.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "meier-metallbau-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "meier-metallbau.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

@@ -366,3 +366,61 @@ Trouvés par Google (carport, Wintergarten, Lamellendach, Pool, toutes régions 
 | Poolman | piscine | info@poolman.ch | https://poolman.wibzo.ch | brouillon kSuite (11.11) |
 | Schäwi Pool | piscine | info@schaewi-pool.ch | https://schaewi-pool.wibzo.ch | brouillon kSuite (11.11) |
 | Schwimmbad-Line | piscine | info@schwimmbad-line.ch | https://schwimmbad-line.wibzo.ch | brouillon kSuite (11.11) |
+
+
+## Prospects Suisse alémanique — 3e série (11.11.2026, 50 entreprises)
+
+Trouvés via search.ch (produit × canton) et Google (petites villes), vérifiés par `outils/verifier-prospects-de.py`. 39 « sûrs » + 11 où le produit fait seulement partie de l'offre (paysagistes avec piscines, charpentiers avec jardins d'hiver, service piscines) : phrase du mail adaptée (« … zu Ihrem Angebot gehören »). Démos : `py outils/demo-de.py --liste outils/prospects-de-3.json`. Mails en **brouillon dans kSuite** le 11.11.2026.
+
+| Entreprise | Produit démo | E-mail | Démo | Statut |
+|---|---|---|---|---|
+| ARPI GmbH | pergola bioclimatique | info@arpi.ch | https://arpi.wibzo.ch | brouillon kSuite (11.11) |
+| Glas Wintergarten AG | véranda | info@bauen-mit-glas.ch | https://bauen-mit-glas.wibzo.ch | brouillon kSuite (11.11) |
+| Alteag Metallbausysteme AG | carport métal | info@alteag.ch | https://alteag-carport.wibzo.ch | brouillon kSuite (11.11) |
+| Friess AG Metallbau | véranda | info@friess-metallbau.ch | https://friess-metallbau.wibzo.ch | brouillon kSuite (11.11) |
+| Fünfschilling AG | carport métal | info@fuenfschilling.ch | https://fuenfschilling.wibzo.ch | brouillon kSuite (11.11) |
+| Glasmanufaktur Baden AG | véranda | info@gmb-glas.ch | https://gmb-glas.wibzo.ch | brouillon kSuite (11.11) |
+| Grädel AG | carport métal | info@graedelmetallbau.ch | https://graedel.wibzo.ch | brouillon kSuite (11.11) |
+| Holzbau Kunz | carport bois | info@holzbau-kunz.ch | https://holzbau-kunz.wibzo.ch | brouillon kSuite (11.11) |
+| Jenni Degen Metallbau | véranda | info@jennidegen.ch | https://jennidegen.wibzo.ch | brouillon kSuite (11.11) |
+| Karl Zimmermann AG | véranda | info@kazi-metall.ch | https://kazi-metall.wibzo.ch | brouillon kSuite (11.11) |
+| Zimmerei Lützelschwab AG | carport bois | mail@luetzelschwab-holzbau.ch | https://luetzelschwab.wibzo.ch | brouillon kSuite (11.11) |
+| Preite Glas | véranda | info@preite-glas.ch | https://preite-glas.wibzo.ch | brouillon kSuite (11.11) |
+| Reist Storen AG | pergola bioclimatique | info@reist-storen.ch | https://reist-storen.wibzo.ch | brouillon kSuite (11.11) |
+| swissFineLine | véranda | info@swissfineline.ch | https://swissfineline.wibzo.ch | brouillon kSuite (11.11) |
+| Schwimmbad & Meer GmbH | piscine | info@schwimmbadundmeer.ch | https://schwimmbadundmeer.wibzo.ch | brouillon kSuite (11.11) |
+| Spori Holzbau AG | carport bois | info@spori-holzbau.ch | https://spori-holzbau.wibzo.ch | brouillon kSuite (11.11) |
+| Tschann Holzbau GmbH | carport bois | info@tschann-holzbau.ch | https://tschann-holzbau.wibzo.ch | brouillon kSuite (11.11) |
+| Vettiger Stahlbau | véranda | info@vettiger-stahlbau.ch | https://vettiger.wibzo.ch | brouillon kSuite (11.11) |
+| Wisobau GmbH | pergola bioclimatique | info@wisobau.ch | https://wisobau.wibzo.ch | brouillon kSuite (11.11) |
+| Brechbühl Holzbau | carport bois | info@brechbuehl-holzbau.ch | https://brechbuehl-holzbau.wibzo.ch | brouillon kSuite (11.11) |
+| Hyler Metallbau AG | carport métal | info@hyler-metallbau.ch | https://hyler-metallbau.wibzo.ch | brouillon kSuite (11.11) |
+| IN metall GmbH | véranda | info@in-metall.ch | https://in-metall.wibzo.ch | brouillon kSuite (11.11) |
+| Blue Line GmbH | piscine | info@meinschwimmbad.ch | https://blue-line-pool.wibzo.ch | brouillon kSuite (11.11) |
+| Metallbau Werren + Lehmann | véranda | info@metall-bau.ch | https://werren-lehmann.wibzo.ch | brouillon kSuite (11.11) |
+| Müller Metallbau Kaltenbach | véranda | info@mueller-metallbau.ch | https://mueller-metallbau.wibzo.ch | brouillon kSuite (11.11) |
+| Haldemann & Krähenbühl Holzbau | carport bois | info@hk-holz.ch | https://hk-holz.wibzo.ch | brouillon kSuite (11.11) |
+| BBPool Schwimmbadbau | piscine | kontakt@bbpool.ch | https://bbpool.wibzo.ch | brouillon kSuite (11.11) |
+| Holzbau Schärer Söhne AG | carport bois | info@schaerer5103.ch | https://schaerer-holzbau.wibzo.ch | brouillon kSuite (11.11) |
+| DAMAK Wintergarten-Service | véranda | info@damak.ch | https://damak.wibzo.ch | brouillon kSuite (11.11) |
+| Gotthard Holzbau GmbH | carport bois | info@gotthardholzbau.ch | https://gotthard-holzbau.wibzo.ch | brouillon kSuite (11.11) |
+| Wehrli Holzbau | carport bois | info@holzbau-wehrli.ch | https://wehrli-holzbau.wibzo.ch | brouillon kSuite (11.11) |
+| Werner Keller Metallbau AG | véranda | mail@kellermetall.ch | https://kellermetall.wibzo.ch | brouillon kSuite (11.11) |
+| Lang AG | piscine | schwimmbad@lang-ag.ch | https://lang-schwimmbad.wibzo.ch | brouillon kSuite (11.11) |
+| Meier AG Metallbau | véranda | info@meiermetallbau.ch | https://meier-metallbau.wibzo.ch | brouillon kSuite (11.11) |
+| Rey Metall GmbH | pergola bioclimatique | mail@reymetallgmbh.ch | https://rey-metall.wibzo.ch | brouillon kSuite (11.11) |
+| Schärer Solarholzbau GmbH | carport bois | sandro@solarholzbau.ch | https://solarholzbau.wibzo.ch | brouillon kSuite (11.11) |
+| Staub Schwimmbad-Technik AG | piscine | info@staub-schwimmbad.ch | https://staub-schwimmbad.wibzo.ch | brouillon kSuite (11.11) |
+| 3M Glassysteme | pergola bioclimatique | info@3m-glassysteme.ch | https://3m-glassysteme.wibzo.ch | brouillon kSuite (11.11) |
+| Zimmerei Müller | carport bois | zimmerei.b.mueller@bluewin.ch | https://zimmerei-mueller.wibzo.ch | brouillon kSuite (11.11) |
+| Wetzel Gartenbau | piscine | info@wetzelgartenbau.ch | https://wetzel-gartenbau.wibzo.ch | brouillon kSuite (11.11) |
+| Haas Gartenbau AG | piscine | info@haas-gartenbau.ch | https://haas-gartenbau.wibzo.ch | brouillon kSuite (11.11) |
+| Hossli Bau GmbH | piscine | info@hosslibau.ch | https://hossli-bau.wibzo.ch | brouillon kSuite (11.11) |
+| Emmenegger Garten-Tiefbau AG | piscine | info@emmag.ch | https://emmenegger-gartenbau.wibzo.ch | brouillon kSuite (11.11) |
+| Buchter Gärten | piscine | info@buchtergaerten.ch | https://buchter-gaerten.wibzo.ch | brouillon kSuite (11.11) |
+| Knechtgarten | piscine | info@knechtgarten.ch | https://knechtgarten.wibzo.ch | brouillon kSuite (11.11) |
+| Schoop Gartenbau | piscine | info@schoop.com | https://schoop-gartenbau.wibzo.ch | brouillon kSuite (11.11) |
+| Wiga Gartenpflege & Gestaltung | piscine | garten@wiga.ch | https://wiga-garten.wibzo.ch | brouillon kSuite (11.11) |
+| Constructive Holzbau AG | véranda | holzbau@chb-ag.ch | https://chb-holzbau.wibzo.ch | brouillon kSuite (11.11) |
+| Foffa Conrad Holzbau AG | véranda | info@foffa-conrad-holzbau.ch | https://foffa-conrad.wibzo.ch | brouillon kSuite (11.11) |
+| WWS-Technik GmbH | piscine | wws-technik@bluewin.ch | https://wws-technik.wibzo.ch | brouillon kSuite (11.11) |

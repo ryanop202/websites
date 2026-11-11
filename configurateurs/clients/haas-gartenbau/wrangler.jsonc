@@ -1,0 +1,8 @@
+{
+  // Démo Haas Gartenbau AG (allemand) : https://haas-gartenbau.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "haas-gartenbau-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "haas-gartenbau.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

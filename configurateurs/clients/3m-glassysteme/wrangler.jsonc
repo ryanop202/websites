@@ -1,0 +1,8 @@
+{
+  // Démo 3M Glassysteme (allemand) : https://3m-glassysteme.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "3m-glassysteme-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "3m-glassysteme.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

@@ -109,12 +109,13 @@ def initiales(nom):
 if '--liste' in sys.argv:
     LOGOS = None
     CLIENTS = []
-    for id_, nom, email, site, prod in json.loads(Path(sys.argv[sys.argv.index('--liste') + 1]).read_text(encoding='utf-8')):
-        base_prod = 'piscine' if prod.startswith('piscine') else prod
+    for id_, nom, email, site, prod, *phrase_perso in json.loads(Path(sys.argv[sys.argv.index('--liste') + 1]).read_text(encoding='utf-8')):
+        metal = prod == 'carport-metal'
+        base_prod = 'piscine' if prod.startswith('piscine') else 'carport' if metal else prod
         CLIENTS.append(dict(id=id_, nom=nom, activite=ACTIVITES[base_prod], initiales=initiales(nom), logo=None,
-                            email=email, site=site, produit=base_prod, inox=prod == 'piscine-inox',
+                            email=email, site=site, produit=base_prod, inox=prod == 'piscine-inox', metal=metal,
                             preuve=f'produit « {PRODUITS_DE[base_prod][0]} » trouvé sur le site (vérifié par script le 11.11.2026)',
-                            phrase=PHRASES[base_prod]))
+                            phrase=phrase_perso[0] if phrase_perso else PHRASES[base_prod]))
 
 MAIL = """Guten Tag
 

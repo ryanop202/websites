@@ -1,0 +1,8 @@
+{
+  // Démo Hyler Metallbau AG (allemand) : https://hyler-metallbau.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "hyler-metallbau-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "hyler-metallbau.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

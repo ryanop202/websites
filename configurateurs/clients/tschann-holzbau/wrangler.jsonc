@@ -1,0 +1,8 @@
+{
+  // Démo Tschann Holzbau GmbH (allemand) : https://tschann-holzbau.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "tschann-holzbau-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "tschann-holzbau.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

@@ -1,0 +1,8 @@
+{
+  // Démo Zimmerei Lützelschwab AG (allemand) : https://luetzelschwab.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "luetzelschwab-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "luetzelschwab.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

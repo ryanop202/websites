@@ -1,0 +1,8 @@
+{
+  // Démo Glasmanufaktur Baden AG (allemand) : https://gmb-glas.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "gmb-glas-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "gmb-glas.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

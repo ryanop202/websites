@@ -1,0 +1,8 @@
+{
+  // Démo BBPool Schwimmbadbau (allemand) : https://bbpool.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "bbpool-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "bbpool.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

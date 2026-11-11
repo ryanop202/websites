@@ -1,0 +1,8 @@
+{
+  // Démo Lang AG (allemand) : https://lang-schwimmbad.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "lang-schwimmbad-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "lang-schwimmbad.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

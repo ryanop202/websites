@@ -1,0 +1,8 @@
+{
+  // Démo Wehrli Holzbau (allemand) : https://wehrli-holzbau.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "wehrli-holzbau-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "wehrli-holzbau.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

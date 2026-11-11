@@ -1,0 +1,8 @@
+{
+  // Démo Karl Zimmermann AG (allemand) : https://kazi-metall.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "kazi-metall-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "kazi-metall.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

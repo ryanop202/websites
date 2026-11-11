@@ -1,0 +1,8 @@
+{
+  // Démo Zimmerei Müller (allemand) : https://zimmerei-mueller.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "zimmerei-mueller-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "zimmerei-mueller.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

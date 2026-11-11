@@ -18,7 +18,7 @@ https://swisscarport.wibzo.ch/
 Ihre Kunden stellen ihren Carport in 3D zusammen, sehen einen Richtpreis und senden Ihnen eine vollständige Offertanfrage.
 Das kann Sie von der Konkurrenz abheben, und die Einbindung auf Ihrer Website ist einfach und schnell.
 
-Die Preise sind fiktiv, ich würde sie durch Ihre ersetzen.
+Das ist erst eine erste Version mit fiktiven Preisen. Wenn Sie interessiert sind, gehe ich gerne weiter und passe sie an Ihre Modelle, Optionen, Farben und Preise an.
 
 Hätten Sie Interesse, diesen Konfigurator zu nutzen?
 

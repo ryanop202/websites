@@ -14,6 +14,8 @@ PRODUITS = {
     'veranda': r'wintergarten|winterg(?:ä|a)rten|sommergarten',
     'pergola-bio': r'lamellendach|lamellend(?:ä|a)cher|bioklimatisch',
     'piscine': r'swimmingpool|schwimmbad|poolbau|\bpools?\b',
+    'pergola': r'pergola',
+    'terrasse': r'holzterrass|terrassenbau|terrassendiele|terrassenb(?:ö|o)den|holzdeck|wpc-terrass',
 }
 KONFIG = r'konfigurator|konfigurieren sie|preisrechner|kostenrechner|offertenrechner|online[- ]rechner|jetzt berechnen|preis berechnen|offerte berechnen'
 SHOP = r'warenkorb|in den korb|add to cart|zur kasse'
@@ -50,6 +52,17 @@ def verifier(dom):
                 mails = [m for m in MAIL.findall(h2) if not re.search(r'example|sentry|wix|\.png|\.jpg', m, re.I)]
                 if mails:
                     break
+    # Pages « Leistungen / Angebot / Garten / Holzbau… » du même site : les produits y sont souvent cités
+    base = re.match(r'https?://[^/]+', url).group(0) if url else f'https://{dom}'
+    sous = []
+    for h in re.findall(r'href=["\']([^"\'#?]+)', html):
+        if re.search(r'leistung|angebot|dienstleist|aussen|garten|holzbau|produkt|service|terrass|carport|pool', h, re.I):
+            lien = h if h.startswith('http') else base + '/' + h.lstrip('/')
+            if dom in lien and lien not in sous:
+                sous.append(lien)
+    for lien in sous[:4]:
+        h2, _ = lire(lien)
+        t += ' ' + texte(h2)
     titre = re.search(r'(?is)<title[^>]*>(.*?)</title>', html)
     site = re.search(r'property=["\']og:site_name["\'][^>]*content=["\']([^"\']+)', html)
     lieu = re.search(r'\b([1-9]\d{3})\s+([A-ZÄÖÜ][a-zäöüé]+(?:[ -][A-ZÄÖÜ]?[a-zäöüé.]+)?)', t)

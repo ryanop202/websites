@@ -1,0 +1,8 @@
+{
+  // Démo Brunner Zimmerei (allemand) : https://brunner-zimmerei.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "brunner-zimmerei-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "brunner-zimmerei.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

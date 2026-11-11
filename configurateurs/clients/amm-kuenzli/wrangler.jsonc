@@ -1,0 +1,8 @@
+{
+  // Démo AMM Künzli Glas- & Metallbau AG (allemand) : https://amm-kuenzli.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "amm-kuenzli-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "amm-kuenzli.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

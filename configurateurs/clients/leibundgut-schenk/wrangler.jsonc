@@ -1,0 +1,8 @@
+{
+  // Démo Leibundgut & Schenk AG (allemand) : https://leibundgut-schenk.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "leibundgut-schenk-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "leibundgut-schenk.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

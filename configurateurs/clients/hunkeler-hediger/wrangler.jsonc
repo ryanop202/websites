@@ -1,0 +1,8 @@
+{
+  // Démo Hunkeler + Hediger Metallbau (allemand) : https://hunkeler-hediger.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "hunkeler-hediger-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "hunkeler-hediger.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

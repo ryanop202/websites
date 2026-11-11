@@ -1,0 +1,8 @@
+{
+  // Démo Neumüller Gärten (allemand) : https://neumueller-gaerten.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "neumueller-gaerten-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "neumueller-gaerten.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

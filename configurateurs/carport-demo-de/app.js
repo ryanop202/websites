@@ -192,24 +192,24 @@ function prixTerrasse(g) {
   const surface = g.W * g.L;
   const lignes = [];
   lignes.push([`${couv.label} · ${fmtM2(surface)}`, surface * T.revetementM2[state.couverture] * pose.facteur]);
-  lignes.push([`Sous-structure, plancher à ${fmtM(g.H)}`, surface * (T.structureM2 + g.H * T.structureHauteurM2)]);
+  lignes.push([`Unterkonstruktion, Boden auf ${fmtM(g.H)}`, surface * (T.structureM2 + g.H * T.structureHauteurM2)]);
   // Côtés libres (pas contre la maison) : longueur et habillage quand le plancher est surélevé
   const cotes = { paroiArriere: g.W, paroiAvant: g.W, paroiGauche: g.L, paroiDroite: g.L };
   const libre = (cle) => !(cle === 'paroiGauche' && g.maison(-1)) && !(cle === 'paroiDroite' && g.maison(1));
   const perimetreLibre = Object.keys(cotes).filter(libre).reduce((s, c) => s + cotes[c], 0);
-  if (g.H > 0.12) lignes.push([`Habillage des côtés · ${fmtM(perimetreLibre)}`, perimetreLibre * g.H * T.habillageM2]);
+  if (g.H > 0.12) lignes.push([`Seitenverkleidung · ${fmtM(perimetreLibre)}`, perimetreLibre * g.H * T.habillageM2]);
   const n = nbMarches(g.H);
-  if (n) lignes.push([`Marches d'accès (${n})`, n * T.marche]);
+  if (n) lignes.push([`Zugangsstufen (${n})`, n * T.marche]);
   const gc = CONFIG.bardages[state.bardage];
   const ouverture = n ? (CONFIG.largeurMarches ?? 1.4) : 0;
   let longGC = 0;
   for (const cle of Object.keys(cotes)) {
     if (state[cle] && libre(cle)) longGC += cotes[cle] - (cle === coteMarches(g.adosse) ? ouverture : 0);
   }
-  if (longGC > 0) lignes.push([`${LIB.paroiLigne} ${gc.label.toLowerCase()} · ${fmtM(longGC)}`, longGC * T.gardeCorpsMl * gc.facteur]);
-  if (state.led) lignes.push(['Éclairage LED encastré', T.led]);
+  if (longGC > 0) lignes.push([`${LIB.paroiLigne}: ${gc.label} · ${fmtM(longGC)}`, longGC * T.gardeCorpsMl * gc.facteur]);
+  if (state.led) lignes.push(['LED-Einbaubeleuchtung', T.led]);
   const materiel = lignes.reduce((s, [, v]) => s + v, 0);
-  lignes.push(['Livraison et pose', Math.max(T.poseMin, materiel * T.poseTaux)]);
+  lignes.push(['Lieferung und Montage', Math.max(T.poseMin, materiel * T.poseTaux)]);
   const ht = lignes.reduce((s, [, v]) => s + v, 0);
   const tva = ht * CONFIG.tva;
   const ttc = arrondi10(ht + tva);
@@ -2003,7 +2003,7 @@ function lignesConfig() {
     return [
       ['Becken', `${fmtM(g.L)} × ${fmtM(g.W)} · ${fmtM2(p.surface)} · Wassertiefe ${fmtM(g.H)}`],
       ['Treppe', CONFIG.toits[state.toit].label],
-      ['Auskleidung', `${couv.label}, ${couv.teintes[state.teinteCouverture].label}`],
+      ['Material', `${couv.label}, ${couv.teintes[state.teinteCouverture].label}`],
       ['Beckenrand', CONFIG.bois[state.bois].label],
       ['Poolumrandung', parois.length ? `${parois.join(', ')} · ${CONFIG.bardages[state.bardage].label} · ${fmtM2(p.aire)}` : 'keine'],
       ['Ausstattung', [state.gouttieres && 'Unterwasser-Rollabdeckung', state.led && `LED-Beleuchtung (${p.spots} Spots)`,
@@ -2013,13 +2013,13 @@ function lignesConfig() {
   }
   if (TERRASSE) {
     return [
-      ['Dimensions', `${fmtM(g.Dc)} ${LIB.profondeurAide} × ${fmtM(g.Wv)} ${LIB.largeurAide} · ${fmtM2(p.surface)}`],
-      ['Hauteur du plancher', `${fmtM(g.H)}${p.marches ? ` · ${p.marches} marche${p.marches > 1 ? 's' : ''} d'accès` : ''}`],
-      ['Implantation', g.adosse === 'non' ? 'Isolée (4 côtés libres)' : `Contre la maison, façade à ${g.adosse}`],
-      ['Auskleidung', `${couv.label}, ${couv.teintes[state.teinteCouverture].label}`],
+      ['Masse', `${fmtM(g.Dc)} ${LIB.profondeurAide} × ${fmtM(g.Wv)} ${LIB.largeurAide} · ${fmtM2(p.surface)}`],
+      ['Bodenhöhe', `${fmtM(g.H)}${p.marches ? ` · ${p.marches} Stufe${p.marches > 1 ? 'n' : ''}` : ''}`],
+      ['Standort', g.adosse === 'non' ? 'Freistehend' : `Am Haus, Fassade ${g.adosse === 'gauche' ? 'links' : 'rechts'}`],
+      ['Material', `${couv.label}, ${couv.teintes[state.teinteCouverture].label}`],
       [LIB.finitionLigne, CONFIG.bois[state.bois].label],
-      [LIB.parois, parois.length ? `${parois.join(', ')} · ${CONFIG.bardages[state.bardage].label.toLowerCase()}` : 'aucun'],
-      ['Équipements', [state.led && 'éclairage LED encastré', ...(CONFIG.inclus ?? [])].filter(Boolean).join(', ') || 'aucun'],
+      [LIB.parois, parois.length ? `${parois.join(', ')} · ${CONFIG.bardages[state.bardage].label}` : 'keines'],
+      ['Ausstattung', [state.led && 'LED-Einbaubeleuchtung', ...(CONFIG.inclus ?? [])].filter(Boolean).join(', ') || 'keine'],
     ];
   }
   return [
@@ -2061,12 +2061,12 @@ function resume() {
     const n = nbMarches(g.H);
     return [
       dimsTexte(),
-      `Plancher à ${fmtM(g.H)}`,
-      g.adosse !== 'non' ? `Contre la maison (${g.adosse})` : null,
+      `Boden auf ${fmtM(g.H)}`,
+      g.adosse !== 'non' ? `Am Haus (${g.adosse === 'gauche' ? 'links' : 'rechts'})` : null,
       `${couv.label}, ${couv.teintes[state.teinteCouverture].label}`,
       CONFIG.bois[state.bois].label,
-      n ? `${n} marche${n > 1 ? 's' : ''}` : null,
-      parois.length ? `${LIB.parois} : ${parois.join(', ')}` : `Sans ${LIB.parois.toLowerCase()}`,
+      n ? `${n} Stufe${n > 1 ? 'n' : ''}` : null,
+      parois.length ? `${LIB.parois}: ${parois.join(', ')}` : `Ohne ${LIB.parois}`,
       parois.length ? CONFIG.bardages[state.bardage].label : null,
       state.led ? 'LED' : null,
     ].filter(Boolean);
@@ -2124,7 +2124,7 @@ function majPrix() {
   $('#note-technique').textContent = PISCINE
     ? `Wasserfläche ${fmtM2(p.surface)} · ca. ${Math.round(p.volumeEau)} m³ Wasser`
     : TERRASSE
-    ? `Surface ${fmtM2(p.surface)}${p.marches ? ` · ${p.marches} marche${p.marches > 1 ? 's' : ''} d'accès` : ''}${CONFIG.noteGardeCorps && state.hauteur >= (CONFIG.hauteurGardeCorps ?? 1) ? ` · ${CONFIG.noteGardeCorps}` : ''}`
+    ? `Fläche ${fmtM2(p.surface)}${p.marches ? ` · ${p.marches} Stufe${p.marches > 1 ? 'n' : ''}` : ''}${CONFIG.noteGardeCorps && state.hauteur >= (CONFIG.hauteurGardeCorps ?? 1) ? ` · ${CONFIG.noteGardeCorps}` : ''}`
     : `${p.nbPoteaux} Pfosten · Spannweite max. ${fmtM(CONFIG.porteeMax)} · überdachte Fläche ${fmtM2(p.surface)}`;
   return p.ttc;
 }

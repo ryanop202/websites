@@ -1,0 +1,8 @@
+{
+  // Démo Metallbau Neuenhof (allemand) : https://metallbau-neuenhof.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "metallbau-neuenhof-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "metallbau-neuenhof.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

@@ -1,0 +1,8 @@
+{
+  // Démo Holzbau Buehlmann AG (allemand) : https://holzbau-buehlmann.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "holzbau-buehlmann-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "holzbau-buehlmann.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

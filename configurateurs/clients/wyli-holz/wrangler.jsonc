@@ -1,0 +1,8 @@
+{
+  // Démo Wyli Holz (allemand) : https://wyli-holz.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "wyli-holz-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "wyli-holz.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

@@ -83,6 +83,10 @@ PRODUITS_DE = {
                     '<path d="M3 20h18M5 20V8M19 20V8M3 8h18M6 5.5l2 1M10 5.5l2 1M14 5.5l2 1"/>', 'ihre Pergola'),
     'piscine': ('Pool', 'Becken nach Mass, Treppe, Beckenrand, Umrandung und Optionen.',
                 '<path d="M3 9h18v9H3zM6 12c1.5 1 3 1 4.5 0s3-1 4.5 0 3 1 4.5 0M7 9V5h2M7 7h2"/>', 'ihren Pool'),
+    'pergola': ('Holz-Pergola', 'Eine Holzkonstruktion am Haus, auf der Terrasse, Sichtschutz optional.',
+                '<path d="M3 20h18M6 20V9M18 20V9M3 9h18M5 6h14M8 6v3M12 6v3M16 6v3"/>', 'ihre Pergola'),
+    'terrasse': ('Terrasse', 'Holz- oder WPC-Dielen, Feinsteinzeug, Stufen und Geländer.',
+                 '<path d="M2 15h20M4 15v5M20 15v5M4 18h16M6 12h12M8 9h8"/>', 'ihre Terrasse'),
 }
 
 # Liste du 11.11.2026 (outils/prospects-de-2.json) : sites vérifiés par outils/verifier-prospects-de.py
@@ -93,9 +97,12 @@ PHRASES = {
     'veranda': 'Auf Ihrer Website habe ich gesehen, dass Sie Wintergärten bauen.',
     'pergola-bio': 'Auf Ihrer Website habe ich gesehen, dass Sie Lamellendächer anbieten.',
     'piscine': 'Auf Ihrer Website habe ich gesehen, dass Sie Pools bauen.',
+    'pergola': 'Auf Ihrer Website habe ich gesehen, dass Sie Pergolen anbieten.',
+    'terrasse': 'Auf Ihrer Website habe ich gesehen, dass Sie Terrassen bauen.',
 }
 ACTIVITES = {'carport': 'Holzbau & Carports', 'veranda': 'Wintergärten & Verglasungen',
-             'pergola-bio': 'Lamellendächer & Sonnenschutz', 'piscine': 'Pool- & Schwimmbadbau'}
+             'pergola-bio': 'Lamellendächer & Sonnenschutz', 'piscine': 'Pool- & Schwimmbadbau',
+             'pergola': 'Holzbau & Gartenbau', 'terrasse': 'Terrassen & Gartenbau'}
 INOX = {'inox': {'label': 'Edelstahl', 'metal': True, 'teintes': {
     'brosse': {'label': 'Gebürstet', 'couleur': '#C3C9CD', 'eau': '#42B9D4'},
     'poli': {'label': 'Poliert', 'couleur': '#DCE1E4', 'eau': '#47C2DC'}}}}

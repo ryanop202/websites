@@ -1,0 +1,8 @@
+{
+  // Démo Sonnfix GmbH (allemand) : https://sonnfix.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "sonnfix-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "sonnfix.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

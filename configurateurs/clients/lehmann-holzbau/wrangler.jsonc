@@ -1,0 +1,8 @@
+{
+  // Démo Josef Lehmann Holzbau AG (allemand) : https://lehmann-holzbau.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "lehmann-holzbau-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "lehmann-holzbau.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

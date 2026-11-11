@@ -424,3 +424,61 @@ Trouvés via search.ch (produit × canton) et Google (petites villes), vérifié
 | Constructive Holzbau AG | véranda | holzbau@chb-ag.ch | https://chb-holzbau.wibzo.ch | brouillon kSuite (11.11) |
 | Foffa Conrad Holzbau AG | véranda | info@foffa-conrad-holzbau.ch | https://foffa-conrad.wibzo.ch | brouillon kSuite (11.11) |
 | WWS-Technik GmbH | piscine | wws-technik@bluewin.ch | https://wws-technik.wibzo.ch | brouillon kSuite (11.11) |
+
+
+## Prospects Suisse alémanique — 4e série (11.11.2026, 50 entreprises)
+
+Charpentiers, menuisiers, paysagistes et storistes (search.ch par ville). Nouveaux produits traduits en allemand : pergola bois et terrasse. `verifier-prospects-de.py` lit maintenant aussi jusqu'à 4 pages « Leistungen/Angebot » par site. Storistes : démo pergola bioclimatique, mail « Pergolen anbieten ». Démos : `py outils/demo-de.py --liste outils/prospects-de-4.json`. Mails en **brouillon dans kSuite** le 11.11.2026.
+
+| Entreprise | Produit démo | E-mail | Démo | Statut |
+|---|---|---|---|---|
+| Abderhalden Gartenbau | piscine | info@abderhalden.ch | https://abderhalden-garten.wibzo.ch | brouillon kSuite (11.11) |
+| Egger AG Gartenbau | piscine | info@eggergarten.ch | https://egger-garten.wibzo.ch | brouillon kSuite (11.11) |
+| Egli Holzbau | terrasse | info@egli-holzbau.ch | https://egli-holzbau.wibzo.ch | brouillon kSuite (11.11) |
+| Frick Gärtner von Eden | piscine | info@frickgartenbau.ch | https://frick-garten.wibzo.ch | brouillon kSuite (11.11) |
+| Grünbau GmbH | terrasse | kaypfister@gruenbau.ch | https://gruenbau.wibzo.ch | brouillon kSuite (11.11) |
+| Herrmann Gartenbau AG | piscine | contact@herrmann-gartenbau.ch | https://herrmann-gartenbau.wibzo.ch | brouillon kSuite (11.11) |
+| Keller Gartenbau | pergola bois | info@keller-gartenbau.ch | https://keller-gartenbau.wibzo.ch | brouillon kSuite (11.11) |
+| Legno Gartenschreiner | terrasse | info@legno.ch | https://legno.wibzo.ch | brouillon kSuite (11.11) |
+| Leibundgut & Schenk AG | carport bois | info@leibundgut-schenk.ch | https://leibundgut-schenk.wibzo.ch | brouillon kSuite (11.11) |
+| Walter Kuhn & Söhne | pergola bois | info.schreinereikuhn@bluewin.ch | https://schreinerei-kuhn.wibzo.ch | brouillon kSuite (11.11) |
+| Schwitter & Wieland | carport bois | info@swholz.ch | https://swholz.wibzo.ch | brouillon kSuite (11.11) |
+| Wiesli Holzbau | terrasse | info@wiesli-holzbau.ch | https://wiesli-holzbau.wibzo.ch | brouillon kSuite (11.11) |
+| Ammann Gartenbau | pergola bois | info@ammanngartenbau.ch | https://ammann-gartenbau.wibzo.ch | brouillon kSuite (11.11) |
+| AMM Künzli Glas- & Metallbau AG | véranda | info@amm-kuenzli.ch | https://amm-kuenzli.wibzo.ch | brouillon kSuite (11.11) |
+| az Holz AG | carport bois | info@azholz.ch | https://azholz.wibzo.ch | brouillon kSuite (11.11) |
+| Brunner Zimmerei | véranda | info@brunner-zimmerei.ch | https://brunner-zimmerei.wibzo.ch | brouillon kSuite (11.11) |
+| Di Nicola Metallbau AG | pergola bioclimatique | info@dinicola-metallbau.ch | https://dinicola-metallbau.wibzo.ch | brouillon kSuite (11.11) |
+| Fankhauser Schreinerei | terrasse | info@fankhauser-schreinerei.ch | https://fankhauser-schreinerei.wibzo.ch | brouillon kSuite (11.11) |
+| gartenbaumann AG | piscine | info@gartenbaumann.ch | https://gartenbaumann.wibzo.ch | brouillon kSuite (11.11) |
+| Gloor Metallbau | pergola bioclimatique | info@gloor-metallbau.ch | https://gloor-metallbau.wibzo.ch | brouillon kSuite (11.11) |
+| Holzbau Buehlmann AG | carport bois | kontakt@holzbau-buehlmann.ch | https://holzbau-buehlmann.wibzo.ch | brouillon kSuite (11.11) |
+| Holzbau Meier AG | carport bois | info@holzbau-meier.ch | https://holzbau-meier.wibzo.ch | brouillon kSuite (11.11) |
+| Holzbau Nägeli | carport bois | info@holzbau-naegeli.ch | https://holzbau-naegeli.wibzo.ch | brouillon kSuite (11.11) |
+| Zimmerei Wagen | pergola bois | info@holzbau-wagen.ch | https://holzbau-wagen.wibzo.ch | brouillon kSuite (11.11) |
+| HOBAX GmbH | carport bois | info@holz-nach-mass.ch | https://hobax.wibzo.ch | brouillon kSuite (11.11) |
+| Hunkeler + Hediger Metallbau | véranda | info@hunkeler-hediger.ch | https://hunkeler-hediger.wibzo.ch | brouillon kSuite (11.11) |
+| Jura Holzbau | carport bois | info@juraholzbau.ch | https://jura-holzbau.wibzo.ch | brouillon kSuite (11.11) |
+| Kayser Holzbau AG | terrasse | t.schleiss@kayser.ch | https://kayser-holzbau.wibzo.ch | brouillon kSuite (11.11) |
+| Kleingartenbau | pergola bois | info@kleingartenbau.ch | https://kleingartenbau.wibzo.ch | brouillon kSuite (11.11) |
+| Knuchel Schreinerei | terrasse | info@knuchelag.ch | https://knuchel.wibzo.ch | brouillon kSuite (11.11) |
+| Lang Garten- & Tiefbau | piscine | info@lang-garten-tiefbau.ch | https://lang-garten.wibzo.ch | brouillon kSuite (11.11) |
+| Josef Lehmann Holzbau AG | terrasse | holzbau@lehmann-schneisingen.ch | https://lehmann-holzbau.wibzo.ch | brouillon kSuite (11.11) |
+| H. Luchsinger AG | pergola bioclimatique | info@luchsinger-aadorf.ch | https://luchsinger.wibzo.ch | brouillon kSuite (11.11) |
+| Metallbau Neuenhof | véranda | info@metallbau-neuenhof.ch | https://metallbau-neuenhof.wibzo.ch | brouillon kSuite (11.11) |
+| Neumüller Gärten | terrasse | mail@neumuellergaerten.ch | https://neumueller-gaerten.wibzo.ch | brouillon kSuite (11.11) |
+| NOTZ Storen und Rollladen | pergola bioclimatique | info@notz-storen.ch | https://notz-storen.wibzo.ch | brouillon kSuite (11.11) |
+| Reutimann Gartengestaltung | pergola bois | info@reutimanngarten.ch | https://reutimann-garten.wibzo.ch | brouillon kSuite (11.11) |
+| REVI Storenservice GmbH | pergola bioclimatique | info@revistoren.ch | https://revi-storen.wibzo.ch | brouillon kSuite (11.11) |
+| Rohr Storen | pergola bioclimatique | info@rohr-storen.ch | https://rohr-storen.wibzo.ch | brouillon kSuite (11.11) |
+| Roth Storen | carport métal | info@rothstoren.ch | https://roth-storen.wibzo.ch | brouillon kSuite (11.11) |
+| Rüttimann Garten GmbH | pergola bois | info@ruettimanngartenbau.ch | https://ruettimann-garten.wibzo.ch | brouillon kSuite (11.11) |
+| Schreinerei Signoretti | terrasse | info@schreinerei-signoretti.ch | https://signoretti.wibzo.ch | brouillon kSuite (11.11) |
+| Sonnfix GmbH | pergola bioclimatique | office@sonnfix.ch | https://sonnfix.wibzo.ch | brouillon kSuite (11.11) |
+| Stocker Holzbau GmbH | carport bois | stocker-holzbau@hotmail.com | https://stocker-holzbau.wibzo.ch | brouillon kSuite (11.11) |
+| Strausak Holzbau | terrasse | office@strausak-holzbau.ch | https://strausak-holzbau.wibzo.ch | brouillon kSuite (11.11) |
+| Storen Suter | pergola bioclimatique | info@suter-storen.ch | https://suter-storen.wibzo.ch | brouillon kSuite (11.11) |
+| Tschopp Holzbau AG | carport bois | info@tschopp-holzbau.ch | https://tschopp-holzbau.wibzo.ch | brouillon kSuite (11.11) |
+| Verum Lignum | carport bois | info@verum-lignum.ch | https://verum-lignum.wibzo.ch | brouillon kSuite (11.11) |
+| Wyli Holz | carport bois | info@wyli.ch | https://wyli-holz.wibzo.ch | brouillon kSuite (11.11) |
+| Zimmerei Berger | carport bois | lukas@zimmereiberger.ch | https://zimmerei-berger.wibzo.ch | brouillon kSuite (11.11) |

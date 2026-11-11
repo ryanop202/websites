@@ -298,9 +298,11 @@ Démos en allemand (outils/demo-de.py), mails en allemand dans clients/<id>/MESS
 | 4 | Baumberger Bau AG | Gerlafingen SO | carport bois | info@baumberger-holzbau.ch | https://baumberger.wibzo.ch | en ligne, mail prêt |
 | 5 | Simel Home | Neuheim ZG | véranda | info@simelhome.ch | https://simelhome.wibzo.ch | en ligne, mail prêt |
 | 6 | Hans Hunziker Holzbau | Moosleerau AG | carport bois | info@hanshunziker.ch | https://hunziker.wibzo.ch | en ligne, mail prêt |
-| 7 | Holzbau Ott | Bünzen AG | carport bois | info@holzbau-ott.ch | (holzbau-ott.wibzo.ch) | prête, PAS en ligne (limite Cloudflare) |
-| 8 | Doppelpunkt AG | Kölliken AG | carport bois | christoph.widmer@doppelpunkt-ag.ch | (doppelpunkt.wibzo.ch) | prête, PAS en ligne |
-| 9 | Schreinerei Nabholz GmbH | Schönenwerd SO | carport bois | info@schreinerei-nabholz.ch | (nabholz.wibzo.ch) | prête, PAS en ligne |
-| 10 | Knecht GmbH | Nunningen SO | véranda | info@knechtgmbh.ch | (knecht.wibzo.ch) | prête, PAS en ligne |
+| 7 | Holzbau Ott | Bünzen AG | carport bois | info@holzbau-ott.ch | https://holzbau-ott.wibzo.ch | en ligne, mail prêt |
+| 8 | Doppelpunkt AG | Kölliken AG | carport bois | christoph.widmer@doppelpunkt-ag.ch | https://doppelpunkt.wibzo.ch | en ligne, mail prêt |
+| 9 | Schreinerei Nabholz GmbH | Schönenwerd SO | carport bois | info@schreinerei-nabholz.ch | https://nabholz.wibzo.ch | en ligne, mail prêt |
+| 10 | Knecht GmbH | Nunningen SO | véranda | info@knechtgmbh.ch | https://knecht.wibzo.ch | en ligne (adresse active sous ~1 h), mail prêt |
 
 Réponses du 11.11.2026 (Suisse romande) : Alain Zufferey = pas d'intérêt pour l'instant (trop de travail), pas de relance, recontacter au printemps 2027 au plus tôt.
+
+Nettoyage Cloudflare (11.11.2026, accord de Ryan) : supprimés les Workers des maquettes de sites Quinn Beauty (delicate-firefly-f218) et Still&Art Beauty, et des démos Barras, Stavia Bois, XM Stores et Zufferey (refus). Le code reste dans sites/ et clients/. Limite gratuite : 100 Workers par compte.

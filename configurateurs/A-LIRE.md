@@ -49,6 +49,13 @@ On imite les **fonctions**, jamais leur code, leurs modèles 3D, leur design ou 
 - Pas encore fait : envoi réel de la demande à l'entreprise (aujourd'hui : copie à Wibzo via Web3Forms).
 - ⚠️ La démo Sirbatec tourne sur l'ancien `app.js`. Abris Bois et SURTECH ont été passées sur la nouvelle base le 04.11.2026 (ancienne config déplacée dans `produits/carport.js`, `config.js` multi-produits avec assistant).
 
+## Version allemande (11.11.2026) — Suisse alémanique
+- `carport-demo-de/` = démo maître en allemand (carport + véranda seulement), **fabriquée par `outils/traduire-de.py`** à partir de `carport-demo/` avec les paires de `outils/traduction-de.json`. Ne pas la modifier à la main : après un changement dans `carport-demo/`, relancer le script (il s'arrête si un texte français a changé → mettre la paire à jour).
+- Format suisse alémanique : 12'790 CHF, 3.50 m, « inkl./exkl. MWST », Offerte, « ss » (pas de ß). Les alertes à Ryan (« La démo est utilisée », « PDF téléchargé ») restent en français.
+- `outils/demo-de.py` : 10 démos clients en allemand (swisscarport, texbau, sio, baumberger, simelhome, hunziker, holzbau-ott, doppelpunkt, nabholz, knecht) + `MESSAGE.md` en allemand. Texbau = carport acier (moteur alu, galvanisé/anthracite/blanc). swisscarport = toiture photovoltaïque en plus.
+- ⚠️ **Limite Cloudflare gratuite atteinte (100 Workers)** le 11.11.2026 : 6 démos en ligne, holzbau-ott, doppelpunkt, nabholz et knecht pas publiées.
+- Liste des prospects : `PROSPECTS-CONFIGURATEUR.md`, section « Prospects Suisse alémanique ».
+
 ## Prochaine niche (recherche rapide du 03.11.2026)
 | Niche | Constat | Verdict |
 |---|---|---|

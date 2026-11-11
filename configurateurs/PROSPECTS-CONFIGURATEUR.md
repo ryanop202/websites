@@ -284,3 +284,23 @@ Méthode : local.ch « piscines » (10 villes romandes, page 1), puis page d'acc
 - Écartés : Jean-Claude Parisod SA (paysagiste), Swiss SPA-Pool (a déjà un configurateur de devis), Desjoyaux Crissier (vente), traitement de l'eau, abris de piscine.
 - **05.11.2026 : les 9 démos piscine sont en ligne** (outils/demo-piscine.py, vérifiées en ligne : page 200, prix affiché) : piscine-essentielle, mad-inoxial, piscines-concept, perroud-piscines, lagon-bleu, flopiscine, profil-piscines, bepiscines, astro-piscines (.wibzo.ch). Revêtements de leur site quand il les nomme (béton/coque, inox, minéral, béton/coque/inox), logos repris (initiales pour Essentielle, MAD, FLO). Mails dans `clients/<id>/MESSAGE.md`, objet « Démo 3D préparée pour <Entreprise> ». **Les 9 mails ENVOYÉS le 05.11.2026** (dit par Ryan). Relance courte le **12.11.2026** si pas de réponse (plus tôt si alerte « La démo est utilisée »).
 
+
+
+## Prospects Suisse alémanique (11.11.2026)
+
+Démos en allemand (outils/demo-de.py), mails en allemand dans clients/<id>/MESSAGE.md. Sites vérifiés le 11.11.2026 : aucun configurateur ni calculateur de prix. Écartés (déjà un configurateur) : Sheltec, UNIT Baudienste, Thermogreen, Winkon, Wigasol, Sonneo, Arrigato, easycarport.
+
+| # | Entreprise | Lieu | Produit démo | E-mail | Démo | Statut |
+|---|---|---|---|---|---|---|
+| 1 | swisscarport.ch (Max Zumstein AG) | Attiswil BE | carport bois + solaire | info@swisscarport.ch | https://swisscarport.wibzo.ch | en ligne, mail prêt |
+| 2 | Texbau AG | Däniken SO | carport acier | info@texbau.ch | https://texbau.wibzo.ch | en ligne, mail prêt |
+| 3 | SIO AG | Olten SO | véranda (Wintergarten) | info@sio-ag.ch | https://sio.wibzo.ch | en ligne, mail prêt |
+| 4 | Baumberger Bau AG | Gerlafingen SO | carport bois | info@baumberger-holzbau.ch | https://baumberger.wibzo.ch | en ligne, mail prêt |
+| 5 | Simel Home | Neuheim ZG | véranda | info@simelhome.ch | https://simelhome.wibzo.ch | en ligne, mail prêt |
+| 6 | Hans Hunziker Holzbau | Moosleerau AG | carport bois | info@hanshunziker.ch | https://hunziker.wibzo.ch | en ligne, mail prêt |
+| 7 | Holzbau Ott | Bünzen AG | carport bois | info@holzbau-ott.ch | (holzbau-ott.wibzo.ch) | prête, PAS en ligne (limite Cloudflare) |
+| 8 | Doppelpunkt AG | Kölliken AG | carport bois | christoph.widmer@doppelpunkt-ag.ch | (doppelpunkt.wibzo.ch) | prête, PAS en ligne |
+| 9 | Schreinerei Nabholz GmbH | Schönenwerd SO | carport bois | info@schreinerei-nabholz.ch | (nabholz.wibzo.ch) | prête, PAS en ligne |
+| 10 | Knecht GmbH | Nunningen SO | véranda | info@knechtgmbh.ch | (knecht.wibzo.ch) | prête, PAS en ligne |
+
+Réponses du 11.11.2026 (Suisse romande) : Alain Zufferey = pas d'intérêt pour l'instant (trop de travail), pas de relance, recontacter au printemps 2027 au plus tôt.

@@ -1,0 +1,8 @@
+{
+  // Démo Holzbau Deppeler (allemand) : https://holzbau-deppeler.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "holzbau-deppeler-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "holzbau-deppeler.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

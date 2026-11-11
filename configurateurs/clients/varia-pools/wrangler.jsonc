@@ -1,0 +1,8 @@
+{
+  // Démo Varia Pools GmbH (allemand) : https://varia-pools.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "varia-pools-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "varia-pools.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

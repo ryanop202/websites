@@ -1,0 +1,8 @@
+{
+  // Démo Schäwi Pool (allemand) : https://schaewi-pool.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "schaewi-pool-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "schaewi-pool.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

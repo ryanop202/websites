@@ -1,0 +1,8 @@
+{
+  // Démo Wintergarten Zug (allemand) : https://wintergarten-zug.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "wintergarten-zug-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "wintergarten-zug.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

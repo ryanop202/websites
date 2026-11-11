@@ -1,0 +1,8 @@
+{
+  // Démo Lütolf Wintergärten (allemand) : https://luetolf-wintergaerten.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "luetolf-wintergaerten-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "luetolf-wintergaerten.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

@@ -1,0 +1,8 @@
+{
+  // Démo Zimmba GmbH (allemand) : https://zimmba.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "zimmba-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "zimmba.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

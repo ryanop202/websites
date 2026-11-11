@@ -1,0 +1,8 @@
+{
+  // Démo Zaugg Storenbau (allemand) : https://zaugg-storenbau.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "zaugg-storenbau-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "zaugg-storenbau.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

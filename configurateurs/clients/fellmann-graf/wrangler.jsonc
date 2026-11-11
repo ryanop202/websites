@@ -1,0 +1,8 @@
+{
+  // Démo Fellmann + Graf (allemand) : https://fellmann-graf.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "fellmann-graf-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "fellmann-graf.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

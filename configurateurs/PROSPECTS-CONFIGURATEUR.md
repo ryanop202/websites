@@ -306,3 +306,63 @@ Démos en allemand (outils/demo-de.py), mails en allemand dans clients/<id>/MESS
 Réponses du 11.11.2026 (Suisse romande) : Alain Zufferey = pas d'intérêt pour l'instant (trop de travail), pas de relance, recontacter au printemps 2027 au plus tôt.
 
 Nettoyage Cloudflare (11.11.2026, accord de Ryan) : supprimés les Workers des maquettes de sites Quinn Beauty (delicate-firefly-f218) et Still&Art Beauty, et des démos Barras, Stavia Bois, XM Stores et Zufferey (refus). Le code reste dans sites/ et clients/. Limite gratuite : 100 Workers par compte.
+
+
+## Prospects Suisse alémanique — 2e série (11.11.2026, 52 entreprises)
+
+Trouvés par Google (carport, Wintergarten, Lamellendach, Pool, toutes régions alémaniques), vérifiés par `outils/verifier-prospects-de.py` : e-mail trouvé, aucun configurateur/calculateur, pas de boutique, produit trouvé sur le site. Écartés : 9 avec configurateur (Luxol360, Pergola Swiss, Pohl & Krieger, Scherrer Gerber, VD AluSysteme, Ventaris, Wasserbau Hölzli, Metallbau Huser, IB Storen), boutiques, sites sans e-mail, paysagistes sans preuve de piscines. Démos : `py outils/demo-de.py --liste outils/prospects-de-2.json` (initiales, pas de logo). Mails en **brouillon dans kSuite** le 11.11.2026.
+
+| Entreprise | Produit démo | E-mail | Démo | Statut |
+|---|---|---|---|---|
+| D.W.F. Holzbau AG | carport | info@dwf-holzbau.ch | https://dwf-holzbau.wibzo.ch | brouillon kSuite (11.11) |
+| Fellmann + Graf | carport | info@fellmann-graf.ch | https://fellmann-graf.wibzo.ch | brouillon kSuite (11.11) |
+| Holzbau Deppeler | carport | stephan.sutter@holzbaudeppeler.ch | https://holzbau-deppeler.wibzo.ch | brouillon kSuite (11.11) |
+| Holzbau Telley | carport | info@holzbau-telley.ch | https://holzbau-telley.wibzo.ch | brouillon kSuite (11.11) |
+| Holzcarport.ch | carport | info@holz-carport.ch | https://holz-carport.wibzo.ch | brouillon kSuite (11.11) |
+| Mock – Technik in Holz AG | carport | info@holzmock.ch | https://holzmock.wibzo.ch | brouillon kSuite (11.11) |
+| Huwiler Mägu | carport | m.huwiler@huwiler-maegu.ch | https://huwiler-maegu.wibzo.ch | brouillon kSuite (11.11) |
+| janitsch Holzbau AG | carport | info@janitsch.ch | https://janitsch.wibzo.ch | brouillon kSuite (11.11) |
+| Kelbert Montagen GmbH | carport | info@kelbert.ch | https://kelbert.wibzo.ch | brouillon kSuite (11.11) |
+| HL Lehmann Holzhandwerk GmbH | carport | info@lehmann-holzhandwerk.ch | https://lehmann-holzhandwerk.wibzo.ch | brouillon kSuite (11.11) |
+| Michel Holzbau | carport | timo@michel-holzbau.ch | https://michel-holzbau.wibzo.ch | brouillon kSuite (11.11) |
+| P. Baumgartner AG | carport | info@pbaumgartner.ch | https://pbaumgartner.wibzo.ch | brouillon kSuite (11.11) |
+| Zimmba GmbH | carport | info@zimmba.ch | https://zimmba.wibzo.ch | brouillon kSuite (11.11) |
+| Haussener Dach & Holzbau AG | carport | info@hausholz.ch | https://hausholz.wibzo.ch | brouillon kSuite (11.11) |
+| Holzbau Hofmann Dänzer | carport | info@hofmanndaenzer.ch | https://hofmanndaenzer.wibzo.ch | brouillon kSuite (11.11) |
+| Holzbau Affolter | carport | info@holzbau-affolter.ch | https://holzbau-affolter.wibzo.ch | brouillon kSuite (11.11) |
+| Kohler Seeland AG | carport | info@kohlerseeland.ch | https://kohlerseeland.wibzo.ch | brouillon kSuite (11.11) |
+| Sieber Holzbau AG | carport | info@sieber-holzbau.ch | https://sieber-holzbau.wibzo.ch | brouillon kSuite (11.11) |
+| Karl Blaser AG | véranda | info@blaser-k.ch | https://blaser-k.wibzo.ch | brouillon kSuite (11.11) |
+| fmt-metallbau.ch | véranda | info@fmt-metallbau.ch | https://fmt-metallbau.wibzo.ch | brouillon kSuite (11.11) |
+| Furrer Metallbau AG | véranda | info@furrer-metallbau.ch | https://furrer-metallbau.wibzo.ch | brouillon kSuite (11.11) |
+| GEESmetall GmbH | véranda | info@geesmetall.ch | https://geesmetall.wibzo.ch | brouillon kSuite (11.11) |
+| hoch-drei Verglasungen AG | véranda | info@hoch-drei.ch | https://hoch-drei.wibzo.ch | brouillon kSuite (11.11) |
+| Huber Kontech AG | véranda | info@huber-kontech.ch | https://huber-kontech.wibzo.ch | brouillon kSuite (11.11) |
+| Jardina-Park AG | véranda | info@jardina.ch | https://jardina.wibzo.ch | brouillon kSuite (11.11) |
+| Leichtmetallbau AG | véranda | info@leichtmetallbau.ch | https://leichtmetallbau.wibzo.ch | brouillon kSuite (11.11) |
+| Tschannen Metallbautechnik | véranda | tschannen@metallbautechnik.ch | https://metallbautechnik.wibzo.ch | brouillon kSuite (11.11) |
+| Mühlemann Bau GmbH | véranda | info@muehlemann-bau.ch | https://muehlemann-bau.wibzo.ch | brouillon kSuite (11.11) |
+| Soltermann AG | véranda | ba@soltermann.ch | https://soltermann.wibzo.ch | brouillon kSuite (11.11) |
+| Steiner Metallbau | véranda | info@steiner-wintergarten.ch | https://steiner-wintergarten.wibzo.ch | brouillon kSuite (11.11) |
+| Wahl Glas- und Metallbau AG | véranda | info@wahl-ag.ch | https://wahl-ag.wibzo.ch | brouillon kSuite (11.11) |
+| wigART AG | véranda | info@wigart.ch | https://wigart.wibzo.ch | brouillon kSuite (11.11) |
+| Wintergarten Zug | véranda | info@wintergarten-zug.ch | https://wintergarten-zug.wibzo.ch | brouillon kSuite (11.11) |
+| Zubag | véranda | info@zubag.ch | https://zubag.wibzo.ch | brouillon kSuite (11.11) |
+| Lütolf Wintergärten | véranda | info@luetolf-wintergaerten.ch | https://luetolf-wintergaerten.wibzo.ch | brouillon kSuite (11.11) |
+| Ledas | véranda | info@ledas.ch | https://ledas.wibzo.ch | brouillon kSuite (11.11) |
+| GlasWerk | véranda | info@glaswerk-zh.ch | https://glaswerk-zh.wibzo.ch | brouillon kSuite (11.11) |
+| Fortmann AG | pergola bioclimatique | info@fortmann-ag.ch | https://fortmann.wibzo.ch | brouillon kSuite (11.11) |
+| Mändli Handels- und Montage AG | pergola bioclimatique | info@maendliag.ch | https://maendli.wibzo.ch | brouillon kSuite (11.11) |
+| Spaltenstein Storen | pergola bioclimatique | kontakt@spaltenstein-storen.ch | https://spaltenstein-storen.wibzo.ch | brouillon kSuite (11.11) |
+| Zaugg Storenbau | pergola bioclimatique | info@zaugg-storenbau.ch | https://zaugg-storenbau.wibzo.ch | brouillon kSuite (11.11) |
+| Aqua Emotion AG | piscine | sekretariat@aqua-emotion.ch | https://aqua-emotion.wibzo.ch | brouillon kSuite (11.11) |
+| Artmetal GmbH | piscine inox | artmetalgmbh@gmail.com | https://artmetal.wibzo.ch | brouillon kSuite (11.11) |
+| Poolbau Minder | piscine | info@minder-haustechnik.ch | https://poolbau-minder.wibzo.ch | brouillon kSuite (11.11) |
+| Varia Pools GmbH | piscine | info@varia-pools.ch | https://varia-pools.wibzo.ch | brouillon kSuite (11.11) |
+| Varioplant AG | piscine | info@varioplant.ch | https://varioplant.wibzo.ch | brouillon kSuite (11.11) |
+| Vivell | piscine | info@vivell.ch | https://vivell.wibzo.ch | brouillon kSuite (11.11) |
+| Wehrli Poolbau | piscine | info@wehrli-poolbau.ch | https://wehrli-poolbau.wibzo.ch | brouillon kSuite (11.11) |
+| Markzoll GmbH | piscine | info@markzoll.ch | https://markzoll.wibzo.ch | brouillon kSuite (11.11) |
+| Poolman | piscine | info@poolman.ch | https://poolman.wibzo.ch | brouillon kSuite (11.11) |
+| Schäwi Pool | piscine | info@schaewi-pool.ch | https://schaewi-pool.wibzo.ch | brouillon kSuite (11.11) |
+| Schwimmbad-Line | piscine | info@schwimmbad-line.ch | https://schwimmbad-line.wibzo.ch | brouillon kSuite (11.11) |

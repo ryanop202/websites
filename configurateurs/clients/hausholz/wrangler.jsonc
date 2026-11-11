@@ -1,0 +1,8 @@
+{
+  // Démo Haussener Dach & Holzbau AG (allemand) : https://hausholz.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "hausholz-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "hausholz.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

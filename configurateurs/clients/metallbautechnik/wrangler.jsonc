@@ -1,0 +1,8 @@
+{
+  // Démo Tschannen Metallbautechnik (allemand) : https://metallbautechnik.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "metallbautechnik-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "metallbautechnik.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

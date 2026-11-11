@@ -1,0 +1,8 @@
+{
+  // Démo Mühlemann Bau GmbH (allemand) : https://muehlemann-bau.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "muehlemann-bau-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "muehlemann-bau.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

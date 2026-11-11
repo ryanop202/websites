@@ -233,23 +233,23 @@ function prixPiscine(g) {
   const parois = 2 * (W + L) * (H + 0.14);
   const volume = W * L * (H + 0.35);
   const lignes = [];
-  lignes.push([`Terrassement et évacuation · ${volume.toFixed(1).replace('.', ',')} m³`, volume * T.terrassementM3]);
-  lignes.push([`Bassin maçonné ${fmtM(L)} × ${fmtM(W)}, profondeur ${fmtM(H)}`, (surface + parois) * T.structureM2]);
-  lignes.push([`${couv.label}, ${teinte.label.toLowerCase()} · ${fmtM2(surface + parois)}`, (surface + parois) * T.revetementM2[state.couverture]]);
-  lignes.push([`Escalier ${CONFIG.toits[state.toit].label.toLowerCase()}`, T.escalier[state.toit]]);
+  lignes.push([`Aushub und Abtransport · ${volume.toFixed(1)} m³`, volume * T.terrassementM3]);
+  lignes.push([`Gemauertes Becken ${fmtM(L)} × ${fmtM(W)}, Tiefe ${fmtM(H)}`, (surface + parois) * T.structureM2]);
+  lignes.push([`${couv.label}, ${teinte.label} · ${fmtM2(surface + parois)}`, (surface + parois) * T.revetementM2[state.couverture]]);
+  lignes.push([`Treppe: ${CONFIG.toits[state.toit].label}`, T.escalier[state.toit]]);
   const perimetre = 2 * (W + L) + 4 * m;
   const marg = CONFIG.bois[state.bois];
-  lignes.push([`Margelles ${marg.label.toLowerCase()} · ${fmtM(perimetre)}`, perimetre * T.margelleMl * marg.facteur]);
+  lignes.push([`Beckenrand: ${marg.label} · ${fmtM(perimetre)}`, perimetre * T.margelleMl * marg.facteur]);
   const aire = (W + a.gauche + a.droite) * (L + a.arriere + a.avant) - (W + 2 * m) * (L + 2 * m);
   const plage = CONFIG.bardages[state.bardage];
-  if (aire > 0.01) lignes.push([`Plage ${plage.label.toLowerCase()} · ${fmtM2(aire)}`, aire * T.plageM2 * plage.facteur]);
-  lignes.push(['Filtration, local technique et skimmers', T.filtration]);
-  if (state.gouttieres) lignes.push(['Volet roulant immergé motorisé', T.voletBase + surface * T.voletM2]);
+  if (aire > 0.01) lignes.push([`Poolumrandung: ${plage.label} · ${fmtM2(aire)}`, aire * T.plageM2 * plage.facteur]);
+  lignes.push(['Filteranlage, Technikraum und Skimmer', T.filtration]);
+  if (state.gouttieres) lignes.push(['Motorisierte Unterwasser-Rollabdeckung', T.voletBase + surface * T.voletM2]);
   const spots = nbSpotsPiscine(L);
-  if (state.led) lignes.push([`Éclairage LED sous l'eau (${spots} spots)`, spots * T.spot]);
-  if (state.chauffage) lignes.push(['Pompe à chaleur', T.pac]);
-  if (state.borne) lignes.push(['Nage à contre-courant', T.nage]);
-  lignes.push(['Mise en eau et mise en service', T.miseEnService]);
+  if (state.led) lignes.push([`LED-Unterwasserbeleuchtung (${spots} Spots)`, spots * T.spot]);
+  if (state.chauffage) lignes.push(['Wärmepumpe', T.pac]);
+  if (state.borne) lignes.push(['Gegenstromanlage', T.nage]);
+  lignes.push(['Befüllung und Inbetriebnahme', T.miseEnService]);
   const ht = lignes.reduce((s, [, v]) => s + v, 0);
   const tva = ht * CONFIG.tva;
   const ttc = arrondi10(ht + tva);
@@ -2001,13 +2001,13 @@ function lignesConfig() {
   const implantation = g.adosse === 'non' ? 'Freistehend (4 Seiten frei)' : `Am Haus, Fassade ${g.adosse === 'gauche' ? 'links' : 'rechts'}`;
   if (PISCINE) {
     return [
-      ['Bassin', `${fmtM(g.L)} × ${fmtM(g.W)} · ${fmtM2(p.surface)} · profondeur d'eau ${fmtM(g.H)}`],
-      ['Escalier', CONFIG.toits[state.toit].label],
-      ['Revêtement', `${couv.label}, ${couv.teintes[state.teinteCouverture].label.toLowerCase()}`],
-      ['Margelles', CONFIG.bois[state.bois].label],
-      ['Plage', parois.length ? `${parois.join(', ')} · ${CONFIG.bardages[state.bardage].label.toLowerCase()} · ${fmtM2(p.aire)}` : 'aucune'],
-      ['Équipements', [state.gouttieres && 'volet roulant immergé', state.led && `éclairage LED (${p.spots} spots)`,
-        state.chauffage && 'pompe à chaleur', state.borne && 'nage à contre-courant', 'filtration et local technique',
+      ['Becken', `${fmtM(g.L)} × ${fmtM(g.W)} · ${fmtM2(p.surface)} · Wassertiefe ${fmtM(g.H)}`],
+      ['Treppe', CONFIG.toits[state.toit].label],
+      ['Auskleidung', `${couv.label}, ${couv.teintes[state.teinteCouverture].label}`],
+      ['Beckenrand', CONFIG.bois[state.bois].label],
+      ['Poolumrandung', parois.length ? `${parois.join(', ')} · ${CONFIG.bardages[state.bardage].label} · ${fmtM2(p.aire)}` : 'keine'],
+      ['Ausstattung', [state.gouttieres && 'Unterwasser-Rollabdeckung', state.led && `LED-Beleuchtung (${p.spots} Spots)`,
+        state.chauffage && 'Wärmepumpe', state.borne && 'Gegenstromanlage', 'Filteranlage und Technikraum',
         ...(CONFIG.inclus ?? [])].filter(Boolean).join(', ')],
     ];
   }
@@ -2016,7 +2016,7 @@ function lignesConfig() {
       ['Dimensions', `${fmtM(g.Dc)} ${LIB.profondeurAide} × ${fmtM(g.Wv)} ${LIB.largeurAide} · ${fmtM2(p.surface)}`],
       ['Hauteur du plancher', `${fmtM(g.H)}${p.marches ? ` · ${p.marches} marche${p.marches > 1 ? 's' : ''} d'accès` : ''}`],
       ['Implantation', g.adosse === 'non' ? 'Isolée (4 côtés libres)' : `Contre la maison, façade à ${g.adosse}`],
-      ['Revêtement', `${couv.label}, ${couv.teintes[state.teinteCouverture].label.toLowerCase()}`],
+      ['Auskleidung', `${couv.label}, ${couv.teintes[state.teinteCouverture].label}`],
       [LIB.finitionLigne, CONFIG.bois[state.bois].label],
       [LIB.parois, parois.length ? `${parois.join(', ')} · ${CONFIG.bardages[state.bardage].label.toLowerCase()}` : 'aucun'],
       ['Équipements', [state.led && 'éclairage LED encastré', ...(CONFIG.inclus ?? [])].filter(Boolean).join(', ') || 'aucun'],
@@ -2045,16 +2045,16 @@ function resume() {
   const parois = paroisFermees(g);
   if (PISCINE) {
     return [
-      `Bassin ${fmtM(g.L)} × ${fmtM(g.W)}`,
-      `Profondeur ${fmtM(g.H)}`,
-      `Escalier ${CONFIG.toits[state.toit].label.toLowerCase()}`,
-      `${couv.label} ${couv.teintes[state.teinteCouverture].label.toLowerCase()}`,
-      `Margelles ${CONFIG.bois[state.bois].label.toLowerCase()}`,
-      parois.length ? `Plage ${CONFIG.bardages[state.bardage].label.toLowerCase()} : ${parois.join(', ')}` : 'Sans plage',
-      state.gouttieres ? 'Volet immergé' : null,
+      `Becken ${fmtM(g.L)} × ${fmtM(g.W)}`,
+      `Tiefe ${fmtM(g.H)}`,
+      `Treppe: ${CONFIG.toits[state.toit].label}`,
+      `${couv.label}, ${couv.teintes[state.teinteCouverture].label}`,
+      `Beckenrand: ${CONFIG.bois[state.bois].label}`,
+      parois.length ? `Umrandung ${CONFIG.bardages[state.bardage].label}: ${parois.join(', ')}` : 'Ohne Umrandung',
+      state.gouttieres ? 'Rollabdeckung' : null,
       state.led ? 'LED' : null,
-      state.chauffage ? 'Pompe à chaleur' : null,
-      state.borne ? 'Contre-courant' : null,
+      state.chauffage ? 'Wärmepumpe' : null,
+      state.borne ? 'Gegenstrom' : null,
     ].filter(Boolean);
   }
   if (TERRASSE) {
@@ -2063,7 +2063,7 @@ function resume() {
       dimsTexte(),
       `Plancher à ${fmtM(g.H)}`,
       g.adosse !== 'non' ? `Contre la maison (${g.adosse})` : null,
-      `${couv.label} ${couv.teintes[state.teinteCouverture].label.toLowerCase()}`,
+      `${couv.label}, ${couv.teintes[state.teinteCouverture].label}`,
       CONFIG.bois[state.bois].label,
       n ? `${n} marche${n > 1 ? 's' : ''}` : null,
       parois.length ? `${LIB.parois} : ${parois.join(', ')}` : `Sans ${LIB.parois.toLowerCase()}`,
@@ -2122,7 +2122,7 @@ function majPrix() {
   ajout('Total inkl. MWST', fmtCHF(p.ttc), 'fort');
 
   $('#note-technique').textContent = PISCINE
-    ? `Plan d'eau ${fmtM2(p.surface)} · environ ${Math.round(p.volumeEau)} m³ d'eau`
+    ? `Wasserfläche ${fmtM2(p.surface)} · ca. ${Math.round(p.volumeEau)} m³ Wasser`
     : TERRASSE
     ? `Surface ${fmtM2(p.surface)}${p.marches ? ` · ${p.marches} marche${p.marches > 1 ? 's' : ''} d'accès` : ''}${CONFIG.noteGardeCorps && state.hauteur >= (CONFIG.hauteurGardeCorps ?? 1) ? ` · ${CONFIG.noteGardeCorps}` : ''}`
     : `${p.nbPoteaux} Pfosten · Spannweite max. ${fmtM(CONFIG.porteeMax)} · überdachte Fläche ${fmtM2(p.surface)}`;

@@ -1,0 +1,8 @@
+{
+  // Démo Artmetal GmbH (allemand) : https://artmetal.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "artmetal-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "artmetal.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

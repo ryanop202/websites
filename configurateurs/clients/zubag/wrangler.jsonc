@@ -1,0 +1,8 @@
+{
+  // Démo Zubag (allemand) : https://zubag.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "zubag-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "zubag.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

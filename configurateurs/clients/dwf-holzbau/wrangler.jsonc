@@ -1,0 +1,8 @@
+{
+  // Démo D.W.F. Holzbau AG (allemand) : https://dwf-holzbau.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "dwf-holzbau-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "dwf-holzbau.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

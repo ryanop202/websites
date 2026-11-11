@@ -1,0 +1,8 @@
+{
+  // Démo Michel Holzbau (allemand) : https://michel-holzbau.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "michel-holzbau-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "michel-holzbau.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

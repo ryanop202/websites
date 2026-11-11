@@ -11,47 +11,47 @@
 
 export const CONFIG = {
   entreprise: {
-    nom: 'Votre entreprise',
-    activite: 'Piscines & aménagements extérieurs',
+    nom: 'Ihre Firma',
+    activite: 'Pool- & Gartenbau',
     initiales: 'VE',
     email: '', // e-mail qui reçoit les demandes (vide = démo)
   },
-  produit: 'Piscine',
+  produit: 'Pool',
   type: 'piscine',
   modele3d: 'piscine',
   demo: true,
   suivi: { cleWeb3Forms: '73b06b18-08c3-4c83-9ca8-42288a70dd2b' }, // clé publique, faite pour le code de la page
-  chapo: 'Dessinez votre piscine étape par étape. Le prix se met à jour à chaque choix.',
+  chapo: 'Gestalten Sie Ihren Pool Schritt für Schritt. Der Preis passt sich jeder Wahl an.',
   libelles: {
-    titre: 'Piscine sur mesure',
-    objet: 'piscine',
-    passage: 'profondeur',
-    largeur: 'Largeur',
-    largeurAide: 'du bassin',
-    profondeur: 'Longueur',
-    profondeurAide: 'du bassin',
-    hauteur: "Profondeur d'eau",
-    hauteurAide: 'fond plat',
-    toiture: 'Bassin',
-    toitureCourt: 'Bassin',
-    forme: 'Escalier',
-    couverture: 'Revêtement',
-    teinte: 'Couleur',
-    finition: 'Margelles',
-    finitionCourt: 'Margelles',
-    finitionLigne: 'Margelles',
-    parois: 'Plage',
-    paroisCourt: 'Plage',
-    paroisAide: 'Touchez un côté pour ajouter une plage de 1,20 m autour du bassin.',
-    bardage: 'Matériau de la plage',
-    paroiLigne: 'Plage',
-    ledAide: 'spots encastrés dans la paroi, lumière blanche',
+    titre: 'Pool nach Mass',
+    objet: 'Pool',
+    passage: 'Tiefe',
+    largeur: 'Breite',
+    largeurAide: 'des Beckens',
+    profondeur: 'Länge',
+    profondeurAide: 'des Beckens',
+    hauteur: 'Wassertiefe',
+    hauteurAide: 'flacher Boden',
+    toiture: 'Becken',
+    toitureCourt: 'Becken',
+    forme: 'Treppe',
+    couverture: 'Auskleidung',
+    teinte: 'Farbe',
+    finition: 'Beckenrand',
+    finitionCourt: 'Beckenrand',
+    finitionLigne: 'Beckenrand',
+    parois: 'Poolumrandung',
+    paroisCourt: 'Umrandung',
+    paroisAide: 'Tippen Sie auf eine Seite, um eine 1.20 m breite Umrandung hinzuzufügen.',
+    bardage: 'Material der Umrandung',
+    paroiLigne: 'Umrandung',
+    ledAide: 'in die Beckenwand eingelassene Spots, weisses Licht',
   },
   // Libellés des options de l'étape « Équipements » (clé du moteur → [titre, précision])
   libellesOptions: {
-    gouttieres: ['Volet roulant immergé', 'couverture de sécurité motorisée'],
-    chauffage: ['Pompe à chaleur', "eau à 28 °C d'avril à octobre"],
-    borne: ['Nage à contre-courant', 'buse 60 m³/h et main courante inox'],
+    gouttieres: ['Unterwasser-Rollabdeckung', 'motorisierte Sicherheitsabdeckung'],
+    chauffage: ['Wärmepumpe', 'Wasser mit 28 °C von April bis Oktober'],
+    borne: ['Gegenstromanlage', 'Düse 60 m³/h und Haltegriff aus Edelstahl'],
   },
   local: false,
   equipements: ['gouttieres', 'led', 'chauffage', 'borne'],
@@ -70,14 +70,14 @@ export const CONFIG = {
   profondeursLocal: [1.2, 1.8, 2.4],
 
   implantations: {
-    non: { label: 'Dans le jardin', aide: 'devant la maison' },
+    non: { label: 'Im Garten', aide: 'vor dem Haus' },
   },
   positionsLocal: {
-    arriere: { label: 'Arrière' },
+    arriere: { label: 'Hinten' },
   },
 
   raccourcis: [
-    { label: '7 × 3,5 m', largeur: 3.5, profondeur: 7, hauteur: 1.4 },
+    { label: '7 × 3.5 m', largeur: 3.5, profondeur: 7, hauteur: 1.4 },
     { label: '8 × 4 m', largeur: 4, profondeur: 8, hauteur: 1.5 },
     { label: '10 × 5 m', largeur: 5, profondeur: 10, hauteur: 1.5 },
   ],
@@ -109,60 +109,60 @@ export const CONFIG = {
 
   // Escalier (la clé « toits » est celle lue par le moteur pour ce choix)
   toits: {
-    droit: { label: 'Droit', pente: 0, couvertures: ['liner', 'membrane', 'mosaique'] },
-    angle: { label: "D'angle", pente: 0, couvertures: ['liner', 'membrane', 'mosaique'] },
-    banquette: { label: 'Avec banquette', pente: 0, couvertures: ['liner', 'membrane', 'mosaique'] },
+    droit: { label: 'Gerade', pente: 0, couvertures: ['liner', 'membrane', 'mosaique'] },
+    angle: { label: 'Eck-Treppe', pente: 0, couvertures: ['liner', 'membrane', 'mosaique'] },
+    banquette: { label: 'Mit Sitzbank', pente: 0, couvertures: ['liner', 'membrane', 'mosaique'] },
   },
 
   // Revêtement du bassin ; « eau » = teinte de l'eau vue d'en haut avec ce revêtement
   couvertures: {
     liner: {
-      label: 'Liner 75/100e', mosaique: false,
+      label: 'Liner 0.75 mm', mosaique: false,
       teintes: {
-        blanc: { label: 'Blanc', couleur: '#EEF1F0', eau: '#45BFDB' },
-        sable: { label: 'Sable', couleur: '#E4D6B8', eau: '#3FB5AA' },
-        bleu: { label: 'Bleu pâle', couleur: '#9CC7E2', eau: '#2F96CF' },
-        gris: { label: 'Gris anthracite', couleur: '#5B6166', eau: '#2E7A86' },
+        blanc: { label: 'Weiss', couleur: '#EEF1F0', eau: '#45BFDB' },
+        sable: { label: 'Sand', couleur: '#E4D6B8', eau: '#3FB5AA' },
+        bleu: { label: 'Hellblau', couleur: '#9CC7E2', eau: '#2F96CF' },
+        gris: { label: 'Anthrazitgrau', couleur: '#5B6166', eau: '#2E7A86' },
       },
     },
     membrane: {
-      label: 'Membrane armée 150/100e', mosaique: false,
+      label: 'Armierte Folie 1.5 mm', mosaique: false,
       teintes: {
-        blanc: { label: 'Blanc', couleur: '#EEF1F0', eau: '#45BFDB' },
-        sable: { label: 'Sable', couleur: '#E4D6B8', eau: '#3FB5AA' },
-        vert: { label: 'Vert caraïbe', couleur: '#8FCFC0', eau: '#2FA394' },
-        gris: { label: 'Gris anthracite', couleur: '#5B6166', eau: '#2E7A86' },
-        noir: { label: 'Noir', couleur: '#2C2F33', eau: '#23515A' },
+        blanc: { label: 'Weiss', couleur: '#EEF1F0', eau: '#45BFDB' },
+        sable: { label: 'Sand', couleur: '#E4D6B8', eau: '#3FB5AA' },
+        vert: { label: 'Karibikgrün', couleur: '#8FCFC0', eau: '#2FA394' },
+        gris: { label: 'Anthrazitgrau', couleur: '#5B6166', eau: '#2E7A86' },
+        noir: { label: 'Schwarz', couleur: '#2C2F33', eau: '#23515A' },
       },
     },
     mosaique: {
-      label: 'Mosaïque de verre', mosaique: true,
+      label: 'Glasmosaik', mosaique: true,
       teintes: {
-        blanc: { label: 'Blanc nacré', couleur: '#E9EEF0', eau: '#45BFDB' },
-        bleu: { label: 'Bleu lagon', couleur: '#6FB4D8', eau: '#2A8FC8' },
-        vert: { label: 'Vert émeraude', couleur: '#5FAE9E', eau: '#2E9E8E' },
-        noir: { label: 'Noir', couleur: '#2C2F33', eau: '#23515A' },
+        blanc: { label: 'Perlweiss', couleur: '#E9EEF0', eau: '#45BFDB' },
+        bleu: { label: 'Lagunenblau', couleur: '#6FB4D8', eau: '#2A8FC8' },
+        vert: { label: 'Smaragdgrün', couleur: '#5FAE9E', eau: '#2E9E8E' },
+        noir: { label: 'Schwarz', couleur: '#2C2F33', eau: '#23515A' },
       },
     },
   },
 
   // Margelles en pierre reconstituée (la clé « bois » est celle lue par le moteur pour cette étape)
   bois: {
-    blanc: { label: 'Pierre blanche', couleur: '#ECE7DC', facteur: 1 },
-    beige: { label: 'Pierre beige', couleur: '#D9C8A8', facteur: 1 },
-    gris: { label: 'Gris clair', couleur: '#B9B8B2', facteur: 1.05 },
-    anthracite: { label: 'Anthracite', couleur: '#55585C', facteur: 1.1 },
+    blanc: { label: 'Kunststein weiss', couleur: '#ECE7DC', facteur: 1 },
+    beige: { label: 'Kunststein beige', couleur: '#D9C8A8', facteur: 1 },
+    gris: { label: 'Hellgrau', couleur: '#B9B8B2', facteur: 1.05 },
+    anthracite: { label: 'Anthrazit', couleur: '#55585C', facteur: 1.1 },
   },
 
   // Matériau de la plage
   bardages: {
-    bois: { label: 'Bois exotique', couleur: '#8E6642', lames: true, facteur: 1.15 },
-    composite: { label: 'Composite', couleur: '#6E5240', lames: true, rainures: true, facteur: 1 },
-    dalles: { label: 'Dalles grès', couleur: '#D8D2C6', dalles: true, facteur: 0.9 },
+    bois: { label: 'Tropenholz', couleur: '#8E6642', lames: true, facteur: 1.15 },
+    composite: { label: 'WPC', couleur: '#6E5240', lames: true, rainures: true, facteur: 1 },
+    dalles: { label: 'Feinsteinplatten', couleur: '#D8D2C6', dalles: true, facteur: 0.9 },
   },
 
   vehicules: {
-    aucun: { label: 'Aucun' },
+    aucun: { label: 'Keines' },
   },
 
   // Montants HT en CHF — FICTIFS

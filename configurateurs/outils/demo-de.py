@@ -73,12 +73,48 @@ CLIENTS = [
          phrase='Auf Ihrer Website habe ich gesehen, dass Sie jeden Wintergarten individuell herstellen, ohne Massbegrenzung. Deshalb habe ich eine Demo auf Ihren Namen vorbereitet:'),
 ]
 
+# (label, aide, icône, complément du mail « Ihre Kunden stellen … selbst in 3D zusammen »)
 PRODUITS_DE = {
     'carport': ('Carport', 'Offener Unterstand für ein oder zwei Autos, Geräteraum optional.',
-                '<path d="M3 20h18M5 20V10M19 20V10M2 11l10-6 10 6"/>', 'Carport'),
+                '<path d="M3 20h18M5 20V10M19 20V10M2 11l10-6 10 6"/>', 'ihren Carport'),
     'veranda': ('Wintergarten', 'Verglaster Raum aus Aluminium, an die Fassade angebaut.',
-                '<path d="M3 20h18M4 20V8l16-3v15M4 8h16M9 20V8M14 20V7"/>', 'Wintergarten'),
+                '<path d="M3 20h18M4 20V8l16-3v15M4 8h16M9 20V8M14 20V7"/>', 'ihren Wintergarten'),
+    'pergola-bio': ('Lamellendach', 'Drehbare Alu-Lamellen für Sonne und Lüftung, Seitenabschlüsse optional.',
+                    '<path d="M3 20h18M5 20V8M19 20V8M3 8h18M6 5.5l2 1M10 5.5l2 1M14 5.5l2 1"/>', 'ihre Pergola'),
+    'piscine': ('Pool', 'Becken nach Mass, Treppe, Beckenrand, Umrandung und Optionen.',
+                '<path d="M3 9h18v9H3zM6 12c1.5 1 3 1 4.5 0s3-1 4.5 0 3 1 4.5 0M7 9V5h2M7 7h2"/>', 'ihren Pool'),
 }
+
+# Liste du 11.11.2026 (outils/prospects-de-2.json) : sites vérifiés par outils/verifier-prospects-de.py
+# (e-mail trouvé, aucun configurateur/calculateur, pas de boutique, produit trouvé sur le site).
+# La phrase du mail ne parle que du produit trouvé sur leur site (rien d'inventé).
+PHRASES = {
+    'carport': 'Auf Ihrer Website habe ich gesehen, dass Sie Carports anbieten.',
+    'veranda': 'Auf Ihrer Website habe ich gesehen, dass Sie Wintergärten bauen.',
+    'pergola-bio': 'Auf Ihrer Website habe ich gesehen, dass Sie Lamellendächer anbieten.',
+    'piscine': 'Auf Ihrer Website habe ich gesehen, dass Sie Pools bauen.',
+}
+ACTIVITES = {'carport': 'Holzbau & Carports', 'veranda': 'Wintergärten & Verglasungen',
+             'pergola-bio': 'Lamellendächer & Sonnenschutz', 'piscine': 'Pool- & Schwimmbadbau'}
+INOX = {'inox': {'label': 'Edelstahl', 'metal': True, 'teintes': {
+    'brosse': {'label': 'Gebürstet', 'couleur': '#C3C9CD', 'eau': '#42B9D4'},
+    'poli': {'label': 'Poliert', 'couleur': '#DCE1E4', 'eau': '#47C2DC'}}}}
+
+
+def initiales(nom):
+    mots = [m for m in nom.replace('-', ' ').replace('.', ' ').split() if m[:1].isalpha() and m.lower() not in ('ag', 'gmbh', 'und', 'ch')]
+    return ''.join(m[0].upper() for m in mots[:2]) or nom[:2].upper()
+
+
+if '--liste' in sys.argv:
+    LOGOS = None
+    CLIENTS = []
+    for id_, nom, email, site, prod in json.loads(Path(sys.argv[sys.argv.index('--liste') + 1]).read_text(encoding='utf-8')):
+        base_prod = 'piscine' if prod.startswith('piscine') else prod
+        CLIENTS.append(dict(id=id_, nom=nom, activite=ACTIVITES[base_prod], initiales=initiales(nom), logo=None,
+                            email=email, site=site, produit=base_prod, inox=prod == 'piscine-inox',
+                            preuve=f'produit « {PRODUITS_DE[base_prod][0]} » trouvé sur le site (vérifié par script le 11.11.2026)',
+                            phrase=PHRASES[base_prod]))
 
 MAIL = """Guten Tag
 
@@ -89,7 +125,7 @@ Mein Name ist Ryan, ich entwickle 3D-Konfiguratoren für Unternehmen, die nach M
 https://{id}.wibzo.ch/
 
 So funktioniert es:
-- Ihre Kunden stellen ihren {objet} selbst in 3D zusammen und sehen sofort einen Richtpreis.
+- Ihre Kunden stellen {objet} selbst in 3D zusammen und sehen sofort einen Richtpreis.
 - Sie erhalten eine vollständige Anfrage mit allen Massen, Optionen und einem 3D-Bild, ohne langes Hin und Her.
 - Ihre Website hebt sich klar von der Konkurrenz ab.
 
@@ -149,6 +185,11 @@ for c in CLIENTS:
   bois: {js(METAL['bois'])},
   toits: {js(METAL['toits'])},
   defauts: {{ ...base.defauts, ...{js(METAL['defauts_extra'])} }},"""
+    if c.get('inox'):
+        extra = f"""
+  couvertures: {js(INOX)},
+  toits: Object.fromEntries(Object.entries(base.toits).map(([id, t]) => [id, {{ ...t, couvertures: ['inox'] }}])),
+  defauts: {{ ...base.defauts, couverture: 'inox', teinteCouverture: 'brosse' }},"""
     if c.get('solaire'):
         extra = f"""
   couvertures: {{ ...base.couvertures, solaire: {js(SOLAIRE)} }},
@@ -172,7 +213,7 @@ const produit = {{
 }};
 
 export const PRODUITS = {{
-  {c['produit']}: {{ label: {js(label)}, aide: {js(aide)}, icone: {js(icone)}, config: produit }},
+  {js(c['produit'])}: {{ label: {js(label)}, aide: {js(aide)}, icone: {js(icone)}, config: produit }},
 }};
 
 export const PRODUIT = {js(c['produit'])};

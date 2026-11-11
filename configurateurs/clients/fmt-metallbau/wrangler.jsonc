@@ -1,0 +1,8 @@
+{
+  // Démo fmt-metallbau.ch (allemand) : https://fmt-metallbau.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "fmt-metallbau-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "fmt-metallbau.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

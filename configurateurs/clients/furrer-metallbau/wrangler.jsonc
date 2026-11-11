@@ -1,0 +1,8 @@
+{
+  // Démo Furrer Metallbau AG (allemand) : https://furrer-metallbau.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "furrer-metallbau-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "furrer-metallbau.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

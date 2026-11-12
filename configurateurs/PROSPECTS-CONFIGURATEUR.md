@@ -359,7 +359,7 @@ Trouvés par Google (carport, Wintergarten, Lamellendach, Pool, toutes régions 
 | Artmetal GmbH | piscine inox | artmetalgmbh@gmail.com | https://artmetal.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Poolbau Minder | piscine | info@minder-haustechnik.ch | https://poolbau-minder.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Varia Pools GmbH | piscine | info@varia-pools.ch | https://varia-pools.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
-| Varioplant AG | piscine | info@varioplant.ch | https://varioplant.wibzo.ch | **INTÉRESSÉ** (Marco, 11.11 : « könnte mir vorstellen, hängt von der Preisgestaltung ab ») → offre 990 + 59/mois ou 2900 en brouillon le 12.11, valable au 26.11 |
+| Varioplant AG | piscine | info@varioplant.ch | https://varioplant.wibzo.ch | **INTÉRESSÉ** (Marco, 11.11 : « könnte mir vorstellen, hängt von der Preisgestaltung ab ») → offre 990 + 59/mois ou 2 200 CHF une fois, en brouillon le 12.11, valable au 26.11 |
 | Vivell | piscine | info@vivell.ch | https://vivell.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Wehrli Poolbau | piscine | info@wehrli-poolbau.ch | https://wehrli-poolbau.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Markzoll GmbH | piscine | info@markzoll.ch | https://markzoll.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
@@ -485,4 +485,6 @@ Charpentiers, menuisiers, paysagistes et storistes (search.ch par ville). Nouvea
 
 Réponses au 12.11.2026 (Suisse alémanique) : 1 intéressé (Varioplant), 1 refus (Knechtgarten), 2 réponses automatiques (GMB Glas, Wahl AG), 4 adresses non distribuées. Démos ouvertes (alertes) : Zimmba, janitsch, Schäwi Pool, Holzbau Kunz, Varioplant, Kohler Seeland, Wisobau, DAMAK, Haussener, Kayser → à relancer en priorité le 18.11.
 
-**12.11.2026 — Lejan EG Sàrl INTÉRESSÉ** (lejan.lejan2020@gmail.com, réponse 08:30 : « essayé votre programme… assez intéressant, pourrions-nous avoir une offre approximative ») → offre 990 CHF + 59 CHF/mois ou 2 900 CHF une fois, modifications illimitées, valable au 26.11.2026, en brouillon kSuite le 12.11.
+**12.11.2026 — Lejan EG Sàrl INTÉRESSÉ** (lejan.lejan2020@gmail.com, réponse 08:30 : « essayé votre programme… assez intéressant, pourrions-nous avoir une offre approximative ») → offre 990 CHF + 59 CHF/mois ou 2 200 CHF une fois, modifications illimitées, valable au 26.11.2026, en brouillon kSuite le 12.11.
+
+**Prix décidé par Ryan le 12.11.2026** : formule mensuelle 990 CHF de mise en place + 59 CHF/mois, ou formule achat **2 200 CHF** une fois (modifications illimitées dans les deux cas). Offres Varioplant et Lejan mises à jour.

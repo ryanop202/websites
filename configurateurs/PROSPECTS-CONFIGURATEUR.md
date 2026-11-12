@@ -462,10 +462,10 @@ Charpentiers, menuisiers, paysagistes et storistes (search.ch par ville). Nouvea
 | Kayser Holzbau AG | terrasse | t.schleiss@kayser.ch | https://kayser-holzbau.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Kleingartenbau | pergola bois | info@kleingartenbau.ch | https://kleingartenbau.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Knuchel Schreinerei | terrasse | info@knuchelag.ch | https://knuchel.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
-| Lang Garten- & Tiefbau | piscine | info@lang-garten-tiefbau.ch | https://lang-garten.wibzo.ch | mail non parti le 11.11 (limite d'envoi Infomaniak atteinte, l'adresse est bonne) → remis en brouillon le 12.11.2026, à renvoyer |
-| Josef Lehmann Holzbau AG | terrasse | holzbau@lehmann-schneisingen.ch | https://lehmann-holzbau.wibzo.ch | mail non parti le 11.11 (limite d'envoi Infomaniak atteinte, l'adresse est bonne) → remis en brouillon le 12.11.2026, à renvoyer |
-| H. Luchsinger AG | pergola bioclimatique | info@luchsinger-aadorf.ch | https://luchsinger.wibzo.ch | mail non parti le 11.11 (limite d'envoi Infomaniak atteinte, l'adresse est bonne) → remis en brouillon le 12.11.2026, à renvoyer |
-| Metallbau Neuenhof | véranda | info@metallbau-neuenhof.ch | https://metallbau-neuenhof.wibzo.ch | mail non parti le 11.11 (limite d'envoi Infomaniak atteinte, l'adresse est bonne) → remis en brouillon le 12.11.2026, à renvoyer |
+| Lang Garten- & Tiefbau | piscine | info@lang-garten-tiefbau.ch | https://lang-garten.wibzo.ch | mail non parti le 11.11 (limite d'envoi Infomaniak atteinte, l'adresse est bonne) → renvoyé le 12.11.2026, relance le 19.11.2026 |
+| Josef Lehmann Holzbau AG | terrasse | holzbau@lehmann-schneisingen.ch | https://lehmann-holzbau.wibzo.ch | mail non parti le 11.11 (limite d'envoi Infomaniak atteinte, l'adresse est bonne) → renvoyé le 12.11.2026, relance le 19.11.2026 |
+| H. Luchsinger AG | pergola bioclimatique | info@luchsinger-aadorf.ch | https://luchsinger.wibzo.ch | mail non parti le 11.11 (limite d'envoi Infomaniak atteinte, l'adresse est bonne) → renvoyé le 12.11.2026, relance le 19.11.2026 |
+| Metallbau Neuenhof | véranda | info@metallbau-neuenhof.ch | https://metallbau-neuenhof.wibzo.ch | mail non parti le 11.11 (limite d'envoi Infomaniak atteinte, l'adresse est bonne) → renvoyé le 12.11.2026, relance le 19.11.2026 |
 | Neumüller Gärten | terrasse | mail@neumuellergaerten.ch | https://neumueller-gaerten.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | NOTZ Storen und Rollladen | pergola bioclimatique | info@notz-storen.ch | https://notz-storen.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Reutimann Gartengestaltung | pergola bois | info@reutimanngarten.ch | https://reutimann-garten.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |

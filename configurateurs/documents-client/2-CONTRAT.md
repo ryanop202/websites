@@ -4,8 +4,8 @@
 Ryan a 17 ans : **un parent signe aussi** (accord des parents obtenu le 29.10.2026).
 
 **Conditions VALIDÉES par Ryan le 12.11.2026** (pas encore annoncées aux clients : les offres Varioplant et Lejan ne les mentionnent pas, les expliquer simplement à l'envoi du contrat) :
-- Formule mensuelle : **12 mois minimum**, puis résiliable chaque mois avec 1 mois de préavis. Sinon, quelqu'un paie 990 CHF, résilie après 1 mois et garde un configurateur presque gratuit.
-- Formule mensuelle facturée **par trimestre (177 CHF)**, pour éviter 12 factures par an.
+- Formule mensuelle : **15 mois minimum** (5 trimestres ; 990 + 5 × 180 = 1 890 CHF, presque le prix d'achat), puis résiliable chaque mois avec 1 mois de préavis. Sinon, quelqu'un paie 990 CHF, résilie après 1 mois et garde un configurateur presque gratuit. (Changé de 12 à 15 mois par Ryan le 12.11.2026.)
+- Formule mensuelle facturée **par trimestre** : **180 CHF** (60 CHF/mois) pour les nouveaux clients ; **177 CHF** (3 × 59) pour Varioplant et Lejan, qui ont reçu l'offre à 59 CHF/mois.
 - Mise en place payable **à 30 jours après la mise en ligne** (comme dans l'offre Sirbatec).
 - Formule achat : hébergement compris **aussi longtemps que Wibzo existe**. Si Wibzo s'arrête, le client reçoit les fichiers du configurateur pour l'héberger ailleurs.
 - « Modifications illimitées » = changements de prix, d'options, de couleurs et de modèles du même type. Un produit complètement nouveau (par ex. une piscine pour un charpentier) fait l'objet d'une offre à part.
@@ -38,7 +38,7 @@ Wibzo crée et met en ligne pour le client un configurateur 3D de {produits} : l
 
 **3. Formule choisie** (garder une seule formule)
 
-☐ **Formule mensuelle** : 990 CHF de mise en place, puis 59 CHF par mois. Durée minimale de 12 mois à partir de la mise en ligne, puis résiliable chaque mois avec un préavis d'un mois, par e-mail. L'abonnement est facturé par trimestre (177 CHF).
+☐ **Formule mensuelle** : 990 CHF de mise en place, puis {60} CHF par mois. Durée minimale de 15 mois à partir de la mise en ligne, puis résiliable chaque mois avec un préavis d'un mois, par e-mail. L'abonnement est facturé par trimestre ({180} CHF). *(Varioplant et Lejan : 59 CHF par mois, 177 CHF par trimestre.)*
 
 ☐ **Formule achat** : 1 900 CHF en une seule fois, sans frais mensuels. L'hébergement est compris aussi longtemps que Wibzo exerce son activité. Si Wibzo arrête son activité, le client reçoit les fichiers du configurateur pour pouvoir l'héberger ailleurs.
 
@@ -92,7 +92,7 @@ Wibzo erstellt und schaltet für den Kunden einen 3D-Konfigurator für {Produkte
 
 **3. Gewählte Variante** (nur eine Variante behalten)
 
-☐ **Monatlich**: CHF 990 Einrichtung, danach CHF 59 pro Monat. Mindestdauer 12 Monate ab Aufschaltung, danach monatlich kündbar mit einem Monat Kündigungsfrist, per E-Mail. Das Abo wird quartalsweise verrechnet (CHF 177).
+☐ **Monatlich**: CHF 990 Einrichtung, danach CHF {60} pro Monat. Mindestdauer 15 Monate ab Aufschaltung, danach monatlich kündbar mit einem Monat Kündigungsfrist, per E-Mail. Das Abo wird quartalsweise verrechnet (CHF {180}). *(Varioplant und Lejan: CHF 59 pro Monat, CHF 177 pro Quartal.)*
 
 ☐ **Kauf**: CHF 1'900 einmalig, ohne monatliche Kosten. Das Hosting ist inbegriffen, solange Wibzo tätig ist. Stellt Wibzo seine Tätigkeit ein, erhält der Kunde die Dateien des Konfigurators, um ihn anderswo zu hosten.
 

@@ -10,7 +10,7 @@ Ordre d'envoi :
 - Ton nom complet et ton adresse (en-tête du contrat et de la facture)
 - Le nom du parent qui signe
 - Ton IBAN, pour le bulletin QR
-(Conditions du contrat validées par Ryan le 12.11.2026 : 12 mois minimum, facturation par trimestre, hébergement compris pour la formule achat.)
+(Conditions du contrat validées par Ryan le 12.11.2026 : 15 mois minimum, facturation par trimestre 180 CHF (177 CHF pour Varioplant et Lejan), hébergement compris pour la formule achat.)
 
 ## La facture QR
 Une facture suisse doit avoir un **bulletin QR** en bas (il remplace l'ancien bulletin de versement).

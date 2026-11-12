@@ -10,7 +10,7 @@ Ordre d'envoi :
 - Ton nom complet et ton adresse (en-tête du contrat et de la facture)
 - Le nom du parent qui signe
 - Ton IBAN, pour le bulletin QR
-- Les points « à valider » en haut de `2-CONTRAT.md`, surtout les 12 mois minimum et la facturation par trimestre
+(Conditions du contrat validées par Ryan le 12.11.2026 : 12 mois minimum, facturation par trimestre, hébergement compris pour la formule achat.)
 
 ## La facture QR
 Une facture suisse doit avoir un **bulletin QR** en bas (il remplace l'ancien bulletin de versement).

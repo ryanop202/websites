@@ -359,7 +359,7 @@ Trouvés par Google (carport, Wintergarten, Lamellendach, Pool, toutes régions 
 | Artmetal GmbH | piscine inox | artmetalgmbh@gmail.com | https://artmetal.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Poolbau Minder | piscine | info@minder-haustechnik.ch | https://poolbau-minder.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Varia Pools GmbH | piscine | info@varia-pools.ch | https://varia-pools.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
-| Varioplant AG | piscine | info@varioplant.ch | https://varioplant.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
+| Varioplant AG | piscine | info@varioplant.ch | https://varioplant.wibzo.ch | **INTÉRESSÉ** (Marco, 11.11 : « könnte mir vorstellen, hängt von der Preisgestaltung ab ») → offre 990 + 59/mois ou 2900 en brouillon le 12.11, valable au 26.11 |
 | Vivell | piscine | info@vivell.ch | https://vivell.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Wehrli Poolbau | piscine | info@wehrli-poolbau.ch | https://wehrli-poolbau.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Markzoll GmbH | piscine | info@markzoll.ch | https://markzoll.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
@@ -418,7 +418,7 @@ Trouvés via search.ch (produit × canton) et Google (petites villes), vérifié
 | Hossli Bau GmbH | piscine | info@hosslibau.ch | https://hossli-bau.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Emmenegger Garten-Tiefbau AG | piscine | info@emmag.ch | https://emmenegger-gartenbau.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Buchter Gärten | piscine | info@buchtergaerten.ch | https://buchter-gaerten.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
-| Knechtgarten | piscine | info@knechtgarten.ch | https://knechtgarten.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
+| Knechtgarten | piscine | info@knechtgarten.ch | https://knechtgarten.wibzo.ch | refus (« Kein Interesse », 11.11) : pas de relance |
 | Schoop Gartenbau | piscine | info@schoop.com | https://schoop-gartenbau.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Wiga Gartenpflege & Gestaltung | piscine | garten@wiga.ch | https://wiga-garten.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Constructive Holzbau AG | véranda | holzbau@chb-ag.ch | https://chb-holzbau.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
@@ -462,10 +462,10 @@ Charpentiers, menuisiers, paysagistes et storistes (search.ch par ville). Nouvea
 | Kayser Holzbau AG | terrasse | t.schleiss@kayser.ch | https://kayser-holzbau.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Kleingartenbau | pergola bois | info@kleingartenbau.ch | https://kleingartenbau.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Knuchel Schreinerei | terrasse | info@knuchelag.ch | https://knuchel.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
-| Lang Garten- & Tiefbau | piscine | info@lang-garten-tiefbau.ch | https://lang-garten.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
-| Josef Lehmann Holzbau AG | terrasse | holzbau@lehmann-schneisingen.ch | https://lehmann-holzbau.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
-| H. Luchsinger AG | pergola bioclimatique | info@luchsinger-aadorf.ch | https://luchsinger.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
-| Metallbau Neuenhof | véranda | info@metallbau-neuenhof.ch | https://metallbau-neuenhof.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
+| Lang Garten- & Tiefbau | piscine | info@lang-garten-tiefbau.ch | https://lang-garten.wibzo.ch | ⚠️ mail NON DISTRIBUÉ (adresse refusée, 11.11) : trouver une autre adresse |
+| Josef Lehmann Holzbau AG | terrasse | holzbau@lehmann-schneisingen.ch | https://lehmann-holzbau.wibzo.ch | ⚠️ mail NON DISTRIBUÉ (adresse refusée, 11.11) : trouver une autre adresse |
+| H. Luchsinger AG | pergola bioclimatique | info@luchsinger-aadorf.ch | https://luchsinger.wibzo.ch | ⚠️ mail NON DISTRIBUÉ (adresse refusée, 11.11) : trouver une autre adresse |
+| Metallbau Neuenhof | véranda | info@metallbau-neuenhof.ch | https://metallbau-neuenhof.wibzo.ch | ⚠️ mail NON DISTRIBUÉ (adresse refusée, 11.11) : trouver une autre adresse |
 | Neumüller Gärten | terrasse | mail@neumuellergaerten.ch | https://neumueller-gaerten.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | NOTZ Storen und Rollladen | pergola bioclimatique | info@notz-storen.ch | https://notz-storen.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Reutimann Gartengestaltung | pergola bois | info@reutimanngarten.ch | https://reutimann-garten.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
@@ -482,3 +482,5 @@ Charpentiers, menuisiers, paysagistes et storistes (search.ch par ville). Nouvea
 | Verum Lignum | carport bois | info@verum-lignum.ch | https://verum-lignum.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Wyli Holz | carport bois | info@wyli.ch | https://wyli-holz.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Zimmerei Berger | carport bois | lukas@zimmereiberger.ch | https://zimmerei-berger.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
+
+Réponses au 12.11.2026 (Suisse alémanique) : 1 intéressé (Varioplant), 1 refus (Knechtgarten), 2 réponses automatiques (GMB Glas, Wahl AG), 4 adresses non distribuées. Démos ouvertes (alertes) : Zimmba, janitsch, Schäwi Pool, Holzbau Kunz, Varioplant, Kohler Seeland, Wisobau, DAMAK, Haussener, Kayser → à relancer en priorité le 18.11.

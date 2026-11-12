@@ -11,6 +11,7 @@ Pour Ryan : c'est le même travail que les configurateurs (Three.js), sans calcu
 | Dossier / fichier | Contenu |
 |---|---|
 | `demo-siviriez/` | 1re démo : « Le Bourg de Siviriez » de Glauser Immobilier SA (25 lots). Prospect : `PROSPECTS-IMMOBILIER.md` |
+| `demo-ardon/` | 2e démo : « Le Clos des Forges » (Ardon) pour Berra Immobilier SA. Maquette à ailes tournées (`AILES_DEF` en haut de `maquette.js`), lots en lettres (A1…F2), falaise et montagnes. |
 | `PROSPECTS-IMMOBILIER.md` | Promotions repérées, ce qui a été vérifié, le mail à envoyer |
 
 ## ⚠️ Avant de faire une démo pour un prospect (leçon de Siviriez, 12.11.2026)

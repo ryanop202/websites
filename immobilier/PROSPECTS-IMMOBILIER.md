@@ -16,7 +16,8 @@ Ce qu'on cherche : une promotion **en cours de vente** (beaucoup de lots encore 
   - Constructeur : Eiriz Réalisations & Immobilier SA (Farvagny) — page https://ardon.eiriz.ch : simple, **sans sélecteur**.
   - Anciennes annonces aussi chez Valcity Suisse (Sion) : simples annonces, sans sélecteur.
   - ⚠️ Plaquette et plans « uniquement sur demande » → la démo sera encore faite à l'œil (à dire dans le mail). Mais ici il n'existe aucun outil concurrent sur le projet.
-- **À vérifier avant la démo** : les images publiques (photo du tableau, vidéo YouTube, annonces immobilier.ch par lot avec étage et surface) pour placer les immeubles et les lots.
+- **Démo faite le 12.11.2026** : `demo-ardon/` (pas encore en ligne, aucun contact pris). 15 lots publiés par Berra (10 à vendre, 4 réservés, 1 vendu), livraison « entre mai et juillet 2027 », logo et couleurs Berra, 12 images de l'annonce. Forme des 2 immeubles (A-B-C au nord, D-E-F au sud) d'après la maquette aérienne de l'annonce ; place des lots estimée (A1 rez, A2 1er, A3 attique, A4 rez… par colonne). Adresse prévue : https://ardon.wibzo.ch
+- **Avant la démo (fait)** : les images publiques (photo du tableau, vidéo YouTube, annonces immobilier.ch par lot avec étage et surface) pour placer les immeubles et les lots.
 - Autres grosses promotions Berra : Greenparc Sion (191 appartements, phase II ; aussi vendu par BARNES Sion → à vérifier avant d'en parler).
 
 ## 1. Glauser Immobilier SA — « Le Bourg de Siviriez » ✅ démo en ligne (12.11.2026), aucun contact pris

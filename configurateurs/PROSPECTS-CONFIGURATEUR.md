@@ -484,3 +484,5 @@ Charpentiers, menuisiers, paysagistes et storistes (search.ch par ville). Nouvea
 | Zimmerei Berger | carport bois | lukas@zimmereiberger.ch | https://zimmerei-berger.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 
 Réponses au 12.11.2026 (Suisse alémanique) : 1 intéressé (Varioplant), 1 refus (Knechtgarten), 2 réponses automatiques (GMB Glas, Wahl AG), 4 adresses non distribuées. Démos ouvertes (alertes) : Zimmba, janitsch, Schäwi Pool, Holzbau Kunz, Varioplant, Kohler Seeland, Wisobau, DAMAK, Haussener, Kayser → à relancer en priorité le 18.11.
+
+**12.11.2026 — Lejan EG Sàrl INTÉRESSÉ** (lejan.lejan2020@gmail.com, réponse 08:30 : « essayé votre programme… assez intéressant, pourrions-nous avoir une offre approximative ») → offre 990 CHF + 59 CHF/mois ou 2 900 CHF une fois, modifications illimitées, valable au 26.11.2026, en brouillon kSuite le 12.11.

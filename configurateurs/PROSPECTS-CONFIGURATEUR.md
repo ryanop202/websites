@@ -462,10 +462,10 @@ Charpentiers, menuisiers, paysagistes et storistes (search.ch par ville). Nouvea
 | Kayser Holzbau AG | terrasse | t.schleiss@kayser.ch | https://kayser-holzbau.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Kleingartenbau | pergola bois | info@kleingartenbau.ch | https://kleingartenbau.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Knuchel Schreinerei | terrasse | info@knuchelag.ch | https://knuchel.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
-| Lang Garten- & Tiefbau | piscine | info@lang-garten-tiefbau.ch | https://lang-garten.wibzo.ch | ⚠️ mail NON DISTRIBUÉ (adresse refusée, 11.11) : trouver une autre adresse |
-| Josef Lehmann Holzbau AG | terrasse | holzbau@lehmann-schneisingen.ch | https://lehmann-holzbau.wibzo.ch | ⚠️ mail NON DISTRIBUÉ (adresse refusée, 11.11) : trouver une autre adresse |
-| H. Luchsinger AG | pergola bioclimatique | info@luchsinger-aadorf.ch | https://luchsinger.wibzo.ch | ⚠️ mail NON DISTRIBUÉ (adresse refusée, 11.11) : trouver une autre adresse |
-| Metallbau Neuenhof | véranda | info@metallbau-neuenhof.ch | https://metallbau-neuenhof.wibzo.ch | ⚠️ mail NON DISTRIBUÉ (adresse refusée, 11.11) : trouver une autre adresse |
+| Lang Garten- & Tiefbau | piscine | info@lang-garten-tiefbau.ch | https://lang-garten.wibzo.ch | mail non parti le 11.11 (limite d'envoi Infomaniak atteinte, l'adresse est bonne) → remis en brouillon le 12.11.2026, à renvoyer |
+| Josef Lehmann Holzbau AG | terrasse | holzbau@lehmann-schneisingen.ch | https://lehmann-holzbau.wibzo.ch | mail non parti le 11.11 (limite d'envoi Infomaniak atteinte, l'adresse est bonne) → remis en brouillon le 12.11.2026, à renvoyer |
+| H. Luchsinger AG | pergola bioclimatique | info@luchsinger-aadorf.ch | https://luchsinger.wibzo.ch | mail non parti le 11.11 (limite d'envoi Infomaniak atteinte, l'adresse est bonne) → remis en brouillon le 12.11.2026, à renvoyer |
+| Metallbau Neuenhof | véranda | info@metallbau-neuenhof.ch | https://metallbau-neuenhof.wibzo.ch | mail non parti le 11.11 (limite d'envoi Infomaniak atteinte, l'adresse est bonne) → remis en brouillon le 12.11.2026, à renvoyer |
 | Neumüller Gärten | terrasse | mail@neumuellergaerten.ch | https://neumueller-gaerten.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | NOTZ Storen und Rollladen | pergola bioclimatique | info@notz-storen.ch | https://notz-storen.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Reutimann Gartengestaltung | pergola bois | info@reutimanngarten.ch | https://reutimann-garten.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
@@ -483,7 +483,7 @@ Charpentiers, menuisiers, paysagistes et storistes (search.ch par ville). Nouvea
 | Wyli Holz | carport bois | info@wyli.ch | https://wyli-holz.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Zimmerei Berger | carport bois | lukas@zimmereiberger.ch | https://zimmerei-berger.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 
-Réponses au 12.11.2026 (Suisse alémanique) : 1 intéressé (Varioplant), 1 refus (Knechtgarten), 2 réponses automatiques (GMB Glas, Wahl AG), 4 adresses non distribuées. Démos ouvertes (alertes) : Zimmba, janitsch, Schäwi Pool, Holzbau Kunz, Varioplant, Kohler Seeland, Wisobau, DAMAK, Haussener, Kayser → à relancer en priorité le 18.11.
+Réponses au 12.11.2026 (Suisse alémanique) : 1 intéressé (Varioplant), 1 refus (Knechtgarten), 2 réponses automatiques (GMB Glas, Wahl AG), 4 mails non partis (limite d'envoi atteinte, adresses bonnes, remis en brouillon le 12.11). Démos ouvertes (alertes) : Zimmba, janitsch, Schäwi Pool, Holzbau Kunz, Varioplant, Kohler Seeland, Wisobau, DAMAK, Haussener, Kayser → à relancer en priorité le 18.11.
 
 **12.11.2026 — Lejan EG Sàrl INTÉRESSÉ** (lejan.lejan2020@gmail.com, réponse 08:30 : « essayé votre programme… assez intéressant, pourrions-nous avoir une offre approximative ») → offre 990 CHF + 59 CHF/mois ou 1 900 CHF une fois, modifications illimitées, valable au 26.11.2026, **ENVOYÉE le 12.11.2026**.
 

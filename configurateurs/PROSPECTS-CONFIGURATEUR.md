@@ -359,7 +359,7 @@ Trouvés par Google (carport, Wintergarten, Lamellendach, Pool, toutes régions 
 | Artmetal GmbH | piscine inox | artmetalgmbh@gmail.com | https://artmetal.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Poolbau Minder | piscine | info@minder-haustechnik.ch | https://poolbau-minder.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Varia Pools GmbH | piscine | info@varia-pools.ch | https://varia-pools.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
-| Varioplant AG | piscine | info@varioplant.ch | https://varioplant.wibzo.ch | **INTÉRESSÉ** (Marco, 11.11 : « könnte mir vorstellen, hängt von der Preisgestaltung ab ») → offre 990 + 59/mois ou 1 900 CHF une fois, **ENVOYÉE le 12.11.2026**, valable au 26.11 |
+| Varioplant AG | piscine | info@varioplant.ch | https://varioplant.wibzo.ch | **INTÉRESSÉ** (Marco, 11.11 : « könnte mir vorstellen, hängt von der Preisgestaltung ab ») → offre 990 + 59/mois ou 1 900 CHF une fois, **ENVOYÉE le 12.11.2026**, valable au 26.11. Marco 12.11 : « Danke für die Unterlagen, wir werden diese studieren und uns wieder melden » → attendre, relance douce le 19.11 si rien |
 | Vivell | piscine | info@vivell.ch | https://vivell.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Wehrli Poolbau | piscine | info@wehrli-poolbau.ch | https://wehrli-poolbau.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Markzoll GmbH | piscine | info@markzoll.ch | https://markzoll.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |

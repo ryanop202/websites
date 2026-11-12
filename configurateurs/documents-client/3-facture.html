@@ -8,9 +8,15 @@
   :root { --ink:#1d1d1b; --muted:#6b6b66; --line:#d9d7d0; --accent:#2f5d50; }
   * { box-sizing:border-box; }
   body { margin:0; background:#eceae4; color:var(--ink); font:15px/1.5 Georgia, "Times New Roman", serif; }
-  .aide { max-width:210mm; margin:16px auto; padding:12px 16px; background:#fff8d6; border:1px solid #e6d98a; font-family:system-ui, sans-serif; font-size:14px; }
-  .aide button { margin-right:8px; padding:6px 12px; cursor:pointer; }
-  .page { width:210mm; min-height:297mm; margin:0 auto 24px; background:#fff; padding:20mm 18mm; position:relative; }
+  .aide { max-width:210mm; margin:16px auto; padding:14px 16px; background:#fff8d6; border:1px solid #e6d98a; font-family:system-ui, sans-serif; font-size:14px; }
+  .aide button { margin:0 8px 8px 0; padding:6px 12px; cursor:pointer; }
+  .aide fieldset { border:1px solid #e0d39a; margin:10px 0 0; padding:8px 10px 10px; }
+  .aide legend { font-weight:600; padding:0 4px; }
+  .champs { display:grid; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:8px; }
+  .champs label { display:flex; flex-direction:column; font-size:12px; color:#5c5640; }
+  .champs input { font:14px system-ui, sans-serif; padding:5px 6px; border:1px solid #cfc7a3; border-radius:3px; }
+  #erreur { color:#a3261b; font-weight:600; margin-top:8px; }
+  .page { width:210mm; min-height:297mm; margin:0 auto 24px; background:#fff; padding:20mm 18mm 0; position:relative; }
   [contenteditable] { outline:1px dashed transparent; border-radius:2px; }
   [contenteditable]:hover { outline-color:#c9c4b5; }
   [contenteditable]:focus { outline-color:var(--accent); background:#f6faf8; }
@@ -29,55 +35,88 @@
   .lignes .m { text-align:right; white-space:nowrap; }
   .total td { border-bottom:none; font-weight:700; font-size:15px; padding-top:12px; }
   .notes { margin-top:22px; font-family:system-ui, sans-serif; font-size:13px; color:var(--muted); }
-  .qr { position:absolute; left:0; right:0; bottom:0; height:105mm; border-top:1px dashed var(--muted); display:flex; align-items:center; justify-content:center; text-align:center; color:var(--muted); font-family:system-ui, sans-serif; font-size:13px; padding:0 20mm; }
+  .qr { position:absolute; left:0; right:0; bottom:0; height:105mm; }
+  .qr svg { display:block; width:210mm; height:105mm; }
+  .qr .vide { height:100%; border-top:1px dashed var(--muted); display:flex; align-items:center; justify-content:center; text-align:center; color:var(--muted); font-family:system-ui, sans-serif; font-size:13px; padding:0 20mm; }
   .de { display:none; }
   body.lang-de .de { display:inline; }
   body.lang-de .fr { display:none; }
   @media print {
+    @page { size:A4; margin:0; }
     body { background:#fff; }
     .aide { display:none; }
-    .page { margin:0; width:auto; min-height:auto; height:297mm; }
+    .page { margin:0; width:210mm; min-height:auto; height:297mm; overflow:hidden; }
     [contenteditable]:hover, [contenteditable]:focus { outline:none; background:none; }
+    .qr .vide { display:none; }
   }
   @media (max-width:820px) {
-    .page { width:auto; min-height:auto; padding:20px 16px 140px; }
+    .page { width:auto; min-height:auto; padding:20px 16px 0; }
     .bloc { flex-direction:column; gap:16px; }
     .client { width:auto; }
+    .qr { position:static; height:auto; margin-top:24px; overflow-x:auto; }
   }
 </style>
 </head>
 <body>
 
 <div class="aide">
-  <b>Mode d'emploi</b> : clique sur un texte pour le modifier (tout ce qui est entre {…}). Puis <b>Ctrl + P → « Enregistrer au format PDF »</b>.
-  Le bas de la page est réservé au <b>bulletin QR</b> (voir le fichier LISEZ-MOI).<br><br>
-  <button onclick="document.body.classList.remove('lang-de');document.documentElement.lang='fr'">Français</button>
-  <button onclick="document.body.classList.add('lang-de');document.documentElement.lang='de'">Deutsch</button>
+  <b>Mode d'emploi</b> : remplis les cases ci-dessous (le bulletin QR se crée tout seul en bas de la facture), clique sur les textes de la facture pour modifier les lignes, puis <b>Ctrl + P → « Enregistrer au format PDF »</b> (marges : aucune).<br>
+  Tes infos à toi (IBAN, nom, adresse) sont mémorisées dans ce navigateur pour la prochaine facture.<br><br>
+  <button onclick="langue('fr')">Français</button>
+  <button onclick="langue('de')">Deutsch</button>
   <button onclick="window.print()">Imprimer / PDF</button>
+
+  <fieldset>
+    <legend>Wibzo (toi) — mémorisé</legend>
+    <div class="champs">
+      <label>IBAN<input id="iban" placeholder="CH.. .... .... .... .... ."></label>
+      <label>Prénom Nom<input id="c_nom"></label>
+      <label>Rue<input id="c_rue"></label>
+      <label>N°<input id="c_no"></label>
+      <label>NPA<input id="c_npa"></label>
+      <label>Localité<input id="c_ville"></label>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Client et montant</legend>
+    <div class="champs">
+      <label>Entreprise<input id="d_nom"></label>
+      <label>Contact (facultatif)<input id="d_contact"></label>
+      <label>Rue<input id="d_rue"></label>
+      <label>N°<input id="d_no"></label>
+      <label>NPA<input id="d_npa"></label>
+      <label>Localité<input id="d_ville"></label>
+      <label>Montant CHF<input id="montant" inputmode="decimal" value="1167.00"></label>
+      <label>N° de facture<input id="numero" value="2026-001"></label>
+      <label>Date<input id="date"></label>
+      <label>Échéance<input id="echeance"></label>
+    </div>
+  </fieldset>
+  <div id="erreur"></div>
 </div>
 
 <div class="page">
   <header>
     <div class="marque">WIBZO<small><span class="fr">Configurateurs 3D</span><span class="de">3D-Konfiguratoren</span></small></div>
-    <div class="emetteur" contenteditable>
-      {Prénom Nom de Ryan}<br>
-      {Rue et numéro}<br>
-      {NPA Localité}<br>
+    <div class="emetteur">
+      <span data-v="c_nom"></span><br>
+      <span data-v="c_rue"></span> <span data-v="c_no"></span><br>
+      <span data-v="c_npa"></span> <span data-v="c_ville"></span><br>
       contact@wibzo.ch
     </div>
   </header>
 
   <div class="bloc">
-    <div class="client" contenteditable>
-      {Nom de l'entreprise}<br>
-      {Prénom Nom du contact}<br>
-      {Rue et numéro}<br>
-      {NPA Localité}
+    <div class="client">
+      <span data-v="d_nom"></span><br>
+      <span data-v="d_contact"></span><br>
+      <span data-v="d_rue"></span> <span data-v="d_no"></span><br>
+      <span data-v="d_npa"></span> <span data-v="d_ville"></span>
     </div>
     <table class="meta">
-      <tr><td><span class="fr">Facture n°</span><span class="de">Rechnung Nr.</span></td><td contenteditable>2026-001</td></tr>
-      <tr><td><span class="fr">Date</span><span class="de">Datum</span></td><td contenteditable>{JJ.MM.AAAA}</td></tr>
-      <tr><td><span class="fr">Échéance</span><span class="de">Fällig am</span></td><td contenteditable>{date + 30 jours}</td></tr>
+      <tr><td><span class="fr">Facture n°</span><span class="de">Rechnung Nr.</span></td><td data-v="numero"></td></tr>
+      <tr><td><span class="fr">Date</span><span class="de">Datum</span></td><td data-v="date"></td></tr>
+      <tr><td><span class="fr">Échéance</span><span class="de">Fällig am</span></td><td data-v="echeance"></td></tr>
     </table>
   </div>
 
@@ -104,7 +143,7 @@
       </tr>
       <tr class="total">
         <td>Total</td>
-        <td class="m" contenteditable>1 167.00</td>
+        <td class="m" data-v="montant"></td>
       </tr>
     </tbody>
   </table>
@@ -114,10 +153,67 @@
     <span class="de">Zahlbar innert 30 Tagen mit dem untenstehenden QR-Einzahlungsschein. Nicht MWST-pflichtig. Vielen Dank für Ihr Vertrauen!</span>
   </p>
 
-  <div class="qr">
-    <span><span class="fr">Emplacement du bulletin QR (récépissé + section paiement, 105 mm de haut).<br>Le coller ici ou l'ajouter comme page séparée du PDF.</span><span class="de">Platz für den QR-Einzahlungsschein (Empfangsschein + Zahlteil, 105 mm hoch).</span></span>
-  </div>
+  <div class="qr" id="qr"></div>
 </div>
 
+<!-- swissqrbill 4.4.4 (licence MIT, voir vendor/swissqrbill-LICENSE.txt), copié localement -->
+<script src="vendor/swissqrbill-4.4.4.js"></script>
+<script>
+  const memo = ['iban', 'c_nom', 'c_rue', 'c_no', 'c_npa', 'c_ville'];
+  const $ = id => document.getElementById(id);
+  let lang = 'fr';
+
+  function lire(cle) { try { return localStorage.getItem('wibzo-facture-' + cle); } catch (e) { return null; } }
+  function ecrire(cle, v) { try { localStorage.setItem('wibzo-facture-' + cle, v); } catch (e) {} }
+
+  function dateCH(d) { return String(d.getDate()).padStart(2, '0') + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + d.getFullYear(); }
+
+  function langue(l) {
+    lang = l;
+    document.body.classList.toggle('lang-de', l === 'de');
+    document.documentElement.lang = l;
+    maj();
+  }
+
+  function adresse(p) {
+    const a = { name: $(p + '_nom').value.trim(), address: $(p + '_rue').value.trim(), zip: $(p + '_npa').value.trim(), city: $(p + '_ville').value.trim(), country: 'CH' };
+    const no = $(p + '_no').value.trim();
+    if (no) a.buildingNumber = no;
+    return a;
+  }
+
+  function maj() {
+    document.querySelectorAll('[data-v]').forEach(el => {
+      const v = $(el.dataset.v).value.trim();
+      el.textContent = el.dataset.v === 'montant' && v ? Number(v.replace(/[' ]/g, '')).toFixed(2) : v;
+    });
+    memo.forEach(id => ecrire(id, $(id).value));
+
+    const qr = $('qr'), err = $('erreur');
+    err.textContent = '';
+    const montant = Number($('montant').value.replace(/[' ]/g, ''));
+    const data = {
+      currency: 'CHF',
+      creditor: Object.assign(adresse('c'), { account: $('iban').value.replace(/\s/g, '') }),
+      message: (lang === 'de' ? 'Rechnung ' : 'Facture ') + $('numero').value.trim()
+    };
+    if (montant > 0) data.amount = montant;
+    if ($('d_nom').value.trim()) data.debtor = adresse('d');
+    try {
+      const bill = new SwissQRBill.svg.SwissQRBill(data, { language: lang.toUpperCase() });
+      qr.innerHTML = bill.toString();
+    } catch (e) {
+      qr.innerHTML = '<div class="vide">' + (lang === 'de' ? 'QR-Einzahlungsschein: Angaben oben vervollständigen.' : 'Bulletin QR : complète les cases en haut (IBAN, nom, adresse).') + '</div>';
+      if ($('iban').value.trim()) err.textContent = 'Bulletin QR pas encore valable : ' + e.message;
+    }
+  }
+
+  memo.forEach(id => { const v = lire(id); if (v) $(id).value = v; });
+  const auj = new Date(), ech = new Date(); ech.setDate(ech.getDate() + 30);
+  $('date').value = dateCH(auj);
+  $('echeance').value = dateCH(ech);
+  document.querySelectorAll('.aide input').forEach(i => i.addEventListener('input', maj));
+  maj();
+</script>
 </body>
 </html>

@@ -13,6 +13,7 @@ Ce dossier fait partie du dépôt `websites` (avec les sites, la prospection et 
 | `A-LIRE.md` | Historique du projet : choix de la niche, exemple de référence, toutes les fonctions de la démo |
 | `PROSPECTS-CONFIGURATEUR.md` | Entreprises ciblées, ce qui a été vérifié, qui a été contacté et quand, relances |
 | `carport-demo/` | **Version maître** (bois + alu). Toute nouvelle fonction se fait ici d'abord. Publiée comme démo publique sur https://demo.wibzo.ch |
+| `demo-studio/` | Démo « studio de jardin » (13.11.2026), même moteur : produit `studio` (`carport-demo/produits/studio.js` + modèle `studio` dans `produits3d.js`). Pas encore en ligne, pas d'alerte e-mail. Pour les fabricants de studios / bureaux de jardin. |
 | `demo-pergola/` | 2e démo publique, pergola en bois (même moteur) : https://pergola.wibzo.ch |
 | `clients/<entreprise>/` | Une démo par entreprise : copie de la version maître + son `config.js`, son logo, son `MESSAGE.md` (mails), son `wrangler.jsonc` (mise en ligne) |
 | `exemples-pdf/` | Estimations PDF générées par la démo (tests du 28.10.2026) |
@@ -53,6 +54,27 @@ Suivi des contacts et des relances : `PROSPECTS-CONFIGURATEUR.md`.
 | `couvertures.X.ouverte: true` | Toit ouvert : seulement les chevrons, sans plaque ni solin (pergola) |
 | `libelles.objet / passage / largeurAide / hauteur / hauteurAide / implantationAide / parois` | Textes du produit (« pergola », « hauteur », « Brise-vue »…) |
 | `vehicules` avec seulement `aucun` | Étape « Véhicule » retirée |
+
+## « Voir chez moi » : réalité augmentée (13.11.2026, moteur maître)
+
+Bouton « Voir chez moi » sur la vue 3D (tous les produits sauf la piscine). Code : `realite.js`.
+- **iPhone / iPad** : le modèle est exporté en USDZ dans le navigateur (`USDZExporter` de three.js) et s'ouvre dans AR Quick Look : le produit en taille réelle dans le jardin.
+- **Android (Chrome)** : réalité augmentée WebXR : viser le sol, toucher pour poser, boutons Tourner / Déplacer / Fermer, ombre réelle au sol.
+- **Ordinateur** : QR code (bibliothèque `vendor/qrcode/qrcode.js`, MIT) qui ouvre la même configuration sur le téléphone, fenêtre déjà ouverte (`?ra=1`).
+- Sans voitures (le client a la sienne) ni voiles d'ombre. Rien n'est envoyé à un serveur. Alerte e-mail « Réalité augmentée ouverte » si la démo a une clé Web3Forms.
+- Testé le 13.11.2026 sur ordinateur : fenêtre + QR code OK, fichier iPhone généré sans erreur (carport 127 pièces / 6 Mo, pergola bio 64 / 2 Mo, studio 361 / 7 Mo, ~2 s). Test sur ordinateur : ajouter `?test-ra` à l'adresse puis `await testRA()` dans la console.
+- ✅ **Testé sur iPhone par Ryan le 13.11.2026 : ça marche.** ⚠️ Android pas encore testé.
+- ✅ **En ligne sur la démo publique https://demo.wibzo.ch depuis le 13.11.2026** (tous les produits sauf la piscine). Les démos clients déjà en ligne (Sirbatec, etc.) ne l'ont pas encore. Adresse de test (13.11.2026) : https://studio-test.wibzo.ch (copie de `demo-studio/` dans `clients/studio-test/`, sans alerte e-mail). À retirer de `clients/` quand le test est fini.
+- Fichiers ajoutés : `realite.js`, `vendor/three/examples/jsm/exporters/USDZExporter.js`, `vendor/three/examples/jsm/utils/TextureUtils.js`, `vendor/qrcode/qrcode.js`. Pour un client : recopier ces fichiers avec `app.js`, `index.html`, `style.css`.
+
+## Fiche technique pour l'entreprise (13.11.2026, moteur maître)
+
+Pour les charpentes (carport, pergola bois ou alu ; pas pour véranda, pergola bio, terrasse, piscine, studio) :
+- Bouton « Fiche technique : plan coté + pièces (PDF) » dans l'étape Prix (et dans le récapitulatif après la demande).
+- PDF d'une page : **vue de dessus cotée** (largeur, profondeur, entraxes des poteaux, débords en tirets, maison, local), **vue de face cotée** (passage, hauteur totale, pente), **liste des pièces** (poteaux, contrefiches, sablières, muralière, fermes, chevrons, rives : quantité, longueur, section) et **surfaces** (couverture, parois, local, gouttières, pieds de poteaux, volume de bois).
+- Mêmes règles que la 3D (sections 12×12, 12×20, 7×14, portée max `porteeMax`, entraxe `entraxeChevrons`). Marqué « débit indicatif, à valider » : pour un vrai client, reprendre SES sections et règles.
+- La **demande de devis** envoyée à l'entreprise contient maintenant la liste des pièces + un lien `?fiche=1` qui ouvre la configuration directement sur le bouton de la fiche (mis en avant).
+- Code : `ficheTechnique()` / `telechargerFiche()` dans `app.js`, `creerFicheTechnique()` dans `pdf.js`. Testé le 13.11.2026 : carport 2 pans + local arrière, carport 1 pan contre la maison + local latéral, pergola bois. ⚠️ Pas encore en ligne sur demo.wibzo.ch.
 
 ## Ouvrir une démo sur l'ordinateur
 

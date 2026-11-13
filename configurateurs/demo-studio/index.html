@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Configurateur 3D — démo</title>
+  <meta name="description" content="Configurez votre projet en 3D et voyez le prix indicatif tout de suite.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preload" href="vendor/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="modulepreload" href="vendor/three/build/three.module.min.js">
+  <link rel="stylesheet" href="style.css">
+  <!-- Tout est hébergé avec le site : aucune ressource chargée depuis un autre serveur -->
+  <!-- QR code (« Voir chez moi » sur ordinateur) : qrcode-generator 1.4.4, MIT, copie locale -->
+  <script src="./vendor/qrcode/qrcode.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./vendor/three/build/three.module.min.js",
+        "three/addons/": "./vendor/three/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="app">
+    <main class="viewer" id="viewer" aria-label="Aperçu 3D du carport">
+      <div class="marque">
+        <span class="marque-logo" id="marque-logo">VE</span>
+        <span>
+          <strong id="marque-nom">Votre entreprise</strong>
+          <small id="marque-activite">Charpente &amp; couverts</small>
+        </span>
+      </div>
+      <p class="badge-demo" id="badge-demo">Démo · prix fictifs</p>
+      <div class="cotes" id="cotes" aria-hidden="true"></div>
+      <div class="vues" role="group" aria-label="Changer de vue">
+        <button type="button" data-vue="troisQuarts" class="actif">3D</button>
+        <button type="button" data-vue="face">Face</button>
+        <button type="button" data-vue="dessus">Dessus</button>
+        <button type="button" id="btn-cotes" aria-pressed="true">Cotes</button>
+        <button type="button" id="btn-nuit" aria-pressed="false">Nuit</button>
+        <button type="button" id="btn-tourner" aria-pressed="false">Tourner</button>
+      </div>
+      <button type="button" class="btn-ra" id="btn-ra" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8 20 7.4v9.2L12 21.2 4 16.6V7.4z"/><path d="M4 7.4 12 12l8-4.6M12 12v9.2"/></svg>
+        Voir chez moi
+      </button>
+      <p class="aide">Glisser pour tourner · molette ou pincer pour zoomer</p>
+      <p class="erreur-3d" id="erreur-3d" hidden>La vue 3D ne peut pas s'afficher sur cet appareil. Le calcul du prix fonctionne quand même.</p>
+
+      <div class="chargement" id="chargement" role="status">
+        <svg viewBox="0 0 120 80" aria-hidden="true">
+          <path class="trace" pathLength="1" d="M8 72h104M20 72V38M100 72V38M14 40L60 12l46 28M20 38h80M60 12v26"/>
+        </svg>
+        <p>Préparation de la vue 3D…</p>
+      </div>
+    </main>
+
+    <aside class="panel" id="panel">
+      <header class="intro">
+        <p class="surtitre">Configurateur</p>
+        <h1>Carport en bois sur mesure</h1>
+        <p class="chapo">Réglez votre carport étape par étape. Le prix se met à jour à chaque choix.</p>
+      </header>
+
+      <nav class="onglets" id="onglets" aria-label="Étapes de la configuration"></nav>
+
+      <section class="etape" data-court="Dimensions">
+        <h2><span>01</span>Dimensions</h2>
+        <p class="aide-etape">Partez d'un raccourci, puis ajustez au centimètre près.</p>
+        <div class="raccourcis" id="raccourcis"></div>
+        <div class="curseur">
+          <label for="largeur">Largeur <small>pour les véhicules</small></label>
+          <output id="out-largeur" for="largeur"></output>
+          <input type="range" id="largeur" data-cle="largeur">
+        </div>
+        <div class="curseur">
+          <label for="profondeur">Profondeur <small></small></label>
+          <output id="out-profondeur" for="profondeur"></output>
+          <input type="range" id="profondeur" data-cle="profondeur">
+        </div>
+        <div class="curseur">
+          <label for="hauteur">Hauteur de passage <small>sous la charpente</small></label>
+          <output id="out-hauteur" for="hauteur"></output>
+          <input type="range" id="hauteur" data-cle="hauteur">
+        </div>
+        <p class="note-technique" id="note-technique"></p>
+      </section>
+
+      <section class="etape" data-court="Implantation">
+        <h2><span>02</span>Implantation</h2>
+        <p class="aide-etape">Contre la maison, le carport se fixe à la façade : une rangée de poteaux en moins.</p>
+        <div class="segments segments-3" id="implantations" role="radiogroup" aria-label="Implantation"></div>
+      </section>
+
+      <section class="etape" data-court="Toit">
+        <h2><span>03</span>Toiture</h2>
+        <h3 class="sous-titre">Forme</h3>
+        <div class="segments segments-3" id="toits" role="radiogroup" aria-label="Forme du toit"></div>
+        <p class="aide-etape aide-sous" id="aide-toit" hidden>Contre une façade, le toit descend à l'opposé de la maison (1 pan ou plat).</p>
+        <h3 class="sous-titre">Couverture</h3>
+        <div class="liste-choix" id="couvertures" role="radiogroup" aria-label="Couverture"></div>
+        <h3 class="sous-titre">Teinte <span id="nom-teinte"></span></h3>
+        <div class="nuancier" id="teintes" role="radiogroup" aria-label="Teinte de la couverture"></div>
+        <div class="curseur">
+          <label for="angleLames">Orientation des lames <small>0° fermé · 90° grand ouvert</small></label>
+          <output id="out-angleLames" for="angleLames"></output>
+          <input type="range" id="angleLames" data-cle="angleLames">
+        </div>
+      </section>
+
+      <section class="etape" data-court="Bois">
+        <h2><span>04</span>Finition du bois</h2>
+        <div class="teintes" id="bois" role="radiogroup" aria-label="Finition du bois"></div>
+      </section>
+
+      <section class="etape" data-court="Parois">
+        <h2><span>05</span>Parois et rangement</h2>
+        <p class="aide-etape">Touchez un côté pour le fermer. L'entrée reste toujours ouverte.</p>
+        <div class="plan" id="plan">
+          <button type="button" class="cote-plan cote-arriere" data-paroi="paroiArriere" aria-pressed="false">Arrière</button>
+          <button type="button" class="cote-plan cote-gauche" data-paroi="paroiGauche" aria-pressed="false">Gauche</button>
+          <svg class="plan-dessin" id="plan-dessin" viewBox="0 0 120 150" aria-hidden="true"></svg>
+          <button type="button" class="cote-plan cote-droite" data-paroi="paroiDroite" aria-pressed="false">Droite</button>
+          <p class="plan-entree">Entrée ↓</p>
+          <button type="button" class="cote-plan cote-avant" data-paroi="paroiAvant" aria-pressed="false">Avant</button>
+        </div>
+        <div class="curseur">
+          <label for="vantaux">Baies ouvertes <small>pour voir les vantaux coulisser</small></label>
+          <output id="out-vantaux" for="vantaux"></output>
+          <input type="range" id="vantaux" data-cle="vantaux">
+        </div>
+        <h3 class="sous-titre">Type de bardage</h3>
+        <div class="segments segments-2" id="bardages" role="radiogroup" aria-label="Type de bardage"></div>
+        <div class="options">
+          <label class="option"><span>Local de rangement fermé <small>porte comprise</small></span><em class="delta" data-delta="rangement"></em><input type="checkbox" data-cle="rangement"><i></i></label>
+        </div>
+        <div class="sous-option" id="choix-local">
+          <h3 class="sous-titre">Emplacement du local</h3>
+          <div class="segments segments-3" id="pos-local" role="radiogroup" aria-label="Emplacement du local"></div>
+          <h3 class="sous-titre">Taille du local</h3>
+          <div class="segments segments-3" id="profs-local" role="radiogroup" aria-label="Taille du local"></div>
+        </div>
+      </section>
+
+      <section class="etape" data-court="Équipements">
+        <h2><span>06</span>Équipements</h2>
+        <div class="options">
+          <label class="option"><span>Gouttières et descentes</span><em class="delta" data-delta="gouttieres"></em><input type="checkbox" data-cle="gouttieres"><i></i></label>
+          <label class="option"><span>Éclairage LED <small>spots sous la charpente</small></span><em class="delta" data-delta="led"></em><input type="checkbox" data-cle="led"><i></i></label>
+          <label class="option"><span>Préparation borne de recharge <small>gaine et prise sur un poteau</small></span><em class="delta" data-delta="borne"></em><input type="checkbox" data-cle="borne"><i></i></label>
+          <label class="option"><span>Stores de toiture <small>toile motorisée sous le vitrage</small></span><em class="delta" data-delta="storeToit"></em><input type="checkbox" data-cle="storeToit"><i></i></label>
+          <label class="option"><span>Chauffage d'appoint <small>deux radiants infrarouges</small></span><em class="delta" data-delta="chauffage"></em><input type="checkbox" data-cle="chauffage"><i></i></label>
+          <label class="option"><span>Terrasse en bois devant <small>2 m de profondeur, sur toute la largeur</small></span><em class="delta" data-delta="terrasseAvant"></em><input type="checkbox" data-cle="terrasseAvant"><i></i></label>
+        </div>
+      </section>
+
+      <section class="etape" data-court="Véhicule">
+        <h2><span>07</span>Véhicule affiché</h2>
+        <p class="aide-etape">Pour juger la taille. N'influence pas le prix.</p>
+        <div class="segments segments-4" id="vehicules" role="radiogroup" aria-label="Véhicule affiché"></div>
+      </section>
+
+      <section class="etape etape-prix" id="prix" data-court="Prix">
+        <h2><span>08</span>Votre prix indicatif</h2>
+        <p class="total"><span id="total">—</span> <small>CHF TTC</small></p>
+        <p class="fourchette" id="fourchette"></p>
+        <ul class="resume" id="resume"></ul>
+        <details class="detail">
+          <summary>Voir le détail du calcul</summary>
+          <dl id="lignes"></dl>
+        </details>
+        <p class="avertissement" id="avertissement">Prix indicatif, sans fondations spéciales ni permis de construire. Le prix définitif est confirmé par écrit après visite.</p>
+        <p class="avertissement" id="mention-suivi" hidden>Démo : les choix de configuration et les demandes envoyées sont transmis à Wibzo par e-mail.</p>
+        <button type="button" class="cta" id="btn-devis">Recevoir mon devis</button>
+        <button type="button" class="cta-secondaire" id="btn-pdf">Télécharger l'estimation (PDF)</button>
+        <button type="button" class="cta-secondaire" id="btn-fiche">Fiche technique : plan coté + pièces (PDF)</button>
+        <button type="button" class="lien" id="btn-lien">Copier le lien de ma configuration</button>
+      </section>
+    </aside>
+  </div>
+
+  <div class="barre-mobile">
+    <p><span id="total-mobile">—</span> <small>CHF TTC, indicatif</small></p>
+    <button type="button" class="cta" id="btn-devis-mobile">Mon devis</button>
+  </div>
+
+  <!-- « Voir chez moi » : réalité augmentée (realite.js) -->
+  <dialog id="dlg-ra" class="dlg-ra">
+    <h2 id="ra-titre">Voir dans votre jardin</h2>
+    <div data-mode="mobile">
+      <p id="ra-texte-mobile">Posez votre projet en taille réelle devant chez vous, avec l’appareil photo de votre téléphone. Faites-en le tour pour juger la place et le rendu.</p>
+      <button type="button" class="cta" id="ra-lancer">Lancer la caméra</button>
+    </div>
+    <div data-mode="ordi">
+      <p>Scannez ce code avec l’appareil photo de votre téléphone : votre configuration s’ouvre, prête à être posée dans votre jardin.</p>
+      <div class="ra-qr" id="ra-qr"></div>
+    </div>
+    <div data-mode="non">
+      <p>Ce téléphone ne permet pas la réalité augmentée dans le navigateur. Essayez avec un iPhone récent (Safari) ou un téléphone Android récent (Chrome).</p>
+    </div>
+    <p class="ra-note">Calculé sur votre appareil : rien n’est envoyé. Taille réelle, à vérifier sur place avant la commande.</p>
+    <div class="actions"><button type="button" class="lien" id="ra-fermer">Fermer</button></div>
+  </dialog>
+  <div class="ra-overlay" id="ra-overlay" hidden>
+    <p class="ra-aide" data-ra="aide"></p>
+    <div class="ra-boutons" data-ra="boutons">
+      <button type="button" data-action="tourner">↻ Tourner</button>
+      <button type="button" data-action="deplacer">✥ Déplacer</button>
+      <button type="button" data-action="fermer">✕ Fermer</button>
+    </div>
+  </div>
+
+  <dialog id="dialogue">
+    <form id="form-devis" method="dialog" class="vue-form">
+      <h2>Recevoir mon devis</h2>
+      <p>Votre configuration est jointe automatiquement. Vous n'avez rien d'autre à expliquer.</p>
+      <label>Nom et prénom<input name="nom" required autocomplete="name"></label>
+      <label>E-mail<input name="email" type="email" required autocomplete="email"></label>
+      <label>Téléphone<input name="tel" type="tel" autocomplete="tel"></label>
+      <label>NPA et localité du chantier<input name="lieu" required autocomplete="postal-code"></label>
+      <label>Remarque <small>(facultatif)</small><textarea name="remarque" rows="3" placeholder="Terrain en pente, accès difficile, délai souhaité…"></textarea></label>
+      <div class="actions">
+        <button type="button" class="lien" data-fermer>Annuler</button>
+        <button type="submit" class="cta">Envoyer la demande</button>
+      </div>
+    </form>
+    <div class="vue-recap" id="recap" hidden>
+      <h2>Demande prête</h2>
+      <p id="recap-intro">Voici exactement ce que l'entreprise reçoit :</p>
+      <img id="recap-image" alt="Image 3D de la configuration choisie">
+      <pre id="recap-texte"></pre>
+      <div class="actions">
+        <button type="button" class="lien" id="btn-copier">Copier le texte</button>
+        <button type="button" class="lien" id="btn-pdf-recap">PDF</button>
+        <button type="button" class="lien" id="btn-fiche-recap">Fiche technique</button>
+        <a class="cta" id="btn-mail" hidden>Envoyer par e-mail</a>
+        <button type="button" class="cta" data-fermer>Fermer</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

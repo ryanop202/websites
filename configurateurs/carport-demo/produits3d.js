@@ -997,5 +997,304 @@ export function creerModeles(ctx) {
   }
 
 
-  return { veranda, pergolaBio, terrasse, piscine };
+  // ======================================================================
+  // STUDIO DE JARDIN (13.11.2026) : ossature bois isolée, bardage, grande baie coulissante, fenêtres,
+  // toit plat (gravier, végétal, EPDM) ou monopente avec auvent, intérieur aménagé en bureau, terrasse bois en option.
+  // ======================================================================
+  const matLameV = new THREE.MeshStandardMaterial({ map: texVeinageZ, bumpMap: texVeinageZ, bumpScale: 0.5, roughness: 0.8, envMapIntensity: 0.5 });
+  const matLameH = new THREE.MeshStandardMaterial({ map: texVeinage, bumpMap: texVeinage, bumpScale: 0.5, roughness: 0.8, envMapIntensity: 0.5 });
+  const matDeck = new THREE.MeshStandardMaterial({ map: texVeinage, bumpMap: texVeinage, bumpScale: 0.4, color: '#B48A5E', roughness: 0.72 });
+  const matDoublage = new THREE.MeshStandardMaterial({ color: '#EFEBE3', roughness: 0.92 });
+  const matParquet = new THREE.MeshStandardMaterial({ map: texVeinage, color: '#D8B48A', roughness: 0.55 });
+  const matSocleStudio = new THREE.MeshStandardMaterial({ color: '#8E8C86', roughness: 0.93 });
+  const matCouvStudio = new THREE.MeshStandardMaterial({ roughness: 0.9 });
+  const texGravillons = ctx.textureCanvas(256, 256, (g, l, h) => {
+    g.fillStyle = '#9A968E';
+    g.fillRect(0, 0, l, h);
+    for (let i = 0; i < 5000; i++) {
+      const v = 110 + Math.floor(Math.random() * 90);
+      g.fillStyle = `rgb(${v},${v - 4},${v - 10})`;
+      g.fillRect(Math.random() * l, Math.random() * h, 1.5 + Math.random() * 2.5, 1.5 + Math.random() * 2.5);
+    }
+  });
+  const texSedum = ctx.textureCanvas(256, 256, (g, l, h) => {
+    g.fillStyle = '#5E7A3A';
+    g.fillRect(0, 0, l, h);
+    const tons = ['#7C9A44', '#4E6B30', '#A08A3E', '#8FA552', '#6B4F3A', '#B0703C'];
+    for (let i = 0; i < 2600; i++) {
+      g.fillStyle = tons[Math.floor(Math.random() * tons.length)];
+      g.beginPath();
+      g.arc(Math.random() * l, Math.random() * h, 1 + Math.random() * 3, 0, Math.PI * 2);
+      g.fill();
+    }
+  });
+  const matMeubleClair = new THREE.MeshStandardMaterial({ color: '#F3F1EC', roughness: 0.5 });
+  const matNoir = new THREE.MeshStandardMaterial({ color: '#1C1D1F', roughness: 0.45, metalness: 0.2 });
+  const matEcranStudio = new THREE.MeshStandardMaterial({ color: '#10161C', emissive: '#2B4A63', emissiveIntensity: 0.35, roughness: 0.2 });
+  const matTapis = new THREE.MeshStandardMaterial({ color: '#B9A98E', roughness: 1 });
+  const matPot = new THREE.MeshStandardMaterial({ color: '#C7BFB2', roughness: 0.85 });
+  const matFeuilles = new THREE.MeshStandardMaterial({ color: '#4F7A3A', roughness: 0.9 });
+  const matClim = new THREE.MeshStandardMaterial({ color: '#F1F1EE', roughness: 0.45 });
+  const couleursLivres = ['#8C3B2E', '#2F4E6E', '#C9A24B', '#3E6B4F', '#D8D2C4', '#5A4B7A', '#B5562E'];
+  const matLivres = couleursLivres.map((c) => new THREE.MeshStandardMaterial({ color: c, roughness: 0.8 }));
+
+  function studio(g) {
+    majStructure();
+    // Hasard fixe : les livres et les plantes ne bougent pas à chaque réglage
+    let graine = 20261113;
+    const rnd = () => (graine = (graine * 16807) % 2147483647) / 2147483647;
+    const { W, L, H } = g;
+    const bard = CONFIG.bardages[state.bardage];
+    const teinteLames = bard.couleur ?? '#C9A06E';
+    matLameV.color.set(teinteLames);
+    matLameH.color.set(teinteLames);
+    const horizontal = bard.sens === 'horizontal';
+    const EP = 0.17;                     // épaisseur des murs (ossature + isolation + doublage)
+    const yS = Y_SOL + 0.22;             // dessus de la dalle / du plancher
+    const yT = yS + H + 0.22;            // haut des murs (plafond + structure)
+    const plat = !(CONFIG.toits[state.toit]?.pente > 4);
+    const montee = plat ? 0 : Math.max(0.3, L * Math.tan((CONFIG.toits[state.toit].pente * Math.PI) / 180));
+    // Haut des murs selon z (monopente : haut devant, bas derrière)
+    const yHaut = (z) => yT + montee * ((z + L / 2) / L);
+
+    // Socle béton (un peu en retrait) et plancher intérieur
+    boite(W - 0.04, yS - Y_SOL, L - 0.04, matSocleStudio, 0, (Y_SOL + yS) / 2, 0);
+    boite(W - 2 * EP, 0.025, L - 2 * EP, matParquet, 0, yS + 0.0125, 0, false);
+
+    // ---------- Murs : ossature (doublage clair à l'intérieur) + bardage, percés d'ouvertures ----------
+    // Un mur va de A à B ; dans son repère, z suit le mur et x pointe vers l'extérieur.
+    function mur(ax, az, bx, bz, ouvertures) {
+      const { grp, long } = repere(ax, az, bx, bz);
+      const zMonde = (u) => az + ((bz - az) * (u + long / 2)) / long; // z du monde au point u du mur
+      const top = (u) => yHaut(zMonde(u));
+      const y0 = Y_SOL + 0.05;
+      const ouv = ouvertures.slice().sort((p, q) => p.u1 - q.u1);
+      // Ossature : bandes verticales de 0,5 m max (suivent la pente du toit), trouées aux ouvertures
+      const bandes = (u1, u2, yb, yh) => {
+        const n = Math.max(1, Math.ceil((u2 - u1) / 0.5));
+        for (let i = 0; i < n; i++) {
+          const a = u1 + ((u2 - u1) * i) / n, b = u1 + ((u2 - u1) * (i + 1)) / n;
+          const h2 = (yh ?? top((a + b) / 2)) - yb;
+          if (b - a > 0.005 && h2 > 0.005) boite(EP, h2, b - a, matDoublage, -EP / 2, yb + h2 / 2, (a + b) / 2, true, grp);
+        }
+      };
+      let cur = -long / 2;
+      for (const o of ouv) {
+        bandes(cur, o.u1, y0);
+        bandes(o.u1, o.u2, y0, o.y1);
+        bandes(o.u1, o.u2, o.y2);
+        cur = o.u2;
+      }
+      bandes(cur, long / 2, y0);
+      // Bardage
+      const yB = Y_SOL + 0.12;
+      const trou = (u, y1, y2, marge = 0.03) => ouv.find((o) => u > o.u1 - marge && u < o.u2 + marge && y2 > o.y1 && y1 < o.y2);
+      if (!horizontal) {
+        const lame = 0.135;
+        const n = Math.max(1, Math.round(long / lame));
+        const pas = long / n;
+        for (let i = 0; i < n; i++) {
+          const u = -long / 2 + (i + 0.5) * pas;
+          const yh = top(u);
+          const o = trou(u, yB, yh);
+          const morceaux = o ? [[yB, o.y1 - 0.03], [o.y2 + 0.03, yh]] : [[yB, yh]];
+          for (const [p1, p2] of morceaux) {
+            if (p2 - p1 < 0.04) continue;
+            boite(0.022, p2 - p1, pas - 0.008, matLameV, 0.016, (p1 + p2) / 2, u, true, grp);
+            if (i % 2 === 1) boite(0.016, p2 - p1, 0.045, matLameV, 0.034, (p1 + p2) / 2, u - pas / 2, true, grp); // couvre-joint
+          }
+        }
+      } else {
+        const hl = 0.14;
+        const yMax = Math.max(top(-long / 2), top(long / 2));
+        for (let y = yB; y + hl <= yMax + 0.001; y += hl + 0.008) {
+          // Partie du mur où la lame tient sous le toit (mur droit ou en pente)
+          let u1 = -long / 2, u2 = long / 2;
+          const t1 = top(u1), t2 = top(u2);
+          if (Math.abs(t2 - t1) > 1e-4) {
+            const uLim = u1 + ((y + hl - t1) / (t2 - t1)) * long;
+            if (t2 > t1) u1 = Math.max(u1, uLim); else u2 = Math.min(u2, uLim);
+          } else if (y + hl > t1 + 0.001) continue;
+          let morceaux = [[u1, u2]];
+          for (const o of ouv) {
+            if (y + hl <= o.y1 - 0.03 || y >= o.y2 + 0.03) continue;
+            morceaux = morceaux.flatMap(([p, q]) => [[p, Math.min(q, o.u1 - 0.03)], [Math.max(p, o.u2 + 0.03), q]]).filter(([p, q]) => q - p > 0.05);
+          }
+          for (const [p, q] of morceaux) boite(0.022, hl, q - p, matLameH, 0.016, y + hl / 2, (p + q) / 2, true, grp);
+        }
+      }
+      // Fenêtres fixes (cadre de la couleur des menuiseries, tablette, vitre)
+      for (const o of ouv) {
+        if (o.baie) continue;
+        const lw = o.u2 - o.u1, hw = o.y2 - o.y1, zc = (o.u1 + o.u2) / 2, yc = (o.y1 + o.y2) / 2, f = 0.06;
+        for (const s of [-1, 1]) profil(0.09, hw, f, matStruct, 0.0, yc, zc + s * (lw / 2 - f / 2), true, grp);
+        profil(0.09, f, lw, matStruct, 0.0, o.y2 - f / 2, zc, true, grp);
+        profil(0.09, f, lw, matStruct, 0.0, o.y1 + f / 2, zc, true, grp);
+        profil(0.16, 0.025, lw + 0.08, matStruct, 0.07, o.y1 - 0.012, zc, true, grp); // tablette
+        const v = boite(0.012, hw - 2 * f, lw - 2 * f, matVerreParoi, -0.01, yc, zc, false, grp);
+        v.renderOrder = 2;
+      }
+      return { grp, long, top };
+    }
+
+    // Baie coulissante en façade avant (environ 60 % de la largeur), décalée vers la droite
+    const lb = Math.min(W - 1.1, Math.max(1.8, W * 0.62));
+    const hb = Math.min(H, 2.25);
+    const avant = mur(W / 2, L / 2, -W / 2, L / 2, [{ u1: -W / 2 + 0.45, u2: -W / 2 + 0.45 + lb, y1: yS, y2: yS + hb, baie: true }]);
+    const face = new THREE.Group();
+    face.position.set(-EP / 2, 0, 0);
+    avant.grp.add(face);
+    const r = baies(face, -W / 2 + 0.45, -W / 2 + 0.45 + lb, yS, yS + hb, Math.round(state.vantaux ?? 0));
+    // Habillage du tableau de la baie (couleur des menuiseries)
+    for (const z of [-W / 2 + 0.45, -W / 2 + 0.45 + lb]) profil(EP + 0.04, hb, 0.04, matStruct, -EP / 2 + 0.02, yS + hb / 2, z, true, avant.grp);
+    profil(EP + 0.04, 0.04, lb, matStruct, -EP / 2 + 0.02, yS + hb + 0.02, -W / 2 + 0.45 + lb / 2, true, avant.grp);
+    // Côté droit : grande fenêtre ; côté gauche : fenêtre haute et étroite ; arrière : bandeau vitré en hauteur
+    mur(W / 2, -L / 2, W / 2, L / 2, [{ u1: -0.65, u2: 0.65, y1: yS + 0.85, y2: yS + 2.05 }]);
+    mur(-W / 2, L / 2, -W / 2, -L / 2, L > 2.6 ? [{ u1: -L / 2 + 0.55, u2: -L / 2 + 1.05, y1: yS + 0.3, y2: yS + 2.1 }] : []);
+    mur(-W / 2, -L / 2, W / 2, -L / 2, W > 3 ? [{ u1: -0.9, u2: 0.9, y1: yS + 1.55, y2: yS + 2.0 }] : []);
+    // Baguettes d'angle
+    for (const [x, z] of [[W / 2, L / 2], [-W / 2, L / 2], [W / 2, -L / 2], [-W / 2, -L / 2]]) {
+      const h = yHaut(z) - (Y_SOL + 0.12);
+      profil(0.07, h, 0.07, matStruct, x + Math.sign(x) * 0.012, Y_SOL + 0.12 + h / 2, z + Math.sign(z) * 0.012);
+    }
+
+    // ---------- Toiture ----------
+    const couv = CONFIG.couvertures[state.couverture];
+    const teinte = couv.teintes[state.teinteCouverture]?.couleur ?? '#3A3B3D';
+    matCouvStudio.map = state.couverture === 'gravier' ? texGravillons : state.couverture === 'vegetal' ? texSedum : null;
+    if (matCouvStudio.map) matCouvStudio.map.repeat.set(W / 2, L / 2);
+    matCouvStudio.color.set(matCouvStudio.map ? '#ffffff' : teinte);
+    matCouvStudio.roughness = state.couverture === 'tole' ? 0.4 : 0.9;
+    matCouvStudio.metalness = state.couverture === 'tole' ? 0.55 : 0;
+    matCouvStudio.needsUpdate = true;
+    // Plafond intérieur
+    boite(W - 2 * EP, 0.03, L - 2 * EP, matDoublage, 0, yT - 0.015, 0, false);
+    if (plat) {
+      const ov = 0.12, ep = 0.26;
+      boite(W + 2 * ov, ep, L + 2 * ov, matDoublage, 0, yT + ep / 2, 0);
+      boite(W + 2 * ov - 0.2, 0.05, L + 2 * ov - 0.2, matCouvStudio, 0, yT + ep + 0.02, 0);
+      // Rive / acrotère tout autour, couleur des menuiseries
+      for (const s of [-1, 1]) {
+        profil(W + 2 * ov + 0.04, ep + 0.12, 0.04, matStruct, 0, yT + (ep + 0.12) / 2, s * (L / 2 + ov + 0.02));
+        profil(0.04, ep + 0.12, L + 2 * ov, matStruct, s * (W / 2 + ov + 0.02), yT + (ep + 0.12) / 2, 0);
+      }
+    } else {
+      // Monopente : auvent devant, petit débord derrière et sur les côtés
+      const ovF = 0.85, ovB = 0.25, ovS = 0.3, ep = 0.22;
+      const a = Math.atan(montee / L);
+      const longToit = (L + ovF + ovB) / Math.cos(a);
+      const zc = (ovF - ovB) / 2;
+      const yc = yHaut(zc) + (ep / 2) / Math.cos(a);
+      const dalle = boite(W + 2 * ovS, ep, longToit, matDoublage, 0, yc, zc);
+      dalle.rotation.x = -a;
+      const dessus = boite(W + 2 * ovS - 0.04, 0.02, longToit - 0.02, matCouvStudio, 0, yc + (ep / 2 + 0.01) / Math.cos(a), zc);
+      dessus.rotation.x = -a;
+      // Joints debout (tôle) : nervures dans le sens de la pente
+      if (state.couverture === 'tole') {
+        for (let x = -W / 2 - ovS + 0.25; x < W / 2 + ovS - 0.1; x += 0.5) {
+          const n = boite(0.025, 0.035, longToit - 0.04, matCouvStudio, x, yc + (ep / 2 + 0.03) / Math.cos(a), zc);
+          n.rotation.x = -a;
+        }
+      }
+      // Rives (planches de la couleur des menuiseries)
+      for (const s of [-1, 1]) {
+        const rive = profil(0.04, ep + 0.08, longToit + 0.02, matStruct, s * (W / 2 + ovS + 0.02), yc, zc);
+        rive.rotation.x = -a;
+      }
+      profil(W + 2 * ovS + 0.08, ep + 0.08, 0.04, matStruct, 0, yHaut(L / 2 + ovF) + ep / 2 + 0.03, L / 2 + ovF + 0.02);
+      profil(W + 2 * ovS + 0.08, ep + 0.08, 0.04, matStruct, 0, yHaut(-L / 2 - ovB) + ep / 2 + 0.03, -L / 2 - ovB - 0.02);
+    }
+    // Descente d'eau au coin arrière gauche
+    const xd = -W / 2 - 0.08, zd = -L / 2 - 0.06;
+    ajouter(new THREE.CylinderGeometry(0.04, 0.04, yHaut(-L / 2) - Y_SOL, 16), matStruct, xd, (Y_SOL + yHaut(-L / 2)) / 2, zd);
+
+    // ---------- Intérieur (bureau) : visible à travers la baie ----------
+    const xi = W / 2 - EP, zi = L / 2 - EP; // demi-dimensions intérieures
+    // Bureau contre le mur du fond, à droite
+    const xb = Math.min(xi - 0.85, W * 0.12);
+    boite(1.4, 0.035, 0.68, matPlateau, xb, yS + 0.74, -zi + 0.4);
+    for (const s of [-1, 1]) boite(0.04, 0.72, 0.6, matNoir, xb + s * 0.66, yS + 0.37, -zi + 0.4);
+    boite(0.58, 0.36, 0.03, matEcranStudio, xb, yS + 1.0, -zi + 0.22);
+    boite(0.05, 0.2, 0.05, matNoir, xb, yS + 0.82, -zi + 0.2);
+    // Chaise de bureau
+    const ch = new THREE.Group();
+    ch.position.set(xb + 0.1, 0, -zi + 1.05);
+    ch.rotation.y = 0.35;
+    groupe.add(ch);
+    ajouter(new RoundedBoxGeometry(0.48, 0.07, 0.46, 2, 0.02), matNoir, 0, yS + 0.48, 0, true, ch);
+    ajouter(new RoundedBoxGeometry(0.46, 0.55, 0.06, 2, 0.02), matNoir, 0, yS + 0.82, 0.22, true, ch);
+    ajouter(new THREE.CylinderGeometry(0.03, 0.03, 0.42, 10), matPiedMeuble, 0, yS + 0.25, 0, true, ch);
+    for (let k = 0; k < 5; k++) {
+      const b = ajouter(new THREE.BoxGeometry(0.03, 0.025, 0.3), matPiedMeuble, Math.sin((k * 2 * Math.PI) / 5) * 0.14, yS + 0.04, Math.cos((k * 2 * Math.PI) / 5) * 0.14, true, ch);
+      b.rotation.y = (k * 2 * Math.PI) / 5;
+    }
+    // Étagère contre le mur gauche, avec des livres
+    if (L > 2.4) {
+      const xe = -xi + 0.2, ze = -zi + 0.3 + Math.min(1.2, (L - 2 * EP) * 0.4) / 2 + 0.6;
+      const le = Math.min(1.2, (L - 2 * EP) * 0.4);
+      for (const s of [-1, 1]) boite(0.36, 1.9, 0.025, matMeubleClair, xe, yS + 0.95, ze + s * le / 2);
+      for (let k = 0; k < 5; k++) {
+        const y = yS + 0.05 + k * 0.45;
+        boite(0.36, 0.025, le, matMeubleClair, xe, y, ze);
+        if (k === 4) continue;
+        let z = ze - le / 2 + 0.05;
+        while (z < ze + le / 2 - 0.08) {
+          const e = 0.03 + rnd() * 0.03, hl = 0.22 + rnd() * 0.1;
+          boite(0.24, hl, e, matLivres[Math.floor(rnd() * matLivres.length)], xe + 0.03, y + 0.0125 + hl / 2, z + e / 2);
+          z += e + 0.004 + (rnd() < 0.12 ? 0.12 : 0);
+        }
+      }
+    }
+    // Tapis, fauteuil près de la baie, plante
+    boite(1.7, 0.008, 1.2, matTapis, -W * 0.08, yS + 0.03, zi - 1.0, false);
+    if (W > 3.2) {
+      const fx = -xi + 0.75, fz = zi - 0.85;
+      ajouter(new RoundedBoxGeometry(0.8, 0.42, 0.78, 3, 0.08), matAssise, fx, yS + 0.24, fz);
+      ajouter(new RoundedBoxGeometry(0.8, 0.5, 0.16, 3, 0.06), matAssise, fx, yS + 0.62, fz - 0.33);
+    }
+    const plante = (x, z, y = yS, s = 1) => {
+      ajouter(new THREE.CylinderGeometry(0.17 * s, 0.13 * s, 0.38 * s, 20), matPot, x, y + 0.19 * s, z);
+      for (let k = 0; k < 6; k++) {
+        const f = ajouter(new THREE.SphereGeometry(0.16 * s, 10, 8), matFeuilles, x + (rnd() - 0.5) * 0.22 * s, y + (0.5 + rnd() * 0.45) * s, z + (rnd() - 0.5) * 0.22 * s);
+        f.scale.set(1, 1.4, 1);
+      }
+    };
+    plante(xi - 0.3, -zi + 0.35);
+    // Suspension au-dessus du bureau
+    ajouter(new THREE.CylinderGeometry(0.004, 0.004, 0.6, 6), matNoir, xb, yT - 0.33, -zi + 0.5);
+    ajouter(new THREE.CylinderGeometry(0.06, 0.17, 0.16, 24, 1, true), matNoir, xb, yT - 0.66, -zi + 0.5);
+    ajouter(new THREE.CylinderGeometry(0.05, 0.05, 0.02, 16), matLed, xb, yT - 0.73, -zi + 0.5, false);
+
+    // ---------- Terrasse en bois devant (option) ----------
+    if (state.terrasseAvant) {
+      const pd = 2.0, lt = W + 0.4, yd = yS;
+      boite(lt, yd - Y_SOL - 0.03, 0.03, matHabillage, 0, (Y_SOL + yd - 0.03) / 2, L / 2 + pd);
+      for (let z = L / 2 + 0.07; z < L / 2 + pd; z += 0.15) boite(lt, 0.028, 0.14, matDeck, 0, yd - 0.014, z);
+      boite(1.2, 0.12, 0.35, matDeck, -W / 2 + 0.2 + 0.6, yd + 0.06, L / 2 + pd - 0.3); // marche
+      plante(W / 2 - 0.1, L / 2 + pd - 0.35, yd, 1.3);
+      mobilier(-W * 0.15, L / 2 + pd / 2 + 0.1, yd - Y_SOL);
+    }
+
+    // ---------- Éclairage (spots + applique extérieure) et climatisation ----------
+    if (state.led) {
+      for (const [x, z] of [[-xi * 0.5, 0], [xi * 0.5, 0]]) {
+        ajouter(new THREE.CylinderGeometry(0.04, 0.04, 0.012, 16), matLed, x, yT - 0.035, z, false);
+        ctx.led(x, yT - 0.08, z);
+      }
+      const xa = -W / 2 + 0.25;
+      boite(0.12, 0.2, 0.06, matNoir, xa, yS + 2.2, L / 2 + 0.06);
+      boite(0.1, 0.03, 0.05, matLed, xa, yS + 2.09, L / 2 + 0.07, false);
+      ctx.led(xa, yS + 2.0, L / 2 + 0.25);
+    }
+    if (state.chauffage) {
+      // Unité extérieure contre le mur droit, unité murale à l'intérieur au-dessus de la porte-fenêtre
+      boite(0.32, 0.6, 0.8, matClim, W / 2 + 0.2, Y_SOL + 0.32, -L / 2 + 0.75);
+      ajouter(new THREE.CylinderGeometry(0.2, 0.2, 0.02, 24), matNoir, W / 2 + 0.365, Y_SOL + 0.34, -L / 2 + 0.75).rotation.z = Math.PI / 2;
+      boite(0.85, 0.28, 0.2, matClim, 0, yT - 0.25, -zi + 0.12);
+    }
+
+    return { maxVantaux: r.max, ombre: 0.32 };
+  }
+
+  return { veranda, pergolaBio, terrasse, piscine, studio };
 }

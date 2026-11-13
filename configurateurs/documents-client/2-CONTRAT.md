@@ -1,7 +1,7 @@
 # 2. Contrat simple — configurateur 3D Wibzo
 
 ⚠️ **Modèle préparé par Claude le 12.11.2026, ce n'est pas un avis juridique.** À faire relire par tes parents (ou une personne compétente) avant le premier envoi.
-Ryan a 17 ans : **un parent signe aussi** (accord des parents obtenu le 29.10.2026).
+Ryan a 17 ans : **un parent signe aussi** (accord des parents obtenu le 29.10.2026). **Contrat lu et approuvé par les parents de Ryan le 13.11.2026.**
 
 **Conditions VALIDÉES par Ryan le 12.11.2026** (pas encore annoncées aux clients : les offres Varioplant et Lejan ne les mentionnent pas, les expliquer simplement à l'envoi du contrat) :
 - Formule mensuelle : **15 mois minimum** (5 trimestres ; 990 + 5 × 180 = 1 890 CHF, presque le prix d'achat), puis résiliable chaque mois avec 1 mois de préavis. Sinon, quelqu'un paie 990 CHF, résilie après 1 mois et garde un configurateur presque gratuit. (Changé de 12 à 15 mois par Ryan le 12.11.2026.)

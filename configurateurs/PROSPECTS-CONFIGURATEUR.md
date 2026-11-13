@@ -364,7 +364,7 @@ Trouvés par Google (carport, Wintergarten, Lamellendach, Pool, toutes régions 
 | Wehrli Poolbau | piscine | info@wehrli-poolbau.ch | https://wehrli-poolbau.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Markzoll GmbH | piscine | info@markzoll.ch | https://markzoll.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Poolman | piscine | info@poolman.ch | https://poolman.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
-| Schäwi Pool | piscine | info@schaewi-pool.ch | https://schaewi-pool.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
+| Schäwi Pool | piscine | info@schaewi-pool.ch | https://schaewi-pool.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026. Démo utilisée 2 fois (11.11 et 12.11 à 13:08, bassin 12 × 5 m configuré) → relancer en premier |
 | Schwimmbad-Line | piscine | info@schwimmbad-line.ch | https://schwimmbad-line.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 
 

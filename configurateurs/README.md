@@ -74,7 +74,7 @@ Pour les charpentes (carport, pergola bois ou alu ; pas pour véranda, pergola b
 - PDF d'une page : **vue de dessus cotée** (largeur, profondeur, entraxes des poteaux, débords en tirets, maison, local), **vue de face cotée** (passage, hauteur totale, pente), **liste des pièces** (poteaux, contrefiches, sablières, muralière, fermes, chevrons, rives : quantité, longueur, section) et **surfaces** (couverture, parois, local, gouttières, pieds de poteaux, volume de bois).
 - Mêmes règles que la 3D (sections 12×12, 12×20, 7×14, portée max `porteeMax`, entraxe `entraxeChevrons`). Marqué « débit indicatif, à valider » : pour un vrai client, reprendre SES sections et règles.
 - La **demande de devis** envoyée à l'entreprise contient maintenant la liste des pièces + un lien `?fiche=1` qui ouvre la configuration directement sur le bouton de la fiche (mis en avant).
-- Code : `ficheTechnique()` / `telechargerFiche()` dans `app.js`, `creerFicheTechnique()` dans `pdf.js`. Testé le 13.11.2026 : carport 2 pans + local arrière, carport 1 pan contre la maison + local latéral, pergola bois. ⚠️ Pas encore en ligne sur demo.wibzo.ch.
+- Code : `ficheTechnique()` / `telechargerFiche()` dans `app.js`, `creerFicheTechnique()` dans `pdf.js`. Testé le 13.11.2026 : carport 2 pans + local arrière, carport 1 pan contre la maison + local latéral, pergola bois. ✅ En ligne sur https://demo.wibzo.ch depuis le 13.11.2026.
 
 ## Ouvrir une démo sur l'ordinateur
 

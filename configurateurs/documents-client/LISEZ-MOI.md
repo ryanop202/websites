@@ -5,6 +5,7 @@ Ordre d'envoi :
 2. **En même temps** : envoyer le contrat `2-CONTRAT.md` en PDF, rempli avec sa formule. Il répond « bon pour accord » ou renvoie le PDF signé.
 3. **Configurateur adapté** → lien de test au client → il valide → mise en ligne.
 4. **À la mise en ligne** → facture `3-facture.html` (payable à 30 jours).
+5. **Agences web partenaires** → prix et réponse type dans `4-AGENCES-PARTENAIRES.md`.
 
 ## À compléter une seule fois par Ryan (ne pas inventer)
 - Ton nom complet et ton adresse (en-tête du contrat et de la facture)

@@ -509,7 +509,7 @@ Astuce technique : l'option « Horaire personnalisé » de kSuite est payante, m
 ## Agences web partenaires (13.11.2026) — 26 mails en BROUILLON dans kSuite
 
 Méthode : lu le bas de page des ~280 sites de nos prospects (« Webdesign by… », « Réalisation… ») → agences qui font DÉJÀ les sites de nos cibles. Écartés : fabricants (Stobag, Sattler, Storea, Rufalex → idée « fabricants » plus tard), thèmes WordPress, agence immobilière US, sites injoignables ou sans e-mail (Agence Audace, fitcon, simplweb, sebastianroth, dllpp, Studio Ginkgo, tokiwi).
-Offre proposée : partenariat, l'agence revend le configurateur à ses clients (sous son nom si elle veut), Wibzo fait la technique, l'agence touche une part sur chaque vente. **Pas de chiffre dans le 1er mail** : conditions (commission ou prix revendeur) à décider par Ryan avant de répondre à la première agence intéressée.
+Offre proposée (corrigée par Ryan le 13.11.2026) : **modèle revendeur**. L'agence ACHÈTE le configurateur à Wibzo à un prix partenaire et le REVEND à ses clients avec leur site, à son propre prix et sous son nom si elle veut ; Wibzo fait la technique en coulisses. **Pas de chiffre dans le 1er mail** : prix partenaires à décider par Ryan avant de répondre à la première agence intéressée.
 Pour les clients en refus ou en négociation (Voeffray, Lejan, Bourgo, JS Store, AC Alu…), on montre la démo publique sans citer le client. Chaque mail finit par une ligne de désinscription (« une courte réponse suffit »).
 
 | Agence | E-mail | Langue | Client cité | Démo montrée | Statut |

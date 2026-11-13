@@ -490,3 +490,18 @@ Réponses au 12.11.2026 (Suisse alémanique) : 1 intéressé (Varioplant), 1 ref
 **Prix décidé par Ryan le 12.11.2026** : formule mensuelle 990 CHF de mise en place + 59 CHF/mois, ou formule achat **1 900 CHF** une fois (changé de 2 900 → 2 200 → 1 900 le même jour) (modifications illimitées dans les deux cas). Offres Varioplant et Lejan mises à jour.
 
 Offres Varioplant et Lejan ENVOYÉES le 12.11.2026 (formule mensuelle 990 + 59/mois ou achat 1 900 CHF, valables au 26.11). Relance si pas de réponse : 17.11.2026.
+
+## Relances PROGRAMMÉES dans kSuite (13.11.2026, validé par Ryan)
+
+184 relances programmées (onglet « Envois programmés » de kSuite), en réponse au premier mail de chaque prospect, 1 mail toutes les 3 minutes à partir de 08:00 :
+- **Lu 16.11** : Schäwi Pool (1)
+- **Ma 17.11** : Lejan EG (« avez-vous pu regarder l'offre ? ») (1)
+- **Me 18.11** : Romandie, 13 terrasses du 04.11 (sans StaviaBois) + 9 piscines du 05.11 (FR), + les 8 Alémaniques qui ont ouvert leur démo : janitsch, Zimmba, Haussener, Kohler Seeland, Holzbau Kunz, Wisobau, DAMAK, Kayser (30)
+- **Je 19.11** : Marco/Varioplant (« Konntet ihr die Unterlagen schon anschauen? »), les 4 renvoyés du 12.11 + 35 Alémaniques (40)
+- **Ve 20.11, lu 23.11** : 40 Alémaniques chaque jour
+- **Ma 24.11** : les 32 derniers Alémaniques
+
+Pas de relance : Knechtgarten, Voeffray, Barras, StaviaBois, XM Stores, Zufferey (refus).
+**⚠️ Si un prospect répond avant sa date : annuler sa relance programmée** (kSuite → Envois programmés → le mail → Annuler, ou demander à Claude, qui la retrouve par l'adresse).
+Textes : DE « Ich wollte kurz nachfragen, ob Sie die Demo für <Firma> schon anschauen konnten… », FR « Je me permets de revenir vers vous : avez-vous pu regarder la démo préparée pour <Entreprise> ?… ».
+Astuce technique : l'option « Horaire personnalisé » de kSuite est payante, mais l'API du webmail accepte n'importe quelle date (POST /draft avec action « schedule » + schedule_date ; annuler = DELETE /draft/<uuid>/schedule).

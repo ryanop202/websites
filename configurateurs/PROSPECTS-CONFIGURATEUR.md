@@ -505,3 +505,38 @@ Pas de relance : Knechtgarten, Voeffray, Barras, StaviaBois, XM Stores, Zufferey
 **⚠️ Si un prospect répond avant sa date : annuler sa relance programmée** (kSuite → Envois programmés → le mail → Annuler, ou demander à Claude, qui la retrouve par l'adresse).
 Textes : DE « Ich wollte kurz nachfragen, ob Sie die Demo für <Firma> schon anschauen konnten… », FR « Je me permets de revenir vers vous : avez-vous pu regarder la démo préparée pour <Entreprise> ?… ».
 Astuce technique : l'option « Horaire personnalisé » de kSuite est payante, mais l'API du webmail accepte n'importe quelle date (POST /draft avec action « schedule » + schedule_date ; annuler = DELETE /draft/<uuid>/schedule).
+
+## Agences web partenaires (13.11.2026) — 26 mails en BROUILLON dans kSuite
+
+Méthode : lu le bas de page des ~280 sites de nos prospects (« Webdesign by… », « Réalisation… ») → agences qui font DÉJÀ les sites de nos cibles. Écartés : fabricants (Stobag, Sattler, Storea, Rufalex → idée « fabricants » plus tard), thèmes WordPress, agence immobilière US, sites injoignables ou sans e-mail (Agence Audace, fitcon, simplweb, sebastianroth, dllpp, Studio Ginkgo, tokiwi).
+Offre proposée : partenariat, l'agence revend le configurateur à ses clients (sous son nom si elle veut), Wibzo fait la technique, l'agence touche une part sur chaque vente. **Pas de chiffre dans le 1er mail** : conditions (commission ou prix revendeur) à décider par Ryan avant de répondre à la première agence intéressée.
+Pour les clients en refus ou en négociation (Voeffray, Lejan, Bourgo, JS Store, AC Alu…), on montre la démo publique sans citer le client. Chaque mail finit par une ligne de désinscription (« une courte réponse suffit »).
+
+| Agence | E-mail | Langue | Client cité | Démo montrée | Statut |
+|---|---|---|---|---|---|
+| agence-copilote.ch | info@agence-copilote.ch | fr | — | https://demo.wibzo.ch | brouillon kSuite 13.11.2026 |
+| blueboxx.ch | mail@blueboxx.ch | de | Jenni Degen Metallbau | https://jennidegen.wibzo.ch/ | brouillon kSuite 13.11.2026 |
+| chiche-communication.ch | hello@chiche-communication.ch | fr | Beau Jardin | https://beau-jardin.wibzo.ch/ | brouillon kSuite 13.11.2026 |
+| chocoweb.ch | info@chocoweb.ch | fr | — | https://demo.wibzo.ch | brouillon kSuite 13.11.2026 |
+| computech.ch | info@computech.ch | de | Soltermann AG | https://soltermann.wibzo.ch/ | brouillon kSuite 13.11.2026 |
+| conseo.ch | info@conseo.ch | de | Holzbau Schärer Söhne AG | https://schaerer-holzbau.wibzo.ch/ | brouillon kSuite 13.11.2026 |
+| doza.ch | patrik@doza.ch | de | Abderhalden Gartenbau | https://abderhalden-garten.wibzo.ch/ | brouillon kSuite 13.11.2026 |
+| fairwebdesign.ch | finance@fairwebdesign.ch | de | Haldemann & Krähenbühl Holzbau | https://hk-holz.wibzo.ch/ | brouillon kSuite 13.11.2026 |
+| googplace.ch | info@googplace.ch | de | Holzbau Hofmann Dänzer | https://hofmanndaenzer.wibzo.ch/ | brouillon kSuite 13.11.2026 |
+| helloweb.ch | info@helloweb.ch | fr | — | https://demo.wibzo.ch | brouillon kSuite 13.11.2026 |
+| hyperpage.ch | info@hyperpage.ch | de | Simel Home | https://simelhome.wibzo.ch/ | brouillon kSuite 13.11.2026 |
+| keweb.ch | info@keweb.ch | fr | — | https://demo.wibzo.ch | brouillon kSuite 13.11.2026 |
+| lergier.ch | andre@lergier.ch | de | AMM Künzli Glas- & Metallbau AG | https://amm-kuenzli.wibzo.ch/ | brouillon kSuite 13.11.2026 |
+| magicsystems.ch | info@magicsystems.ch | de | Zimmerei Lützelschwab AG | https://luetzelschwab.wibzo.ch/ | brouillon kSuite 13.11.2026 |
+| mehrdigital.ch | info@mehrdigital.ch | de | Spori Holzbau AG | https://spori-holzbau.wibzo.ch/ | brouillon kSuite 13.11.2026 |
+| myonlinebusiness.ch | info@myonlinebusiness.ch | de | Leibundgut & Schenk AG | https://leibundgut-schenk.wibzo.ch/ | brouillon kSuite 13.11.2026 |
+| nextlevelhandwerk.com | info@nextlevelhandwerk.com | de | Foffa Conrad Holzbau AG | https://foffa-conrad.wibzo.ch/ | brouillon kSuite 13.11.2026 |
+| octoplus.solutions | contact@octoplus.solutions | fr | — | https://demo.wibzo.ch | brouillon kSuite 13.11.2026 |
+| sefinadesign.ch | info@sefinadesign.ch | de | Zimmerei Müller | https://zimmerei-mueller.wibzo.ch/ | brouillon kSuite 13.11.2026 |
+| sigrist-design.ch | garage@sigrist-design.ch | de | Gotthard Holzbau GmbH | https://gotthard-holzbau.wibzo.ch/ | brouillon kSuite 13.11.2026 |
+| solution-digitale.ch | info@solution-digitale.ch | fr | — | https://demo.wibzo.ch | brouillon kSuite 13.11.2026 |
+| sommer-websolutions.ch | info@sommer-websolutions.ch | de | Grünbau GmbH | https://gruenbau.wibzo.ch/ | brouillon kSuite 13.11.2026 |
+| swisswebartistry.ch | kontakt@swisswebartistry.ch | de | Wehrli Poolbau | https://wehrli-poolbau.wibzo.ch/ | brouillon kSuite 13.11.2026 |
+| uisum.ch | mail@uisum.ch | de | Emmenegger Garten-Tiefbau AG | https://emmenegger-gartenbau.wibzo.ch/ | brouillon kSuite 13.11.2026 |
+| webtree.ch | info@webtree.ch | de | Wiga Gartenpflege & Gestaltung | https://wiga-garten.wibzo.ch/ | brouillon kSuite 13.11.2026 |
+| werbefranken.ch | info@werbefranken.ch | de | janitsch Holzbau AG | https://janitsch.wibzo.ch/ | brouillon kSuite 13.11.2026 |

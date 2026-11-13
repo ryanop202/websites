@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Le Bourg de Siviriez — choisissez votre appartement</title>
+  <meta name="description" content="Les 25 appartements du Bourg de Siviriez en 3D : disponibilités, surfaces, prix et plans.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preload" href="vendor/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="modulepreload" href="vendor/three/build/three.module.min.js">
+  <link rel="stylesheet" href="style.css">
+  <!-- Tout est hébergé avec le site : aucune ressource chargée depuis un autre serveur -->
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three/build/three.module.min.js", "three/addons/": "./vendor/three/examples/jsm/" } }
+  </script>
+</head>
+<body>
+  <div class="app">
+    <main class="viewer" id="viewer" aria-label="Immeuble en 3D : cliquez sur un appartement">
+      <div class="etages" role="group" aria-label="Afficher un étage">
+        <button type="button" data-niveau="-1" class="actif">Tout</button>
+        <button type="button" data-niveau="3">2e</button>
+        <button type="button" data-niveau="2">1er</button>
+        <button type="button" data-niveau="1">Rez</button>
+        <button type="button" data-niveau="0">Rez inf.</button>
+      </div>
+      <div class="outils">
+        <button type="button" class="btn-outil" id="btn-soleil" aria-expanded="false" aria-controls="soleil">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="#f0a12e"/><g stroke="#f0a12e" stroke-width="2" stroke-linecap="round"><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></g></svg>
+          Soleil
+        </button>
+        <button type="button" class="btn-outil btn-couleurs" id="btn-couleurs" aria-pressed="false">
+          <span class="pastilles" aria-hidden="true"><i class="pt dispo"></i><i class="pt reserve"></i><i class="pt vendu"></i></span>
+          Disponibilités
+        </button>
+      </div>
+      <div class="soleil" id="soleil" hidden>
+        <div class="saisons" role="group" aria-label="Saison">
+          <button type="button" data-saison="ete">21 juin</button>
+          <button type="button" data-saison="automne" class="actif">21 sept.</button>
+          <button type="button" data-saison="hiver">21 déc.</button>
+        </div>
+        <div class="heure">
+          <button type="button" class="jouer" id="soleil-jouer" aria-label="Faire défiler la journée">
+            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M7 4.5v15l12-7.5z" fill="currentColor"/></svg>
+          </button>
+          <input type="range" id="soleil-heure" min="7.75" max="19" step="0.25" value="17.5" aria-label="Heure de la journée">
+          <output id="soleil-txt">17:30</output>
+        </div>
+        <p class="discret">Ensoleillement indicatif : orientation de la maquette à confirmer avec les plans.</p>
+      </div>
+      <div class="bandeau-vue" id="bandeau-vue" hidden>
+        <span id="bandeau-txt"></span>
+        <button type="button" id="quitter-vue">Revenir à l'immeuble</button>
+      </div>
+      <div class="legende" id="legende" aria-hidden="true" hidden>
+        <span><i class="pt dispo"></i>Disponible</span>
+        <span><i class="pt reserve"></i>Réservé</span>
+        <span><i class="pt vendu"></i>Vendu</span>
+      </div>
+      <p class="aide" id="aide">Tournez l'immeuble · cliquez sur un appartement</p>
+      <div class="chargement" id="chargement" aria-hidden="true"><span></span>Construction de la maquette…</div>
+      <div class="infobulle" id="infobulle" hidden></div>
+      <div class="etiquettes" id="etiquettes"></div>
+    </main>
+
+    <aside class="panneau" id="panneau">
+      <header class="entete">
+        <img id="logo" alt="" width="64" height="45">
+        <div>
+          <h1 id="nom"></h1>
+          <p id="sous-titre"></p>
+          <p class="discret" id="lieu"></p>
+        </div>
+      </header>
+
+      <section id="vue-liste">
+        <div class="compteurs" id="compteurs"></div>
+
+        <div class="filtres">
+          <div class="chips" id="filtre-pieces" role="group" aria-label="Nombre de pièces"></div>
+          <div class="ligne-filtres">
+            <label class="bascule"><input type="checkbox" id="filtre-dispo"> Disponibles seulement</label>
+            <label class="budget">Budget max
+              <select id="filtre-budget">
+                <option value="0">Tous</option>
+                <option value="300000">CHF 300'000</option>
+                <option value="450000">CHF 450'000</option>
+                <option value="550000">CHF 550'000</option>
+                <option value="650000">CHF 650'000</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <table class="liste">
+          <thead><tr><th>Lot</th><th>Étage</th><th>Pièces</th><th>Surface</th><th class="d">Prix</th></tr></thead>
+          <tbody id="liste"></tbody>
+        </table>
+        <p class="vide" id="vide" hidden>Aucun appartement ne correspond. Essayez un autre budget.</p>
+      </section>
+
+      <section id="vue-fiche" hidden>
+        <button type="button" class="retour" id="retour">← Tous les appartements</button>
+        <div class="fiche-titre">
+          <h2 id="f-titre"></h2>
+          <span class="badge" id="f-statut"></span>
+        </div>
+        <p class="prix" id="f-prix"></p>
+        <button type="button" class="btn-vue" id="f-vue">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/></svg>
+          <span><b id="f-vue-titre">Voir la vue depuis ce lot</b><small>En 3D, à hauteur d'yeux · avec le soleil</small></span>
+        </button>
+        <figure class="galerie" id="galerie">
+          <button type="button" class="g-grande" id="g-grande" aria-label="Agrandir l'image">
+            <img id="g-img" src="img/galerie/sejour-balcon.jpg" alt="" width="1600" height="900">
+            <span class="g-compte" id="g-compte"></span>
+          </button>
+          <div class="g-minis" id="g-minis"></div>
+          <figcaption>Visualisations de la promotion (Glauser Immobilier SA) · elles ne montrent pas forcément ce lot</figcaption>
+        </figure>
+        <dl class="infos" id="f-infos"></dl>
+        <figure class="plan">
+          <div id="f-plan"></div>
+          <figcaption>Plan schématique · plan d'architecte fourni sur demande</figcaption>
+        </figure>
+        <p class="discret" id="f-parking"></p>
+        <div class="actions">
+          <button type="button" class="btn principal" id="f-interesse">Je suis intéressé·e par ce lot</button>
+          <div class="actions-2">
+            <button type="button" class="btn" id="f-pdf">Fiche PDF</button>
+            <button type="button" class="btn" id="f-lien">Copier le lien</button>
+          </div>
+        </div>
+      </section>
+
+      <footer class="pied">
+        <p id="contact"></p>
+        <p class="discret">Démo réalisée par <a href="https://wibzo.ch" target="_blank" rel="noopener">Wibzo</a> · répartition des lots dans l'immeuble et plans indicatifs</p>
+      </footer>
+    </aside>
+  </div>
+
+  <dialog id="visionneuse" class="visionneuse" aria-label="Visualisations de la promotion">
+    <img id="v-img" alt="">
+    <button type="button" class="v-fermer" id="v-fermer" aria-label="Fermer">✕</button>
+    <button type="button" class="v-nav v-prec" id="v-prec" aria-label="Image précédente">‹</button>
+    <button type="button" class="v-nav v-suiv" id="v-suiv" aria-label="Image suivante">›</button>
+    <p class="v-legende" id="v-legende"></p>
+  </dialog>
+
+  <section class="impression" id="impression" aria-hidden="true"></section>
+
+  <dialog id="formulaire">
+    <form method="dialog" id="form">
+      <h2 id="form-titre">Demande d'information</h2>
+      <label>Nom et prénom <input name="nom" required autocomplete="name"></label>
+      <label>E-mail <input name="email" type="email" required autocomplete="email"></label>
+      <label>Téléphone <input name="tel" type="tel" autocomplete="tel"></label>
+      <label>Message <textarea name="message" rows="4" id="form-message"></textarea></label>
+      <p class="discret">Démo : aucun message n'est envoyé. Sur le vrai site, la demande arrive directement chez le vendeur, avec le lot choisi.</p>
+      <div class="actions">
+        <button type="button" class="btn" id="form-annuler">Annuler</button>
+        <button type="submit" class="btn principal" value="ok">Envoyer la demande</button>
+      </div>
+    </form>
+    <div class="merci" id="merci" hidden>
+      <h2>Merci !</h2>
+      <p>Votre demande pour le <strong id="merci-lot"></strong> a bien été transmise. Vous serez recontacté·e rapidement.</p>
+      <button type="button" class="btn principal" id="merci-ok">Fermer</button>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

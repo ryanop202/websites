@@ -66,7 +66,8 @@ function cuire(groupe) {
   return cuit;
 }
 
-export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0, terrasse = false, dalleTerrasse = true }) {
+// recul : distance entre l'arrière du produit isolé et la maison (studio de jardin : au fond du jardin)
+export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0, terrasse = false, dalleTerrasse = true, recul = 3.2 }) {
   const racine = new THREE.Group();
   const dyn = new THREE.Group(); // reconstruit à chaque réglage
   racine.add(dyn);
@@ -630,8 +631,8 @@ export function creerDecor({ textureCanvas, texPaves, matBordure, petit, X0, Z0,
     if (adosse === 'non') {
       maison.rotation.y = 0;
       maisonX = X0 - 3.0;
-      maisonZ = Z0 - 3.2 - PM / 2;
-      zArriereAllee = Z0 - 3.2;
+      maisonZ = Z0 - recul - PM / 2;
+      zArriereAllee = Z0 - recul;
     } else {
       const s = adosse === 'gauche' ? -1 : 1;
       // Terrasse (pergola, véranda) : contre la façade arrière, centré sur la grande baie vitrée (pas devant la porte d'entrée)

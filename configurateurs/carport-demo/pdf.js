@@ -113,6 +113,164 @@ function assembler(contenu, images) {
   return new Blob(morceaux, { type: 'application/pdf' });
 }
 
+// ======================================================================
+// FICHE TECHNIQUE pour l'entreprise (13.11.2026) : plan coté (dessus + façade), liste des pièces, surfaces.
+// d.plan : { W, L, OV, OVZ, xs, zs, P, maison: [-1|1], local, profil: [[x, y]], H, hTot, bas, hSab }
+// ======================================================================
+export function creerFicheTechnique(d) {
+  const p = new Page();
+  const plan = /^#[0-9a-f]{6}$/i.test(d.accent ?? '')
+    ? [1, 3, 5].map((i) => parseInt(d.accent.slice(i, i + 2), 16) / 255)
+    : PLAN;
+  const largeurUtile = A4.l - 2 * MARGE;
+  let y = MARGE;
+  const f2 = (v) => v.toFixed(2).replace('.', ',');
+
+  // Traits utiles : cadre, tirets, cote avec flèches et valeur
+  const cadre = (x, yy, l, h, c = ENCRE, ep = 0.8) => {
+    p.ligne(x, yy, x + l, yy, c, ep); p.ligne(x + l, yy, x + l, yy + h, c, ep);
+    p.ligne(x + l, yy + h, x, yy + h, c, ep); p.ligne(x, yy + h, x, yy, c, ep);
+  };
+  const tirets = (x1, y1, x2, y2, c = GRIS) => {
+    const n = Math.max(1, Math.round(Math.hypot(x2 - x1, y2 - y1) / 6));
+    for (let i = 0; i < n; i += 2) {
+      const a = i / n, b = Math.min(1, (i + 1) / n);
+      p.ligne(x1 + (x2 - x1) * a, y1 + (y2 - y1) * a, x1 + (x2 - x1) * b, y1 + (y2 - y1) * b, c, 0.5);
+    }
+  };
+  const cote = (x1, y1, x2, y2, texte) => {
+    p.ligne(x1, y1, x2, y2, plan, 0.6);
+    const hor = Math.abs(y2 - y1) < 0.01;
+    for (const [x, yy] of [[x1, y1], [x2, y2]]) {
+      if (hor) p.ligne(x, yy - 4, x, yy + 4, plan, 0.6); else p.ligne(x - 4, yy, x + 4, yy, plan, 0.6);
+    }
+    if (hor) p.texte((x1 + x2) / 2 - largeurTexte(texte, 7.5, 'F3') / 2, y1 - 3, texte, { taille: 7.5, police: 'F3', couleur: plan });
+    else p.texte(x1 + 5, (y1 + y2) / 2 + 3, texte, { taille: 7.5, police: 'F3', couleur: plan });
+  };
+
+  // En-tête
+  p.texte(MARGE, y + 14, d.entreprise.nom, { taille: 13, police: 'F2' });
+  p.texte(MARGE, y + 28, d.titre, { taille: 9, couleur: GRIS });
+  p.texte(A4.l - MARGE, y + 12, 'FICHE TECHNIQUE', { taille: 8, police: 'F3', couleur: plan, droite: true });
+  p.texte(A4.l - MARGE, y + 24, `${d.reference} · ${d.date}`, { taille: 8, police: 'F3', couleur: GRIS, droite: true });
+  y += 40;
+  p.ligne(MARGE, y, A4.l - MARGE, y, ENCRE, 0.8);
+  y += 18;
+  if (d.demo) {
+    p.texte(MARGE, y, 'DÉMO — exemple de fiche transmise à l\'entreprise avec la demande', { taille: 8, police: 'F3', couleur: plan });
+    y += 14;
+  }
+
+  // ---------- Plan de dessus (entrée en bas) ----------
+  const P0 = d.plan;
+  const boxL = largeurUtile * 0.5 - 12, boxH = 230;
+  p.texte(MARGE, y + 2, 'VUE DE DESSUS', { taille: 8, police: 'F3', couleur: GRIS });
+  p.texte(MARGE + boxL + 24, y + 2, 'VUE DE FACE (côté entrée)', { taille: 8, police: 'F3', couleur: GRIS });
+  y += 12;
+  const extW = P0.W + 2 * P0.OV, extL = P0.L + 2 * P0.OVZ;
+  const ech = Math.min((boxL - 50) / extW, (boxH - 50) / extL);
+  const ox = MARGE + 30 + (boxL - 50 - extW * ech) / 2 + P0.OV * ech;
+  const oy = y + 22 + (boxH - 50 - extL * ech) / 2 + P0.OVZ * ech;
+  const X = (x) => ox + (x + P0.W / 2) * ech;
+  const Z = (z) => oy + (z + P0.L / 2) * ech;
+  // Débord de toit en tirets, emprise des poteaux en trait plein
+  const rx1 = P0.maison.includes(-1) ? -P0.W / 2 : -P0.W / 2 - P0.OV;
+  const rx2 = P0.maison.includes(1) ? P0.W / 2 : P0.W / 2 + P0.OV;
+  tirets(X(rx1), Z(-P0.L / 2 - P0.OVZ), X(rx2), Z(-P0.L / 2 - P0.OVZ));
+  tirets(X(rx1), Z(P0.L / 2 + P0.OVZ), X(rx2), Z(P0.L / 2 + P0.OVZ));
+  tirets(X(rx1), Z(-P0.L / 2 - P0.OVZ), X(rx1), Z(P0.L / 2 + P0.OVZ));
+  tirets(X(rx2), Z(-P0.L / 2 - P0.OVZ), X(rx2), Z(P0.L / 2 + P0.OVZ));
+  cadre(X(-P0.W / 2), Z(-P0.L / 2), P0.W * ech, P0.L * ech, ENCRE, 0.6);
+  // Façade de la maison (hachurée)
+  for (const s of P0.maison) {
+    const xm = X(s * P0.W / 2);
+    p.rect(s < 0 ? xm - 6 : xm, Z(-P0.L / 2) - 10, 6, P0.L * ech + 20, [0.78, 0.75, 0.7]);
+    p.texte((s < 0 ? xm - 3 : xm + 3) - largeurTexte('MAISON', 6.5, 'F3') / 2, Z(-P0.L / 2) - 14, 'MAISON', { taille: 6.5, police: 'F3', couleur: GRIS });
+  }
+  // Local de rangement
+  if (P0.local) {
+    const l = P0.local;
+    p.rect(X(l.x1), Z(l.z1), (l.x2 - l.x1) * ech, (l.z2 - l.z1) * ech, [0.93, 0.91, 0.87]);
+    const t = 'LOCAL';
+    p.texte(X((l.x1 + l.x2) / 2) - largeurTexte(t, 6.5, 'F3') / 2, Z((l.z1 + l.z2) / 2) + 2, t, { taille: 6.5, police: 'F3', couleur: GRIS });
+  }
+  // Sablières et poteaux
+  for (const x of P0.xs) p.ligne(X(x), Z(-P0.L / 2 - 0.15), X(x), Z(P0.L / 2 + 0.15), [0.55, 0.45, 0.33], 2.2);
+  const t = Math.max(3, P0.P * ech);
+  for (const x of P0.xs) for (const z of P0.zs) p.rect(X(x) - t / 2, Z(z) - t / 2, t, t, ENCRE);
+  // Cotes : largeur (bas), profondeur (gauche), entraxes des poteaux (droite)
+  cote(X(-P0.W / 2), Z(P0.L / 2 + P0.OVZ) + 16, X(P0.W / 2), Z(P0.L / 2 + P0.OVZ) + 16, `${f2(P0.W)} m`);
+  cote(X(rx1) - 18, Z(-P0.L / 2), X(rx1) - 18, Z(P0.L / 2), '');
+  p.texte(X(rx1) - 30, Z(0) + 3, `${f2(P0.L)} m`, { taille: 7.5, police: 'F3', couleur: plan, droite: true });
+  const xd = X(rx2) + 10;
+  for (let i = 0; i < P0.zs.length - 1; i++) {
+    cote(xd, Z(P0.zs[i]), xd, Z(P0.zs[i + 1]), f2(P0.zs[i + 1] - P0.zs[i]));
+  }
+  p.texte(X(0) - largeurTexte('ENTRÉE', 6.5, 'F3') / 2, Z(P0.L / 2 + P0.OVZ) + 30, 'ENTRÉE', { taille: 6.5, police: 'F3', couleur: GRIS });
+
+  // ---------- Vue de face ----------
+  const fx0 = MARGE + boxL + 24, fl = largeurUtile - boxL - 24;
+  const prof = P0.profil;
+  const xmin = Math.min(...prof.map((q) => q[0])), xmax = Math.max(...prof.map((q) => q[0]));
+  const hmax = Math.max(...prof.map((q) => q[1]));
+  const e2 = Math.min((fl - 150) / (xmax - xmin), (boxH - 50) / hmax);
+  const sol = y + boxH - 20;
+  const FX = (x) => fx0 + 75 + (x - xmin) * e2 + ((fl - 150) - (xmax - xmin) * e2) / 2;
+  const FY = (h) => sol - h * e2;
+  p.ligne(fx0, sol, fx0 + fl, sol, ENCRE, 0.8);
+  for (let i = 0; i < prof.length - 1; i++) p.ligne(FX(prof[i][0]), FY(prof[i][1]), FX(prof[i + 1][0]), FY(prof[i + 1][1]), ENCRE, 1.1);
+  for (const q of [prof[0], prof[prof.length - 1]]) p.ligne(FX(q[0]), FY(q[1]), FX(q[0]), FY(q[1] - 0.22), ENCRE, 0.8);
+  for (const [x, h] of P0.poteaux) {
+    const l = Math.max(2.5, P0.P * e2);
+    p.rect(FX(x) - l / 2, FY(h), l, h * e2, [0.55, 0.45, 0.33]);
+  }
+  for (const s of P0.maison) p.rect(s < 0 ? FX(xmin) - 8 : FX(xmax) + 2, FY(hmax + 0.4), 6, (hmax + 0.4) * e2, [0.78, 0.75, 0.7]);
+  // Cotes de hauteur : passage et hauteur totale
+  // (passage à gauche, hauteur totale à droite : rien ne sort de la page)
+  const xcG = FX(xmin) - (P0.maison.includes(-1) ? 18 : 12);
+  cote(xcG, sol, xcG, FY(P0.H), '');
+  p.texte(xcG - 4, FY(P0.H / 2) - 2, 'passage', { taille: 7, police: 'F3', couleur: plan, droite: true });
+  p.texte(xcG - 4, FY(P0.H / 2) + 7, `${f2(P0.H)} m`, { taille: 7.5, police: 'F3', couleur: plan, droite: true });
+  const xcD = FX(xmax) + 12;
+  cote(xcD, sol, xcD, FY(P0.hTot), '');
+  p.texte(xcD + 4, FY(P0.hTot / 2) - 2, 'total', { taille: 7, police: 'F3', couleur: plan });
+  p.texte(xcD + 4, FY(P0.hTot / 2) + 7, `${f2(P0.hTot)} m`, { taille: 7.5, police: 'F3', couleur: plan });
+  if (P0.pente) p.texte(FX((xmin + xmax) / 2) - 20, FY(hmax) - 8, `pente ${P0.pente}°`, { taille: 7.5, police: 'F3', couleur: plan });
+  y += boxH + 14;
+
+  // ---------- Liste des pièces ----------
+  p.ligne(MARGE, y, A4.l - MARGE, y, TRAIT, 0.6);
+  y += 16;
+  p.texte(MARGE, y, 'LISTE DES PIÈCES (débit indicatif)', { taille: 8, police: 'F3', couleur: plan });
+  y += 14;
+  const cols = [MARGE, MARGE + 250, MARGE + 330, MARGE + 430];
+  ['Pièce', 'Quantité', 'Longueur', 'Section'].forEach((h, i) => p.texte(cols[i], y, h, { taille: 8, police: 'F2', couleur: GRIS }));
+  y += 5;
+  p.ligne(MARGE, y, A4.l - MARGE, y, TRAIT, 0.5);
+  y += 12;
+  for (const pc of d.pieces) {
+    p.texte(cols[0], y, pc.des, { taille: 9 });
+    p.texte(cols[1], y, String(pc.n), { taille: 9, police: 'F3' });
+    p.texte(cols[2], y, pc.long ? `${f2(pc.long)} m` : '—', { taille: 9, police: 'F3' });
+    p.texte(cols[3], y, pc.sec || '—', { taille: 9, police: 'F3' });
+    y += 13;
+  }
+  y += 6;
+  // ---------- Surfaces et quantités ----------
+  p.texte(MARGE, y, 'SURFACES ET QUANTITÉS', { taille: 8, police: 'F3', couleur: plan });
+  y += 14;
+  for (const [l, v] of d.surfaces) {
+    p.texte(MARGE, y, l, { taille: 9, couleur: GRIS });
+    p.texte(A4.l - MARGE, y, v, { taille: 9, police: 'F2', droite: true });
+    y += 13;
+  }
+  y += 8;
+  for (const l of couper(d.note, largeurUtile, 8, 'F1')) { p.texte(MARGE, y, l, { taille: 8, couleur: GRIS }); y += 11; }
+  for (const l of couper(`Configuration en ligne : ${d.lien}`, largeurUtile, 7, 'F3')) { p.texte(MARGE, y, l, { taille: 7, police: 'F3', couleur: GRIS }); y += 9; }
+
+  return assembler(p.ops.join('\n'), []);
+}
+
 export function creerPDF(d) {
   const p = new Page();
   const largeurUtile = A4.l - 2 * MARGE;

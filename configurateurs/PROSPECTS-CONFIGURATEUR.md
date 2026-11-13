@@ -119,7 +119,7 @@ Régions cherchées : Lausanne, Fribourg, Bulle, Neuchâtel, Sion, Morges, Yverd
 - **Atelier Z (n° 4)** : démo https://atelierz.wibzo.ch (03.11.2026, aucun configurateur vu sur leur site), mail dans `clients/atelierz/MESSAGE.md`.
 - Atelier Z : mail ENVOYÉ le 03.11.2026.
 - **Voeffray (n° 5)** : démo https://voeffray.wibzo.ch (03.11.2026), mail dans `clients/voeffray/MESSAGE.md`.
-- Voeffray : mail ENVOYÉ le 03.11.2026.
+- Voeffray : mail ENVOYÉ le 03.11.2026. **REFUS le 12.11.2026** (« nous vous remercions vivement pour votre démonstration mais malheureusement… ») → ne plus relancer.
 - **Guillod (n° 6)** : démo https://guillod.wibzo.ch (03.11.2026), mail dans `clients/guillod/MESSAGE.md`.
 - Guillod : mail ENVOYÉ le 03.11.2026.
 - **B2 bois (n° 7)** : démo https://b2bois.wibzo.ch (03.11.2026), mail dans `clients/b2bois/MESSAGE.md`.
@@ -364,7 +364,7 @@ Trouvés par Google (carport, Wintergarten, Lamellendach, Pool, toutes régions 
 | Wehrli Poolbau | piscine | info@wehrli-poolbau.ch | https://wehrli-poolbau.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Markzoll GmbH | piscine | info@markzoll.ch | https://markzoll.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Poolman | piscine | info@poolman.ch | https://poolman.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
-| Schäwi Pool | piscine | info@schaewi-pool.ch | https://schaewi-pool.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026. Démo utilisée 2 fois (11.11 et 12.11 à 13:08, bassin 12 × 5 m configuré) → relancer en premier |
+| Schäwi Pool | piscine | info@schaewi-pool.ch | https://schaewi-pool.wibzo.ch | mail ENVOYÉ le 11.11.2026, Démo utilisée 2 fois (11.11 et 12.11 à 13:08, bassin 12 × 5 m configuré) → **relance PROGRAMMÉE dans kSuite pour le lundi 16.11.2026 à 08:00** (validée par Ryan) |
 | Schwimmbad-Line | piscine | info@schwimmbad-line.ch | https://schwimmbad-line.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 
 
@@ -461,7 +461,7 @@ Charpentiers, menuisiers, paysagistes et storistes (search.ch par ville). Nouvea
 | Jura Holzbau | carport bois | info@juraholzbau.ch | https://jura-holzbau.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Kayser Holzbau AG | terrasse | t.schleiss@kayser.ch | https://kayser-holzbau.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Kleingartenbau | pergola bois | info@kleingartenbau.ch | https://kleingartenbau.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
-| Knuchel Schreinerei | terrasse | info@knuchelag.ch | https://knuchel.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
+| Knuchel Schreinerei | terrasse | info@knuchelag.ch | https://knuchel.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026. Réponse automatique 12.11 (« Rückmeldung bis Ende der Woche ») |
 | Lang Garten- & Tiefbau | piscine | info@lang-garten-tiefbau.ch | https://lang-garten.wibzo.ch | mail non parti le 11.11 (limite d'envoi Infomaniak atteinte, l'adresse est bonne) → renvoyé le 12.11.2026, relance le 19.11.2026 |
 | Josef Lehmann Holzbau AG | terrasse | holzbau@lehmann-schneisingen.ch | https://lehmann-holzbau.wibzo.ch | mail non parti le 11.11 (limite d'envoi Infomaniak atteinte, l'adresse est bonne) → renvoyé le 12.11.2026, relance le 19.11.2026 |
 | H. Luchsinger AG | pergola bioclimatique | info@luchsinger-aadorf.ch | https://luchsinger.wibzo.ch | mail non parti le 11.11 (limite d'envoi Infomaniak atteinte, l'adresse est bonne) → renvoyé le 12.11.2026, relance le 19.11.2026 |

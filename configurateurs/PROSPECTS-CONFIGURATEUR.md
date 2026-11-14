@@ -326,7 +326,7 @@ Trouvés par Google (carport, Wintergarten, Lamellendach, Pool, toutes régions 
 | HL Lehmann Holzhandwerk GmbH | carport | info@lehmann-holzhandwerk.ch | https://lehmann-holzhandwerk.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Michel Holzbau | carport | timo@michel-holzbau.ch | https://michel-holzbau.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | P. Baumgartner AG | carport | info@pbaumgartner.ch | https://pbaumgartner.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
-| Zimmba GmbH | carport | info@zimmba.ch | https://zimmba.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
+| Zimmba GmbH | carport | info@zimmba.ch | https://zimmba.wibzo.ch | mail ENVOYÉ le 11.11.2026 → **INTÉRESSÉ** (Samuel Zurbuchen, Geschäftsführer, 14.11.2026 : questions sur le calcul des prix (m³ ou m²), les distances à la limite de parcelle et le coût) → réponse avec prix (990 + 60/mois ou 1 900 CHF) préparée le 14.11 dans `clients/zimmba/MESSAGE.md`, **pas encore envoyée** |
 | Haussener Dach & Holzbau AG | carport | info@hausholz.ch | https://hausholz.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Holzbau Hofmann Dänzer | carport | info@hofmanndaenzer.ch | https://hofmanndaenzer.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |
 | Holzbau Affolter | carport | info@holzbau-affolter.ch | https://holzbau-affolter.wibzo.ch | mail ENVOYÉ le 11.11.2026, relance le 18.11.2026 |

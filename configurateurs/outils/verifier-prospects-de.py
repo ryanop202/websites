@@ -16,9 +16,12 @@ PRODUITS = {
     'piscine': r'swimmingpool|schwimmbad|poolbau|\bpools?\b',
     'pergola': r'pergola',
     'terrasse': r'holzterrass|terrassenbau|terrassendiele|terrassenb(?:ö|o)den|holzdeck|wpc-terrass',
+    # Studios / bureaux / cabanons de jardin (15.11.2026, allemand et français)
+    'studio': r'gartenh(?:a|ä)us|gartenstudio|gartenb(?:ü|u)ro|gartenzimmer|tiny[ -]?h(?:a|o)us|gartenpavillon|poolhaus|'
+              r'studio de jardin|bureau de jardin|chalets? de jardin|abris? de jardin|cabanes? de jardin|pool[ -]?house|atelier de jardin|annexe de jardin',
 }
-KONFIG = r'konfigurator|konfigurieren sie|preisrechner|kostenrechner|offertenrechner|online[- ]rechner|jetzt berechnen|preis berechnen|offerte berechnen'
-SHOP = r'warenkorb|in den korb|add to cart|zur kasse'
+KONFIG = r'configurateur|calculateur de prix|simulateur|konfigurator|konfigurieren sie|preisrechner|kostenrechner|offertenrechner|online[- ]rechner|jetzt berechnen|preis berechnen|offerte berechnen'
+SHOP = r'warenkorb|in den korb|add to cart|zur kasse|ajouter au panier|votre panier'
 MAIL = re.compile(r'[\w.+-]+@[\w-]+(?:\.[\w-]+)*\.(?:ch|com|swiss|net|info)\b', re.I)
 
 
@@ -45,7 +48,7 @@ def verifier(dom):
     pages = html
     mails = [m for m in MAIL.findall(html) if not re.search(r'example|sentry|wix|\.png|\.jpg|domain\.|email\.', m, re.I)]
     if not mails:  # page contact / impressum
-        for chemin in ('kontakt', 'impressum', 'kontakt/', 'contact'):
+        for chemin in ('kontakt', 'impressum', 'kontakt/', 'contact', 'contact/', 'mentions-legales'):
             h2, _ = lire(f'https://{dom}/{chemin}')
             if h2:
                 pages += h2
@@ -56,7 +59,7 @@ def verifier(dom):
     base = re.match(r'https?://[^/]+', url).group(0) if url else f'https://{dom}'
     sous = []
     for h in re.findall(r'href=["\']([^"\'#?]+)', html):
-        if re.search(r'leistung|angebot|dienstleist|aussen|garten|holzbau|produkt|service|terrass|carport|pool', h, re.I):
+        if re.search(r'leistung|angebot|dienstleist|aussen|garten|holzbau|produkt|service|terrass|carport|pool|prestation|jardin|chalet|abri|realisation|réalisation|construction', h, re.I):
             lien = h if h.startswith('http') else base + '/' + h.lstrip('/')
             if dom in lien and lien not in sous:
                 sous.append(lien)

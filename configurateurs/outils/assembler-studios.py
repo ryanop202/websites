@@ -19,6 +19,11 @@ PAS_CIBLE = r'restaurant|vermietung|architekt|heim|hauswartung|reise|zelt|golf|f
 CHARPENTIER = r'holzbau|zimmerei|charpent'
 LIBRES = r'bluewin|gmail|hotmail|gmx|outlook|yahoo|sunrise|swissonline|hispeed|icloud|green\.ch|bluemail|vtxnet|netplus|protonmail|live\.|msn\.|quickline'
 FR_CANTONS = {'VD', 'GE', 'NE', 'JU'}
+BILINGUES = {'FR', 'VS', 'BE'}
+# Vus à la main le 15.11.2026 : fiche qui renvoie vers une autre entreprise (Tobler / « Gartenhaus-Center »), bureau d'architecture
+EXCLUS = {'tobler-holzbau.ch', 'pfiffner-bau.ch'}
+VALIDE = re.compile(r'[a-z0-9][\w.+-]*@[\w-]+(?:\.[\w-]+)*\.[a-z]{2,}', re.I)
+PAS_CIBLE_NOM = r'katzen|fenster|formenbau|furniture|services|innenausbau|deckensystem|baustoff|architekt|treppenbau|futuretree|homes|montagen'
 ids_pris = {p.name for p in (RACINE / 'clients').iterdir()}
 
 
@@ -27,6 +32,12 @@ def domaine(f):
         return re.sub(r'^https?://(www\.)?', '', f['site']).split('/')[0].lower()
     e = f.get('email', '')
     return e.split('@')[1].lower() if '@' in e and not re.search(LIBRES, e.split('@')[1]) else ''
+
+
+def meme_domaine(a, b):
+    # krholzbau.ch et kr-holzbau.ch, teamlehnherrholzbau.ch et lehnherrholzbau.ch : même entreprise
+    a, b = (x.replace('-', '').split('.')[-2] for x in (a, b))
+    return a in b or b in a
 
 
 def slug(nom):
@@ -43,25 +54,40 @@ def slug(nom):
 liste, vus = [], set()
 for f in fiches:
     d = domaine(f)
-    if f.get('pas_de_pub') or not d or d in vus or d in deja['doms']:
+    if f.get('pas_de_pub') or not d or d in vus or d in deja['doms'] or d in EXCLUS:
         continue
     v = verifs.get(d)
     if not v or v.get('erreur') or v.get('konfig') or v.get('shop'):
         continue
     cats = (f.get('categories') or '').lower()
-    if re.search(PAS_CIBLE, cats) or not re.search(METIER, cats):
+    if re.search(PAS_CIBLE, cats) or not re.search(METIER, cats) or re.search(PAS_CIBLE_NOM, f['nom'], re.I):
         continue
-    mails = [m for m in v.get('mails', []) if d.split('.')[-2] in m] or v.get('mails', []) or ([f['email']] if f.get('email') else [])
-    mails = [m for m in mails if m.lower() not in deja['mails']]
+    # Adresse de l'entreprise elle-même : sur son domaine, ou une messagerie gratuite (bluewin, gmail…) ;
+    # jamais celle d'un hébergeur ou d'une agence web trouvée dans la page
+    candidats = v.get('mails', []) + ([f['email']] if f.get('email') else [])
+    mails = [m.lower() for m in candidats if VALIDE.fullmatch(m) and not m[:2].isdigit()
+             and (meme_domaine(m.split('@')[1], d) or re.search(LIBRES, m.split('@')[1]))]
+    mails = [m for m in mails if m not in deja['mails']]
     if not mails:
         continue
     studio = 'studio' in v.get('produits', [])
     if not studio and not re.search(CHARPENTIER, cats):
         continue
+    # Langue : celle du site ; site peu bavard → canton (cantons bilingues : français si le site n'est pas allemand)
+    if v.get('allemand') and not v.get('francais'):
+        langue = 'de'
+    elif v.get('francais') and not v.get('allemand'):
+        langue = 'fr'
+    elif f.get('canton') in FR_CANTONS or (f.get('canton') in BILINGUES and f.get('npa', '')[:1] in ('1', '2')):
+        langue = 'fr'  # cantons bilingues : NPA 1xxx-2xxx = partie francophone (Jura bernois, Sarine, Valais romand)
+    elif f.get('canton') in ('TI',) or (not v.get('allemand') and f.get('canton') == 'GR'):
+        continue  # italien : pas de démo italienne
+    else:
+        langue = 'de'
     vus.add(d)
-    fr = v.get('francais') and not v.get('allemand') or (not v.get('allemand') and f.get('canton') in FR_CANTONS)
-    langue = 'fr' if fr else 'de'
     nom = re.sub(r'\s+', ' ', f['nom']).strip()
+    if re.fullmatch(r"[\w'-]+, [\w'. -]+", nom) and not re.search(r'(AG|GmbH|SA|Sàrl)', nom):
+        nom = ' '.join(reversed(nom.split(', ')))  # « Ithen, Manuel » → « Manuel Ithen »
     if langue == 'de':
         phrase = ('Auf Ihrer Website habe ich gesehen, dass Sie Gartenhäuser bauen.' if studio else
                   'Auf Ihrer Website habe ich gesehen, dass Sie im Holzbau tätig sind. Ein Gartenstudio aus Holz würde gut zu Ihrem Angebot passen.')

@@ -542,3 +542,121 @@ Pour les clients en refus ou en négociation (Voeffray, Lejan, Bourgo, JS Store,
 | werbefranken.ch | info@werbefranken.ch | de | janitsch Holzbau AG | https://janitsch.wibzo.ch/ | brouillon kSuite 13.11.2026 |
 
 **Prix décidés par Ryan le 13.11.2026** : (1) **agences** : 1 600 CHF le configurateur avec 1 produit + 500 CHF par produit en plus, sans abonnement, hébergement et modifications compris (détails et réponse type : documents-client/4-AGENCES-PARTENAIRES.md) ; (2) **prix achat direct monté à 2 500 CHF** (+ 500 CHF par produit en plus) pour les prochains clients ; Varioplant et Lejan gardent 1 900 CHF (offre envoyée). Les 25 brouillons agences disent : « en direct je vends mes configurateurs 2 500 – 3 000 CHF, en partenaire prix nettement plus bas ». werbefranken.ch : mail ENVOYÉ le 13.11 à 10:20 (version revendeur, sans la phrase sur les prix). Formule mensuelle directe (990 + 59/mois) : pas encore adaptée au nouveau prix.
+
+## Studios de jardin (15.11.2026) — 109 démos en ligne, mails PAS ENCORE PROGRAMMÉS
+
+Demande de Ryan (15.11.2026) : démos studio pour 50–100 prospects, mails programmés lundi 16.11 entre 7 h 30 et 8 h 30.
+Source : annuaire search.ch (mots-clés Gartenhaus / chalet de jardin / abri de jardin… + Holzbau, Zimmerei, Charpente dans 24 cantons), outil `outils/chercher-searchch.py`. **Fiches « * ne souhaite pas de publicité » exclues** (≈ 80 % des fiches ; démarcher malgré l'étoile est déloyal selon la LCD art. 3 al. 1 let. u). Déjà contactés exclus. Sites vérifiés par `outils/verifier-prospects-de.py` (e-mail sur le domaine de l'entreprise, pas de configurateur, pas de boutique), liste par `outils/assembler-studios.py` → `outils/prospects-studios.json`, démos par `outils/demo-studio.py` (moteur maître, produit studio, FR ou DE, alertes actives).
+Groupe A (7) : le site parle d'abris / Gartenhäuser / Tiny House → le mail le cite (mot vérifié sur chaque site). Groupe B (102) : charpentiers sans mention → mail « vous travaillez le bois, un studio de jardin compléterait votre offre ». Relecture search.ch arrêtée à ~450/820 fiches (blocage « trop de requêtes ») : il reste des fiches à exploiter plus tard.
+
+| Groupe | Langue | Entreprise | E-mail | Démo |
+|---|---|---|---|---|
+| A | de | KR-Holzbau GmbH (Hitzkirch LU) | info@krholzbau.ch | https://kr-holzbau.wibzo.ch |
+| A | de | Team Lehnherr Holzbau GmbH (Walterswil SO) | info@teamlehnherrholzbau.ch | https://team-lehnherr-holzbau.wibzo.ch |
+| B | de | Kneubühler Holzbau AG (Richenthal LU) | info@kneubuehler-holzbau.ch | https://kneubuhler-holzbau.wibzo.ch |
+| B | de | Zürcherholz GmbH (Ostermundigen BE) | buero@zuercherholz.ch | https://zurcherholz.wibzo.ch |
+| A | fr | Rossé & Charmillot Sàrl (Courtételle JU) | crc.charpente@gmail.com | https://rosse-charmillot.wibzo.ch |
+| B | de | Meier Zimmerei AG (Endingen AG) | info@meier-zimmerei.ch | https://meier-zimmerei.wibzo.ch |
+| B | de | M. & S. Holzbau GmbH (Rupperswil AG) | info@ms-holzbau.ch | https://m-s-holzbau.wibzo.ch |
+| B | de | Hürzeler Holzbau AG (Magden AG) | info@huerzeler-holz.ch | https://hurzeler-holzbau.wibzo.ch |
+| A | de | Lütold GmbH (Ittenthal AG) | info@luetoldholz.ch | https://lutold.wibzo.ch |
+| B | de | Schreinerei Wilhelm GmbH (Safenwil AG) | schreinerei-wilhelm@bluewin.ch | https://schreinerei-wilhelm.wibzo.ch |
+| B | de | Albiez AG (Rheinfelden AG) | info@albiez-holz.ch | https://albiez.wibzo.ch |
+| B | de | Hess & Co AG (Döttingen AG) | d.hess@hessco.ch | https://hess.wibzo.ch |
+| B | de | Holz und Stolz GmbH (Würenlingen AG) | kontakt@holzundstolz.ch | https://holz-stolz.wibzo.ch |
+| B | de | Hüsser Holzleimbau AG (Bremgarten AG) | holzleimbau@huesser.com | https://husser-holzleimbau.wibzo.ch |
+| B | de | Manuel Ithen (Geltwil AG) | manuel@ithen-holzbauer.ch | https://manuel-ithen.wibzo.ch |
+| B | de | Montage Werk GmbH (Kleindöttingen AG) | info@montagewerk.ch | https://montage-werk.wibzo.ch |
+| B | de | Appenzeller Holzbau (Appenzell Meistersrüte AI) | info@a-holzbau.ch | https://appenzeller-holzbau.wibzo.ch |
+| B | de | astrain.ch ag (Appenzell Eggerstanden AI) | holzbau@astrain.ch | https://astrain-ch.wibzo.ch |
+| B | de | Sturzenegger Holzbau (Rehetobel AR) | sturzeneggerholzbau@bluewin.ch | https://sturzenegger-holzbau.wibzo.ch |
+| B | de | Ramseier Holzbau AG (Langnau im Emmental BE) | info@ramseierholzbau.ch | https://ramseier-holzbau.wibzo.ch |
+| B | de | Holzbau Mäusli GmbH (Jegenstorf BE) | info@holzbaumaeusli.ch | https://holzbau-mausli.wibzo.ch |
+| B | de | Gfeller Holzbau GmbH (Worb BE) | info@gfeller-holzbau.ch | https://gfeller-holzbau.wibzo.ch |
+| B | de | Wirz Holzbau AG ( ) | info@wirzholzbau.ch | https://wirz-holzbau.wibzo.ch |
+| B | de | Scheidegger AG Schreinerei - Holzbau (Rohrbachgraben BE) | info@schreinerei-scheidegger.ch | https://scheidegger-schreinerei-holz.wibzo.ch |
+| B | de | Zimmerei Ziehli AG (Lobsigen BE) | info@zimmereiziehli.ch | https://zimmerei-ziehli.wibzo.ch |
+| B | de | Holzbau Wägli AG ( BE) | belp@waegli-holzbau.ch | https://holzbau-wagli.wibzo.ch |
+| B | de | Grossenbacher Zimmerei AG (Biembach im Emmental BE) | info@grossenbacher-zimmerei.ch | https://grossenbacher-zimmerei.wibzo.ch |
+| B | de | DuoWerk GmbH (Wilderswil BE) | info@duowerk.ch | https://duowerk.wibzo.ch |
+| B | de | Emmenwerk GmbH (Schüpbach BE) | info@emmenwerk.ch | https://emmenwerk.wibzo.ch |
+| B | de | Fritz Gygli (Eriswil BE) | info@gygliholzbau.ch | https://fritz-gygli.wibzo.ch |
+| B | de | Roger Krebs ( BE) | rogerkrebs.holzarbeiten@gmail.com | https://roger-krebs.wibzo.ch |
+| B | de | Oester Holzbautechnik AG (Mülenen BE) | info@oester-holz.ch | https://oester-holzbautechnik.wibzo.ch |
+| B | de | Schreinerei Schär GmbH (Rüegsauschachen BE) | esther.schaer@schreinerei-schaer.ch | https://schreinerei-schar.wibzo.ch |
+| B | de | Stoller Allround GmbH (Kandergrund BE) | bruno.stoller@hotmail.ch | https://stoller-allround.wibzo.ch |
+| B | fr | YaBois Créations Sàrl (Tramelan BE) | info@yabois.ch | https://yabois-creations.wibzo.ch |
+| B | de | Hirsbrunner Holzbau AG (Eggiwil BE) | info@hirsbrunner-holzbau.ch | https://hirsbrunner-holzbau.wibzo.ch |
+| B | de | Peter Holzbau AG (Blumenstein BE) | info@peterholzbauag.ch | https://peter-holzbau.wibzo.ch |
+| B | de | Allenbach Holzbau und Solartechnik AG (Wengi  BE) | info@solarholzbauer.ch | https://allenbach-holzbau-solartechn.wibzo.ch |
+| B | de | Nufer Holzbau GmbH (Wabern BE) | info@nuferholzbau.ch | https://nufer-holzbau.wibzo.ch |
+| B | de | Schindler's Holzwerke (Grosshöchstetten BE) | info@schindlers-holzwerke.ch | https://schindler-s-holzwerke.wibzo.ch |
+| B | de | LIGNAWERK GMBH (Sigriswil BE) | reto@lignawerk.ch | https://lignawerk.wibzo.ch |
+| B | de | Meyer H. Zimmerei + Chaletbau AG (Horboden BE) | meyerzimmereiag@bluewin.ch | https://meyer-h-zimmerei-chaletbau.wibzo.ch |
+| B | de | Wenger Holzbau AG (Unterseen BE) | info@wengerholzbauag.ch | https://wenger-holzbau.wibzo.ch |
+| B | de | Roth Holzbau AG Wahlen (Wahlen bei Laufen BL) | info@roth-holzbau.ch | https://roth-holzbau-wahlen.wibzo.ch |
+| B | de | GGS AG (Gelterkinden BL) | info@ggs-holzbau.ch | https://ggs.wibzo.ch |
+| B | de | Erne Holztechnik GmbH (Läufelfingen BL) | info@erne-holztechnik.ch | https://erne-holztechnik.wibzo.ch |
+| B | de | Hänni Holzhaus GmbH (Wittinsburg BL) | zimmerei.haenni@gmail.com | https://hanni-holzhaus.wibzo.ch |
+| B | de | Lerch Holzbau (Pratteln BL) | lerch@lerch-holzbau.ch | https://lerch-holzbau.wibzo.ch |
+| B | de | Hess Holzbau AG Ziefen (Ziefen BL) | mail@hessholzbau.ch | https://hess-holzbau-ziefen.wibzo.ch |
+| B | de | AllAroundCreation GmbH (Lauwil BL) | yannik.runser@gmail.com | https://allaroundcreation.wibzo.ch |
+| B | de | Renggli Schreinerei AG (Basel ) | info@schreinerei-renggli.ch | https://renggli-schreinerei.wibzo.ch |
+| B | fr | Sallin-Bard sarl (Mézières FR) | info@sallin-bard.ch | https://sallin-bard.wibzo.ch |
+| B | fr | Mivelaz Bois SA (Montévraz FR) | office@mivelazboissa.ch | https://mivelaz-bois.wibzo.ch |
+| B | fr | E.M. Bois Sàrl (Villars-sous-Mont FR) | maxime.ecoffey@em-bois.ch | https://e-m-bois.wibzo.ch |
+| B | fr | Pierre Oberson Sàrl (Albeuve FR) | pierre@oberson-bois.ch | https://pierre-oberson.wibzo.ch |
+| B | fr | Alexandre Ruffieux Constructions Bois Sàrl (Villarvolard FR) | info@alexandre-ruffieux.ch | https://alexandre-ruffieux-construct.wibzo.ch |
+| B | fr | Picard Construction Bois Sàrl (Marsens FR) | jmpicardbois@gmail.com | https://picard-construction-bois.wibzo.ch |
+| B | fr | Lanthmann Construction Bois SA (Epagny FR) | info@groupe-grisoni.ch | https://lanthmann-construction-bois.wibzo.ch |
+| B | fr | Michel Mooser SA (Charmey (Gruyère) FR) | info@michel-mooser.ch | https://michel-mooser.wibzo.ch |
+| B | fr | Y. Pasquier Bois Sàrl (Lessoc FR) | info@ypasquier-bois.ch | https://y-pasquier-bois.wibzo.ch |
+| B | fr | AS TOITURE CEC SàRL (Rossens FR) | info@astoiturecec.ch | https://as-toiture-cec.wibzo.ch |
+| B | fr | RMW charpente SA (Montet (Glâne) FR) | info@rmw-charpente.ch | https://rmw-charpente.wibzo.ch |
+| B | de | Freund A. Holzbau GmbH (Samedan GR) | info@freund-holzbau.ch | https://freund-a-holzbau.wibzo.ch |
+| B | de | Stobru AG (Valchava GR) | info@stobru.ch | https://stobru.wibzo.ch |
+| B | de | Familie Keller Holzbau GmbH (Maladers GR) | keller.sebastian@hotmail.com | https://familie-keller-holzbau.wibzo.ch |
+| B | de | Salzgeber Holzbau AG (Sils im Domleschg GR) | info@salzgeber-holzbau.ch | https://salzgeber-holzbau.wibzo.ch |
+| B | de | die Schreinerei Bever AG (Bever GR) | info@schreinerei-bever.ch | https://die-schreinerei-bever.wibzo.ch |
+| B | de | Camathias SA Lennaria (Laax GR) | info@camathias-sa.ch | https://camathias-lennaria.wibzo.ch |
+| B | de | Holz85 GmbH (Pany GR) | info@zimmermann-holzbau.ch | https://holz85.wibzo.ch |
+| B | fr | Babey Sarl (Boncourt JU) | info@babey-charpente.ch | https://babey.wibzo.ch |
+| A | fr | Teutschmann Artisan Menuisier Sàrl (Delémont JU) | info@tam-menuiserie.ch | https://teutschmann-artisan-menuisie.wibzo.ch |
+| B | fr | ARSIO sàrl - Isaac Oberli (Porrentruy JU) | info@arsio.ch | https://arsio-isaac-oberli.wibzo.ch |
+| B | fr | Bögli Construction Bois (Courtételle JU) | constructionbois23@gmail.com | https://bogli-construction-bois.wibzo.ch |
+| B | fr | Taillard Bois Sàrl (Saignelégier JU) | taillardboissarl@gmail.com | https://taillard-bois.wibzo.ch |
+| B | fr | Lytss-wood SA (Moutier JU) | info@lytss-wood.ch | https://lytss-wood.wibzo.ch |
+| B | de | Holzbau Philipp und Wolfgang Stalder AG (Weggis LU) | holzbau.stalder@bluewin.ch | https://holzbau-philipp-wolfgang-sta.wibzo.ch |
+| B | de | Holzbaudesign Jost GmbH (Beromünster LU) | info@holzbaudesignjost.ch | https://holzbaudesign-jost.wibzo.ch |
+| B | de | Schreinerei Stofer (Adligenswil LU) | info@schreinerei-stofer.ch | https://schreinerei-stofer.wibzo.ch |
+| B | de | Alaska Blockhaus GmbH (Triengen LU) | info@alaska-blockhaus.ch | https://alaska-blockhaus.wibzo.ch |
+| A | de | Zimmermann Holz und Bau AG (Herlisberg LU) | info@z-holzbau.ch | https://zimmermann-holz-bau.wibzo.ch |
+| B | de | A. Portmann Holzbau AG (Escholzmatt LU) | info@aportmann-holzbau.ch | https://a-portmann-holzbau.wibzo.ch |
+| B | de | Hecht Holzbau AG (Sursee LU) | info@hecht-holzbau.ch | https://hecht-holzbau.wibzo.ch |
+| B | de | Ideal Holzbau AG (Ballwil LU) | info@kliebenschaedel-schreinerei.ch | https://ideal-holzbau.wibzo.ch |
+| B | de | Roos Holzbau AG (Buttisholz LU) | info@roos-holzbau.ch | https://roos-holzbau.wibzo.ch |
+| B | de | Aktiv Holzbau Bucher GmbH (Emmenbrücke LU) | info@schremo.ch | https://aktiv-holzbau-bucher.wibzo.ch |
+| A | de | MH Altwis GmbH (Altwis LU) | mike@mh-altwis.ch | https://mh-altwis.wibzo.ch |
+| B | fr | Ducommun Construction Bois Sàrl (La Brévine NE) | mickael@ducommunbois.ch | https://ducommun-construction-bois.wibzo.ch |
+| B | fr | Buchs Frères SA (La Côte-aux-Fées NE) | info@buchs-freres.ch | https://buchs-freres.wibzo.ch |
+| B | fr | EVASION BOIS-ERIC MARTI (St-Blaise NE) | info@evasionbois.ch | https://evasion-bois-eric-marti.wibzo.ch |
+| B | fr | Favre & Perret Sàrl (Cernier NE) | info@favre-perret.ch | https://favre-perret.wibzo.ch |
+| B | fr | Marguet SA (Le Cerneux-Péquignot NE) | marguetsa@marguetsa.ch | https://marguet.wibzo.ch |
+| B | de | Amstutz Holzbau AG (Stans NW) | info@holzbau-amstutz.ch | https://amstutz-holzbau.wibzo.ch |
+| B | de | Holzbau Bucher AG (Kerns OW) | info@holzbau-bucher.ch | https://holzbau-bucher.wibzo.ch |
+| B | de | Holzbau Engelberg AG (Engelberg OW) | info@holzbau-engelberg.ch | https://holzbau-engelberg.wibzo.ch |
+| B | de | Bühler Holztechnik AG (Engelberg OW) | info@holztechnikbuehler.ch | https://buhler-holztechnik.wibzo.ch |
+| B | de | Holzbau Linth AG (Gommiswald SG) | info@holzbau-linth.ch | https://holzbau-linth.wibzo.ch |
+| B | de | Fitze Holzbau AG (Egg (Flawil) SG) | info@fitze-holzbau.ch | https://fitze-holzbau.wibzo.ch |
+| B | de | Bleisch Holzbau (Montlingen SG) | bleisch.holzbau@gmail.com | https://bleisch-holzbau.wibzo.ch |
+| B | de | Holz Team GmbH (Wattwil SG) | info@holz-team.ch | https://holz-team.wibzo.ch |
+| B | de | Marco Wildhaber GmbH (Flumserberg Portels SG) | marcowildhaber_6@hotmail.com | https://marco-wildhaber.wibzo.ch |
+| B | de | Holzbau Ledergerber AG (Andwil SG) | info@holzbau-ledergerber.ch | https://holzbau-ledergerber.wibzo.ch |
+| B | de | Holzbau Rüegg GmbH (Jona SG) | info@holzbau-rueegg.ch | https://holzbau-ruegg.wibzo.ch |
+| B | de | HolzFochs GmbH (Mosnang SG) | info@holzfochs.ch | https://holzfochs.wibzo.ch |
+| B | de | Lanter Holzbau AG (Rorschach SG) | info@kogo.ch | https://lanter-holzbau.wibzo.ch |
+| B | de | Brunner Holz Ideen GmbH (St. Peterzell SG) | andreas.faessler@brunnerholzideen.ch | https://brunner-holz-ideen.wibzo.ch |
+| B | de | Edwin Stieger Zimmerei GmbH (Oberriet SG) | info@stieger-zimmerei.ch | https://edwin-stieger-zimmerei.wibzo.ch |
+| B | de | Gantner Holz GmbH (Flums SG) | info@gantner-flums.ch | https://gantner-holz.wibzo.ch |
+| B | de | Moser & Raschle GmbH (Ebnat-Kappel SG) | info@moser-raschle.ch | https://moser-raschle.wibzo.ch |
+| B | de | Woodworkers Scharpf (Wil SG) | woodworkers.scharpf@gmail.com | https://woodworkers-scharpf.wibzo.ch |

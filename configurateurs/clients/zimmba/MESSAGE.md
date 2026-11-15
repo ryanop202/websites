@@ -35,7 +35,7 @@ Wibzo · contact@wibzo.ch
 Intéressé (« Der Konfigurator sieht spannend aus »). 3 questions : (1) comment seraient calculés les prix indicatifs : volume de bois en m³ ou dimensions + construction + options ? (2) distances à la limite de parcelle (Grenzabstände) : les montrer dans le configurateur, ou plutôt une fenêtre d'avis qui renvoie vers leur bureau de planification ? (3) coût unique (adaptation + intégration au site) et coût courant.
 Contact : Samuel Zurbuchen, Zimmba GmbH (ehemals Micheli GmbH), Im Moos 1b, 3800 Interlaken, info@zimmba.ch.
 
-## Réponse préparée le 14.11.2026 (PAS ENCORE ENVOYÉE)
+## Réponse préparée le 14.11.2026 — ENVOYÉE le 15.11.2026 (relance douce le 20.11.2026 si pas de réponse)
 
 **Objet :** Re: 3D-Demo für Zimmba GmbH
 

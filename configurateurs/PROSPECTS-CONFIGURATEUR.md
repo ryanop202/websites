@@ -542,3 +542,16 @@ Pour les clients en refus ou en négociation (Voeffray, Lejan, Bourgo, JS Store,
 | werbefranken.ch | info@werbefranken.ch | de | janitsch Holzbau AG | https://janitsch.wibzo.ch/ | brouillon kSuite 13.11.2026 |
 
 **Prix décidés par Ryan le 13.11.2026** : (1) **agences** : 1 600 CHF le configurateur avec 1 produit + 500 CHF par produit en plus, sans abonnement, hébergement et modifications compris (détails et réponse type : documents-client/4-AGENCES-PARTENAIRES.md) ; (2) **prix achat direct monté à 2 500 CHF** (+ 500 CHF par produit en plus) pour les prochains clients ; Varioplant et Lejan gardent 1 900 CHF (offre envoyée). Les 25 brouillons agences disent : « en direct je vends mes configurateurs 2 500 – 3 000 CHF, en partenaire prix nettement plus bas ». werbefranken.ch : mail ENVOYÉ le 13.11 à 10:20 (version revendeur, sans la phrase sur les prix). Formule mensuelle directe (990 + 59/mois) : pas encore adaptée au nouveau prix.
+
+## Récap boîte mail du 18.11.2026 (lu à 07:50)
+
+- **Zimmba GmbH (Interlaken)** : réponse 14.11, INTÉRESSÉ, questions (calcul des prix indicatifs, distances à la limite de propriété, coûts unique et courant). Relance programmée du 18.11 ANNULÉE. Réponse en brouillon : prix selon dimensions/construction/options (ou m³), fenêtre d'avertissement pour les distances, **2 500 CHF une fois tout compris, pas de coûts courants**.
+- **Lejan EG** : demande 2 fois un numéro de téléphone (13.11 et 17.11) + PDF téléchargé le 13.11. Réponse en brouillon : Ryan travaille par écrit (e-mail ou WhatsApp).
+- **werbefranken.ch (agence)** : intéressée mais prudente. Ryan a répondu le 13.11 à 11:37 avec prix agence 1 200 CHF, prix conseillé 2 400 CHF, hébergement à part (avant la décision 1 600 + 500). L'agence craint les frais annuels pour ses clients et la concurrence directe de Wibzo. Réponse en brouillon : 1 200 CHF une fois avec hébergement compris, pas de frais annuels, Wibzo ne contacte plus ses clients une fois partenaires. Clients werbefranken déjà contactés en direct : janitsch, Grädel, Haas Gartenbau, Herrmann Gartenbau (relances programmées).
+- **Nicolet** : demande si les modifications coûtent en plus et si on peut les faire soi-même ; recontact l'an prochain. Réponse en brouillon : modifications comprises et illimitées, par e-mail ; Ryan recontacte en **janvier 2027**.
+- **Refus d'agences** : KeWeb (Sion) et Webtree (Schaffhouse) demandent de ne plus écrire. NE PLUS CONTACTER.
+- Adresse invalide : finance@fairwebdesign.ch.
+- Alertes démo : janitsch (13.11, PDF), Simel Home (13.11), Mühlemann Bau (15.11), Lejan (13.11, PDF).
+- Relances parties : Schäwi Pool (16.11), Lejan (17.11). 181 relances encore programmées (18 au 24.11).
+- Les 25 mails agences ont été envoyés par Ryan le 13.11.
+- Prospection studios de jardin (13.11) : 99 sites vérifiés, 53 candidats (pas encore de démos ni de mails).

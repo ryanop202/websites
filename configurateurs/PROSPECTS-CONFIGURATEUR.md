@@ -603,3 +603,4 @@ Démo : demo-studio/ (FR) et **demo-studio-de/** (allemand, fabriquée par outil
 | Berchtold Holzbau | DE | info@berchtold-holzbau.ch | https://berchtold-holzbau.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
 | Kocher Holzbau AG | DE | info@kocher-holzbau.ch | https://kocher-holzbau.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
 
+**18.11.2026 (demande de Ryan) : relances AVANCÉES.** Les 152 relances prévues du 19 au 24.11 partent maintenant : **60 le 18.11 de 08:30 à 08:50** et **92 le 19.11 de 08:00 à 08:30** (1 toutes les 20 s ; calcul fait pour rester sous ~170 envois sur 24 h glissantes). Ryan veut que les envois partent **le matin vers 7h30-8h**. Après le 19.11 à 08:30, plus aucune relance programmée.

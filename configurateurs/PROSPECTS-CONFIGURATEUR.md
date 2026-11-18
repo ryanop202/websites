@@ -676,3 +676,11 @@ Recherche Google site:.ch (Autounterstand/Velounterstand, Carport + Zimmerei par
 | Lutz Gärten & Schwimmbäder GmbH | piscine | info@lutzgaerten.ch | https://lutz-gaerten.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
 | Gartenpartner | terrasse | info@gartenpartner.ch | https://gartenpartner.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
 
+## Réponses du 18.11.2026 (lues vers 11h)
+
+- 🔥 **Concept Terrasse Sàrl** (Combremont-le-Petit, Dylan Muster) : réponse à la relance, « **Oui nous serions intéressés** », demande d'être appelé au 079 552 99 35. Démo utilisée le 18.11 à 08:18. → décision de Ryan sur l'appel.
+- Refus : Sieber Holzbau AG (« kein Bedarf »), Lütolf Wintergärten (« kein Interesse »), Zimmermann Holz und Bau AG (studio, « aktuell kein Interesse »). Pas de relance.
+- Réponse automatique : OK-Montageservice (réponse sous 24 h).
+- Adresse invalide : aanja@holzbauweger.ch (Holzbau Weger AG) → trouver une autre adresse.
+- Alerte démo : Holzbau Hänggi (studio, 18.11 10:05).
+

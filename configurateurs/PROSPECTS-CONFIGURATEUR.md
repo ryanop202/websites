@@ -609,40 +609,70 @@ Démo : demo-studio/ (FR) et **demo-studio-de/** (allemand, fabriquée par outil
 
 ## Prospects Suisse alémanique — 5e série (18.11.2026, 32 entreprises)
 
-Recherche Google site:.ch (Sitzplatzüberdachung, Terrassenüberdachung Holz/Alu/Glas, Lamellendach p.2-3, Carport Holzbau p.3-4, Pergola Holz Zimmerei, Pool/Schwimmbad, Wintergarten Metallbau p.3, Holzterrasse) → 168 sites, boutiques retirées, 38 déjà contactés retirés, 88 vérifiés par outils/verifier-prospects-de.py → 36 → 32 (retirés : Storenmeister (plateforme), Geländer-Swiss (boutique), Holzbau Ostschweiz (e-mail factice), Metallbau Meier Allschwil (doublon possible avec Meier AG Metallbau)). Démos par outils/demo-de.py --liste outils/prospects-de-5.json, publiées et vérifiées 32/32 le 18.11. Mails PROGRAMMÉS le vendredi 20.11.2026 de 07:30 à 07:41 (1 toutes les 20 s, demande de Ryan : partir le matin).
+Recherche Google site:.ch (Sitzplatzüberdachung, Terrassenüberdachung Holz/Alu/Glas, Lamellendach p.2-3, Carport Holzbau p.3-4, Pergola Holz Zimmerei, Pool/Schwimmbad, Wintergarten Metallbau p.3, Holzterrasse) → 168 sites, boutiques retirées, 38 déjà contactés retirés, 88 vérifiés par outils/verifier-prospects-de.py → 36 → 32 (retirés : Storenmeister (plateforme), Geländer-Swiss (boutique), Holzbau Ostschweiz (e-mail factice), Metallbau Meier Allschwil (doublon possible avec Meier AG Metallbau)). Démos par outils/demo-de.py --liste outils/prospects-de-5.json, publiées et vérifiées 32/32 le 18.11. Mails PROGRAMMÉS le jeudi 19.11.2026 de 09:35 à 09:46 (avancés à la demande de Ryan ; pas avant 09:30 à cause de la limite d'envoi sur 24 h).
 
 | Entreprise | Produit démo | E-mail | Démo | Statut |
 |---|---|---|---|---|
-| Steel+Art | pergola-bio | kontakt@steelandart.ch | https://steelandart.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Jakob Gutknecht AG | veranda | info@jakobgutknecht.ch | https://jakob-gutknecht.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Metallbau Perazzelli AG | veranda | metallbau@perazzelli.ch | https://perazzelli.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| HOFER AG | pergola-bio | frei@hofermetall.ch | https://hofer-glaspergola.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Ackermann Gebäudehüllen GmbH | pergola | info@ackermann-gh.ch | https://ackermann-gh.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Riedel Metallbau | veranda | info@riedel-metallbau.ch | https://riedel-metallbau.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Künzle Metallbau | veranda | info@kuenzle-metallbau.ch | https://kuenzle-metallbau.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Gurtner Metallbau AG | veranda | info@gurtner-metallbau.ch | https://gurtner-metallbau.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Steiner Holzbau | carport | info@steinerholzbau.ch | https://steiner-holzbau.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Zürcher Holzbau Bern AG | carport | bern@zuercher-holzbau.ch | https://zuercher-holzbau.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Kunz Holzbau, Spenglerei und Gebäudehülle GmbH | carport | info@kunz-hsg.ch | https://kunz-hsg.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| PBS Zimmerei Schreinerei AG | carport | pbs@pbs-ag.ch | https://pbs.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Holz-Werke.ch | carport | info@holz-werke.ch | https://holz-werke.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| wdHOLZBAU | carport | info@wdholzbau.ch | https://wdholzbau.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Holzbau Perr GmbH | carport | info@perr-blockhaus.ch | https://perr-holzbau.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Löhrer Holzbau und Schreinerei | carport | info@holzbau-schreiner.ch | https://loehrer-holzbau.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Holz und Dach AG | carport | info@holzunddach.ch | https://holzunddach.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Gottlieb Müller AG | carport | info@gottlieb-mueller.ch | https://gottlieb-mueller.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Schütz Holzbau GmbH | pergola | info@schuetzholzbau.ch | https://schuetz-holzbau.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Brauchli AG | pergola | info@brauchliag.ch | https://brauchli.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Cremer Bruhin | carport | info@cremerbruhin.ch | https://cremer-bruhin.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Hayoz Holzbau | carport | hayoz-holzbau@hayoz-holzbau.ch | https://hayoz-holzbau.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Tschudi Holz | carport | info@tschudi-holz.ch | https://tschudi-holz.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Widmer Zimmerei AG | pergola | info@widmer-zimmerei.ch | https://widmer-zimmerei.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Schwimmbad World | piscine | info@schwimmbadworld.ch | https://schwimmbadworld.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Müntener Pool-Center | piscine | info@swimmingpool.ch | https://muentener-pool.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Russi Metallbau AG | veranda | info@russi-metallbau.ch | https://russi-metallbau.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Huber Stahl- und Metallbau | veranda | info@huber-metallbau.ch | https://huber-metallbau.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Fuchs+Fuchs Metallbau & Stahlbau AG | carport-metal | info@fuchs-metallbau.ch | https://fuchs-metallbau.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Kambium Holzbau AG | carport | info@kambium-holz.ch | https://kambium-holzbau.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| K. Helfer Holzbau AG | carport | info@helfer-holzbau.ch | https://helfer-holzbau.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
-| Rikli AG | carport | info@rikli-ag.ch | https://rikli.wibzo.ch | mail PROGRAMMÉ 20.11.2026 07:30–07:41 |
+| Steel+Art | pergola-bio | kontakt@steelandart.ch | https://steelandart.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Jakob Gutknecht AG | veranda | info@jakobgutknecht.ch | https://jakob-gutknecht.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Metallbau Perazzelli AG | veranda | metallbau@perazzelli.ch | https://perazzelli.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| HOFER AG | pergola-bio | frei@hofermetall.ch | https://hofer-glaspergola.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Ackermann Gebäudehüllen GmbH | pergola | info@ackermann-gh.ch | https://ackermann-gh.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Riedel Metallbau | veranda | info@riedel-metallbau.ch | https://riedel-metallbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Künzle Metallbau | veranda | info@kuenzle-metallbau.ch | https://kuenzle-metallbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Gurtner Metallbau AG | veranda | info@gurtner-metallbau.ch | https://gurtner-metallbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Steiner Holzbau | carport | info@steinerholzbau.ch | https://steiner-holzbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Zürcher Holzbau Bern AG | carport | bern@zuercher-holzbau.ch | https://zuercher-holzbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Kunz Holzbau, Spenglerei und Gebäudehülle GmbH | carport | info@kunz-hsg.ch | https://kunz-hsg.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| PBS Zimmerei Schreinerei AG | carport | pbs@pbs-ag.ch | https://pbs.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Holz-Werke.ch | carport | info@holz-werke.ch | https://holz-werke.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| wdHOLZBAU | carport | info@wdholzbau.ch | https://wdholzbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Holzbau Perr GmbH | carport | info@perr-blockhaus.ch | https://perr-holzbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Löhrer Holzbau und Schreinerei | carport | info@holzbau-schreiner.ch | https://loehrer-holzbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Holz und Dach AG | carport | info@holzunddach.ch | https://holzunddach.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Gottlieb Müller AG | carport | info@gottlieb-mueller.ch | https://gottlieb-mueller.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Schütz Holzbau GmbH | pergola | info@schuetzholzbau.ch | https://schuetz-holzbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Brauchli AG | pergola | info@brauchliag.ch | https://brauchli.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Cremer Bruhin | carport | info@cremerbruhin.ch | https://cremer-bruhin.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Hayoz Holzbau | carport | hayoz-holzbau@hayoz-holzbau.ch | https://hayoz-holzbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Tschudi Holz | carport | info@tschudi-holz.ch | https://tschudi-holz.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Widmer Zimmerei AG | pergola | info@widmer-zimmerei.ch | https://widmer-zimmerei.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Schwimmbad World | piscine | info@schwimmbadworld.ch | https://schwimmbadworld.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Müntener Pool-Center | piscine | info@swimmingpool.ch | https://muentener-pool.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Russi Metallbau AG | veranda | info@russi-metallbau.ch | https://russi-metallbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Huber Stahl- und Metallbau | veranda | info@huber-metallbau.ch | https://huber-metallbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Fuchs+Fuchs Metallbau & Stahlbau AG | carport-metal | info@fuchs-metallbau.ch | https://fuchs-metallbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Kambium Holzbau AG | carport | info@kambium-holz.ch | https://kambium-holzbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| K. Helfer Holzbau AG | carport | info@helfer-holzbau.ch | https://helfer-holzbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+| Rikli AG | carport | info@rikli-ag.ch | https://rikli.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:35–09:46 |
+
+## Prospects Suisse alémanique — 6e série (18.11.2026, 23 entreprises)
+
+Recherche Google site:.ch (Autounterstand/Velounterstand, Carport + Zimmerei par cantons, Carport Holzbau nach Mass p.2-3, Pergola Metallbau Alu, Wintergarten ZH/BE/LU, Pool Gartenbau, Gartenhaus Holzbau, Holzterrasse) → 108 sites, 41 nouveaux, vérifiés par script → 26 → 23 (retirés : Bargy (garages béton), Dr. Deuring + Oehninger (ingénieurs), GLB (grande entreprise générale)). Démos outils/demo-de.py --liste outils/prospects-de-6.json, en ligne 23/23 (vérifié). Mails PROGRAMMÉS le 19.11.2026 de 09:46 à 09:53.
+
+| Entreprise | Produit démo | E-mail | Démo | Statut |
+|---|---|---|---|---|
+| 1a hunkeler | carport | info@1a-hunkeler.ch | https://1a-hunkeler.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| Knechtle Holzbau | carport | info@knechtleholzbau.ch | https://knechtle-holzbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| Bucher Holzbau | terrasse | info@bucher-holzbau.ch | https://bucher-holzbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| Baumann & Helbling AG | terrasse | info@bh-holzbau.ch | https://bh-holzbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| LG Holzhandwerk | veranda | louis.grob@lg-holzhandwerk.ch | https://lg-holzhandwerk.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| Schlatter Holzbau | carport | info@schlatterholzbau.ch | https://schlatter-holzbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| Kühne Ruedi Holzbau | carport | info@kuehne-holzbau.ch | https://kuehne-holzbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| Rethan AG | carport | info@rethan.ch | https://rethan.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| Bertschinger AG | carport | info@bertschingerag.ch | https://bertschinger.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| Uehlinger Holzbau | carport | info@uehlinger-holzbau.ch | https://uehlinger-holzbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| Gartmann Holzbau | carport | info@gartmann-holzbau.ch | https://gartmann-holzbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| Camathias SA | carport | info@camathias-sa.ch | https://camathias.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| Bauschreinerei Leitgeb | carport | info@bauschreinerei-leitgeb.ch | https://leitgeb.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| Sticher Innovation | veranda | info@sticher-innovation.ch | https://sticher.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| Schmid Storen AG | pergola-bio | info@schmidstoren.ch | https://schmid-storen.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| Schmidlin Holzbau | carport | info@holzhaus-schmidlin.ch | https://schmidlin-holzbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| Sägesser GmbH Holzbau und Montagen | carport | info@holzbausaegesser.ch | https://saegesser-holzbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| egli jona ag | piscine | info@eglijona.ch | https://egli-jona.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| Keller + Meier Gartengestaltung | piscine | info@keller-meier.ch | https://keller-meier.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| Egli Gartenbau AG | piscine | egli@egligartenbau.com | https://egli-gartenbau.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| Bau Holzwerker | terrasse | info@bau-holzwerker.ch | https://bau-holzwerker.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| Lutz Gärten & Schwimmbäder GmbH | piscine | info@lutzgaerten.ch | https://lutz-gaerten.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
+| Gartenpartner | terrasse | info@gartenpartner.ch | https://gartenpartner.wibzo.ch | mail PROGRAMMÉ 19.11.2026 09:46–09:53 |
 

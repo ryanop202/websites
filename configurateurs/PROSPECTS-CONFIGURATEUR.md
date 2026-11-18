@@ -556,50 +556,50 @@ Pour les clients en refus ou en négociation (Voeffray, Lejan, Bourgo, JS Store,
 - Les 25 mails agences ont été envoyés par Ryan le 13.11.
 - Prospection studios de jardin (13.11) : 99 sites vérifiés, 53 candidats (pas encore de démos ni de mails).
 
-## Studios / maisons de jardin (18.11.2026) — 39 démos en ligne, mails en BROUILLON kSuite
+## Studios / maisons de jardin (18.11.2026) — 39 démos en ligne, mails PROGRAMMÉS le 18.11.2026 (08:12–08:25)
 
 Recherche Google (site:.ch : Gartenbüro, Gartenstudio, Gartenhäuser + Holzbau/Zimmerei, Tiny House, Poolhaus, studio/bureau/abri de jardin, cabanon, pool house) le 13.11 → 115 sites, 16 déjà contactés retirés, 99 vérifiés par script (e-mail, mot « Gartenhaus / studio de jardin… » sur le site, pas de configurateur, pas de boutique) → 47, nettoyés à 39 (Espace & Lumière avait 5 sites ; retirés : association Kleinwohnformen, Holzbauzenter (e-mail de leur agence web), Schreinerei Studer (e-mail factice), Zimmerei Oppliger (même nom de famille que Ryan, à voir avec lui)).
 Démo : demo-studio/ (FR) et **demo-studio-de/** (allemand, fabriquée par outils/traduire-studio-de.py), démos clients par outils/demo-studio.py (liste outils/prospects-studio.json), publiées le 18.11 (39/39 en ligne, vérifié). Mails : texte habituel + ligne de désinscription.
 
 | Entreprise | Langue | E-mail | Démo | Statut |
 |---|---|---|---|---|
-| Espace & Lumière | FR | info@espace-et-lumiere.ch | https://espace-et-lumiere.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Tiny House Suisse | FR | contact@tinyhousesuisse.ch | https://tinyhousesuisse.wibzo.ch | brouillon kSuite 18.11.2026 |
-| TREG Sàrl | FR | info@tregsarl.ch | https://treg.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Wood Pro | FR | contact@woodpro.ch | https://woodpro.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Dizerens Frères | FR | info@dizerenssarl.ch | https://dizerens.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Dupenloup Charpente | FR | ga.dupenloup@gmail.com | https://dupenloup.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Dasta Charpentes Bois | FR | dasta@dasta.ch | https://dasta.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Charpente Pro | FR | info@charpentepro.ch | https://charpentepro.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Concept GAD | FR | info@conceptgad.ch | https://concept-gad.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Nelbois Construction | FR | contact@nelbois.ch | https://nelbois.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Holzbau Weger AG | DE | aanja@holzbauweger.ch | https://holzbau-weger.wibzo.ch | brouillon kSuite 18.11.2026 |
-| OK-Montageservice | DE | info@okmontageservice.ch | https://ok-montage.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Formare | DE | info@formare.ch | https://formare.wibzo.ch | brouillon kSuite 18.11.2026 |
-| WOOD MADE | DE | info@woodmade.ch | https://woodmade.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Holzbau Hänggi | DE | info@holzbau-haenggi.ch | https://holzbau-haenggi.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Hunziker Blatter Holzbau GmbH | DE | info@hunzikerblatter-holzbau.ch | https://hunziker-blatter.wibzo.ch | brouillon kSuite 18.11.2026 |
-| S. Müller Holzbau | DE | info@smue.ch | https://smue.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Leimbacher AG | DE | info@leimbacher-ag.ch | https://leimbacher.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Stöcklin Zimmerei AG | DE | info@zimmerei-stoecklin.ch | https://stoecklin.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Werner Holzbau GmbH | DE | info@werner-holzbau.ch | https://werner-holzbau.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Holzfründ | DE | info@holzfruend.ch | https://holzfruend.wibzo.ch | brouillon kSuite 18.11.2026 |
-| M. Näf Holzbau | DE | manuel@mnaef-holzbau.ch | https://naef-holzbau.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Schreinerei Ghöch GmbH | DE | brunner@schreinerei-ghoech.ch | https://ghoech.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Tanner Holzbau & Sägerei AG | DE | info@tannerholz.ch | https://tannerholz.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Waldhof Holzbau AG | DE | waldhofag@bluewin.ch | https://waldhof.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Wagner Saunabau Holzbau AG | DE | info@wagner-saunabau.ch | https://wagner-saunabau.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Zimmerei Oberhänsli | DE | kontakt@zimmerei-oberhaensli.ch | https://oberhaensli.wibzo.ch | brouillon kSuite 18.11.2026 |
-| PMR Holzbau | DE | info@pmr-holzbau.ch | https://pmr-holzbau.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Schreinerei Mathys | DE | info@schreinerei-mathys.ch | https://mathys.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Zumwald und Neuhaus AG | DE | info@zumwald-neuhaus.ch | https://zumwald-neuhaus.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Flury Stans | DE | info@flury-stans.ch | https://flury-stans.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Gerber Holzbau | DE | info@gerber-holzbau.ch | https://gerber-holzbau.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Truberholz AG | DE | a.kernen@truberholz.ch | https://truberholz.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Zimmermann Holz und Bau AG | DE | info@z-holzbau.ch | https://z-holzbau.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Isenring Holzbau AG | DE | stefan.schoch@isenringholzbau.ch | https://isenring.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Knecht AG | DE | info@knecht-ag.ch | https://knecht-ag.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Schneider Holzbau AG | DE | info@schneiderholzbauag.ch | https://schneider-holzbau.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Berchtold Holzbau | DE | info@berchtold-holzbau.ch | https://berchtold-holzbau.wibzo.ch | brouillon kSuite 18.11.2026 |
-| Kocher Holzbau AG | DE | info@kocher-holzbau.ch | https://kocher-holzbau.wibzo.ch | brouillon kSuite 18.11.2026 |
+| Espace & Lumière | FR | info@espace-et-lumiere.ch | https://espace-et-lumiere.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Tiny House Suisse | FR | contact@tinyhousesuisse.ch | https://tinyhousesuisse.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| TREG Sàrl | FR | info@tregsarl.ch | https://treg.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Wood Pro | FR | contact@woodpro.ch | https://woodpro.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Dizerens Frères | FR | info@dizerenssarl.ch | https://dizerens.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Dupenloup Charpente | FR | ga.dupenloup@gmail.com | https://dupenloup.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Dasta Charpentes Bois | FR | dasta@dasta.ch | https://dasta.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Charpente Pro | FR | info@charpentepro.ch | https://charpentepro.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Concept GAD | FR | info@conceptgad.ch | https://concept-gad.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Nelbois Construction | FR | contact@nelbois.ch | https://nelbois.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Holzbau Weger AG | DE | aanja@holzbauweger.ch | https://holzbau-weger.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| OK-Montageservice | DE | info@okmontageservice.ch | https://ok-montage.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Formare | DE | info@formare.ch | https://formare.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| WOOD MADE | DE | info@woodmade.ch | https://woodmade.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Holzbau Hänggi | DE | info@holzbau-haenggi.ch | https://holzbau-haenggi.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Hunziker Blatter Holzbau GmbH | DE | info@hunzikerblatter-holzbau.ch | https://hunziker-blatter.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| S. Müller Holzbau | DE | info@smue.ch | https://smue.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Leimbacher AG | DE | info@leimbacher-ag.ch | https://leimbacher.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Stöcklin Zimmerei AG | DE | info@zimmerei-stoecklin.ch | https://stoecklin.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Werner Holzbau GmbH | DE | info@werner-holzbau.ch | https://werner-holzbau.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Holzfründ | DE | info@holzfruend.ch | https://holzfruend.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| M. Näf Holzbau | DE | manuel@mnaef-holzbau.ch | https://naef-holzbau.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Schreinerei Ghöch GmbH | DE | brunner@schreinerei-ghoech.ch | https://ghoech.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Tanner Holzbau & Sägerei AG | DE | info@tannerholz.ch | https://tannerholz.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Waldhof Holzbau AG | DE | waldhofag@bluewin.ch | https://waldhof.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Wagner Saunabau Holzbau AG | DE | info@wagner-saunabau.ch | https://wagner-saunabau.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Zimmerei Oberhänsli | DE | kontakt@zimmerei-oberhaensli.ch | https://oberhaensli.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| PMR Holzbau | DE | info@pmr-holzbau.ch | https://pmr-holzbau.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Schreinerei Mathys | DE | info@schreinerei-mathys.ch | https://mathys.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Zumwald und Neuhaus AG | DE | info@zumwald-neuhaus.ch | https://zumwald-neuhaus.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Flury Stans | DE | info@flury-stans.ch | https://flury-stans.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Gerber Holzbau | DE | info@gerber-holzbau.ch | https://gerber-holzbau.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Truberholz AG | DE | a.kernen@truberholz.ch | https://truberholz.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Zimmermann Holz und Bau AG | DE | info@z-holzbau.ch | https://z-holzbau.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Isenring Holzbau AG | DE | stefan.schoch@isenringholzbau.ch | https://isenring.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Knecht AG | DE | info@knecht-ag.ch | https://knecht-ag.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Schneider Holzbau AG | DE | info@schneiderholzbauag.ch | https://schneider-holzbau.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Berchtold Holzbau | DE | info@berchtold-holzbau.ch | https://berchtold-holzbau.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
+| Kocher Holzbau AG | DE | info@kocher-holzbau.ch | https://kocher-holzbau.wibzo.ch | ENVOI programmé 18.11.2026 entre 08:12 et 08:25 (demande de Ryan), relance ~25.11 |
 

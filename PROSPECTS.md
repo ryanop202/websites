@@ -129,7 +129,7 @@ Maquette réalisée (site multi-pages : Accueil, Prestations, À propos, Contact
 * Réservation Salonkee, 17 avis à 5/5. Pas de site.
 * Détails et sources : `sites/quinn-beauty/INFOS.md` (⚠️ ancienne adresse à Villeneuve FR sur search.ch, à vérifier avec elle).
 
-**Statut :** Message WhatsApp envoyé le 15.10.2026, 14:38. Réponse « Oui pkoi pas » à 14:39. Maquette faite le 15.10.2026 (`sites/quinn-beauty/`). Lien de démo : https://quinn-beauty-wibzo.pages.dev (Cloudflare Pages).
+**❌ 19.11.2026 (Ryan) : ne veut pas, abandonné. Ne plus relancer.** **Statut :** Message WhatsApp envoyé le 15.10.2026, 14:38. Réponse « Oui pkoi pas » à 14:39. Maquette faite le 15.10.2026 (`sites/quinn-beauty/`). Lien de démo : https://quinn-beauty-wibzo.pages.dev (Cloudflare Pages).
 
 ## CTL Nails Onglerie — Onglerie, Payerne
 
@@ -137,7 +137,7 @@ Maquette réalisée (site multi-pages : Accueil, Prestations, À propos, Contact
 * Google : 7 avis à 5/5. Lun–ven 09:00–19:00, sam–dim fermé. Rendez-vous par message (« Rendez-vous en dm »). Pas de site.
 * Détails et sources : `sites/ctl-nails/INFOS.md`.
 
-**Statut :** Message WhatsApp envoyé le 15.10.2026. Réponse le 15.10 : « oui je veux bien la voir » + « Et si j'accepte le prix serait de combien ? ». Maquette faite le 15.10.2026 (`sites/ctl-nails/`). En ligne : https://ctl-nails-wibzo.pages.dev. Maquette + prix (350.– + 30.–/mois) envoyés le 15.10.2026 à 18:56. 19:08 : question sur les rendez-vous : elle aime devoir confirmer sur WhatsApp, demande si les jours/heures du site suivent ses disponibilités. Prix proposé par Ryan (15.10.2026) : 350.– + 30.–/mois. Si elle valide, réservation en ligne possible à la place de WhatsApp.
+**❌ 19.11.2026 (Ryan) : ne veut pas, abandonné. Ne plus relancer.** **Statut :** Message WhatsApp envoyé le 15.10.2026. Réponse le 15.10 : « oui je veux bien la voir » + « Et si j'accepte le prix serait de combien ? ». Maquette faite le 15.10.2026 (`sites/ctl-nails/`). En ligne : https://ctl-nails-wibzo.pages.dev. Maquette + prix (350.– + 30.–/mois) envoyés le 15.10.2026 à 18:56. 19:08 : question sur les rendez-vous : elle aime devoir confirmer sur WhatsApp, demande si les jours/heures du site suivent ses disponibilités. Prix proposé par Ryan (15.10.2026) : 350.– + 30.–/mois. Si elle valide, réservation en ligne possible à la place de WhatsApp.
 
 ## Nature & co Growshop — Jardinerie / growshop, Payerne
 

@@ -700,3 +700,6 @@ Recherche Google site:.ch (Autounterstand/Velounterstand, Carport + Zimmerei par
 - MAD inoxial (inox brossé/poli), Bull-Jardin (bois/dalles) : peu d'infos produits sur leur site, personnalisation légère. AC Alu : Glass line / Kreativ line, pergola Umbris. Aquinox : store toile, portes coulissantes, LED. ABC Forgeron : gamme SUNPARADISE. Equibat : + carport alu (panneaux alu isolés, RAL). Atelier Z : passée sur la nouvelle base, couvert + couverture de terrasse.
 - **19 relances personnalisées en BROUILLON** dans kSuite (19.11), dans le fil de chaque conversation. À programmer quand Ryan valide (proposé : 20.11 vers 07:45).
 - Exclus (déjà en discussion ou en attente) : Aqua Emotion, Concept Terrasse, Lejan, Varioplant, Zimmba, Nicolet, Sirbatec, Monnier Bois, Abris Bois.
+- **19.11 : les 19 relances personnalisées sont PROGRAMMÉES pour le 20.11.2026 de 07:45 à 07:51** (20 s d'écart).
+- 19.11 08:35 : **Sonnfix GmbH** a configuré sa pergola (4.50 × 3.50 m, lamelles) et **téléchargé le PDF** → prospect chaud, à suivre.
+- 19.11 08:12 : adresse info@3m-glassysteme.ch refusée (erreur définitive) → trouver une autre adresse.

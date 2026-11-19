@@ -189,6 +189,21 @@ SPECS = {
         ('pergola', 'Couverture de terrasse', 'Structure bois contre la maison ou isolée, toile ou polycarbonate.', """
     produit: 'Couverture de terrasse',
     libelles: { ...b.libelles, titre: 'Couverture de terrasse en bois' },""")], 'carport'),
+    'sonnfix': ('de', 'marque/logo.png', 'Sonnen- & Wetterschutz · STOBAG', 'Lamellendach-Pavillon oder Pergola mit Stoffbespannung: Masse, Farben und Optionen wählen.', [
+        ('pergola-bio', 'Pavillon Lamellendach', 'Verstellbare Aluminiumlamellen für Licht, Schatten und Belüftung, erweiterbar mit ZIP-Screens und Schiebeelementen.', """
+    produit: 'Pavillon mit Lamellendach',
+    libelles: { ...b.libelles, titre: 'Pavillon mit Lamellendach' },
+    couvertures: { lames: { ...b.couvertures.lames, label: 'Verstellbare Alu-Lamellen, pulverbeschichtet' } },
+    bardages: { screen: { ...b.bardages.screen, label: 'ZIP-Screen' }, vitrage: { ...b.bardages.vitrage, label: 'Schiebeelemente' } },
+    libellesOptions: { chauffage: ['Heizung', ''] },"""),
+        ('pergola', 'Pergola mit Stoffbespannung', 'Textiler Sonnenschutz mit Alu-Gestell, mit ZIP-Screens oder LED kombinierbar.', """
+    materiau: 'alu', produit: 'Pergola mit Stoffbespannung',
+    libelles: { ...b.libelles, titre: 'Pergola mit Stoffbespannung', finition: 'Gestellfarbe', finitionCourt: 'Gestell', finitionLigne: 'Gestell', parois: 'ZIP-Screens', paroisCourt: 'Screens', bardage: 'Seitenbeschattung' },
+    bois: { anthrazit: { label: 'Anthrazit', couleur: '#3A3D40', facteur: 1 }, weiss: { label: 'Weiss', couleur: '#E8E7E2', facteur: 1 }, silber: { label: 'Silber', couleur: '#B5B8BA', facteur: 1 } },
+    toits: Object.fromEntries(Object.entries(b.toits).map(([id, t]) => [id, { ...t, couvertures: ['toile'] }])),
+    couvertures: { toile: { ...b.couvertures.toile, label: 'Stoffbespannung' } },
+    bardages: { zip: { label: 'ZIP-Screen', store: true, couleur: '#4B4C4E', facteur: 1 } },
+    defauts: { ...b.defauts, bois: 'anthrazit', bardage: 'zip', couverture: 'toile', teinteCouverture: Object.keys(b.couvertures.toile.teintes)[0] },""")], 'pergola-bio'),
 }
 
 # Fichiers produit manquants ou restés en français dans les démos allemandes : copiés depuis la base allemande

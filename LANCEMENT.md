@@ -102,3 +102,9 @@ Dernière mise à jour : 14.10.2026. À lire au début de chaque nouvelle sessio
 - Choix : taxes « gérées manuellement » (pas de TVA, < 100 000 CHF/an), Radar Lite (gratuit), PAS de Managed Payments (+3,5 %).
 - Frais : 2,9 % + 0,30 CHF par paiement (carte suisse) + ~0,7 % Billing ≈ 2,10 CHF/mois par client.
 - Après la vérification : recréer produit + lien + portail en mode réel, activer l'e-mail « paiement réussi » (Préférences de communication → Transactions) et les reçus clients.
+
+## 19.11.2026 — wibzo.ch en allemand + prix à jour
+- **Nouvelle page allemande https://wibzo.ch/de/** (`wibzo/site-v5/de/index.html`), avec lien « Deutsch » dans le menu et le pied de page FR, balises hreflang, ajoutée au sitemap. Elle renvoie vers la nouvelle **démo publique allemande https://demo-de.wibzo.ch** (`configurateurs/clients/demo-de`, 6 produits).
+- FAQ « Combien ça coûte ? » mise à jour (FR + DE) : deux formules (achat sans frais mensuels, ou mise en place + abonnement), hébergement et modifications compris, **« vous ne payez qu'à la mise en ligne »**. Toujours aucun prix affiché.
+- Visites : Google Search Console (28 jours au 17.11) = 30 affichages, 1 clic, seulement sur la recherche « wibzo ». Les prospects arrivent par les liens de démo dans les mails. Pas de compteur de visites sur le site (Cloudflare Web Analytics à activer par Ryan dans son compte Cloudflare).
+- Mise en ligne : `npx wrangler deploy` dans `wibzo/site-v5`.

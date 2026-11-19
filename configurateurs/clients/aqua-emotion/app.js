@@ -40,6 +40,9 @@ const MODELE = CONFIG.modele3d ?? null;
 const TERRASSE = CONFIG.type === 'terrasse';
 // Piscine (05.11.2026) : bassin creusé dans la pelouse, modèle dédié (produits3d.js, `piscine`)
 const PISCINE = CONFIG.type === 'piscine';
+// Modèles de bassins préfabriqués (Aqua Emotion, 19.11.2026) : le modèle fixe la largeur et l'escalier, seule la longueur se règle
+const MODELES = CONFIG.modeles ? Object.fromEntries(CONFIG.modeles.map((m) => [m.id, m])) : null;
+const modeleActif = () => (MODELES ? MODELES[state.modele] : null);
 // Largeur occupée autour du bassin de chaque côté : margelle + plage (si ce côté a une plage)
 function abordsPiscine() {
   const m = CONFIG.margelle ?? 0.3;
@@ -79,6 +82,11 @@ function valider() {
   if (!CONFIG.implantations[state.adosse]) state.adosse = CONFIG.implantations.non ? 'non' : CONFIG.defauts.adosse;
   if (VERANDA) { state.paroiArriere = true; state.paroiGauche = true; state.paroiDroite = true; }
   if (!LOCAL) state.rangement = false;
+  if (MODELES) {
+    if (!MODELES[state.modele]) state.modele = CONFIG.defauts.modele;
+    state.largeur = MODELES[state.modele].largeur;
+    state.toit = MODELES[state.modele].escalier;
+  }
   if (!CONFIG.toits[state.toit]) state.toit = CONFIG.defauts.toit;
   // Contre une façade, le toit descend à l'opposé de la maison : pas de 2 pans
   if (state.adosse !== 'non' && CONFIG.toits[state.toit].faitage) {
@@ -234,9 +242,13 @@ function prixPiscine(g) {
   const volume = W * L * (H + 0.35);
   const lignes = [];
   lignes.push([`Aushub und Abtransport · ${volume.toFixed(1)} m³`, volume * T.terrassementM3]);
+  if (MODELES) {
+    lignes.push([`Einstückbecken ${modeleActif().nom} ${fmtM(L)} × ${fmtM(W)}, ${teinte.label}`, (surface + parois) * (T.structureM2 + T.revetementM2[state.couverture])]);
+  } else {
   lignes.push([`Gemauertes Becken ${fmtM(L)} × ${fmtM(W)}, Tiefe ${fmtM(H)}`, (surface + parois) * T.structureM2]);
   lignes.push([`${couv.label}, ${teinte.label} · ${fmtM2(surface + parois)}`, (surface + parois) * T.revetementM2[state.couverture]]);
   lignes.push([`Treppe: ${CONFIG.toits[state.toit].label}`, T.escalier[state.toit]]);
+  }
   const perimetre = 2 * (W + L) + 4 * m;
   const marg = CONFIG.bois[state.bois];
   lignes.push([`Beckenrand: ${marg.label} · ${fmtM(perimetre)}`, perimetre * T.margelleMl * marg.facteur]);
@@ -1485,7 +1497,7 @@ function construireCotes(g) {
     };
     etiq(fmtM(W), new THREE.Vector3(0, y, zL));
     etiq(fmtM(L), new THREE.Vector3(xL, y, 0));
-    etiq(`${LIB.passage} ${fmtM(H)}`, new THREE.Vector3(xP, yE - H / 2, zP));
+    if (!MODELES) etiq(`${LIB.passage} ${fmtM(H)}`, new THREE.Vector3(xP, yE - H / 2, zP));
     groupeCotes.visible = cotesVisibles;
     return;
   }
@@ -2001,7 +2013,8 @@ function lignesConfig() {
   const implantation = g.adosse === 'non' ? 'Freistehend (4 Seiten frei)' : `Am Haus, Fassade ${g.adosse === 'gauche' ? 'links' : 'rechts'}`;
   if (PISCINE) {
     return [
-      ['Becken', `${fmtM(g.L)} × ${fmtM(g.W)} · ${fmtM2(p.surface)} · Wassertiefe ${fmtM(g.H)}`],
+      ['Becken', `${fmtM(g.L)} × ${fmtM(g.W)} · ${fmtM2(p.surface)} ${MODELES ? '' : ` · Wassertiefe ${fmtM(g.H)}`}`],
+      ...(MODELES ? [['Modell', `${modeleActif().nom} (Katalog ${fmtM(modeleActif().longueur)} × ${fmtM(modeleActif().largeur)})`]] : []),
       ['Treppe', CONFIG.toits[state.toit].label],
       ['Auskleidung', `${couv.label}, ${couv.teintes[state.teinteCouverture].label}`],
       ['Beckenrand', CONFIG.bois[state.bois].label],
@@ -2045,8 +2058,9 @@ function resume() {
   const parois = paroisFermees(g);
   if (PISCINE) {
     return [
+      ...(MODELES ? [`Modell ${modeleActif().nom}`] : []),
       `Becken ${fmtM(g.L)} × ${fmtM(g.W)}`,
-      `Tiefe ${fmtM(g.H)}`,
+      ...(MODELES ? [] : [`Tiefe ${fmtM(g.H)}`]),
       `Treppe: ${CONFIG.toits[state.toit].label}`,
       `${couv.label}, ${couv.teintes[state.teinteCouverture].label}`,
       `Beckenrand: ${CONFIG.bois[state.bois].label}`,
@@ -2122,7 +2136,7 @@ function majPrix() {
   ajout('Total inkl. MWST', fmtCHF(p.ttc), 'fort');
 
   $('#note-technique').textContent = PISCINE
-    ? `Wasserfläche ${fmtM2(p.surface)} · ca. ${Math.round(p.volumeEau)} m³ Wasser`
+    ? `Wasserfläche ${fmtM2(p.surface)}${MODELES ? '' : ` · ca. ${Math.round(p.volumeEau)} m³ Wasser`}`
     : TERRASSE
     ? `Surface ${fmtM2(p.surface)}${p.marches ? ` · ${p.marches} marche${p.marches > 1 ? 's' : ''} d'accès` : ''}${CONFIG.noteGardeCorps && state.hauteur >= (CONFIG.hauteurGardeCorps ?? 1) ? ` · ${CONFIG.noteGardeCorps}` : ''}`
     : `${p.nbPoteaux} Pfosten · Spannweite max. ${fmtM(CONFIG.porteeMax)} · überdachte Fläche ${fmtM2(p.surface)}`;
@@ -2282,6 +2296,47 @@ if (ASSISTANT && PRODUITS) {
   }
   $('#onglets').after(s);
 }
+
+// Étape « Modell » (bassins préfabriqués) : remplace l'étape « Projekt » ; la largeur et l'escalier viennent du modèle
+if (MODELES) {
+  document.querySelector('.etape-produit')?.remove();
+  for (const el of [$('#largeur').closest('.curseur'), $('#raccourcis'), $('#hauteur').closest('.curseur'), $('#toits'), $('#toits').previousElementSibling]) el.style.display = 'none';
+  $('#raccourcis').closest('.etape').querySelector('.aide-etape').textContent = 'Passen Sie die Länge des Beckens an. Breite und Treppe gibt das Modell vor.';
+  const s = document.createElement('section');
+  s.className = 'etape etape-modele';
+  s.dataset.court = 'Modell';
+  s.innerHTML = '<h2><span>01</span>Beckenmodell</h2><p class="aide-etape">Die Breite ist durch das Modell vorgegeben. Die Länge passen Sie im nächsten Schritt an.</p><div class="modeles" role="radiogroup" aria-label="Beckenmodell"></div>';
+  const grille = s.querySelector('.modeles');
+  for (const m of CONFIG.modeles) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'carte-modele';
+    b.setAttribute('role', 'radio');
+    b.dataset.modele = m.id;
+    b.innerHTML = `<img src="${m.image}" alt="" loading="lazy" referrerpolicy="no-referrer"><strong>${m.nom}</strong><small>${fmtM(m.longueur)} × ${fmtM(m.largeur)}</small>`;
+    b.addEventListener('click', () => {
+      state.modele = m.id;
+      state.profondeur = m.longueur;
+      majTout();
+      majModeles();
+      verifierCadrage();
+    });
+    grille.append(b);
+  }
+  $('#onglets').after(s);
+  // Rappel du modèle dans l'étape « Masse »
+  const rappel = document.createElement('p');
+  rappel.className = 'note-technique';
+  rappel.id = 'rappel-modele';
+  $('#profondeur').closest('.curseur').before(rappel);
+}
+function majModeles() {
+  if (!MODELES) return;
+  for (const b of document.querySelectorAll('[data-modele]')) b.setAttribute('aria-checked', String(b.dataset.modele === state.modele));
+  const m = modeleActif();
+  $('#rappel-modele').textContent = `Modell ${m.nom} · Breite ${fmtM(m.largeur)} (fest) · Katalogmass ${fmtM(m.longueur)} × ${fmtM(m.largeur)} · ${CONFIG.toits[m.escalier].label}`;
+}
+majModeles();
 
 // Numéros des étapes recalculés (01, 02…)
 document.querySelectorAll('.etape h2 span').forEach((s, i) => { s.textContent = String(i + 1).padStart(2, '0'); });

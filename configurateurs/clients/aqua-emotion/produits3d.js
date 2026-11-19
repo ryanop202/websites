@@ -845,12 +845,14 @@ export function creerModeles(ctx) {
         const yk = yE - 0.22 - i * 0.27;
         if (yk < yF + 0.15) return;
         const h = yk - yF;
-        const geo = new THREE.CylinderGeometry(r, r, h, 28, 1, false, 0, Math.PI / 2);
-        ajouter(geo, matBassin, -W / 2, yF + h / 2, -L / 2, false);
+        // (modèle avec escalier d'angle à droite : quart de cercle dans l'angle arrière droit)
+        const droite = CONFIG.modeles?.find((m) => m.id === state.modele)?.cote === 'droite';
+        const geo = new THREE.CylinderGeometry(r, r, h, 28, 1, false, droite ? -Math.PI / 2 : 0, Math.PI / 2);
+        ajouter(geo, matBassin, droite ? W / 2 : -W / 2, yF + h / 2, -L / 2, false);
         const nez = new THREE.TorusGeometry(r - 0.03, 0.012, 4, 28, Math.PI / 2);
-        const t = ajouter(nez, matNez, -W / 2, yk + 0.002, -L / 2, false);
+        const t = ajouter(nez, matNez, droite ? W / 2 : -W / 2, yk + 0.002, -L / 2, false);
         t.rotation.x = Math.PI / 2;
-        t.rotation.z = 0;
+        t.rotation.z = droite ? Math.PI / 2 : 0;
       });
     } else if (esc === 'banquette') {
       const lm = Math.min(1.5, W * 0.45);
@@ -860,7 +862,7 @@ export function creerModeles(ctx) {
       const lb = W - lm;
       boiteUV(lb, yb - yF, 0.5, matBassin, W / 2 - lb / 2, yF + (yb - yF) / 2, -L / 2 + 0.25, motif, false);
       boite(lb, 0.006, 0.04, matNez, W / 2 - lb / 2, yb + 0.003, -L / 2 + 0.47, false);
-    } else {
+    } else if (esc !== 'aucun') {
       marches(W, 0);
     }
 

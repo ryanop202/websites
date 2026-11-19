@@ -684,3 +684,8 @@ Recherche Google site:.ch (Autounterstand/Velounterstand, Carport + Zimmerei par
 - Adresse invalide : aanja@holzbauweger.ch (Holzbau Weger AG) → trouver une autre adresse.
 - Alerte démo : Holzbau Hänggi (studio, 18.11 10:05).
 
+
+## Réponses du 19.11.2026 (lues à 07:40)
+
+- **Aqua Emotion AG** (sekretariat@aqua-emotion.ch) a répondu le 18.11 à 15:49 après la relance : demande le prix et si le configurateur peut être intégré à leur site. Ils vendent des **bassins préfabriqués** : le client choisit d'abord le modèle, puis seulement la **longueur** (largeur fixe par modèle). Démo utilisée 3 fois le 18.11 (15:15–15:25). Réponse préparée en brouillon (DE) : démo gratuite, intégration possible, achat 2 500 CHF ou 990 + 60 CHF/mois (15 mois min.), liste des infos à fournir, proposition d'adapter la démo à 1–2 de leurs modèles. Aucune relance programmée à annuler.
+- Démos utilisées le 18.11 (sans réponse écrite) : Bull-Jardin SA (14:21), Wintergarten Zug (16:32), MAD inoxial (22:09, 2 fois).

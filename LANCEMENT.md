@@ -108,3 +108,4 @@ Dernière mise à jour : 14.10.2026. À lire au début de chaque nouvelle sessio
 - FAQ « Combien ça coûte ? » mise à jour (FR + DE) : deux formules (achat sans frais mensuels, ou mise en place + abonnement), hébergement et modifications compris, **« vous ne payez qu'à la mise en ligne »**. Toujours aucun prix affiché.
 - Visites : Google Search Console (28 jours au 17.11) = 30 affichages, 1 clic, seulement sur la recherche « wibzo ». Les prospects arrivent par les liens de démo dans les mails. Pas de compteur de visites sur le site (Cloudflare Web Analytics à activer par Ryan dans son compte Cloudflare).
 - Mise en ligne : `npx wrangler deploy` dans `wibzo/site-v5`.
+- 19.11.2026 : pages **https://wibzo.ch/offre/** et **https://wibzo.ch/de/angebot/** (ce qui est compris, les 2 formules SANS montant, « vous ne payez qu'à la mise en ligne », étapes). Liens dans le menu, la FAQ et le pied de page.

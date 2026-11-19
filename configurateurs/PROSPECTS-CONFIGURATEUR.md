@@ -703,3 +703,4 @@ Recherche Google site:.ch (Autounterstand/Velounterstand, Carport + Zimmerei par
 - **19.11 : les 19 relances personnalisées sont PROGRAMMÉES pour le 20.11.2026 de 07:45 à 07:51** (20 s d'écart).
 - 19.11 08:35 : **Sonnfix GmbH** a configuré sa pergola (4.50 × 3.50 m, lamelles) et **téléchargé le PDF**, 7 min après la relance de 08:28. Démo personnalisée le 19.11 (logo, Pavillon Lamellendach STOBAG avec ZIP-Screens, Schiebeelemente, LED, Heizung + Pergola mit Stoffbespannung) ; relance perso PROGRAMMÉE le 20.11 à 07:51:20.
 - 19.11 08:12 : adresse info@3m-glassysteme.ch refusée (erreur définitive) → trouver une autre adresse.
+- 19.11.2026 09:35 : Ryan ne veut pas appeler pour l'instant → **réponse écrite ENVOYÉE à Concept Terrasse** (prix 2 500 CHF ou 990 + 60 CHF/mois, infos à fournir, WhatsApp 076 757 43 93 proposé). Attente de leur retour.

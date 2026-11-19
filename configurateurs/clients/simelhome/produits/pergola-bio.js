@@ -5,42 +5,42 @@
 
 export const CONFIG = {
   entreprise: {
-    nom: 'Votre entreprise',
-    activite: 'Pergolas & protections solaires',
+    nom: 'Ihre Firma',
+    activite: 'Pergolen & Sonnenschutz',
     initiales: 'VE',
     email: '', // e-mail qui reçoit les demandes (vide = démo)
   },
-  produit: 'Pergola bioclimatique',
+  produit: 'Lamellendach-Pergola',
   demo: true,
   // Notifications par e-mail à Ryan (démo publique de wibzo.ch)
   suivi: { cleWeb3Forms: '73b06b18-08c3-4c83-9ca8-42288a70dd2b' }, // clé publique, faite pour le code de la page
-  chapo: 'Réglez votre pergola étape par étape. Le prix se met à jour à chaque choix.',
+  chapo: 'Stellen Sie Ihre Pergola Schritt für Schritt zusammen. Der Preis passt sich jeder Wahl an.',
   materiau: 'alu',
   modele3d: 'pergolaBio',
   paroiAvant: true, // les 4 côtés peuvent être fermés
   libelles: {
-    titre: 'Pergola bioclimatique sur mesure',
-    objet: 'pergola',
-    passage: 'hauteur',
+    titre: 'Lamellendach-Pergola nach Mass',
+    objet: 'Pergola',
+    passage: 'Höhe',
     inverserCotes: true,
-    largeur: 'Avancée',
-    largeurAide: 'depuis la façade',
-    profondeur: 'Largeur',
-    profondeurAide: 'le long de la façade',
-    hauteur: 'Hauteur',
-    hauteurAide: 'sous les poutres',
-    implantationAide: 'Autoportante (4 poteaux) ou adossée : fixée à la façade, deux poteaux en moins.',
-    toiture: 'Lames orientables',
-    toitureCourt: 'Lames',
-    finition: 'Teinte de la structure',
-    finitionCourt: 'Couleur',
-    finitionLigne: 'Structure',
-    parois: 'Stores et fermetures',
-    paroisCourt: 'Fermetures',
-    paroisAide: 'Touchez un côté pour le fermer : store screen ou vitrage coulissant.',
-    bardage: 'Type de fermeture',
-    paroiLigne: 'Fermeture',
-    ledAide: 'bandeau intégré aux poutres, visible en vue de nuit',
+    largeur: 'Tiefe',
+    largeurAide: 'ab der Fassade',
+    profondeur: 'Breite',
+    profondeurAide: 'entlang der Fassade',
+    hauteur: 'Höhe',
+    hauteurAide: 'unter den Trägern',
+    implantationAide: 'Freistehend (4 Pfosten) oder an der Fassade befestigt: zwei Pfosten weniger.',
+    toiture: 'Drehbare Lamellen',
+    toitureCourt: 'Lamellen',
+    finition: 'Farbe der Konstruktion',
+    finitionCourt: 'Farbe',
+    finitionLigne: 'Konstruktion',
+    parois: 'Seitenabschlüsse',
+    paroisCourt: 'Seiten',
+    paroisAide: 'Tippen Sie auf eine Seite, um sie zu schliessen: Screen-Store oder Schiebeverglasung.',
+    bardage: 'Art des Abschlusses',
+    paroiLigne: 'Abschluss',
+    ledAide: 'LED-Band in den Trägern, sichtbar in der Nachtansicht',
   },
   local: false,
   equipements: ['led', 'chauffage'],
@@ -58,20 +58,20 @@ export const CONFIG = {
   profondeursLocal: [1.2, 1.8, 2.4],
 
   implantations: {
-    non: { label: 'Autoportante', aide: '4 poteaux' },
-    gauche: { label: 'Adossée', aide: 'façade à gauche' },
-    droite: { label: 'Adossée', aide: 'façade à droite' },
+    non: { label: 'Freistehend', aide: '4 Pfosten' },
+    gauche: { label: 'Am Haus', aide: 'Fassade links' },
+    droite: { label: 'Am Haus', aide: 'Fassade rechts' },
   },
   positionsLocal: {
-    arriere: { label: 'Arrière' },
-    gauche: { label: 'Gauche' },
-    droite: { label: 'Droite' },
+    arriere: { label: 'Hinten' },
+    gauche: { label: 'Links' },
+    droite: { label: 'Rechts' },
   },
 
   // (raccourcis : largeur le long de la façade × avancée)
   raccourcis: [
     { label: '4 × 3 m', profondeur: 4, largeur: 3, hauteur: 2.5 },
-    { label: '5 × 3,5 m', profondeur: 5, largeur: 3.5, hauteur: 2.5 },
+    { label: '5 × 3.5 m', profondeur: 5, largeur: 3.5, hauteur: 2.5 },
     { label: '6 × 4 m', profondeur: 6, largeur: 4, hauteur: 2.6 },
   ],
 
@@ -101,31 +101,31 @@ export const CONFIG = {
   },
 
   toits: {
-    plat: { label: 'Plat', pente: 0, couvertures: ['lames'] },
+    plat: { label: 'Flach', pente: 0, couvertures: ['lames'] },
   },
 
   couvertures: {
     lames: {
-      label: 'Lames alu orientables, motorisées', epaisseur: 0, ouverte: true,
-      teintes: { alu: { label: 'Teinte de la structure', couleur: '#3B4045' } },
+      label: 'Drehbare Alu-Lamellen, motorisiert', epaisseur: 0, ouverte: true,
+      teintes: { alu: { label: 'Farbe der Konstruktion', couleur: '#3B4045' } },
     },
   },
 
   // Coloris de la structure (clé « bois » du moteur) ; veinage = finition imitation bois
   bois: {
-    anthracite: { label: 'Anthracite · RAL 7016', couleur: '#3A3F44', facteur: 1 },
-    blanc: { label: 'Blanc · RAL 9016', couleur: '#EDECE6', facteur: 1 },
-    noir: { label: 'Noir · RAL 9005', couleur: '#1E1F21', facteur: 1.03 },
-    chene: { label: 'Finition chêne', couleur: '#A27448', facteur: 1.07, veinage: true },
+    anthracite: { label: 'Anthrazit · RAL 7016', couleur: '#3A3F44', facteur: 1 },
+    blanc: { label: 'Weiss · RAL 9016', couleur: '#EDECE6', facteur: 1 },
+    noir: { label: 'Schwarz · RAL 9005', couleur: '#1E1F21', facteur: 1.03 },
+    chene: { label: 'Eichen-Optik', couleur: '#A27448', facteur: 1.07, veinage: true },
   },
 
   bardages: {
-    screen: { label: 'Store screen', store: true, couleur: '#4B4C4E', facteur: 1 },
-    vitrage: { label: 'Vitrage coulissant', vitrage: true, facteur: 2.3 },
+    screen: { label: 'Screen-Store', store: true, couleur: '#4B4C4E', facteur: 1 },
+    vitrage: { label: 'Schiebeverglasung', vitrage: true, facteur: 2.3 },
   },
 
   vehicules: {
-    aucun: { label: 'Aucun' },
+    aucun: { label: 'Keines' },
   },
 
   // Montants HT en CHF — FICTIFS

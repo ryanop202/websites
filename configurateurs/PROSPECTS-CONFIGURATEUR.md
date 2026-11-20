@@ -712,3 +712,4 @@ Recherche Google site:.ch (Autounterstand/Velounterstand, Carport + Zimmerei par
 - **Camathias SA** (19.11) : « keine Interesse » → stop. **Pose Tous Bois** (19.11) : « cela ne s'ouvre pas et je ne suis pas intéressé » → stop (la démo s'ouvre bien, vérifié le 20.11).
 - 🔥 **Kühne Ruedi Holzbau** (série 6, mail du 19.11) : démo utilisée 3 fois le 19.11 (11:36, 14:33) + **PDF téléchargé** à 14:34.
 - Démo utilisée aussi : TREG Sàrl (studio, 19.11 10:28).
+- 20.11 : **offre spéciale Zimmba décidée par Ryan : 590 CHF de mise en place + 80 CHF/mois** (facturé par trimestre, 240 CHF), 15 mois minimum (total min. 1 790 CHF), payé à la mise en ligne. Argument : « une belle référence dans l'Oberland bernois ». Réponse en brouillon (à la place de 990 + 60). À reporter dans le contrat si oui.

@@ -1,0 +1,1198 @@
+/* Polices hébergées avec le site (licence OFL, voir vendor/fonts) */
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(vendor/fonts/instrument-sans-latin.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url(vendor/fonts/jetbrains-mono-latin.woff2) format('woff2');
+}
+
+:root {
+  --papier: #F3EFE6;
+  --papier-2: #EAE4D6;
+  --scene: #E6E0D2;
+  --encre: #1F1D1A;
+  --encre-2: #5F594F;
+  --trait: #D3CAB8;
+  --plan: #2B4C7E;
+  --plan-clair: #E2E8F1;
+  --rayon: 4px;
+  --sans: 'Instrument Sans', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+
+[hidden] { display: none !important; }
+
+html, body { margin: 0; overflow-x: clip; }
+
+body {
+  background: var(--papier);
+  color: var(--encre);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, textarea { font: inherit; color: inherit; }
+
+.app {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 420px;
+  height: 100dvh;
+}
+
+/* ---------- Vue 3D ---------- */
+
+.viewer {
+  position: relative;
+  overflow: hidden;
+  background: var(--scene);
+  min-height: 320px;
+}
+
+.viewer canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: grab;
+}
+
+.viewer canvas:active { cursor: grabbing; }
+
+.marque {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.marque-logo {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  background: var(--encre);
+  color: var(--papier);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  border-radius: var(--rayon);
+}
+
+.marque-logo.avec-image {
+  width: 48px;
+  height: 48px;
+  padding: 3px;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.marque-logo img { width: 100%; height: 100%; object-fit: contain; }
+
+/* Logo horizontal (avec le nom dedans) : bandeau blanc, sans texte à côté */
+.marque.logo-large .marque-logo.avec-image { width: auto; height: 56px; padding: 8px 12px; }
+.marque.logo-large .marque-logo img { width: auto; height: 40px; } /* 56 px - marges : un % ne marche pas dans la grille */
+.marque.logo-large > span:not(.marque-logo) { display: none; }
+
+.marque strong { display: block; font-size: 15px; }
+.marque small { display: block; font-size: 12px; color: var(--encre-2); }
+
+.badge-demo {
+  position: absolute;
+  top: 24px;
+  right: 20px;
+  margin: 0;
+  padding: 4px 8px;
+  font: 500 11px var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--plan);
+  border: 1px dashed var(--plan);
+  border-radius: var(--rayon);
+  background: rgba(243, 239, 230, 0.75);
+}
+
+.vues {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  display: flex;
+  border: 1px solid var(--encre);
+  border-radius: var(--rayon);
+  overflow: hidden;
+  background: var(--papier);
+}
+
+.vues button {
+  border: 0;
+  border-right: 1px solid var(--trait);
+  background: transparent;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.vues button:last-child { border-right: 0; }
+.vues button:hover { background: var(--papier-2); }
+.vues button.actif,
+.vues button[aria-pressed="true"] { background: var(--encre); color: var(--papier); }
+
+.aide {
+  position: absolute;
+  right: 20px;
+  bottom: 22px;
+  margin: 0;
+  font-size: 12px;
+  color: var(--encre-2);
+  pointer-events: none;
+}
+
+/* Vue étroite : l'aide passerait sous les boutons de vue */
+.viewer { container-type: inline-size; }
+@container (max-width: 640px) {
+  .aide { display: none; }
+  /* Le badge passe sous le nom de l'entreprise (sinon ils se chevauchent) */
+  .viewer .badge-demo { top: 84px; left: 16px; right: auto; }
+}
+
+/* Vue de nuit : textes posés sur la 3D en clair */
+.viewer.nuit .marque strong { color: var(--papier); }
+.viewer.nuit .marque small,
+.viewer.nuit .aide { color: #B9B4AA; }
+
+.erreur-3d {
+  position: absolute;
+  inset: 40% 20px auto;
+  margin: 0;
+  text-align: center;
+  color: var(--encre-2);
+}
+
+/* Écran de chargement : le carport se dessine trait par trait */
+.chargement {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  background: var(--scene);
+  transition: opacity 0.45s ease;
+}
+
+.chargement svg { width: 120px; height: 80px; }
+
+.chargement .trace {
+  fill: none;
+  stroke: var(--plan);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: tracer 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes tracer { to { stroke-dashoffset: 0; } }
+
+.chargement p { margin: 0; font: 500 12px var(--mono); color: var(--encre-2); }
+.chargement.fini { opacity: 0; pointer-events: none; }
+
+.cotes { position: absolute; inset: 0; pointer-events: none; }
+.cotes.cache { display: none; }
+
+.cote {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: 2px 6px;
+  font: 500 12px var(--mono);
+  color: var(--plan);
+  background: rgba(243, 239, 230, 0.92);
+  border: 1px solid var(--plan);
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+/* ---------- Panneau ---------- */
+
+.panel {
+  overflow-y: auto;
+  border-left: 1px solid var(--trait);
+  background: var(--papier);
+}
+
+.intro { padding: 32px 28px 8px; }
+
+.surtitre {
+  margin: 0 0 6px;
+  font: 500 11px var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--plan);
+}
+
+h1 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+}
+
+.chapo { margin: 10px 0 0; color: var(--encre-2); }
+
+.etape {
+  padding: 22px 28px 24px;
+  border-bottom: 1px solid var(--trait);
+}
+
+.etape h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 16px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.etape h2 span { font: 500 12px var(--mono); color: var(--plan); }
+
+.sous-titre {
+  margin: 18px 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--encre-2);
+}
+
+/* Curseurs */
+
+.curseur {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  row-gap: 6px;
+  margin-bottom: 16px;
+}
+
+.curseur label { font-weight: 500; }
+.curseur output { font: 500 14px var(--mono); }
+
+.curseur input[type="range"] {
+  grid-column: 1 / -1;
+  width: 100%;
+  margin: 0;
+  height: 22px;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.curseur input[type="range"]::-webkit-slider-runnable-track {
+  height: 2px;
+  background: linear-gradient(var(--encre), var(--encre)) 0 / var(--rempli, 50%) 100% no-repeat, var(--trait);
+}
+
+.curseur input[type="range"]::-moz-range-track { height: 2px; background: var(--trait); }
+.curseur input[type="range"]::-moz-range-progress { height: 2px; background: var(--encre); }
+
+.curseur input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -8px;
+  border-radius: 50%;
+  background: var(--papier);
+  border: 2px solid var(--encre);
+}
+
+.curseur input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--papier);
+  border: 2px solid var(--encre);
+}
+
+.curseur input[type="range"]:focus-visible { outline: 2px solid var(--plan); outline-offset: 4px; }
+
+.note-technique {
+  margin: 4px 0 0;
+  padding: 8px 10px;
+  font: 400 12px/1.5 var(--mono);
+  color: var(--plan);
+  background: var(--plan-clair);
+  border-radius: var(--rayon);
+}
+
+/* Formes de toit */
+
+.segments {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.segments-2 { grid-template-columns: repeat(2, 1fr); }
+.segments-4 { grid-template-columns: repeat(4, 1fr); }
+.segments-2 button,
+.segments-4 button { padding: 10px 6px; }
+
+.segments button {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 12px 6px 10px;
+  background: transparent;
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.segments svg { width: 46px; height: 26px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linejoin: round; }
+.segments small { display: block; font: 400 11px var(--mono); opacity: 0.75; }
+.segments button:hover { border-color: var(--encre); }
+.segments button[aria-checked="true"] { background: var(--encre); border-color: var(--encre); color: var(--papier); }
+.segments button:disabled { opacity: 0.4; cursor: not-allowed; border-style: dashed; }
+.segments button:disabled:hover { border-color: var(--trait); }
+.aide-sous { margin: 10px 0 0; }
+
+/* Listes de choix */
+
+.liste-choix { display: grid; gap: 6px; }
+
+.liste-choix button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  text-align: left;
+  background: transparent;
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+  cursor: pointer;
+}
+
+.liste-choix button:hover { border-color: var(--encre); }
+.liste-choix button[aria-checked="true"] { border-color: var(--encre); box-shadow: inset 0 0 0 1px var(--encre); }
+
+.pastille {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.liste-choix .delta { margin-left: auto; }
+.teintes .delta { display: block; margin-top: 1px; }
+
+/* Teintes */
+
+.teintes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.teintes button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  text-align: left;
+  font-size: 14px;
+  background: transparent;
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+  cursor: pointer;
+}
+
+.teintes .pastille { width: 28px; height: 28px; }
+.teintes button:hover { border-color: var(--encre); }
+.teintes button[aria-checked="true"] { border-color: var(--encre); box-shadow: inset 0 0 0 1px var(--encre); }
+
+/* Options */
+
+.options { display: grid; }
+
+.option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px dashed var(--trait);
+  cursor: pointer;
+}
+
+.option:last-child { border-bottom: 0; }
+.option span { font-weight: 500; margin-right: auto; }
+.option small { display: block; font-weight: 400; font-size: 12px; color: var(--encre-2); }
+.option-discrete span { font-weight: 400; color: var(--encre-2); }
+
+.option input { position: absolute; right: 0; top: 50%; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+
+/* Écart de prix affiché à côté de chaque choix */
+.delta {
+  font: 400 12px var(--mono);
+  font-style: normal;
+  color: var(--encre-2);
+  white-space: nowrap;
+}
+
+.delta.plus::before { content: '+'; }
+
+.aide-etape { margin: -8px 0 14px; font-size: 13px; color: var(--encre-2); }
+
+.curseur label small { font-weight: 400; font-size: 12px; color: var(--encre-2); }
+
+/* Raccourcis de dimensions */
+
+.raccourcis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.raccourcis button {
+  padding: 6px 11px;
+  font-size: 13px;
+  font-weight: 500;
+  background: transparent;
+  border: 1px solid var(--trait);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.raccourcis button:hover { border-color: var(--encre); }
+.raccourcis button[aria-pressed="true"] { background: var(--encre); border-color: var(--encre); color: var(--papier); }
+
+/* Nuancier de la couverture */
+
+.nuancier { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.nuancier button {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  box-shadow: 0 0 0 3px var(--papier);
+  cursor: pointer;
+}
+
+.nuancier button[aria-checked="true"] { box-shadow: 0 0 0 3px var(--papier), 0 0 0 5px var(--encre); }
+.sous-titre span { font-weight: 400; color: var(--encre-2); }
+
+/* Plan vu de dessus pour choisir les parois */
+
+.plan {
+  display: grid;
+  grid-template-columns: 1fr 120px 1fr;
+  grid-template-areas: ". arriere ." "gauche dessin droite" ". entree .";
+  align-items: center;
+  justify-items: center;
+  gap: 6px 10px;
+  margin-bottom: 6px;
+}
+
+.plan-dessin { grid-area: dessin; width: 120px; height: 150px; }
+.cote-arriere { grid-area: arriere; }
+.cote-gauche { grid-area: gauche; justify-self: end; }
+.cote-droite { grid-area: droite; justify-self: start; }
+.cote-avant { grid-area: entree; }
+
+.plan-entree {
+  grid-area: entree;
+  margin: 0;
+  font: 500 11px var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--encre-2);
+}
+
+.cote-plan {
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  background: transparent;
+  border: 1px dashed var(--encre-2);
+  border-radius: var(--rayon);
+  cursor: pointer;
+}
+
+.cote-plan:hover { border-style: solid; }
+.cote-plan[aria-pressed="true"] { background: var(--encre); border: 1px solid var(--encre); color: var(--papier); }
+.cote-plan:disabled { opacity: 0.55; cursor: default; }
+
+.sous-option { padding: 4px 0 4px; }
+.sous-option[hidden] { display: none; }
+
+/* Résumé de la configuration */
+
+.resume {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.resume li {
+  padding: 3px 8px;
+  font-size: 12px;
+  background: var(--papier-2);
+  border-radius: var(--rayon);
+}
+
+.option i {
+  flex: none;
+  position: relative;
+  width: 38px;
+  height: 22px;
+  border-radius: 11px;
+  background: var(--trait);
+  transition: background 0.15s;
+}
+
+.option i::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--papier);
+  transition: transform 0.15s;
+}
+
+.option input:checked + i { background: var(--encre); }
+.option input:checked + i::after { transform: translateX(16px); }
+.option input:focus-visible + i { outline: 2px solid var(--plan); outline-offset: 2px; }
+
+/* Prix */
+
+.etape-prix { border-bottom: 0; padding-bottom: 40px; }
+
+.total {
+  margin: 0;
+  font: 500 40px/1 var(--mono);
+  letter-spacing: -0.03em;
+}
+
+.total small { font: 500 13px var(--sans); letter-spacing: 0; color: var(--encre-2); }
+
+.fourchette { margin: 8px 0 14px; font-size: 13px; color: var(--encre-2); }
+
+.detail { margin-bottom: 14px; font-size: 13px; }
+.detail summary { cursor: pointer; font-weight: 500; color: var(--plan); }
+
+.detail dl {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 16px;
+  margin: 12px 0 0;
+}
+
+.detail dt { color: var(--encre-2); }
+.detail dd { margin: 0; font-family: var(--mono); text-align: right; }
+.detail .sep { grid-column: 1 / -1; border-top: 1px solid var(--trait); }
+.detail .fort { color: var(--encre); font-weight: 600; }
+
+.avertissement { margin: 0 0 18px; font-size: 12px; color: var(--encre-2); }
+
+.cta {
+  display: block;
+  width: 100%;
+  padding: 14px 18px;
+  border: 0;
+  border-radius: var(--rayon);
+  background: var(--encre);
+  color: var(--papier);
+  font-weight: 600;
+  font-size: 15px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.cta:hover { background: var(--plan); }
+
+.cta-secondaire {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 12px 18px;
+  background: transparent;
+  border: 1px solid var(--encre);
+  border-radius: var(--rayon);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.cta-secondaire:hover { background: var(--papier-2); }
+
+/* Onglets d'étapes : seulement sur mobile */
+.onglets { display: none; }
+.suivant { display: none; }
+
+.lien {
+  display: block;
+  margin: 12px auto 0;
+  padding: 4px;
+  border: 0;
+  background: none;
+  font-size: 13px;
+  color: var(--encre-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.lien:hover { color: var(--encre); }
+
+/* Barre prix mobile */
+
+.barre-mobile { display: none; }
+
+/* Dialogue */
+
+dialog {
+  width: min(560px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 28px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--papier);
+  color: var(--encre);
+}
+
+dialog::backdrop { background: rgba(31, 29, 26, 0.55); }
+
+dialog h2 { margin: 0 0 6px; font-size: 22px; }
+dialog p { margin: 0 0 18px; color: var(--encre-2); }
+
+.vue-form label {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.vue-form small { font-weight: 400; color: var(--encre-2); }
+
+.vue-form input,
+.vue-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+  background: #FBF9F4;
+  font-size: 15px;
+}
+
+.vue-form input:focus,
+.vue-form textarea:focus { outline: 2px solid var(--plan); outline-offset: 0; border-color: transparent; }
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.actions .cta { width: auto; }
+.actions .lien { margin: 0 auto 0 0; }
+
+#recap-image {
+  display: block;
+  width: 100%;
+  border-radius: var(--rayon);
+  border: 1px solid var(--trait);
+  margin-bottom: 12px;
+}
+
+#recap-texte {
+  margin: 0 0 12px;
+  padding: 14px;
+  max-height: 260px;
+  overflow: auto;
+  font: 400 12px/1.6 var(--mono);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: #FBF9F4;
+  border: 1px solid var(--trait);
+  border-radius: var(--rayon);
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 900px) {
+  .app { grid-template-columns: minmax(0, 1fr); height: auto; }
+  .panel, .viewer { min-width: 0; }
+
+  :root { --h-vue: 56vh; }
+  @supports (height: 1svh) { :root { --h-vue: 56svh; } }
+
+  .viewer {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    height: var(--h-vue);
+    border-bottom: 1px solid var(--trait);
+  }
+
+  /* Une étape à la fois, onglets collés sous la vue 3D */
+  .panel.par-etapes .intro { display: none; }
+  .panel.par-etapes .etape:not(.active) { display: none; }
+  .panel.par-etapes .etape { border-bottom: 0; min-height: calc(100svh - var(--h-vue) - 140px); }
+
+  .panel.par-etapes .onglets {
+    position: sticky;
+    top: var(--h-vue);
+    z-index: 2;
+    display: flex;
+    gap: 4px;
+    padding: 8px 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    background: var(--papier);
+    border-bottom: 1px solid var(--trait);
+  }
+
+  .onglets::-webkit-scrollbar { display: none; }
+
+  .onglets button {
+    flex: none;
+    padding: 6px 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--encre-2);
+    background: transparent;
+    border: 0;
+    border-radius: var(--rayon);
+    cursor: pointer;
+  }
+
+  .onglets button span { font: 500 11px var(--mono); margin-right: 4px; color: var(--plan); }
+  .onglets button[aria-current="step"] { background: var(--encre); color: var(--papier); }
+  .onglets button[aria-current="step"] span { color: var(--papier); opacity: 0.7; }
+
+  .panel.par-etapes .suivant {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px 16px;
+    text-align: right;
+    font-weight: 600;
+    background: var(--papier-2);
+    border: 0;
+    border-radius: var(--rayon);
+    cursor: pointer;
+  }
+
+  .marque { top: 14px; left: 16px; }
+  .marque-logo { width: 32px; height: 32px; font-size: 12px; }
+  .badge-demo { top: 18px; right: 16px; }
+  .vues { left: 16px; bottom: 14px; }
+  .vues button { padding: 6px 10px; font-size: 12px; }
+  .aide { display: none; }
+
+  /* Sur mobile c'est la page qui défile (sinon les onglets collants seraient relatifs au panneau) */
+  .panel { border-left: 0; padding-bottom: 88px; overflow: visible; }
+  .intro { padding: 24px 16px 4px; }
+  h1 { font-size: 24px; }
+  .etape { padding: 20px 16px 22px; }
+  .etape-prix .cta { display: none; }
+
+  .barre-mobile {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    background: var(--papier);
+    border-top: 1px solid var(--encre);
+  }
+
+  .barre-mobile p { margin: 0; font: 500 20px var(--mono); }
+  .barre-mobile small { display: block; font: 400 11px var(--sans); color: var(--encre-2); }
+  .barre-mobile .cta { width: auto; padding: 12px 18px; }
+
+  dialog { padding: 20px; }
+  .actions { flex-wrap: wrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+  .chargement .trace { animation: none; stroke-dashoffset: 0; }
+}
+
+/* ---------- Assistant (démo publique) : produit d'abord, une étape à la fois, prix et Retour / Suivant en bas ---------- */
+
+.panel.assistant { display: flex; flex-direction: column; overflow: hidden; }
+.panel.assistant .intro { flex: none; padding: 22px 24px 4px; }
+.panel.assistant .intro h1 { font-size: 22px; }
+.panel.assistant .intro .chapo { display: none; }
+
+.panel.assistant .onglets {
+  position: static;
+  flex: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  padding: 12px 24px 14px;
+  overflow: visible;
+  background: var(--papier);
+  border-bottom: 1px solid var(--trait);
+}
+.panel.assistant .onglets button {
+  padding: 5px 10px 5px 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--encre-2);
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.panel.assistant .onglets button span {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
+  border: 1px solid var(--trait);
+  border-radius: 50%;
+  font: 500 10px var(--mono);
+  color: var(--encre-2);
+}
+.panel.assistant .onglets button[aria-current="step"] { background: var(--encre); color: var(--papier); }
+.panel.assistant .onglets button[aria-current="step"] span { border-color: transparent; background: rgba(255, 255, 255, .18); color: var(--papier); }
+
+.panel.assistant .etape:not(.active) { display: none; }
+.panel.assistant .etape.active { flex: 1; min-height: 0; overflow-y: auto; border-bottom: 0; padding-top: 20px; }
+.panel.assistant .suivant { display: none !important; }
+.panel.assistant .etape-prix .cta#btn-devis { display: none; }
+
+/* Cartes produit */
+.produits { display: grid; gap: 10px; }
+.carte-produit {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  width: 100%;
+  padding: 14px;
+  text-align: left;
+  font: inherit;
+  color: var(--encre);
+  background: #fff;
+  border: 1px solid var(--trait);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color .15s, box-shadow .15s;
+}
+.carte-produit:hover { border-color: var(--encre-2); }
+.carte-produit[aria-checked="true"] { border-color: var(--encre); box-shadow: 0 0 0 1px var(--encre); }
+.carte-produit svg {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  padding: 9px;
+  border: 1px solid var(--trait);
+  border-radius: 8px;
+  background: var(--papier);
+  fill: none;
+  stroke: var(--encre);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.carte-produit strong { display: block; font-size: 16px; }
+.carte-produit small { display: block; margin-top: 3px; font-size: 13px; color: var(--encre-2); line-height: 1.4; }
+
+/* Pied : total + boutons */
+.pied-assistant {
+  flex: none;
+  padding: 14px 24px 16px;
+  background: var(--papier);
+  border-top: 1px solid var(--trait);
+}
+.pied-total { margin: 0 0 12px; display: grid; gap: 2px; }
+.pied-total small:first-child { font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--encre-2); }
+.pied-total span { font-size: 15px; color: var(--encre-2); }
+.pied-total b { font-size: 26px; font-weight: 700; color: var(--encre); letter-spacing: -0.01em; }
+.pied-total small:last-child { font-size: 12px; color: var(--encre-2); }
+.pied-boutons { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.pied-retour { padding: 8px 4px; font: inherit; font-size: 14px; color: var(--encre-2); background: none; border: 0; cursor: pointer; }
+.pied-retour:disabled { opacity: .35; cursor: default; }
+.pied-boutons .cta { width: auto; margin: 0; padding: 11px 18px; }
+
+@media (max-width: 900px) {
+  .panel.assistant { overflow: visible; padding-bottom: 0; }
+  .panel.assistant .onglets { position: sticky; top: var(--h-vue); z-index: 2; flex-wrap: nowrap; overflow-x: auto; padding: 8px 16px; }
+  .panel.assistant .etape.active { overflow: visible; min-height: calc(100svh - var(--h-vue) - 190px); }
+  .pied-assistant { position: sticky; bottom: 0; z-index: 3; padding: 10px 16px 12px; box-shadow: 0 -6px 20px rgba(0, 0, 0, .06); }
+  .pied-total { margin-bottom: 8px; grid-template-columns: auto 1fr; align-items: baseline; column-gap: 10px; }
+  .pied-total small:last-child { display: none; }
+  .pied-total b { font-size: 22px; }
+  body.avec-assistant .barre-mobile { display: none !important; }
+}
+
+/* Nom de l'entreprise toujours lisible, même devant le toit ou les arbres */
+.marque {
+  padding: 6px 16px 6px 6px;
+  background: rgba(251, 250, 247, 0.88);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================================
+   Thème « assistant » (démo publique demo.wibzo.ch, 03.11.2026)
+   Panneau blanc, titres à empattements, options en cartes, pied terre cuite,
+   barres haut / bas, étiquettes et cotes en pastilles.
+   ========================================================================== */
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('vendor/fonts/newsreader-latin-wght-normal.woff2') format('woff2');
+}
+
+body.avec-assistant {
+  --serif: 'Newsreader', Georgia, serif;
+  --accent: #A9521E;
+  --accent-fonce: #8E4316;
+  --carte: #FFFFFF;
+  --carte-active: #F6F2EA;
+  --bord: #E5E0D6;
+  --papier: #FFFFFF;
+  background: #FFFFFF;
+}
+
+/* Barres du haut et du bas */
+.barre-haut, .barre-bas { display: none; }
+body.avec-assistant .barre-haut {
+  display: flex; align-items: center; gap: 12px; height: 34px; padding: 0 16px;
+  background: #151412; color: #F2EFE9; font-size: 13px;
+}
+body.avec-assistant .barre-haut a { color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
+body.avec-assistant .barre-haut img { width: 18px; height: 18px; }
+body.avec-assistant .barre-haut .sep-v { width: 1px; height: 14px; background: rgba(255, 255, 255, .25); }
+body.avec-assistant .barre-haut .lien-site { margin-left: auto; padding: 3px 10px; border: 1px solid rgba(255, 255, 255, .3); border-radius: 999px; font-weight: 500; font-size: 12px; }
+body.avec-assistant .barre-bas {
+  display: flex; align-items: center; gap: 14px; height: 34px; padding: 0 16px;
+  background: #FAF8F4; border-top: 1px solid var(--bord); font-size: 12px; color: var(--encre-2);
+}
+body.avec-assistant .barre-bas b { color: var(--encre); font-size: 14px; display: inline-flex; align-items: center; gap: 7px; }
+body.avec-assistant .barre-bas img { width: 18px; height: 18px; }
+body.avec-assistant .barre-bas a { color: var(--encre); }
+body.avec-assistant .barre-bas .droite { margin-left: auto; }
+body.avec-assistant .app { height: calc(100dvh - 68px); grid-template-columns: minmax(0, 1fr) clamp(420px, 35vw, 560px); }
+
+/* Vue 3D : boutons, étiquette produit, aide, cotes */
+body.avec-assistant .vues { border: 0; border-radius: 999px; background: rgba(255, 255, 255, .92); box-shadow: 0 4px 18px rgba(0, 0, 0, .12); padding: 4px; gap: 2px; }
+body.avec-assistant .vues button { border: 0; border-radius: 999px; padding: 7px 12px; background: transparent; font-size: 12.5px; }
+body.avec-assistant .vues button.actif,
+body.avec-assistant .vues button[aria-pressed="true"] { background: var(--encre); color: #fff; }
+body.avec-assistant .badge-demo {
+  top: 18px; right: 18px; padding: 6px 12px; border: 0; border-radius: 999px;
+  background: rgba(255, 255, 255, .94); color: var(--encre); box-shadow: 0 4px 16px rgba(0, 0, 0, .1);
+  font: 500 12.5px var(--sans); letter-spacing: 0; text-transform: none;
+}
+body.avec-assistant .badge-demo span { color: var(--encre-2); font-weight: 400; }
+body.avec-assistant .aide {
+  left: 50%; right: auto; bottom: 20px; transform: translateX(-50%);
+  padding: 6px 12px; border-radius: 999px; background: rgba(28, 27, 25, .78); color: #fff; font-size: 12px;
+}
+body.avec-assistant .cote {
+  padding: 2px 8px; border: 0; border-radius: 999px; background: #fff; color: var(--encre);
+  font: 600 11.5px var(--sans); box-shadow: 0 2px 8px rgba(0, 0, 0, .18);
+}
+body.avec-assistant .marque { border-radius: 10px; }
+/* Vue étroite (assistant) : l'étiquette produit passe sous le nom de l'entreprise, sans le recouvrir */
+@container (max-width: 640px) {
+  body.avec-assistant .viewer .badge-demo { top: 84px; left: 16px; right: auto; }
+}
+
+/* Panneau */
+body.avec-assistant .panel { background: #fff; border-left: 1px solid var(--bord); }
+body.avec-assistant .panel.assistant .intro { padding: 18px 24px 14px; border-bottom: 1px solid var(--bord); }
+body.avec-assistant .intro .surtitre { font: 500 10.5px var(--mono); letter-spacing: .12em; color: var(--encre-2); margin-bottom: 2px; }
+body.avec-assistant .panel.assistant .intro h1 { font: 500 24px/1.15 var(--serif); letter-spacing: -0.01em; }
+body.avec-assistant .panel.assistant .onglets { padding: 12px 24px; border-bottom: 1px solid var(--bord); }
+body.avec-assistant .panel.assistant .onglets button span { border-color: #CFC8BB; }
+
+body.avec-assistant .panel.assistant .etape.active { padding: 22px 24px 24px; }
+body.avec-assistant .panel.assistant .etape h2 {
+  display: block; margin: 0 0 4px; font: 400 30px/1.1 var(--serif); text-transform: none; letter-spacing: -0.01em;
+}
+body.avec-assistant .panel.assistant .etape h2::before {
+  content: attr(data-numero); display: block; margin-bottom: 8px;
+  font: 500 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--encre-2);
+}
+body.avec-assistant .panel.assistant .etape h2 span { display: none; }
+body.avec-assistant .aide-etape { color: var(--encre-2); margin-bottom: 16px; }
+body.avec-assistant .sous-titre { font: 600 14px var(--sans); text-transform: none; letter-spacing: 0; color: var(--encre); margin: 20px 0 10px; }
+
+/* Options en cartes (coche quand choisi) */
+body.avec-assistant .segments { gap: 8px; }
+body.avec-assistant .segments button,
+body.avec-assistant .liste-choix button,
+body.avec-assistant .teintes button,
+body.avec-assistant .carte-produit {
+  position: relative; background: var(--carte); border: 1px solid var(--bord); border-radius: 10px; box-shadow: none; color: var(--encre);
+  transition: border-color .15s, background-color .15s;
+}
+body.avec-assistant .segments button { padding: 14px 10px 12px; }
+body.avec-assistant .segments button:hover,
+body.avec-assistant .liste-choix button:hover,
+body.avec-assistant .teintes button:hover,
+body.avec-assistant .carte-produit:hover { border-color: #B9B1A3; }
+body.avec-assistant .segments button[aria-checked="true"],
+body.avec-assistant .liste-choix button[aria-checked="true"],
+body.avec-assistant .teintes button[aria-checked="true"],
+body.avec-assistant .carte-produit[aria-checked="true"] {
+  background: var(--carte-active); border-color: var(--encre); box-shadow: inset 0 0 0 1px var(--encre); color: var(--encre);
+}
+body.avec-assistant .segments button[aria-checked="true"]::after,
+body.avec-assistant .liste-choix button[aria-checked="true"]::after,
+body.avec-assistant .teintes button[aria-checked="true"]::after,
+body.avec-assistant .carte-produit[aria-checked="true"]::after {
+  content: "✓"; position: absolute; top: 8px; right: 8px; width: 16px; height: 16px; display: grid; place-items: center;
+  border: 1px solid var(--encre); border-radius: 50%; font-size: 9px; line-height: 1;
+}
+body.avec-assistant .liste-choix button[aria-checked="true"]::after { top: 50%; transform: translateY(-50%); right: 12px; }
+body.avec-assistant .liste-choix button[aria-checked="true"] .delta { margin-right: 26px; }
+body.avec-assistant .segments small { font: 400 11.5px var(--sans); color: var(--encre-2); opacity: 1; }
+body.avec-assistant .liste-choix button { padding: 14px; }
+body.avec-assistant .pastille { border-radius: 50%; }
+
+/* Coloris : grandes pastilles centrées */
+body.avec-assistant .teintes { grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); }
+body.avec-assistant .teintes button { flex-direction: column; justify-content: center; gap: 8px; padding: 16px 8px 12px; text-align: center; }
+body.avec-assistant .teintes .pastille { width: 38px; height: 38px; }
+body.avec-assistant .teintes button span { display: block; font-weight: 500; font-size: 13.5px; }
+body.avec-assistant .teintes .delta { margin-top: 2px; }
+body.avec-assistant .nuancier button { border-radius: 50%; width: 34px; height: 34px; }
+
+/* Raccourcis et curseurs */
+body.avec-assistant .raccourcis button { border-radius: 999px; background: #fff; border: 1px solid var(--bord); }
+body.avec-assistant .raccourcis button[aria-pressed="true"] { background: var(--encre); color: #fff; border-color: var(--encre); }
+body.avec-assistant .curseur output { font: 500 18px var(--serif); }
+body.avec-assistant .curseur input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; border-radius: 3px;
+  background: linear-gradient(var(--accent), var(--accent)) 0 / var(--rempli, 50%) 100% no-repeat, #E6E1D8;
+}
+body.avec-assistant .curseur input[type="range"]::-moz-range-progress { height: 3px; background: var(--accent); }
+body.avec-assistant .curseur input[type="range"]::-webkit-slider-thumb { width: 20px; height: 20px; margin-top: -9px; background: #fff; border: 1px solid #CFC8BB; box-shadow: 0 1px 4px rgba(0, 0, 0, .2); }
+body.avec-assistant .curseur input[type="range"]::-moz-range-thumb { background: #fff; border: 1px solid #CFC8BB; }
+body.avec-assistant .note-technique { background: #F6F2EA; color: var(--encre-2); border: 0; border-radius: 8px; }
+
+/* Interrupteurs d'options en cartes */
+body.avec-assistant .options { gap: 8px; }
+body.avec-assistant .option { padding: 14px; border: 1px solid var(--bord); border-radius: 10px; }
+body.avec-assistant .option:last-child { border-bottom: 1px solid var(--bord); }
+
+/* Cartes produit : 2 colonnes, prix d'exemple */
+body.avec-assistant .produits { grid-template-columns: repeat(2, 1fr); }
+body.avec-assistant .carte-produit { padding: 14px; }
+body.avec-assistant .carte-produit strong { font: 500 18px/1.2 var(--serif); }
+body.avec-assistant .carte-produit .exemple { display: block; font-style: normal; margin-top: 8px; font-size: 12px; color: var(--encre-2); }
+body.avec-assistant .carte-produit .exemple b { color: var(--encre); }
+body.avec-assistant .carte-produit svg { background: #FAF8F4; }
+
+/* Pied : total à empattements, bouton terre cuite */
+body.avec-assistant .pied-assistant { background: #fff; border-top: 1px solid var(--bord); padding: 16px 24px 18px; }
+body.avec-assistant .pied-total b { font: 400 34px/1 var(--serif); letter-spacing: -0.01em; }
+body.avec-assistant .pied-total span { display: flex; align-items: baseline; gap: 6px; margin: 4px 0 2px; font-size: 12px; }
+body.avec-assistant .pied-boutons .cta { background: var(--accent); border-radius: 8px; padding: 12px 18px; }
+body.avec-assistant .pied-boutons .cta:hover { background: var(--accent-fonce); }
+body.avec-assistant .etape-prix .total { font-family: var(--serif); }
+
+@media (max-width: 900px) {
+  body.avec-assistant .app { height: auto; grid-template-columns: 1fr; }
+  body.avec-assistant .barre-bas { display: none; }
+  body.avec-assistant .produits { grid-template-columns: 1fr; }
+  body.avec-assistant .panel.assistant .etape h2 { font-size: 24px; }
+  body.avec-assistant .aide { display: none; }
+}
+
+/* Écarts de prix lisibles : « + 768 CHF » */
+body.avec-assistant .delta.plus::before { content: "+ "; }
+body.avec-assistant .delta:not(:empty)::after { content: " CHF"; }
+
+/* Aide à droite : ne passe pas sous les boutons de vue */
+body.avec-assistant .aide { left: auto; right: 18px; transform: none; }
+
+/* ---------- « Voir chez moi » (réalité augmentée, 13.11.2026) ---------- */
+.btn-ra {
+  position: absolute; right: 20px; bottom: 20px; z-index: 3;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 16px; border: 0; border-radius: 999px; cursor: pointer;
+  background: var(--encre); color: var(--papier); font: 600 14px var(--sans);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .22);
+}
+.btn-ra svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; }
+.btn-ra:hover { transform: translateY(-1px); }
+.btn-ra:focus-visible { outline: 3px solid var(--plan); outline-offset: 2px; }
+@container (max-width: 640px) {
+  .btn-ra { top: 16px; right: 16px; bottom: auto; padding: 8px 12px; font-size: 13px; }
+}
+.dlg-ra [data-mode] { display: none; }
+.dlg-ra[data-mode="mobile"] [data-mode="mobile"],
+.dlg-ra[data-mode="ordi"] [data-mode="ordi"],
+.dlg-ra[data-mode="non"] [data-mode="non"] { display: block; }
+.dlg-ra .cta { width: 100%; }
+.ra-qr { display: flex; justify-content: center; margin: 4px 0 14px; }
+.ra-qr canvas { width: 220px; height: 220px; image-rendering: pixelated; border-radius: 8px; }
+.ra-note { font-size: 12.5px; margin-top: 14px !important; }
+.ra-overlay { position: fixed; inset: 0; pointer-events: none; font-family: var(--sans); }
+.ra-aide {
+  position: absolute; top: 18px; left: 50%; transform: translateX(-50%); margin: 0; width: max-content; max-width: calc(100% - 32px);
+  padding: 10px 16px; border-radius: 999px; background: rgba(28, 27, 25, .82); color: #fff; font-size: 14px; text-align: center;
+}
+.ra-boutons { position: absolute; left: 0; right: 0; bottom: 28px; display: flex; justify-content: center; gap: 10px; pointer-events: auto; }
+.ra-boutons button { padding: 12px 16px; border: 0; border-radius: 999px; background: rgba(255, 255, 255, .94); color: #1c1b19; font: 600 15px var(--sans); box-shadow: 0 4px 16px rgba(0, 0, 0, .25); }
+
+/* Fiche technique mise en avant (lien ?fiche=1 reçu par l'entreprise) */
+.cta-secondaire.fiche-avant { background: var(--encre); color: var(--papier); border-color: var(--encre); }
+.cta-secondaire.fiche-avant:hover { background: var(--encre-2); }

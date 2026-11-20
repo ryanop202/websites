@@ -4,9 +4,10 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
 import * as CFG from './config.js';
-import { creerPDF } from './pdf.js';
+import { creerPDF, creerFicheTechnique } from './pdf.js';
 import { creerDecor } from './decor.js';
 import { creerModeles } from './produits3d.js';
+import { capaciteRA, copieProduit, exporterUSDZ, ouvrirQuickLook, lancerWebXR, dessinerQR } from './realite.js';
 
 const { CONFIG } = CFG;
 // Assistant (démo publique) : choix du produit puis une étape à la fois, prix et Retour / Suivant en bas
@@ -40,6 +41,14 @@ const MODELE = CONFIG.modele3d ?? null;
 const TERRASSE = CONFIG.type === 'terrasse';
 // Piscine (05.11.2026) : bassin creusé dans la pelouse, modèle dédié (produits3d.js, `piscine`)
 const PISCINE = CONFIG.type === 'piscine';
+// Studio de jardin (13.11.2026) : pièce isolée au fond du jardin, modèle dédié (produits3d.js, `studio`)
+const STUDIO = CONFIG.type === 'studio';
+// Ouvertures du studio : baie coulissante (~60 % de la largeur) + fenêtres selon la taille (même règle que le modèle 3D)
+function ouverturesStudio(g) {
+  const lb = Math.min(g.W - 1.1, Math.max(1.8, g.W * 0.62));
+  const fenetres = 1 + (g.L > 2.6 ? 1 : 0) + (g.W > 3 ? 1 : 0);
+  return { lb, fenetres };
+}
 // Largeur occupée autour du bassin de chaque côté : margelle + plage (si ce côté a une plage)
 function abordsPiscine() {
   const m = CONFIG.margelle ?? 0.3;
@@ -78,6 +87,7 @@ function valider() {
   }
   if (!CONFIG.implantations[state.adosse]) state.adosse = CONFIG.implantations.non ? 'non' : CONFIG.defauts.adosse;
   if (VERANDA) { state.paroiArriere = true; state.paroiGauche = true; state.paroiDroite = true; }
+  if (STUDIO) { state.adosse = 'non'; state.paroiArriere = true; state.paroiGauche = true; state.paroiDroite = true; }
   if (!LOCAL) state.rangement = false;
   if (!CONFIG.toits[state.toit]) state.toit = CONFIG.defauts.toit;
   // Contre une façade, le toit descend à l'opposé de la maison : pas de 2 pans
@@ -262,10 +272,48 @@ function prixPiscine(g) {
 }
 function nbSpotsPiscine(L) { return L > 8.5 ? 3 : 2; }
 
+// Studio de jardin : fondations, ossature isolée, bardage, toiture, baie + fenêtres, électricité, options
+function prixStudio(g) {
+  const T = CONFIG.tarifs;
+  const surface = g.W * g.L;
+  const toit = CONFIG.toits[state.toit];
+  const couv = CONFIG.couvertures[state.couverture];
+  const bard = CONFIG.bardages[state.bardage];
+  const men = CONFIG.bois[state.bois];
+  const { lb, fenetres } = ouverturesStudio(g);
+  const facades = 2 * (g.W + g.L) * (g.H + 0.45);
+  const lignes = [];
+  lignes.push([`Fondations et dalle · ${fmtM2(surface)}`, surface * T.fondationM2]);
+  lignes.push([`Ossature bois isolée, plancher et plafond · ${fmtM2(surface)}`, surface * T.ossatureM2]);
+  lignes.push([`Bardage ${bard.label.toLowerCase()} · ${fmtM2(facades)}`, facades * T.bardageM2 * bard.facteur]);
+  lignes.push([`Toiture ${toit.label.toLowerCase()}, ${couv.label.toLowerCase()}`, surface * (T.toitureM2[state.toit] + T.couvertureM2[state.couverture])]);
+  lignes.push([`Baie coulissante ${fmtM(lb)}`, lb * T.baieMl * men.facteur]);
+  lignes.push([`Fenêtres (${fenetres})`, fenetres * T.fenetre * men.facteur]);
+  lignes.push(['Électricité : tableau, prises, éclairage', T.electricite]);
+  if (state.led) lignes.push(['Spots LED et applique extérieure', T.led]);
+  if (state.chauffage) lignes.push(['Climatisation réversible (chaud / froid)', T.clim]);
+  if (state.terrasseAvant) {
+    const st = (g.W + 0.4) * 2;
+    lignes.push([`Terrasse en bois devant · ${fmtM2(st)}`, st * T.terrasseM2]);
+  }
+  const materiel = lignes.reduce((s, [, v]) => s + v, 0);
+  lignes.push(['Livraison et montage', Math.max(T.poseMin, materiel * T.poseTaux)]);
+  const ht = lignes.reduce((s, [, v]) => s + v, 0);
+  const tva = ht * CONFIG.tva;
+  const ttc = arrondi10(ht + tva);
+  return {
+    lignes, ht, tva, ttc,
+    bas: arrondi50(ttc * (1 - CONFIG.fourchette)),
+    haut: arrondi50(ttc * (1 + CONFIG.fourchette)),
+    nbPoteaux: 0, surface, lb, fenetres,
+  };
+}
+
 function calculerPrix() {
   const g = geometrie();
   if (TERRASSE) return prixTerrasse(g);
   if (PISCINE) return prixPiscine(g);
+  if (STUDIO) return prixStudio(g);
   const T = CONFIG.tarifs;
   const toit = CONFIG.toits[state.toit];
   const bois = CONFIG.bois[state.bois];
@@ -632,7 +680,7 @@ sol.receiveShadow = true;
 scene.add(sol);
 
 const decor = DECOR
-  ? creerDecor({ textureCanvas, texPaves, matBordure, petit: PETIT_APPAREIL, X0: X_GAUCHE, Z0: Z_ARRIERE, terrasse: CONFIG.sol === 'terrasse', dalleTerrasse: !TERRASSE && !PISCINE })
+  ? creerDecor({ textureCanvas, texPaves, matBordure, petit: PETIT_APPAREIL, X0: X_GAUCHE, Z0: Z_ARRIERE, terrasse: CONFIG.sol === 'terrasse', dalleTerrasse: !TERRASSE && !PISCINE && !STUDIO, recul: CONFIG.reculMaison ?? 3.2 })
   : null;
 if (decor) scene.add(decor.groupe);
 
@@ -886,6 +934,7 @@ function placerVehicule(id, x, z, autreCouleur) {
     return;
   }
   const v = modele.clone(true);
+  v.userData.vehicule = true; // (pas dans la réalité augmentée : le client a sa propre voiture)
   if (autreCouleur) {
     v.traverse((o) => {
       if (!o.isMesh) return;
@@ -1678,7 +1727,7 @@ let premierRendu = false;
 
 function boucle(t) {
   requestAnimationFrame(boucle);
-  if (!renderer) return;
+  if (!renderer || renderer.xr.isPresenting) return; // (réalité augmentée en cours : c'est elle qui dessine)
   if (animCam) {
     const k = Math.max(0, Math.min(1, (t - animCam.t0) / 700));
     const e = 1 - Math.pow(1 - k, 3);
@@ -2011,6 +2060,18 @@ function lignesConfig() {
         ...(CONFIG.inclus ?? [])].filter(Boolean).join(', ')],
     ];
   }
+  if (STUDIO) {
+    const couvT = couv.teintes[state.teinteCouverture];
+    return [
+      ['Dimensions', `${fmtM(g.W)} × ${fmtM(g.L)} · ${fmtM2(p.surface)} · hauteur intérieure ${fmtM(g.H)}`],
+      ['Toit', `${CONFIG.toits[state.toit].label} · ${couv.label}${Object.keys(couv.teintes).length > 1 ? `, ${couvT.label.toLowerCase()}` : ''}`],
+      ['Bardage', CONFIG.bardages[state.bardage].label],
+      [LIB.finitionLigne, CONFIG.bois[state.bois].label],
+      ['Ouvertures', `baie coulissante ${fmtM(p.lb)} + ${p.fenetres} fenêtre${p.fenetres > 1 ? 's' : ''}`],
+      ['Équipements', ['électricité', state.led && 'spots LED', state.chauffage && 'climatisation réversible',
+        state.terrasseAvant && 'terrasse en bois devant', ...(CONFIG.inclus ?? [])].filter(Boolean).join(', ')],
+    ];
+  }
   if (TERRASSE) {
     return [
       ['Dimensions', `${fmtM(g.Dc)} ${LIB.profondeurAide} × ${fmtM(g.Wv)} ${LIB.largeurAide} · ${fmtM2(p.surface)}`],
@@ -2055,6 +2116,18 @@ function resume() {
       state.led ? 'LED' : null,
       state.chauffage ? 'Pompe à chaleur' : null,
       state.borne ? 'Contre-courant' : null,
+    ].filter(Boolean);
+  }
+  if (STUDIO) {
+    return [
+      `${fmtM(g.W)} × ${fmtM(g.L)}`,
+      `Toit ${CONFIG.toits[state.toit].label.toLowerCase()}`,
+      couv.label,
+      `Bardage ${CONFIG.bardages[state.bardage].label.toLowerCase()}`,
+      `${LIB.finitionLigne} ${CONFIG.bois[state.bois].label.toLowerCase()}`,
+      state.led ? 'LED' : null,
+      state.chauffage ? 'Climatisation' : null,
+      state.terrasseAvant ? 'Terrasse' : null,
     ].filter(Boolean);
   }
   if (TERRASSE) {
@@ -2121,7 +2194,9 @@ function majPrix() {
   ajout(`TVA ${(CONFIG.tva * 100).toFixed(1).replace('.', ',')} %`, fmtCHF(p.tva));
   ajout('Total TTC', fmtCHF(p.ttc), 'fort');
 
-  $('#note-technique').textContent = PISCINE
+  $('#note-technique').textContent = STUDIO
+    ? `Surface au sol ${fmtM2(p.surface)} · environ ${fmtM2((state.largeur - 0.34) * (state.profondeur - 0.34))} à l'intérieur · baie de ${fmtM(p.lb)}`
+    : PISCINE
     ? `Plan d'eau ${fmtM2(p.surface)} · environ ${Math.round(p.volumeEau)} m³ d'eau`
     : TERRASSE
     ? `Surface ${fmtM2(p.surface)}${p.marches ? ` · ${p.marches} marche${p.marches > 1 ? 's' : ''} d'accès` : ''}${CONFIG.noteGardeCorps && state.hauteur >= (CONFIG.hauteurGardeCorps ?? 1) ? ` · ${CONFIG.noteGardeCorps}` : ''}`
@@ -2235,7 +2310,17 @@ if (!LOCAL) {
   $('#choix-local').remove();
 }
 // Piscine : une seule implantation (dans le jardin) → étape retirée (ses éléments restent cachés pour le moteur)
-if (PISCINE) {
+if (STUDIO) {
+  etapeParois.dataset.court = LIB.paroisCourt ?? 'Façades';
+  $('#plan').style.display = 'none';
+  const clim = $('[data-cle="chauffage"]')?.closest('.option');
+  if (clim) clim.querySelector('span').innerHTML = 'Climatisation réversible <small>chauffe l’hiver, rafraîchit l’été</small>';
+  const led = $('[data-cle="led"]')?.closest('.option');
+  if (led) led.querySelector('span').innerHTML = 'Spots LED <small>au plafond + applique extérieure</small>';
+} else {
+  $('[data-cle="terrasseAvant"]')?.closest('.option').remove();
+}
+if (PISCINE || STUDIO) {
   const etapeImpl = $('#implantations').closest('.etape');
   const cache = document.createElement('div');
   cache.hidden = true;
@@ -2509,6 +2594,156 @@ function telechargerPDF() {
 $('#btn-pdf').addEventListener('click', telechargerPDF);
 $('#btn-pdf-recap').addEventListener('click', telechargerPDF);
 
+// ---------- Fiche technique pour l'entreprise (13.11.2026) ----------
+// Charpente générique (carport, pergola bois / alu) : mêmes règles que la 3D (sections, portée, entraxe des chevrons).
+const FICHE = !MODELE && !TERRASSE && !PISCINE && !STUDIO;
+
+function ficheTechnique() {
+  const g = geometrie();
+  const { W, L, xR, zR, ySup, y0, deuxPans, xF, aG, aD, a, sens } = g;
+  const couv = CONFIG.couvertures[state.couverture];
+  const pieces = [];
+  const piece = (des, n, long, b, h) => {
+    if (!(n > 0 && long > 0)) return;
+    const l = Math.round(long * 100) / 100;
+    const sec = b && h ? `${Math.round(b * 100)} × ${Math.round(h * 100)} cm` : '';
+    const vol = b && h ? n * long * b * h : 0;
+    const meme = pieces.find((pc) => pc.des === des && pc.long === l && pc.sec === sec); // (mêmes pièces regroupées)
+    if (meme) { meme.n += n; meme.vol += vol; } else pieces.push({ des, n, long: l, sec, vol });
+  };
+  const bois = ALU ? '' : ` (${CONFIG.bois[state.bois].label.toLowerCase()})`;
+  // Lignes de poteaux (pas côté façade) + cloison du local latéral
+  const xs = g.lignesPoteaux.map((s) => s * xR);
+  if (g.lateral) xs.push(g.xCloison + (g.posL === 'gauche' ? -P / 2 : P / 2));
+  const bas = ALU ? Y_SOL + 0.06 : Y_SOL + 0.13;
+  const nbZ = g.zPoteaux.length;
+  const parLong = new Map();
+  for (const x of xs) {
+    const l = Math.round((ySup(x) - BH - bas) * 100) / 100;
+    parLong.set(l, (parLong.get(l) ?? 0) + nbZ);
+  }
+  for (const [l, n] of [...parLong].sort((p1, p2) => p1[0] - p2[0])) piece(`${ALU ? 'Poteau alu' : 'Poteau'}${bois}`, n, l, P, P);
+  const nPot = xs.length * nbZ;
+  if (!ALU) {
+    let nCf = 0;
+    for (const z of g.zPoteaux) for (const s of [-1, 1]) if (Math.abs(z + s * 0.32) <= zR) nCf++;
+    piece('Contrefiche à 45°', nCf * xs.length, 0.6, 0.08, 0.08);
+  }
+  piece(ALU ? 'Poutre porteuse alu' : 'Sablière', xs.length, L + 0.3, P, BH);
+  const nMur = [-1, 1].filter((s) => g.maison(s)).length;
+  piece('Muralière (fixée à la façade)', nMur, L + 0.3, P, BH);
+  if (deuxPans) {
+    piece('Entrait de ferme', nbZ, 2 * xR - P, 0.08, BH * 0.8);
+    piece('Poinçon', nbZ, ySup(xF) - BH - y0, 0.1, 0.08);
+    piece('Panne faîtière', 1, L + 0.3, 0.1, BH);
+  }
+  // Chevrons : même calcul que la 3D (entraxe max, débords devant / derrière)
+  const longZ = L + 2 * OVZ;
+  const nChev = Math.max(2, Math.ceil(longZ / (CONFIG.entraxeChevrons ?? 0.65)) + 1);
+  let pans;
+  if (deuxPans) {
+    pans = [(xF + W / 2 + OV) / Math.cos(aG), (W / 2 + OV - xF) / Math.cos(aD)];
+  } else {
+    const gauche = -(W / 2 + (g.maison(-1) ? -0.01 : OV));
+    const droite = W / 2 + (g.maison(1) ? -0.01 : OV);
+    pans = [(droite - gauche) / Math.cos(a)];
+  }
+  const parPan = new Map();
+  for (const lp of pans) { const l = Math.round(lp * 100) / 100; parPan.set(l, (parPan.get(l) ?? 0) + nChev); }
+  for (const [l, n] of parPan) piece(ALU ? 'Chevron alu' : 'Chevron', n, l, RW, RH);
+  const profC = longZ + 0.06;
+  for (const lp of pans) piece(ALU ? 'Bandeau de rive alu' : 'Planche de rive', 2, lp + 0.02, 0.024, HAUT_RIVE);
+
+  // Surfaces et quantités
+  const surfaces = [];
+  const surfToit = pans.reduce((sum, lp) => sum + lp * profC, 0);
+  surfaces.push([couv.ouverte ? `Surface sous la ${LIB.objet}` : `Couverture : ${couv.label.toLowerCase()}`, fmtM2(couv.ouverte ? W * L : surfToit)]);
+  const hMur = g.H + BH;
+  const cotes = [];
+  if (state.paroiArriere && g.posL !== 'arriere') cotes.push(['arrière', g.Wv]);
+  if (state.paroiAvant) cotes.push(['avant', g.Wv]);
+  if (state.paroiGauche && !g.maison(-1)) cotes.push(['gauche', g.Dc]);
+  if (state.paroiDroite && !g.maison(1)) cotes.push(['droite', g.Dc]);
+  if (cotes.length) {
+    const aire = cotes.reduce((sum, [, l]) => sum + l * hMur, 0);
+    surfaces.push([`${LIB.paroiLigne} ${CONFIG.bardages[state.bardage].label.toLowerCase()} (${cotes.map(([c]) => c).join(', ')})`, fmtM2(aire)]);
+  }
+  if (g.S) surfaces.push([`${LIB.rangementLigne} : cloison + porte`, `${fmtM(g.S)} × ${fmtM(g.lateral ? g.L : g.W)}`]);
+  if (state.gouttieres) {
+    const n = deuxPans ? 2 : 1;
+    surfaces.push(['Gouttières / descentes', `${fmtM(g.L * n)} · ${n} descente${n > 1 ? 's' : ''}`]);
+  }
+  surfaces.push([ALU ? 'Platines de poteaux' : 'Pieds de poteaux en U + plots béton', String(nPot)]);
+  const vol = pieces.reduce((sum, pc) => sum + pc.vol, 0);
+  if (!ALU) surfaces.push(['Volume de bois (charpente)', `${vol.toFixed(2).replace('.', ',')} m³`]);
+
+  // Plan : dessus et façade (profil du toit dessus de couverture)
+  const ep = couv.epaisseur ?? 0.02;
+  const hToit = (x) => ySup(x) + RH / Math.cos(a) + ep;
+  const xg = -(W / 2 + (g.maison(-1) ? 0 : OV));
+  const xd = W / 2 + (g.maison(1) ? 0 : OV);
+  const profil = deuxPans ? [[xg, hToit(xg)], [xF, ySup(xF) + RH + ep], [xd, hToit(xd)]] : [[xg, hToit(xg)], [xd, hToit(xd)]];
+  const local = g.S
+    ? (g.posL === 'arriere'
+      ? { x1: -W / 2, x2: W / 2, z1: -L / 2, z2: g.zCloison }
+      : g.posL === 'gauche' ? { x1: -W / 2, x2: g.xCloison, z1: -L / 2, z2: L / 2 } : { x1: g.xCloison, x2: W / 2, z1: -L / 2, z2: L / 2 })
+    : null;
+  return {
+    pieces, surfaces,
+    plan: {
+      W, L, OV, OVZ, P, xs, zs: g.zPoteaux, maison: [-1, 1].filter((s) => g.maison(s)), local, profil,
+      poteaux: xs.map((x) => [x, ySup(x) - BH]), H: g.H, hTot: Math.max(...profil.map((q) => q[1])),
+      pente: CONFIG.toits[state.toit].pente,
+    },
+  };
+}
+
+function texteFiche() {
+  if (!FICHE) return [];
+  const f = ficheTechnique();
+  return [
+    'LISTE DES PIÈCES (débit indicatif, à valider)',
+    ...f.pieces.map((pc) => `- ${pc.des} : ${pc.n} × ${pc.long.toFixed(2).replace('.', ',')} m${pc.sec ? ` (${pc.sec})` : ''}`),
+    ...f.surfaces.map(([l, v]) => `- ${l} : ${v}`),
+    '',
+  ];
+}
+
+function telechargerFiche() {
+  if (!FICHE) return;
+  const f = ficheTechnique();
+  const maintenant = new Date();
+  const ref = `FT-${maintenant.toISOString().slice(2, 10).replace(/-/g, '')}-${String(maintenant.getHours()).padStart(2, '0')}${String(maintenant.getMinutes()).padStart(2, '0')}`;
+  const blob = creerFicheTechnique({
+    entreprise: CONFIG.entreprise,
+    demo: CONFIG.demo,
+    titre: `${CONFIG.produit} · ${dimsTexte()} · ${CONFIG.toits[state.toit].label}`,
+    date: maintenant.toLocaleDateString('fr-CH'),
+    reference: ref,
+    accent: COULEUR_PLAN,
+    plan: f.plan,
+    pieces: f.pieces,
+    surfaces: f.surfaces,
+    note: `Calculé automatiquement par le configurateur avec des règles standard (poteaux ${Math.round(P * 100)} × ${Math.round(P * 100)} cm, portée max ${fmtM(CONFIG.porteeMax)}, entraxe des chevrons ${Math.round((CONFIG.entraxeChevrons ?? 0.65) * 100)} cm). Débit indicatif : à valider par l'entreprise (neige, vent, assemblages) avant fabrication.`,
+    lien: location.href,
+  });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `fiche-technique-${LIB.objet.replace(/\s+/g, '-')}-${ref}.pdf`;
+  document.body.append(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 4000);
+}
+if (FICHE) {
+  $('#btn-fiche').addEventListener('click', telechargerFiche);
+  $('#btn-fiche-recap').addEventListener('click', telechargerFiche);
+} else {
+  $('#btn-fiche')?.remove();
+  $('#btn-fiche-recap')?.remove();
+}
+
 // ---------- Demande de devis ----------
 
 const dialogue = $('#dialogue');
@@ -2524,6 +2759,13 @@ function ouvrirDevis() {
 $('#btn-devis').addEventListener('click', ouvrirDevis);
 $('#btn-devis-mobile').addEventListener('click', ouvrirDevis);
 for (const b of document.querySelectorAll('[data-fermer]')) b.addEventListener('click', () => dialogue.close());
+
+// Lien qui ouvre la configuration avec le bouton « Fiche technique » mis en avant (pour l'entreprise)
+function lienFiche() {
+  const u = new URL(location.href);
+  u.searchParams.set('fiche', '1');
+  return u.toString();
+}
 
 function texteDemande(d) {
   const p = prixCourant;
@@ -2542,9 +2784,11 @@ function texteDemande(d) {
     '',
     `PRIX INDICATIF AFFICHÉ : ${fmtCHF(p.ttc)} CHF TTC (fourchette ${fmtCHF(p.bas)}–${fmtCHF(p.haut)})`,
     '',
+    ...texteFiche(),
     `Remarque : ${d.remarque || '—'}`,
     '',
     `Configuration en ligne : ${location.href}`,
+    ...(FICHE ? [`Fiche technique (plan coté + pièces, PDF) : ${lienFiche()}`] : []),
   ].join('\n');
 }
 
@@ -2597,3 +2841,81 @@ demarre = true;
 allerVers('troisQuarts', true);
 for (const id of Object.keys(CONFIG.vehicules)) chargerVehicule(id);
 requestAnimationFrame(boucle);
+
+// ---------- « Voir chez moi » : le produit en taille réelle dans le jardin du client (realite.js) ----------
+// Piscine : bassin creusé dans le sol, la réalité augmentée n'aurait pas de sens.
+if (renderer && !PISCINE) {
+  const dlgRA = $('#dlg-ra');
+  const overlayRA = $('#ra-overlay');
+  const tactile = window.matchMedia('(pointer: coarse)').matches;
+  let capRA = 'aucun';
+  capaciteRA().then((c) => { capRA = c; });
+  // Sans voitures ni voiles d'ombre (le vrai sol reçoit une vraie ombre)
+  const exclureRA = (o) => o.material === matOmbreToit || (o.material?.isMeshBasicMaterial && o.material.transparent);
+  const nomFichier = () => `${LIB.objet.replace(/\s+/g, '-')}-${state.largeur}x${state.profondeur}`;
+  $('#btn-ra').hidden = false;
+  $('#ra-titre').textContent = `Voir ${/^[aeiouéèh]/i.test(LIB.objet) ? 'l’' : 'le '}${LIB.objet} dans votre jardin`;
+  const ouvrirRA = () => {
+    const mode = capRA !== 'aucun' ? 'mobile' : tactile ? 'non' : 'ordi';
+    dlgRA.dataset.mode = mode;
+    if (mode === 'ordi') {
+      const u = new URL(location.href);
+      u.searchParams.set('ra', '1');
+      dessinerQR($('#ra-qr'), u.toString());
+    }
+    dlgRA.showModal();
+    signaler('Réalité augmentée ouverte', [`Quelqu'un veut voir le ${LIB.objet} chez lui (${mode === 'ordi' ? 'QR code sur ordinateur' : capRA}).`, '', ...lignesConfig().map(([l, v]) => `${l} : ${v}`)].join('\n'));
+  };
+  $('#btn-ra').addEventListener('click', ouvrirRA);
+  $('#ra-fermer').addEventListener('click', () => dlgRA.close());
+  $('#ra-lancer').addEventListener('click', async () => {
+    const bouton = $('#ra-lancer');
+    bouton.disabled = true;
+    bouton.textContent = 'Préparation…';
+    try {
+      const copie = copieProduit(groupe, exclureRA);
+      if (capRA === 'ios') {
+        await ouvrirQuickLook(copie, nomFichier());
+        dlgRA.close();
+      } else {
+        dlgRA.close();
+        overlayRA.hidden = false;
+        await lancerWebXR({
+          renderer, camera, environnement: scene.environment, copie, overlay: overlayRA,
+          textes: {
+            viser: `Visez le sol, puis touchez l’écran pour poser le ${LIB.objet}.`,
+            pose: 'Faites le tour ! « Déplacer » pour le poser ailleurs.',
+          },
+          quandFini: () => { overlayRA.hidden = true; redimensionner(); },
+        });
+      }
+    } catch (e) {
+      overlayRA.hidden = true;
+      dlgRA.dataset.mode = 'non';
+      if (!dlgRA.open) dlgRA.showModal();
+      console.warn('Réalité augmentée impossible', e);
+    } finally {
+      bouton.disabled = false;
+      bouton.textContent = 'Lancer la caméra';
+    }
+  });
+  // Test sur ordinateur (?test-ra dans l'adresse) : génère le fichier iPhone sans l'ouvrir
+  if (new URLSearchParams(location.search).has('test-ra')) {
+    window.testRA = async () => {
+      const copie = copieProduit(groupe, exclureRA);
+      const blob = await exporterUSDZ(copie);
+      return { pieces: copie.children.length, octets: blob.size };
+    };
+  }
+  // Ouvert depuis le QR code : la fenêtre s'affiche, il ne reste qu'à toucher « Lancer la caméra »
+  if (new URLSearchParams(location.search).has('ra')) capaciteRA().then((c) => { capRA = c; ouvrirRA(); });
+}
+
+// Lien « fiche technique » reçu par l'entreprise (?fiche=1) : on va directement au bouton, mis en avant
+if (FICHE && new URLSearchParams(location.search).has('fiche')) {
+  const b = $('#btn-fiche');
+  b.classList.add('fiche-avant');
+  b.textContent = 'Télécharger la fiche technique (PDF)';
+  if (ASSISTANT) allerEtape(etapes.length - 1);
+  setTimeout(() => b.scrollIntoView({ block: 'center', behavior: 'smooth' }), 400);
+}

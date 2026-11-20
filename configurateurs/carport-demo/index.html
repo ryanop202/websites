@@ -10,6 +10,8 @@
   <link rel="modulepreload" href="vendor/three/build/three.module.min.js">
   <link rel="stylesheet" href="style.css">
   <!-- Tout est hébergé avec le site : aucune ressource chargée depuis un autre serveur -->
+  <!-- QR code (« Voir chez moi » sur ordinateur) : qrcode-generator 1.4.4, MIT, copie locale -->
+  <script src="./vendor/qrcode/qrcode.js"></script>
   <script type="importmap">
     {
       "imports": {
@@ -39,6 +41,10 @@
         <button type="button" id="btn-nuit" aria-pressed="false">Nuit</button>
         <button type="button" id="btn-tourner" aria-pressed="false">Tourner</button>
       </div>
+      <button type="button" class="btn-ra" id="btn-ra" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8 20 7.4v9.2L12 21.2 4 16.6V7.4z"/><path d="M4 7.4 12 12l8-4.6M12 12v9.2"/></svg>
+        Voir chez moi
+      </button>
       <p class="aide">Glisser pour tourner · molette ou pincer pour zoomer</p>
       <p class="erreur-3d" id="erreur-3d" hidden>La vue 3D ne peut pas s'afficher sur cet appareil. Le calcul du prix fonctionne quand même.</p>
 
@@ -145,6 +151,7 @@
           <label class="option"><span>Préparation borne de recharge <small>gaine et prise sur un poteau</small></span><em class="delta" data-delta="borne"></em><input type="checkbox" data-cle="borne"><i></i></label>
           <label class="option"><span>Stores de toiture <small>toile motorisée sous le vitrage</small></span><em class="delta" data-delta="storeToit"></em><input type="checkbox" data-cle="storeToit"><i></i></label>
           <label class="option"><span>Chauffage d'appoint <small>deux radiants infrarouges</small></span><em class="delta" data-delta="chauffage"></em><input type="checkbox" data-cle="chauffage"><i></i></label>
+          <label class="option"><span>Terrasse en bois devant <small>2 m de profondeur, sur toute la largeur</small></span><em class="delta" data-delta="terrasseAvant"></em><input type="checkbox" data-cle="terrasseAvant"><i></i></label>
         </div>
       </section>
 
@@ -167,6 +174,7 @@
         <p class="avertissement" id="mention-suivi" hidden>Démo : les choix de configuration et les demandes envoyées sont transmis à Wibzo par e-mail.</p>
         <button type="button" class="cta" id="btn-devis">Recevoir mon devis</button>
         <button type="button" class="cta-secondaire" id="btn-pdf">Télécharger l'estimation (PDF)</button>
+        <button type="button" class="cta-secondaire" id="btn-fiche">Fiche technique : plan coté + pièces (PDF)</button>
         <button type="button" class="lien" id="btn-lien">Copier le lien de ma configuration</button>
       </section>
     </aside>
@@ -175,6 +183,32 @@
   <div class="barre-mobile">
     <p><span id="total-mobile">—</span> <small>CHF TTC, indicatif</small></p>
     <button type="button" class="cta" id="btn-devis-mobile">Mon devis</button>
+  </div>
+
+  <!-- « Voir chez moi » : réalité augmentée (realite.js) -->
+  <dialog id="dlg-ra" class="dlg-ra">
+    <h2 id="ra-titre">Voir dans votre jardin</h2>
+    <div data-mode="mobile">
+      <p id="ra-texte-mobile">Posez votre projet en taille réelle devant chez vous, avec l’appareil photo de votre téléphone. Faites-en le tour pour juger la place et le rendu.</p>
+      <button type="button" class="cta" id="ra-lancer">Lancer la caméra</button>
+    </div>
+    <div data-mode="ordi">
+      <p>Scannez ce code avec l’appareil photo de votre téléphone : votre configuration s’ouvre, prête à être posée dans votre jardin.</p>
+      <div class="ra-qr" id="ra-qr"></div>
+    </div>
+    <div data-mode="non">
+      <p>Ce téléphone ne permet pas la réalité augmentée dans le navigateur. Essayez avec un iPhone récent (Safari) ou un téléphone Android récent (Chrome).</p>
+    </div>
+    <p class="ra-note">Calculé sur votre appareil : rien n’est envoyé. Taille réelle, à vérifier sur place avant la commande.</p>
+    <div class="actions"><button type="button" class="lien" id="ra-fermer">Fermer</button></div>
+  </dialog>
+  <div class="ra-overlay" id="ra-overlay" hidden>
+    <p class="ra-aide" data-ra="aide"></p>
+    <div class="ra-boutons" data-ra="boutons">
+      <button type="button" data-action="tourner">↻ Tourner</button>
+      <button type="button" data-action="deplacer">✥ Déplacer</button>
+      <button type="button" data-action="fermer">✕ Fermer</button>
+    </div>
   </div>
 
   <dialog id="dialogue">
@@ -199,6 +233,7 @@
       <div class="actions">
         <button type="button" class="lien" id="btn-copier">Copier le texte</button>
         <button type="button" class="lien" id="btn-pdf-recap">PDF</button>
+        <button type="button" class="lien" id="btn-fiche-recap">Fiche technique</button>
         <a class="cta" id="btn-mail" hidden>Envoyer par e-mail</a>
         <button type="button" class="cta" data-fermer>Fermer</button>
       </div>

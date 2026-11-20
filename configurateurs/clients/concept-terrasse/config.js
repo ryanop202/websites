@@ -76,10 +76,23 @@ const terrasse = {
       },
     },
   },
-  defauts: { ...base.defauts, couverture: 'exotique', teinteCouverture: 'ipe' },
+  // Formes vues dans leurs réalisations (concept-terrasse.ch/realisations, 20.11.2026) : coins coupés, arrondis, L, spas encastrés
+  formes: {
+    rect: { label: 'Rectangulaire' },
+    coin: { label: 'Coin coupé' },
+    arrondi: { label: 'Coin arrondi' },
+    L: { label: 'En L' },
+  },
+  spas: {
+    non: { label: 'Sans spa' },
+    oui: { label: 'Entourage de spa encastré' },
+  },
+  defauts: { ...base.defauts, couverture: 'exotique', teinteCouverture: 'ipe', forme: 'rect', spa: 'non' },
   tarifs: {
     ...base.tarifs,
     revetementM2: { europeen: 120, exotique: 175, accoya: 190, megawood: 150, gres: 150 },
+    decoupe: { coin: 380, arrondi: 690, L: 420 }, // FICTIF : coupes et lames de bordure
+    entourageSpa: 1950, // FICTIF : entourage du spa (le spa lui-même n'est pas compris)
   },
 };
 

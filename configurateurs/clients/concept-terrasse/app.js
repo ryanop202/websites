@@ -6,7 +6,7 @@ import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
 import * as CFG from './config.js';
 import { creerPDF } from './pdf.js';
 import { creerDecor } from './decor.js';
-import { creerModeles } from './produits3d.js';
+import { creerModeles, contourTerrasse } from './produits3d.js';
 
 const { CONFIG } = CFG;
 // Assistant (démo publique) : choix du produit puis une étape à la fois, prix et Retour / Suivant en bas
@@ -69,6 +69,8 @@ function valider() {
   if (VERANDA) { state.paroiArriere = true; state.paroiGauche = true; state.paroiDroite = true; }
   if (!LOCAL) state.rangement = false;
   if (!CONFIG.toits[state.toit]) state.toit = CONFIG.defauts.toit;
+  if (CONFIG.formes && !CONFIG.formes[state.forme]) state.forme = 'rect';
+  if (CONFIG.formes && !['oui', 'non'].includes(state.spa)) state.spa = 'non';
   // Contre une façade, le toit descend à l'opposé de la maison : pas de 2 pans
   if (state.adosse !== 'non' && CONFIG.toits[state.toit].faitage) {
     state.toit = Object.keys(CONFIG.toits).find((id) => !CONFIG.toits[id].faitage) ?? state.toit;
@@ -178,9 +180,12 @@ function prixTerrasse(g) {
   const T = CONFIG.tarifs;
   const pose = CONFIG.bois[state.bois];
   const couv = CONFIG.couvertures[state.couverture];
-  const surface = g.W * g.L;
+  const ct = CONFIG.formes ? contourTerrasse(g, state) : null;
+  const surface = ct ? ct.aire : g.W * g.L;
   const lignes = [];
   lignes.push([`${couv.label} · ${fmtM2(surface)}`, surface * T.revetementM2[state.couverture] * pose.facteur]);
+  if (ct && ct.forme !== 'rect') lignes.push([`Découpe ${CONFIG.formes[ct.forme].label.toLowerCase()}`, T.decoupe?.[ct.forme] ?? 0]);
+  if (ct && ct.spa) lignes.push([`Entourage de spa encastré (${fmtM(ct.spa.s)} × ${fmtM(ct.spa.s)})`, T.entourageSpa ?? 0]);
   lignes.push([`Sous-structure, plancher à ${fmtM(g.H)}`, surface * (T.structureM2 + g.H * T.structureHauteurM2)]);
   // Côtés libres (pas contre la maison) : longueur et habillage quand le plancher est surélevé
   const cotes = { paroiArriere: g.W, paroiAvant: g.W, paroiGauche: g.L, paroiDroite: g.L };
@@ -1670,6 +1675,23 @@ function ecrireDelta(el, d, toujoursPlus = false) {
 const pastille = (couleur) => `<span class="pastille" style="background:${couleur}"></span>`;
 
 function construirePanneau() {
+  if (CONFIG.formes) {
+    const r0 = $('#raccourcis');
+    const bloc = document.createElement('div');
+    bloc.innerHTML = '<h3 class="sous-titre">Forme</h3><div class="segments segments-4" id="formes" role="radiogroup" aria-label="Forme de la terrasse"></div>'
+      + '<h3 class="sous-titre">Spa</h3><div class="segments segments-2" id="spas" role="radiogroup" aria-label="Entourage de spa"></div>';
+    r0.before(...bloc.children);
+    const ICO = {
+      rect: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z"/></svg>',
+      coin: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v7l-5 5H4z"/></svg>',
+      arrondi: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v6a6 6 0 0 1-6 6H4z"/></svg>',
+      L: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v6h-8v6H4z"/></svg>',
+      non: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z"/></svg>',
+      oui: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4zM6 8h6v6H6z"/></svg>',
+    };
+    radios('#formes', 'forme', Object.entries(CONFIG.formes), (id, f) => `${ICO[id] ?? ''}<span>${f.label}</span><small class="delta"></small>`);
+    radios('#spas', 'spa', Object.entries(CONFIG.spas), (id, f) => `${ICO[id] ?? ''}<span>${f.label}</span><small class="delta"></small>`);
+  }
   const r = $('#raccourcis');
   CONFIG.raccourcis.forEach((rc, i) => {
     const b = document.createElement('button');
@@ -1906,6 +1928,7 @@ function lignesConfig() {
   if (TERRASSE) {
     return [
       ['Dimensions', `${fmtM(g.Dc)} ${LIB.profondeurAide} × ${fmtM(g.Wv)} ${LIB.largeurAide} · ${fmtM2(p.surface)}`],
+      ...(CONFIG.formes ? [['Forme', `${CONFIG.formes[state.forme]?.label ?? ''}${state.spa === 'oui' ? (contourTerrasse(g, state).spa ? ' · entourage de spa encastré' : ' · spa : terrasse trop petite') : ''}`]] : []),
       ['Hauteur du plancher', `${fmtM(g.H)}${p.marches ? ` · ${p.marches} marche${p.marches > 1 ? 's' : ''} d'accès` : ''}`],
       ['Implantation', g.adosse === 'non' ? 'Isolée (4 côtés libres)' : `Contre la maison, façade à ${g.adosse}`],
       ['Revêtement', `${couv.label}, ${couv.teintes[state.teinteCouverture].label.toLowerCase()}`],
@@ -1939,6 +1962,8 @@ function resume() {
     const n = nbMarches(g.H);
     return [
       dimsTexte(),
+      CONFIG.formes && state.forme !== 'rect' ? CONFIG.formes[state.forme].label : null,
+      CONFIG.formes && state.spa === 'oui' ? 'Entourage de spa' : null,
       `Plancher à ${fmtM(g.H)}`,
       g.adosse !== 'non' ? `Contre la maison (${g.adosse})` : null,
       `${couv.label} ${couv.teintes[state.teinteCouverture].label.toLowerCase()}`,

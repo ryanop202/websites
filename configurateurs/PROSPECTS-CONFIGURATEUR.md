@@ -713,3 +713,10 @@ Recherche Google site:.ch (Autounterstand/Velounterstand, Carport + Zimmerei par
 - 🔥 **Kühne Ruedi Holzbau** (série 6, mail du 19.11) : démo utilisée 3 fois le 19.11 (11:36, 14:33) + **PDF téléchargé** à 14:34.
 - Démo utilisée aussi : TREG Sàrl (studio, 19.11 10:28).
 - 20.11 : **offre spéciale Zimmba décidée par Ryan : 590 CHF de mise en place + 80 CHF/mois** (facturé par trimestre, 240 CHF), 15 mois minimum (total min. 1 790 CHF), payé à la mise en ligne. Argument : « une belle référence dans l'Oberland bernois ». Réponse ENVOYÉE le 20.11 à 07:42. À reporter dans le contrat si oui.
+
+## 7e série Suisse alémanique : 50 prospects, NOUVEAU PRIX (20.11.2026)
+- Trouvés sur local.ch (carport, pergola, wintergarten, schwimmbad, lamellendach × 18 cantons alémaniques), 333 sites vérifiés par `outils/verifier-prospects-de.py` (e-mail, produit cité, pas de configurateur ni de boutique, site en allemand), déjà contactés retirés (dépôt + boîte d'envoi). Liste : `outils/prospects-de-7.json`.
+- 20 carports bois, 11 vérandas (métalliers), 9 piscines, 4 toits à lamelles, 4 carports métal, 2 terrasses. Démos en ligne le 20.11.
+- **Test de prix décidé par Ryan (20.11)** : le mail annonce « CHF 590 Einrichtung, danach CHF 80 pro Monat, Hosting und Änderungen inbegriffen, Sie bezahlen erst, wenn der Konfigurator online ist ». La durée minimale (15 mois) n'est PAS dans le premier mail : **elle doit figurer dans l'offre écrite et le contrat avant signature**.
+- 50 mails PROGRAMMÉS le 20.11 de 10:00:00 à 10:16:20 (20 s d'écart). Relance prévue ~27.11.
+- 20.11 matin : les 20 relances personnalisées sont parties (07:45–07:51). Holzbau Kunz répond « Nein, im Moment nicht » → stop. Wisobau a rouvert sa démo (07:48).

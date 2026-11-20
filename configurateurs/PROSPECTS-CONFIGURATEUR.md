@@ -843,3 +843,4 @@ Groupe A (7) : le site parle d'abris / Gartenhäuser / Tiny House → le mail le
 | B | de | Gantner Holz GmbH (Flums SG) | info@gantner-flums.ch | https://gantner-holz.wibzo.ch |
 | B | de | Moser & Raschle GmbH (Ebnat-Kappel SG) | info@moser-raschle.ch | https://moser-raschle.wibzo.ch |
 | B | de | Woodworkers Scharpf (Wil SG) | woodworkers.scharpf@gmail.com | https://woodworkers-scharpf.wibzo.ch |
+- ⚠️ 20.11 (fusion) : **Roth Holzbau AG (info@roth-holzbau.ch) a reçu le mail carport de la 7e série le 20.11** et figure aussi dans la liste des 109 studios (mails pas encore programmés) → le RETIRER de l'envoi studios pour ne pas lui écrire deux fois.

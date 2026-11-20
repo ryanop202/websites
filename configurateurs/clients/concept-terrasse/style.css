@@ -1158,3 +1158,6 @@ body.avec-assistant .delta:not(:empty)::after { content: " CHF"; }
 
 /* Aide à droite : ne passe pas sous les boutons de vue */
 body.avec-assistant .aide { left: auto; right: 18px; transform: none; }
+
+/* Concept Terrasse (20.11.2026) : boutons et curseurs au vert de leur logo, au lieu de l orange Wibzo */
+body.avec-assistant { --accent: #3F7F28; --accent-fonce: #2F6420; }

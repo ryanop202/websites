@@ -844,3 +844,4 @@ Groupe A (7) : le site parle d'abris / Gartenhäuser / Tiny House → le mail le
 | B | de | Moser & Raschle GmbH (Ebnat-Kappel SG) | info@moser-raschle.ch | https://moser-raschle.wibzo.ch |
 | B | de | Woodworkers Scharpf (Wil SG) | woodworkers.scharpf@gmail.com | https://woodworkers-scharpf.wibzo.ch |
 - ⚠️ 20.11 (fusion) : **Roth Holzbau AG (info@roth-holzbau.ch) a reçu le mail carport de la 7e série le 20.11** et figure aussi dans la liste des 109 studios (mails pas encore programmés) → le RETIRER de l'envoi studios pour ne pas lui écrire deux fois.
+- 20.11 09:25 : **réponse ENVOYÉE à Concept Terrasse** (tout par écrit, démo refaite à leur gamme et à leurs formes, page offre, 3 étapes, WhatsApp, question « achat ou mensuel ? »). Attente de leur choix et de leurs infos.

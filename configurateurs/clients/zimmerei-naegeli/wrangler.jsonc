@@ -1,0 +1,8 @@
+{
+  // Démo Zimmerei Nägeli (allemand) : https://zimmerei-naegeli.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "zimmerei-naegeli-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "zimmerei-naegeli.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

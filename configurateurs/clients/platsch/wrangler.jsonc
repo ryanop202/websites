@@ -1,0 +1,8 @@
+{
+  // Démo Platsch AG (allemand) : https://platsch.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "platsch-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "platsch.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

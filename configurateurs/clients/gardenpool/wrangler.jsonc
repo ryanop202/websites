@@ -1,0 +1,8 @@
+{
+  // Démo gardenPool ag (allemand) : https://gardenpool.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "gardenpool-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "gardenpool.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

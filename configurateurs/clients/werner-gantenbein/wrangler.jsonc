@@ -1,0 +1,8 @@
+{
+  // Démo Werner Gantenbein AG (allemand) : https://werner-gantenbein.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "werner-gantenbein-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "werner-gantenbein.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

@@ -1,0 +1,8 @@
+{
+  // Démo Senn + Co AG (allemand) : https://senn-schwimmbad.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "senn-schwimmbad-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "senn-schwimmbad.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

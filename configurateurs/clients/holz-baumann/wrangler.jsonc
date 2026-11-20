@@ -1,0 +1,8 @@
+{
+  // Démo Baumann Holzbau-Innenausbau AG (allemand) : https://holz-baumann.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "holz-baumann-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "holz-baumann.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

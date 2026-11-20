@@ -1,0 +1,8 @@
+{
+  // Démo Cotting Holzbau GmbH (allemand) : https://cotting-holzbau.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "cotting-holzbau-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "cotting-holzbau.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

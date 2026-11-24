@@ -11,3 +11,8 @@
 
 ## Envois programmés
 58 premiers mails allemands « Ein Preisrechner für die Website von … » programmés pour le **25.11.2026 vers 11:00**. Aucun ne vise les 5 entreprises ci-dessus (vérifié pour mainsvertes).
+
+## Réponses envoyées le 24.11.2026 vers 18:30 (validées par Ryan)
+- **Aqua Emotion** (à p.wepf@aqua-emotion.ch) : merci, je ne relance pas, j'attends votre message en janvier.
+- **IPEléments** (à thierry@ipelements.ch) : tout par e-mail (pas d'appel), demande ce que le client doit choisir et comment ils calculent leurs prix, démo adaptée sans engagement, payé seulement quand tout fonctionne.
+- **Les Mains Vertes** (à info@mainsvertes.ch) : « vos coordonnées **seront** supprimées de nos listes », aucune donnée sur le site de la démo. ⚠️ **À FAIRE sur l'autre PC** : les retirer vraiment de toutes les listes.

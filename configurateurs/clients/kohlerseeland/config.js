@@ -1,23 +1,26 @@
-// Démo ALLEMANDE préparée pour Kohler Seeland AG, 11.11.2026 (outils/demo-de.py, produit « carport »).
-// Repris de kohlerseeland.ch : produit « Carport » trouvé sur le site (vérifié par script le 11.11.2026) (vu le 11.11.2026).
-// ⚠️ Tous les PRIX sont FICTIFS. Mise en ligne : `npx wrangler deploy` dans ce dossier.
-import { CONFIG as base } from './produits/carport.js';
+// Démo PERSONNALISÉE le 19.11.2026 (outils/demo-perso.py) : logo, produits et termes repris de leur site (lu le 19.11.2026).
+// ⚠️ Tous les PRIX sont FICTIFS. Mise en ligne : `npx wrangler deploy` dans hebergement-demos/.
+import { CONFIG as carport } from './produits/carport.js';
+import { CONFIG as terrasse } from './produits/terrasse.js';
 
 const ENTREPRISE = {
   nom: "Kohler Seeland AG",
-  activite: "Holzbau & Carports",
+  activite: 'Holzbau, Schreinerei & Bedachungen · Jens',
   initiales: "KS",
-  logo: '',
+  logo: 'marque/logo.webp',
   email: '', // e-mail qui reçoit les demandes (vide = démo)
-};
-const produit = {
-  ...base,
-  entreprise: ENTREPRISE,
 };
 
 export const PRODUITS = {
-  "carport": { label: "Carport", aide: "Offener Unterstand für ein oder zwei Autos, Geräteraum optional.", icone: "<path d=\"M3 20h18M5 20V10M19 20V10M2 11l10-6 10 6\"/>", config: produit },
+  'carport': { label: 'Carport / Unterstand', aide: 'Massgezimmerter Carport oder Unterstand, Geräteraum optional.', icone: '<path d="M3 20h18M5 20V10M19 20V10M2 11l10-6 10 6"/>', config: ((b) => ({ ...b, entreprise: ENTREPRISE,
+    produit: 'Carport / Unterstand',
+    libelles: { ...b.libelles, titre: 'Carport / Unterstand nach Mass' },
+  }))(carport) },
+  'terrasse': { label: 'Terrassenboden', aide: 'Holz- oder WPC-Dielen, Stufen und Geländer.', icone: '<path d="M2 15h20M4 15v5M20 15v5M4 18h16M6 12h12M8 9h8"/>', config: ((b) => ({ ...b, entreprise: ENTREPRISE,
+  }))(terrasse) },
 };
+for (const p of Object.values(PRODUITS)) p.config.chapo = 'Massgezimmert aus einer Hand: Holzbau, Bedachung und Spenglerei. Der Preis passt sich jeder Wahl an.';
 
-export const PRODUIT = "carport";
-export const CONFIG = { ...produit, assistant: true, couleurs: { plan: '#3D3A35', 'plan-clair': '#EFEBE3' } };
+const choix = new URLSearchParams(location.search).get('produit');
+export const PRODUIT = PRODUITS[choix] ? choix : 'carport';
+export const CONFIG = { ...PRODUITS[PRODUIT].config, assistant: true, couleurs: { plan: '#3D3A35', 'plan-clair': '#EFEBE3' } };

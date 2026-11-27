@@ -2,7 +2,8 @@
 (function () {
   var WA = "https://wa.me/41767574393?text=" + encodeURIComponent("Bonjour, je souhaiterais une maquette gratuite pour mon commerce : ");
   document.querySelectorAll(".wa-link").forEach(function (a) { a.href = WA; });
-  var WA3D = "https://wa.me/41767574393?text=" + encodeURIComponent("Bonjour, je souhaiterais une démo du configurateur 3D pour mon entreprise : ");
+  var DE = /^de/.test(document.documentElement.lang);
+  var WA3D = "https://wa.me/41767574393?text=" + encodeURIComponent(DE ? "Guten Tag, ich hätte gerne eine Demo des 3D-Konfigurators für mein Unternehmen: " : "Bonjour, je souhaiterais une démo du configurateur 3D pour mon entreprise : ");
   document.querySelectorAll(".wa-3d").forEach(function (a) { a.href = WA3D; });
 
   // En-tête et barre fixe mobile (affichée après le hero, cachée sur le contact final)

@@ -1,0 +1,408 @@
+[
+ {
+  "n": "151",
+  "entreprise": "Coloris Pro Sàrl",
+  "to": "info@colorispro.ch",
+  "heure": "25.11.2026 11:07:00",
+  "uuid_brouillon": "858232f8-0f21-44a2-ad94-e10c61dc583d"
+ },
+ {
+  "n": "152",
+  "entreprise": "Evasion peinture SA",
+  "to": "contact@evasionpeinture.ch",
+  "heure": "25.11.2026 11:07:10",
+  "uuid_brouillon": "5cd58345-141f-44b5-bbb9-f2a9e4304b5c"
+ },
+ {
+  "n": "153",
+  "entreprise": "BB Peinture",
+  "to": "info@bbpeinture.ch",
+  "heure": "25.11.2026 11:07:20",
+  "uuid_brouillon": "4c6fe85f-c7ba-4600-8d58-0fa213ce05b2"
+ },
+ {
+  "n": "154",
+  "entreprise": "Ameti Peinture",
+  "to": "info@ametipeinture.ch",
+  "heure": "25.11.2026 11:07:30",
+  "uuid_brouillon": "cb85963f-3be2-4255-aa73-671581bf2d0e"
+ },
+ {
+  "n": "155",
+  "entreprise": "Alpsteinzaun + Tor AG",
+  "to": "info@alpsteinzaun.ch",
+  "heure": "25.11.2026 11:07:40",
+  "uuid_brouillon": "65bbf1c4-6a25-4d2c-b0d5-f8fde0eb2f80"
+ },
+ {
+  "n": "156",
+  "entreprise": "HSB Hans Schmid AG",
+  "to": "info@hsb-bern.ch",
+  "heure": "25.11.2026 11:07:50",
+  "uuid_brouillon": "6f04e207-5c7d-4010-8fd0-bb42086bbbf1"
+ },
+ {
+  "n": "157",
+  "entreprise": "Zaunbau Plus GmbH",
+  "to": "info@zaunbauplus.ch",
+  "heure": "25.11.2026 11:08:00",
+  "uuid_brouillon": "63f13e14-25a2-477a-a927-c34b910b89e7"
+ },
+ {
+  "n": "158",
+  "entreprise": "Herzog Zäune GmbH",
+  "to": "info@herzogzaeune.ch",
+  "heure": "25.11.2026 11:08:10",
+  "uuid_brouillon": "d671dea1-d958-4605-8d09-a78c16ba628c"
+ },
+ {
+  "n": "159",
+  "entreprise": "Ledergerber Gartenpflege AG",
+  "to": "info@ledergerber-gartenpflege.ch",
+  "heure": "25.11.2026 11:08:20",
+  "uuid_brouillon": "60ffeba1-3312-4456-98a4-362b488c2aa4"
+ },
+ {
+  "n": "160",
+  "entreprise": "Walter Zäune AG",
+  "to": "info@walterzaeune.ch",
+  "heure": "25.11.2026 11:08:30",
+  "uuid_brouillon": "517d6d16-5ef6-4233-b3d5-4eea659bc913"
+ },
+ {
+  "n": "161",
+  "entreprise": "Bauduo AG",
+  "to": "info@bauduo.ch",
+  "heure": "25.11.2026 11:08:40",
+  "uuid_brouillon": "5d11cfe4-bf7e-4bc9-9eee-038dd8cfd73d"
+ },
+ {
+  "n": "162",
+  "entreprise": "ZAUNPROFIS GmbH",
+  "to": "info@zaunprofis.ch",
+  "heure": "25.11.2026 11:08:50",
+  "uuid_brouillon": "8c419aee-544c-4997-870d-3573d8a88520"
+ },
+ {
+  "n": "163",
+  "entreprise": "LEDER Garten- + Landschaftsbau",
+  "to": "leder@ledergarten.ch",
+  "heure": "25.11.2026 11:09:00",
+  "uuid_brouillon": "0d8e3da5-793f-4af0-b217-e5d9583ed780"
+ },
+ {
+  "n": "164",
+  "entreprise": "Wagner Umzüge AG Basel",
+  "to": "info@wagner-movers.ch",
+  "heure": "25.11.2026 11:09:10",
+  "uuid_brouillon": "7b729bb6-a6fe-4192-99bd-d126a396ce97"
+ },
+ {
+  "n": "165",
+  "entreprise": "DANI-Transport",
+  "to": "info@dani-transport.ch",
+  "heure": "25.11.2026 11:09:20",
+  "uuid_brouillon": "cbf360c5-022e-4760-9128-6cb9725916b0"
+ },
+ {
+  "n": "166",
+  "entreprise": "HAK Transporte GmbH",
+  "to": "info@haktransporte.ch",
+  "heure": "25.11.2026 11:09:30",
+  "uuid_brouillon": "43a0d754-547c-4771-b992-c3486d98e5c1"
+ },
+ {
+  "n": "167",
+  "entreprise": "Gabriel Transport AG",
+  "to": "info@gabriel.ch",
+  "heure": "25.11.2026 11:09:40",
+  "uuid_brouillon": "7e715e0c-971a-401c-a45f-86c2ed15b906"
+ },
+ {
+  "n": "168",
+  "entreprise": "GAFF UMZUG Luzern",
+  "to": "buro@gaffumzug.ch",
+  "heure": "25.11.2026 11:09:50",
+  "uuid_brouillon": "46c5963a-8dad-4761-b16d-4c17a1b8cb87"
+ },
+ {
+  "n": "169",
+  "entreprise": "Frischknecht Umzüge GmbH",
+  "to": "info@frischknecht-umzuege.ch",
+  "heure": "25.11.2026 11:10:00",
+  "uuid_brouillon": "609818f9-47b4-47e3-84e6-d423c4cd8678"
+ },
+ {
+  "n": "170",
+  "entreprise": "A&A Umzüge GmbH",
+  "to": "info@aunda-umzuege.ch",
+  "heure": "25.11.2026 11:10:10",
+  "uuid_brouillon": "68b425ed-afb4-4ad7-832c-0b51c8af4138"
+ },
+ {
+  "n": "171",
+  "entreprise": "Bischof Umzüge und Transporte AG",
+  "to": "info@bischof-umzuege.ch",
+  "heure": "25.11.2026 11:10:20",
+  "uuid_brouillon": "a4457bbb-9472-4746-abb0-e5dc826a8801"
+ },
+ {
+  "n": "172",
+  "entreprise": "Yasri Dienstleistungen",
+  "to": "info@yasridienstleistungen.com",
+  "heure": "25.11.2026 11:10:30",
+  "uuid_brouillon": "01720ee2-8151-4b66-9629-1091555dc4f2"
+ },
+ {
+  "n": "173",
+  "entreprise": "Elegant Umzug GmbH",
+  "to": "info@elegant-umzug.ch",
+  "heure": "25.11.2026 11:10:40",
+  "uuid_brouillon": "ee3a7a38-ccc3-41ee-b082-40dc0a656928"
+ },
+ {
+  "n": "174",
+  "entreprise": "TW Transporte GmbH",
+  "to": "info@tw-trans.ch",
+  "heure": "25.11.2026 11:10:50",
+  "uuid_brouillon": "1ffb9051-7876-48ae-b592-14ac446c91bc"
+ },
+ {
+  "n": "175",
+  "entreprise": "ClearMove",
+  "to": "offerte@clearmove.ch",
+  "heure": "25.11.2026 11:11:00",
+  "uuid_brouillon": "a756dfab-c3f4-487f-9890-ecfdf0ee21cf"
+ },
+ {
+  "n": "176",
+  "entreprise": "Super Transport GmbH",
+  "to": "info@supertransport.ch",
+  "heure": "25.11.2026 11:11:10",
+  "uuid_brouillon": "2579a18a-10f6-4cd2-bb3c-d55b1fc07e8f"
+ },
+ {
+  "n": "177",
+  "entreprise": "B & S Services GmbH",
+  "to": "info@bs-services.ch",
+  "heure": "25.11.2026 11:11:20",
+  "uuid_brouillon": "411a3011-0a72-4b27-b3b4-a5c72ae848d7"
+ },
+ {
+  "n": "178",
+  "entreprise": "Ablauf Reinigung Blitz-Blank AG",
+  "to": "info@blitzblank.ch",
+  "heure": "25.11.2026 11:11:30",
+  "uuid_brouillon": "1f4588a2-e29f-4e65-aa91-3ac77a29095b"
+ },
+ {
+  "n": "179",
+  "entreprise": "Gafner Reinigungen AG",
+  "to": "tleu@gafner-reinigungen.ch",
+  "heure": "25.11.2026 11:11:40",
+  "uuid_brouillon": "6c99627b-1c88-4cf0-9002-eee1afe54c53"
+ },
+ {
+  "n": "180",
+  "entreprise": "MH Reinigungen - Hauswartungen",
+  "to": "info@mh-reinigungen.ch",
+  "heure": "25.11.2026 11:11:50",
+  "uuid_brouillon": "8af75022-ef15-4406-a699-6462e9f8000f"
+ },
+ {
+  "n": "181",
+  "entreprise": "Innocenti Gartenbau",
+  "to": "info@innocenti-gartenbau.ch",
+  "heure": "25.11.2026 11:12:00",
+  "uuid_brouillon": "0132b10e-b230-49e3-bb89-0fa63f6b6439"
+ },
+ {
+  "n": "182",
+  "entreprise": "Webergarten",
+  "to": "info@webergarten.ch",
+  "heure": "25.11.2026 11:12:10",
+  "uuid_brouillon": "2ef49441-5c3c-4dbb-b530-257fe447db9c"
+ },
+ {
+  "n": "183",
+  "entreprise": "Hanspeter Müller Gartenbau GmbH",
+  "to": "info@hp-mueller-gartenbau.ch",
+  "heure": "25.11.2026 11:12:20",
+  "uuid_brouillon": "7e8c6a75-8e8c-4997-84d0-32e98a0ab329"
+ },
+ {
+  "n": "184",
+  "entreprise": "Ferizi Gartenarbeiten GmbH",
+  "to": "info@ferizi-gartenarbeiten.ch",
+  "heure": "25.11.2026 11:12:30",
+  "uuid_brouillon": "b02ac858-dc7b-4b39-8f40-64a6be5588f6"
+ },
+ {
+  "n": "186",
+  "entreprise": "Von Fuchs Gartenbau",
+  "to": "info@vonfuchs-gartenbau.ch",
+  "heure": "25.11.2026 11:12:40",
+  "uuid_brouillon": "2fd23628-d522-45d2-a0d6-cd1da431cf11"
+ },
+ {
+  "n": "187",
+  "entreprise": "Ruppenthal-Gartenbau",
+  "to": "info@ruppenthal-gartenbau.ch",
+  "heure": "25.11.2026 11:12:50",
+  "uuid_brouillon": "5bd77615-d087-494e-9714-47e9f9bec5b3"
+ },
+ {
+  "n": "190",
+  "entreprise": "Braun Gartenbau AG",
+  "to": "info@braun-gartenbau.ch",
+  "heure": "25.11.2026 11:13:00",
+  "uuid_brouillon": "3cfc49ec-1440-46c7-ac2e-b21d34f943eb"
+ },
+ {
+  "n": "191",
+  "entreprise": "Hatt Gartenbau",
+  "to": "info@hatt-gartenbau.ch",
+  "heure": "25.11.2026 11:13:10",
+  "uuid_brouillon": "dd7bdafa-e0d3-4ec0-8d2f-d1315ceb9e3e"
+ },
+ {
+  "n": "192",
+  "entreprise": "Berner F. Gartenbau AG",
+  "to": "info@bernergartenbau.ch",
+  "heure": "25.11.2026 11:13:20",
+  "uuid_brouillon": "909ef275-841c-40cf-8324-50a3c5eed71f"
+ },
+ {
+  "n": "193",
+  "entreprise": "FM Kirnbauer AG",
+  "to": "info@kirnbauer.ch",
+  "heure": "25.11.2026 11:13:30",
+  "uuid_brouillon": "6394cfa4-1c07-4bba-9b82-0f849357ba0b"
+ },
+ {
+  "n": "194",
+  "entreprise": "Die Privatgärtner GmbH",
+  "to": "info@privatgaertner.ch",
+  "heure": "25.11.2026 11:13:40",
+  "uuid_brouillon": "9ff09f3f-98a7-47ab-b708-52b0f894fb20"
+ },
+ {
+  "n": "195",
+  "entreprise": "Stirnimann & Co AG",
+  "to": "info@stirnimann-maler.ch",
+  "heure": "25.11.2026 11:13:50",
+  "uuid_brouillon": "aaaface2-5541-440b-a8af-cd3338dffa93"
+ },
+ {
+  "n": "196",
+  "entreprise": "Aroleo Bau GmbH Malergeschäft",
+  "to": "info@aroleo-bau.ch",
+  "heure": "25.11.2026 11:14:00",
+  "uuid_brouillon": "7a9aea71-4eb1-4ead-9086-8b8572043543"
+ },
+ {
+  "n": "197",
+  "entreprise": "Maler Fritz GmbH",
+  "to": "info@malerfritz.ch",
+  "heure": "25.11.2026 11:14:10",
+  "uuid_brouillon": "d9a36daf-f73b-49ec-a30c-720cfeb67e75"
+ },
+ {
+  "n": "198",
+  "entreprise": "Schneider + Schneider Maleratelier GmbH",
+  "to": "maler@schneiderundschneider.ch",
+  "heure": "25.11.2026 11:14:20",
+  "uuid_brouillon": "0e193a8e-9253-4fcd-a3b8-1436136379f3"
+ },
+ {
+  "n": "199",
+  "entreprise": "Die Malerin",
+  "to": "bea@diemalerin.eu",
+  "heure": "25.11.2026 11:14:30",
+  "uuid_brouillon": "37dda7a3-733c-4496-ae24-9b843bd4f02c"
+ },
+ {
+  "n": "200",
+  "entreprise": "Iso-Bau AG",
+  "to": "info@isobau.ch",
+  "heure": "25.11.2026 11:14:40",
+  "uuid_brouillon": "fca8c6a1-1566-4909-8cc8-ee7d94936251"
+ },
+ {
+  "n": "201",
+  "entreprise": "Mordasini Maler Gipser AG",
+  "to": "info@mordasini.ch",
+  "heure": "25.11.2026 11:14:50",
+  "uuid_brouillon": "e57f2c0b-454b-4855-9313-07c48d2e02ad"
+ },
+ {
+  "n": "202",
+  "entreprise": "Lüthi & Sohn",
+  "to": "mail@luethi-und-sohn.ch",
+  "heure": "25.11.2026 11:15:00",
+  "uuid_brouillon": "34b04a4d-8b9b-4b1b-b51c-4bf661972f8c"
+ },
+ {
+  "n": "203",
+  "entreprise": "Limi GmbH",
+  "to": "info@limigmbh.ch",
+  "heure": "25.11.2026 11:15:10",
+  "uuid_brouillon": "98cb25bb-229d-4c8a-a5d5-158528381a18"
+ },
+ {
+  "n": "204",
+  "entreprise": "saa ag",
+  "to": "saa@saa-wma.ch",
+  "heure": "25.11.2026 11:15:20",
+  "uuid_brouillon": "b26c763b-10c0-4242-be5e-3e888cfc6bb8"
+ },
+ {
+  "n": "205",
+  "entreprise": "Martin Hanimann AG",
+  "to": "info@martinhanimann.ch",
+  "heure": "25.11.2026 11:15:30",
+  "uuid_brouillon": "e6fea148-df7f-4e2c-8eaa-44dbc3f8bd49"
+ },
+ {
+  "n": "206",
+  "entreprise": "farbpalette.ch Winterthur GmbH",
+  "to": "info@farbpalette.ch",
+  "heure": "25.11.2026 11:15:40",
+  "uuid_brouillon": "989b1752-ae87-4f19-93c5-158881f7bc67"
+ },
+ {
+  "n": "207",
+  "entreprise": "Malerei Wülser & Partner GmbH",
+  "to": "info@malerei-wuelser.ch",
+  "heure": "25.11.2026 11:15:50",
+  "uuid_brouillon": "30d0d60b-f878-4f68-bbfc-5904224fef66"
+ },
+ {
+  "n": "208",
+  "entreprise": "Hebeisen Fritz AG",
+  "to": "info@hebeisen-maler.ch",
+  "heure": "25.11.2026 11:16:00",
+  "uuid_brouillon": "0874db70-ad44-413c-a05c-8882b4ddb988"
+ },
+ {
+  "n": "209",
+  "entreprise": "Maler Schaad GmbH",
+  "to": "info@malerschaad.ch",
+  "heure": "25.11.2026 11:16:10",
+  "uuid_brouillon": "5e6d1803-1b4d-49b0-aa4c-115c9750b5a9"
+ },
+ {
+  "n": "210",
+  "entreprise": "Malergeschäft Gremlich",
+  "to": "info@maler-gremlich.ch",
+  "heure": "25.11.2026 11:16:20",
+  "uuid_brouillon": "5d284795-4b69-4694-9492-d3dcf4a16f4d"
+ },
+ {
+  "n": "211",
+  "entreprise": "Fretz Remo",
+  "to": "info@fretz-maler.ch",
+  "heure": "25.11.2026 11:16:30",
+  "uuid_brouillon": "2c5689a4-9518-465e-8598-c1a10475649e"
+ }
+]

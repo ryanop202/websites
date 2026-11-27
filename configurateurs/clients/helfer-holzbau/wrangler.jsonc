@@ -1,0 +1,8 @@
+{
+  // Démo K. Helfer Holzbau AG (allemand) : https://helfer-holzbau.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "helfer-holzbau-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "helfer-holzbau.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

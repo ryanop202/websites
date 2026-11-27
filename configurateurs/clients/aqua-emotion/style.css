@@ -1158,3 +1158,17 @@ body.avec-assistant .delta:not(:empty)::after { content: " CHF"; }
 
 /* Aide à droite : ne passe pas sous les boutons de vue */
 body.avec-assistant .aide { left: auto; right: 18px; transform: none; }
+
+/* Étape « Modell » : bassins préfabriqués avec vue de dessus (Aqua Emotion, 19.11.2026) */
+.modeles { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; }
+.carte-modele {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 8px 6px 9px; border: 1px solid var(--trait, #D9D3C7); border-radius: 6px;
+  background: #fff; font: inherit; color: inherit; cursor: pointer; text-align: center;
+}
+.carte-modele img { width: 100%; height: 150px; object-fit: cover; object-position: center bottom; margin-bottom: 4px; }
+.carte-modele strong { font-size: 13px; line-height: 1.2; }
+.carte-modele small { font-size: 12px; color: var(--encre-2); }
+.carte-modele:hover { border-color: var(--encre-2); }
+.carte-modele[aria-checked="true"] { border-color: var(--encre); box-shadow: 0 0 0 1px var(--encre); }
+.carte-modele:focus-visible { outline: 2px solid var(--encre); outline-offset: 2px; }

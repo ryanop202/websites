@@ -1,0 +1,8 @@
+{
+  // Démo Müntener Pool-Center (allemand) : https://muentener-pool.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "muentener-pool-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "muentener-pool.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

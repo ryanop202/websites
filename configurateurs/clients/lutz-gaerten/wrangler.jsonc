@@ -1,0 +1,8 @@
+{
+  // Démo Lutz Gärten & Schwimmbäder GmbH (allemand) : https://lutz-gaerten.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "lutz-gaerten-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "lutz-gaerten.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

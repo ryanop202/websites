@@ -1,0 +1,8 @@
+{
+  // Démo Dudler AG Schwimmbadtechnik (allemand) : https://dudler-schwimmbadtechnik.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "dudler-schwimmbadtechnik-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "dudler-schwimmbadtechnik.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

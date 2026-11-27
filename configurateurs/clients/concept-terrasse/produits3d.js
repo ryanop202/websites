@@ -490,6 +490,8 @@ export function creerModeles(ctx) {
   const matDalle = new THREE.MeshStandardMaterial({ map: texDalles, roughness: 0.55, envMapIntensity: 0.6 });
   const matHabillage = new THREE.MeshStandardMaterial({ color: '#4A4D50', roughness: 0.5, metalness: 0.3 });
   const matPlot = new THREE.MeshStandardMaterial({ color: '#3B3C3E', roughness: 0.8 });
+  const matSpaCoque = new THREE.MeshStandardMaterial({ color: '#E9EEF0', roughness: 0.25, metalness: 0.05 });
+  const matSpaEau = new THREE.MeshPhysicalMaterial({ color: '#3FB6D3', roughness: 0.05, transparent: true, opacity: 0.72, depthWrite: false, clearcoat: 1 });
   const matInox = new THREE.MeshStandardMaterial({ color: '#C9CDD0', roughness: 0.22, metalness: 0.95 });
   const matGCbois = new THREE.MeshStandardMaterial({ map: texVeinage, bumpMap: texVeinage, bumpScale: 0.4, roughness: 0.7 });
   const matGCboisZ = new THREE.MeshStandardMaterial({ map: texVeinageZ, bumpMap: texVeinageZ, bumpScale: 0.4, roughness: 0.7 });
@@ -497,6 +499,48 @@ export function creerModeles(ctx) {
 
   function terrasse(g) {
     const { W, L, H } = g;
+    // Forme (Concept Terrasse) : contour du plancher et trou éventuel (entourage de spa)
+    const ct = contourTerrasse(g, state);
+    const formeLibre = ct.forme !== 'rect' || Boolean(ct.spa);
+    const polys = [ct.poly, ...ct.trous];
+    const dansPoly = (pl, x, z) => {
+      let d = false;
+      for (let i = 0, j = pl.length - 1; i < pl.length; j = i++) {
+        const [xi, zi] = pl[i]; const [xj, zj] = pl[j];
+        if ((zi > z) !== (zj > z) && x < ((xj - xi) * (z - zi)) / (zj - zi) + xi) d = !d;
+      }
+      return d;
+    };
+    const dansPlancher = (x, z) => dansPoly(ct.poly, x, z) && !ct.trous.some((t) => dansPoly(t, x, z));
+    // Intervalles couverts par le plancher le long d'une ligne (axe 0 : x = c, intervalles en z ; axe 1 : z = c, intervalles en x)
+    const intervalles = (axe, c) => {
+      const xs = [];
+      for (const pl of polys) for (let i = 0; i < pl.length; i++) {
+        const p = pl[i]; const q = pl[(i + 1) % pl.length];
+        const pa = axe === 0 ? p[0] : p[1]; const qa = axe === 0 ? q[0] : q[1];
+        if ((pa <= c) !== (qa <= c)) {
+          const t = (c - pa) / (qa - pa);
+          xs.push(axe === 0 ? p[1] + t * (q[1] - p[1]) : p[0] + t * (q[0] - p[0]));
+        }
+      }
+      xs.sort((u, v) => u - v);
+      const res = [];
+      for (let i = 0; i + 1 < xs.length; i += 2) res.push([xs[i], xs[i + 1]]);
+      return res;
+    };
+    const croiser = (I1, I2) => {
+      const r = [];
+      for (const [a1, b1] of I1) for (const [a2, b2] of I2) { const a = Math.max(a1, a2); const b = Math.min(b1, b2); if (b - a > 0.05) r.push([a, b]); }
+      return r;
+    };
+    // Plaque en forme de contour (avec trous), à plat, épaisseur e, dessus à y
+    const plaque = (e, mat, y, ombre = true) => {
+      const forme = new THREE.Shape(ct.poly.map(([x, z]) => new THREE.Vector2(x, -z)));
+      for (const t of ct.trous) forme.holes.push(new THREE.Path(t.map(([x, z]) => new THREE.Vector2(x, -z))));
+      const geo = new THREE.ExtrudeGeometry(forme, { depth: e, bevelEnabled: false });
+      geo.rotateX(-Math.PI / 2);
+      return ajouter(geo, mat, 0, y - e, 0, ombre);
+    };
     const couv = CONFIG.couvertures[state.couverture];
     const teinte = couv.teintes[state.teinteCouverture].couleur;
     const pose = CONFIG.bois[state.bois];
@@ -529,12 +573,16 @@ export function creerModeles(ctx) {
       t.repeat.set(selonZ ? L / 2.4 : W / 2.4, selonZ ? W / 2.4 : L / 2.4);
       t.needsUpdate = true;
       matDalle.color.set(teinte);
-      boite(W, ep, L, matDalle, 0, yTop - ep / 2, 0);
+      if (formeLibre) {
+        t.repeat.set(1 / 2.4, 1 / 2.4);
+        t.needsUpdate = true;
+        plaque(ep, matDalle, yTop);
+      } else boite(W, ep, L, matDalle, 0, yTop - ep / 2, 0);
       // Plots sous les dalles (visibles seulement si le plancher est haut et sans habillage du côté maison)
     } else {
       const lw = couv.largeurLame ?? 0.14;
       const jeu = 0.006;
-      const cadre = Boolean(pose.cadre);
+      const cadre = Boolean(pose.cadre) && !formeLibre;
       const bord = cadre ? lw + jeu : 0;
       // Cadre périphérique : une lame posée tout autour, perpendiculaire aux autres
       if (cadre) {
@@ -550,30 +598,91 @@ export function creerModeles(ctx) {
       for (let i = 0; i < n; i++) {
         const c = -largeurZone / 2 + lwr / 2 + i * (lwr + jeu);
         const k = (i * 7) % 3;
-        if (selonZ) boite(lwr, ep, longueur, matLameZ[k], c, yTop - ep / 2, 0);
-        else boite(longueur, ep, lwr, matLame[k], 0, yTop - ep / 2, c);
+        if (!formeLibre) {
+          if (selonZ) boite(lwr, ep, longueur, matLameZ[k], c, yTop - ep / 2, 0);
+          else boite(longueur, ep, lwr, matLame[k], 0, yTop - ep / 2, c);
+          continue;
+        }
+        // Lame coupée à la forme : morceaux entièrement dans le plancher
+        const axe = selonZ ? 0 : 1;
+        for (const [a, b] of croiser(intervalles(axe, c - lwr / 2 + 0.003), intervalles(axe, c + lwr / 2 - 0.003))) {
+          if (selonZ) boite(lwr, ep, b - a, matLameZ[k], c, yTop - ep / 2, (a + b) / 2);
+          else boite(b - a, ep, lwr, matLame[k], (a + b) / 2, yTop - ep / 2, c);
+        }
       }
-      // Lambourdes sombres entre les lames (on les devine dans les joints)
-      boite(W - 0.02, 0.04, L - 0.02, matPlot, 0, yTop - ep - 0.02, 0, false);
+      if (formeLibre) {
+        // Lames de bordure le long des coupes en biais, de l'arrondi et autour du spa
+        const bords = [];
+        for (const pl of polys) for (let i = 0; i < pl.length; i++) {
+          const p = pl[i]; const q = pl[(i + 1) % pl.length];
+          if (pl !== ct.poly || (Math.abs(p[0] - q[0]) > 0.01 && Math.abs(p[1] - q[1]) > 0.01)) bords.push([p, q]);
+        }
+        for (const [p, q] of bords) {
+          const lg = Math.hypot(q[0] - p[0], q[1] - p[1]);
+          let nx = -(q[1] - p[1]) / lg; let nz = (q[0] - p[0]) / lg;
+          const mx = (p[0] + q[0]) / 2; const mz = (p[1] + q[1]) / 2;
+          if (!dansPlancher(mx + nx * 0.05, mz + nz * 0.05)) { nx = -nx; nz = -nz; }
+          const d = lw / 2 + 0.002;
+          const { grp, long } = repere(p[0] + nx * d, p[1] + nz * d, q[0] + nx * d, q[1] + nz * d);
+          boite(lw, ep, long + 0.02, matLame[1], 0, yTop - ep / 2 + 0.001, 0, true, grp);
+        }
+        plaque(0.04, matPlot, yTop - ep, false);
+      } else {
+        // Lambourdes sombres entre les lames (on les devine dans les joints)
+        boite(W - 0.02, 0.04, L - 0.02, matPlot, 0, yTop - ep - 0.02, 0, false);
+      }
     }
 
     // ----- Côtés : habillage (plancher surélevé) ou simple bordure -----
     const hHab = Math.max(0.02, H - ep);
     const libre = (cle) => !(cle === 'paroiGauche' && g.maison(-1)) && !(cle === 'paroiDroite' && g.maison(1));
+    // Côté (clé de paroi) d'une arête du contour ; null pour une coupe (biais, arrondi, L)
+    const cleArete = (p, q) => {
+      if (Math.abs(p[0] - q[0]) < 0.01 && Math.abs(Math.abs(p[0]) - W / 2) < 0.01) return p[0] < 0 ? 'paroiGauche' : 'paroiDroite';
+      if (Math.abs(p[1] - q[1]) < 0.01 && Math.abs(Math.abs(p[1]) - L / 2) < 0.01) return p[1] < 0 ? 'paroiArriere' : 'paroiAvant';
+      return null;
+    };
+    if (formeLibre) {
+      for (let i = 0; i < ct.poly.length; i++) {
+        const p = ct.poly[i]; const q = ct.poly[(i + 1) % ct.poly.length];
+        const cle = cleArete(p, q);
+        if (cle && !libre(cle)) continue;
+        const { grp, long } = repere(p[0], p[1], q[0], q[1]);
+        boite(0.022, hHab, long + 0.01, cle === 'paroiArriere' || cle === 'paroiAvant' ? matHabX : matHab, 0, Y_SOL + hHab / 2, 0, true, grp);
+      }
+    } else {
     if (libre('paroiGauche')) boite(0.022, hHab, L, matHab, -W / 2 + 0.011, Y_SOL + hHab / 2, 0);
     if (libre('paroiDroite')) boite(0.022, hHab, L, matHab, W / 2 - 0.011, Y_SOL + hHab / 2, 0);
     boite(W, hHab, 0.022, matHabX, 0, Y_SOL + hHab / 2, L / 2 - 0.011);
     boite(W, hHab, 0.022, matHabX, 0, Y_SOL + hHab / 2, -L / 2 + 0.011);
+    }
+    // Entourage de spa : coque blanche, eau, banquettes
+    if (ct.spa) {
+      const { s, x: xs, z: zs } = ct.spa;
+      const yEau = yTop - 0.14;
+      const prof = 0.85;
+      for (const [w, d, x, z] of [[s, 0.08, xs, zs - s / 2 + 0.04], [s, 0.08, xs, zs + s / 2 - 0.04], [0.08, s, xs - s / 2 + 0.04, zs], [0.08, s, xs + s / 2 - 0.04, zs]]) {
+        boite(w, prof, d, matSpaCoque, x, yTop - 0.03 - prof / 2, z, false);
+      }
+      boite(s - 0.16, 0.05, s - 0.16, matSpaCoque, xs, yEau - prof + 0.2, zs, false);
+      for (const [dx, dz] of [[-1, -1], [1, 1]]) boite(0.55, 0.4, 0.55, matSpaCoque, xs + dx * (s / 2 - 0.35), yEau - 0.45, zs + dz * (s / 2 - 0.35), false);
+      const eau = ajouter(new THREE.PlaneGeometry(s - 0.16, s - 0.16), matSpaEau, xs, yEau, zs, false);
+      eau.rotation.x = -Math.PI / 2;
+      eau.renderOrder = 3;
+    }
     // Ombre de contact au pied de la terrasse
-    for (const [x, z] of [[-W / 3, -L / 3], [W / 3, L / 3], [-W / 3, L / 3], [W / 3, -L / 3]]) ctx.ombrePied(x, z);
+    for (const [x, z] of [[-W / 3, -L / 3], [W / 3, L / 3], [-W / 3, L / 3], [W / 3, -L / 3]]) if (!formeLibre || dansPlancher(x, z)) ctx.ombrePied(x, z);
 
     // ----- Marches d'accès côté jardin -----
     const cote = g.adosse === 'gauche' ? 'paroiDroite' : g.adosse === 'droite' ? 'paroiGauche' : 'paroiAvant';
     const nM = H <= (CONFIG.hauteurSansMarche ?? 0.2) ? 0 : Math.ceil(H / (CONFIG.hauteurMarche ?? 0.18)) - 1 || 1;
-    const wm = Math.min(CONFIG.largeurMarches ?? 1.4, (cote === 'paroiAvant' ? W : L) - 0.2);
+    // Coupe du coin extérieur (forme) : les marches restent sur la partie droite du côté jardin
+    const coupe = cote === 'paroiAvant' ? ct.coupeX : ((cote === 'paroiDroite') === (ct.sx === 1) ? ct.coupeZ : 0);
+    const decal = cote === 'paroiAvant' ? -ct.sx * coupe / 2 : -coupe / 2;
+    const wm = Math.min(CONFIG.largeurMarches ?? 1.4, (cote === 'paroiAvant' ? W : L) - coupe - 0.2);
     const giron = 0.32;
     // Repère des marches : u = le long du bord, v = vers l'extérieur
-    const placer = (u, v) => (cote === 'paroiAvant' ? [u, L / 2 + v] : cote === 'paroiDroite' ? [W / 2 + v, u] : [-W / 2 - v, u]);
+    const placer = (u0, v) => { const u = u0 + decal; return cote === 'paroiAvant' ? [u, L / 2 + v] : cote === 'paroiDroite' ? [W / 2 + v, u] : [-W / 2 - v, u]; };
     const leds = [];
     for (let i = 1; i <= nM; i++) {
       const yM = yTop - (i * H) / (nM + 1);
@@ -609,10 +718,25 @@ export function creerModeles(ctx) {
       } else segments.push([ax, az, bx, bz]);
     };
     const r = 0.04; // retrait du bord
+    if (formeLibre) {
+      // Arêtes du contour ; les coupes (biais, arrondi, L) suivent le côté jardin ou l'avant
+      const cleJardin = ct.sx === 1 ? 'paroiDroite' : 'paroiGauche';
+      for (let i = 0; i < ct.poly.length; i++) {
+        const p = ct.poly[i]; const q = ct.poly[(i + 1) % ct.poly.length];
+        const cle = cleArete(p, q);
+        const lg = Math.hypot(q[0] - p[0], q[1] - p[1]);
+        let nx = -(q[1] - p[1]) / lg; let nz = (q[0] - p[0]) / lg;
+        if (!dansPlancher((p[0] + q[0]) / 2 + nx * 0.05, (p[1] + q[1]) / 2 + nz * 0.05)) { nx = -nx; nz = -nz; }
+        const ax = p[0] + nx * r; const az = p[1] + nz * r; const bx = q[0] + nx * r; const bz = q[1] + nz * r;
+        if (cle) ajoutSeg(cle, ax, az, bx, bz);
+        else if (state[cleJardin] || state.paroiAvant) segments.push([ax, az, bx, bz]);
+      }
+    } else {
     ajoutSeg('paroiArriere', -W / 2 + r, -L / 2 + r, W / 2 - r, -L / 2 + r);
     ajoutSeg('paroiAvant', -W / 2 + r, L / 2 - r, W / 2 - r, L / 2 - r);
     ajoutSeg('paroiGauche', -W / 2 + r, -L / 2 + r, -W / 2 + r, L / 2 - r);
     ajoutSeg('paroiDroite', W / 2 - r, -L / 2 + r, W / 2 - r, L / 2 - r);
+    }
     for (const [ax, az, bx, bz] of segments) {
       const { grp, long } = repere(ax, az, bx, bz);
       if (long < 0.15) continue;
@@ -654,6 +778,7 @@ export function creerModeles(ctx) {
     if (state.led) {
       const pas = 1.4;
       const spot = (x, z) => {
+        if (formeLibre && !dansPlancher(x, z)) return;
         ajouter(new THREE.CylinderGeometry(0.03, 0.03, 0.006, 16), ctx.matLed, x, yTop + 0.002, z, false);
         leds.push([x, yTop, z]);
       };
@@ -670,11 +795,66 @@ export function creerModeles(ctx) {
     // Mobilier (échelle), un peu en retrait de la maison
     if (W >= 2.6 && L >= 2.6) {
       const dx = g.maison(-1) ? 0.3 : g.maison(1) ? -0.3 : 0;
-      const dz = g.adosse === 'non' ? -0.2 : 0;
-      mobilier(dx, dz, H);
+      const dz = (g.adosse === 'non' ? -0.2 : 0) + (ct.spa ? 0.5 : 0);
+      const dxs = ct.spa ? ct.sx * 0.5 : 0;
+      mobilier(dx + dxs, dz, H);
     }
     return { ombre: 0 };
   }
 
   return { veranda, pergolaBio, terrasse };
+}
+
+// ---------- Formes de terrasse (Concept Terrasse, 20.11.2026) ----------
+// Contour de la terrasse en plan (x, z), selon la forme choisie : rectangle, coin coupé, coin arrondi ou en L.
+// Le coin modifié est le coin extérieur (côté jardin, à l'avant). Option : entourage de spa encastré (trou carré).
+// Utilisé par le modèle 3D (produits3d.js, terrasse) et par le prix (app.js).
+export function contourTerrasse(g, state) {
+  const { W, L } = g;
+  const forme = state.forme ?? 'rect';
+  const sx = g.maison(1) ? -1 : 1; // coin extérieur : à l'opposé de la maison
+  const m = Math.min(W, L);
+  const c = Math.min(1.8, Math.max(0.6, 0.35 * m)); // coin coupé ou arrondi
+  const a = 0.45 * W;
+  const b = 0.45 * L; // découpe du L
+  // Points qui remplacent le coin (W/2, L/2), du côté x = W/2 vers le côté z = L/2
+  let coin = null;
+  let coupeX = 0;
+  let coupeZ = 0;
+  if (forme === 'coin') { coin = [[W / 2, L / 2 - c], [W / 2 - c, L / 2]]; coupeX = c; coupeZ = c; }
+  if (forme === 'arrondi') {
+    coin = [];
+    for (let i = 0; i <= 10; i++) {
+      const t = (i / 10) * (Math.PI / 2);
+      coin.push([W / 2 - c + c * Math.cos(t), L / 2 - c + c * Math.sin(t)]);
+    }
+    coupeX = c; coupeZ = c;
+  }
+  if (forme === 'L') { coin = [[W / 2, L / 2 - b], [W / 2 - a, L / 2 - b], [W / 2 - a, L / 2]]; coupeX = a; coupeZ = b; }
+  const A = [-W / 2, -L / 2], B = [W / 2, -L / 2], C = [W / 2, L / 2], D = [-W / 2, L / 2];
+  let poly;
+  if (!coin) poly = [A, B, C, D];
+  else if (sx === 1) poly = [A, B, ...coin, D];
+  else poly = [A, B, C, ...coin.map(([x, z]) => [-x, z]).reverse()];
+  // Entourage de spa : trou carré dans l'angle arrière, côté maison (loin des marches côté jardin)
+  let spa = null;
+  if (state.spa === 'oui') {
+    const s = Math.min(2.3, m - 0.9);
+    if (s >= 1.6) spa = { s, x: -sx * (W / 2 - s / 2 - 0.45), z: -L / 2 + s / 2 + 0.45 };
+  }
+  const trous = spa ? [[[spa.x - spa.s / 2, spa.z - spa.s / 2], [spa.x + spa.s / 2, spa.z - spa.s / 2], [spa.x + spa.s / 2, spa.z + spa.s / 2], [spa.x - spa.s / 2, spa.z + spa.s / 2]]] : [];
+  let aire = 0;
+  for (let i = 0; i < poly.length; i++) {
+    const [x1, z1] = poly[i];
+    const [x2, z2] = poly[(i + 1) % poly.length];
+    aire += x1 * z2 - x2 * z1;
+  }
+  aire = Math.abs(aire) / 2 - (spa ? spa.s * spa.s : 0);
+  let perimetre = 0;
+  for (let i = 0; i < poly.length; i++) {
+    const [x1, z1] = poly[i];
+    const [x2, z2] = poly[(i + 1) % poly.length];
+    perimetre += Math.hypot(x2 - x1, z2 - z1);
+  }
+  return { poly, trous, spa, sx, coupeX, coupeZ, aire, perimetre, forme };
 }

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3D-Konfigurator — Demo</title>
+  <meta name="description" content="Konfigurieren Sie Ihr Projekt in 3D und sehen Sie sofort einen Richtpreis.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preload" href="vendor/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="modulepreload" href="vendor/three/build/three.module.min.js">
+  <link rel="stylesheet" href="style.css">
+  <!-- Tout est hébergé avec le site : aucune ressource chargée depuis un autre serveur -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./vendor/three/build/three.module.min.js",
+        "three/addons/": "./vendor/three/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="app">
+    <main class="viewer" id="viewer" aria-label="3D-Ansicht">
+      <div class="marque">
+        <span class="marque-logo" id="marque-logo">VE</span>
+        <span>
+          <strong id="marque-nom">Ihre Firma</strong>
+          <small id="marque-activite">Holzbau &amp; Carports</small>
+        </span>
+      </div>
+      <p class="badge-demo" id="badge-demo">Demo · fiktive Preise</p>
+      <div class="cotes" id="cotes" aria-hidden="true"></div>
+      <div class="vues" role="group" aria-label="Ansicht wechseln">
+        <button type="button" data-vue="troisQuarts" class="actif">3D</button>
+        <button type="button" data-vue="face">Vorne</button>
+        <button type="button" data-vue="dessus">Oben</button>
+        <button type="button" id="btn-cotes" aria-pressed="true">Masse</button>
+        <button type="button" id="btn-nuit" aria-pressed="false">Nacht</button>
+        <button type="button" id="btn-tourner" aria-pressed="false">Drehen</button>
+      </div>
+      <p class="aide">Ziehen zum Drehen · Mausrad oder Zwei-Finger-Geste zum Zoomen</p>
+      <p class="erreur-3d" id="erreur-3d" hidden>Die 3D-Ansicht kann auf diesem Gerät nicht angezeigt werden. Die Preisberechnung funktioniert trotzdem.</p>
+
+      <div class="chargement" id="chargement" role="status">
+        <svg viewBox="0 0 120 80" aria-hidden="true">
+          <path class="trace" pathLength="1" d="M8 72h104M20 72V38M100 72V38M14 40L60 12l46 28M20 38h80M60 12v26"/>
+        </svg>
+        <p>3D-Ansicht wird vorbereitet…</p>
+      </div>
+    </main>
+
+    <aside class="panel" id="panel">
+      <header class="intro">
+        <p class="surtitre">Konfigurator</p>
+        <h1>Holz-Carport nach Mass</h1>
+        <p class="chapo">Stellen Sie Ihren Carport Schritt für Schritt zusammen. Der Preis passt sich jeder Wahl an.</p>
+      </header>
+
+      <nav class="onglets" id="onglets" aria-label="Konfigurationsschritte"></nav>
+
+      <section class="etape" data-court="Masse">
+        <h2><span>01</span>Masse</h2>
+        <p class="aide-etape">Wählen Sie eine Vorlage und passen Sie dann auf den Zentimeter genau an.</p>
+        <div class="raccourcis" id="raccourcis"></div>
+        <div class="curseur">
+          <label for="largeur">Breite <small>für die Fahrzeuge</small></label>
+          <output id="out-largeur" for="largeur"></output>
+          <input type="range" id="largeur" data-cle="largeur">
+        </div>
+        <div class="curseur">
+          <label for="profondeur">Tiefe <small></small></label>
+          <output id="out-profondeur" for="profondeur"></output>
+          <input type="range" id="profondeur" data-cle="profondeur">
+        </div>
+        <div class="curseur">
+          <label for="hauteur">Durchfahrtshöhe <small>unter dem Dachstuhl</small></label>
+          <output id="out-hauteur" for="hauteur"></output>
+          <input type="range" id="hauteur" data-cle="hauteur">
+        </div>
+        <p class="note-technique" id="note-technique"></p>
+      </section>
+
+      <section class="etape" data-court="Standort">
+        <h2><span>02</span>Standort</h2>
+        <p class="aide-etape">Am Haus wird der Carport an der Fassade befestigt: eine Pfostenreihe weniger.</p>
+        <div class="segments segments-3" id="implantations" role="radiogroup" aria-label="Standort"></div>
+      </section>
+
+      <section class="etape" data-court="Dach">
+        <h2><span>03</span>Dach</h2>
+        <h3 class="sous-titre">Form</h3>
+        <div class="segments segments-3" id="toits" role="radiogroup" aria-label="Dachform"></div>
+        <p class="aide-etape aide-sous" id="aide-toit" hidden>An einer Fassade fällt das Dach vom Haus weg ab (Pultdach oder Flachdach).</p>
+        <h3 class="sous-titre">Eindeckung</h3>
+        <div class="liste-choix" id="couvertures" role="radiogroup" aria-label="Eindeckung"></div>
+        <h3 class="sous-titre">Farbe <span id="nom-teinte"></span></h3>
+        <div class="nuancier" id="teintes" role="radiogroup" aria-label="Farbe der Eindeckung"></div>
+        <div class="curseur">
+          <label for="angleLames">Lamellenstellung <small>0° geschlossen · 90° ganz offen</small></label>
+          <output id="out-angleLames" for="angleLames"></output>
+          <input type="range" id="angleLames" data-cle="angleLames">
+        </div>
+      </section>
+
+      <section class="etape" data-court="Holz">
+        <h2><span>04</span>Holz und Oberfläche</h2>
+        <div class="teintes" id="bois" role="radiogroup" aria-label="Holz und Oberfläche"></div>
+      </section>
+
+      <section class="etape" data-court="Wände">
+        <h2><span>05</span>Wände und Geräteraum</h2>
+        <p class="aide-etape">Tippen Sie auf eine Seite, um sie zu schliessen. Die Einfahrt bleibt immer offen.</p>
+        <div class="plan" id="plan">
+          <button type="button" class="cote-plan cote-arriere" data-paroi="paroiArriere" aria-pressed="false">Hinten</button>
+          <button type="button" class="cote-plan cote-gauche" data-paroi="paroiGauche" aria-pressed="false">Links</button>
+          <svg class="plan-dessin" id="plan-dessin" viewBox="0 0 120 150" aria-hidden="true"></svg>
+          <button type="button" class="cote-plan cote-droite" data-paroi="paroiDroite" aria-pressed="false">Rechts</button>
+          <p class="plan-entree">Einfahrt ↓</p>
+          <button type="button" class="cote-plan cote-avant" data-paroi="paroiAvant" aria-pressed="false">Vorne</button>
+        </div>
+        <div class="curseur">
+          <label for="vantaux">Offene Schiebeelemente <small>um die Flügel gleiten zu sehen</small></label>
+          <output id="out-vantaux" for="vantaux"></output>
+          <input type="range" id="vantaux" data-cle="vantaux">
+        </div>
+        <h3 class="sous-titre">Art der Verschalung</h3>
+        <div class="segments segments-2" id="bardages" role="radiogroup" aria-label="Art der Verschalung"></div>
+        <div class="options">
+          <label class="option"><span>Geschlossener Geräteraum <small>inkl. Tür</small></span><em class="delta" data-delta="rangement"></em><input type="checkbox" data-cle="rangement"><i></i></label>
+        </div>
+        <div class="sous-option" id="choix-local">
+          <h3 class="sous-titre">Lage des Geräteraums</h3>
+          <div class="segments segments-3" id="pos-local" role="radiogroup" aria-label="Lage des Geräteraums"></div>
+          <h3 class="sous-titre">Grösse des Geräteraums</h3>
+          <div class="segments segments-3" id="profs-local" role="radiogroup" aria-label="Grösse des Geräteraums"></div>
+        </div>
+      </section>
+
+      <section class="etape" data-court="Ausstattung">
+        <h2><span>06</span>Ausstattung</h2>
+        <div class="options">
+          <label class="option"><span>Dachrinnen und Fallrohre</span><em class="delta" data-delta="gouttieres"></em><input type="checkbox" data-cle="gouttieres"><i></i></label>
+          <label class="option"><span>LED-Beleuchtung <small>Spots unter dem Dachstuhl</small></span><em class="delta" data-delta="led"></em><input type="checkbox" data-cle="led"><i></i></label>
+          <label class="option"><span>Vorbereitung Ladestation <small>Leerrohr und Steckdose an einem Pfosten</small></span><em class="delta" data-delta="borne"></em><input type="checkbox" data-cle="borne"><i></i></label>
+          <label class="option"><span>Dachbeschattung <small>motorisierte Markise unter dem Glas</small></span><em class="delta" data-delta="storeToit"></em><input type="checkbox" data-cle="storeToit"><i></i></label>
+          <label class="option"><span>Zusatzheizung <small>zwei Infrarot-Strahler</small></span><em class="delta" data-delta="chauffage"></em><input type="checkbox" data-cle="chauffage"><i></i></label>
+        </div>
+      </section>
+
+      <section class="etape" data-court="Fahrzeug">
+        <h2><span>07</span>Angezeigtes Fahrzeug</h2>
+        <p class="aide-etape">Zum Abschätzen der Grösse. Hat keinen Einfluss auf den Preis.</p>
+        <div class="segments segments-4" id="vehicules" role="radiogroup" aria-label="Angezeigtes Fahrzeug"></div>
+      </section>
+
+      <section class="etape etape-prix" id="prix" data-court="Preis">
+        <h2><span>08</span>Ihr Richtpreis</h2>
+        <p class="total"><span id="total">—</span> <small>CHF inkl. MWST</small></p>
+        <p class="fourchette" id="fourchette"></p>
+        <ul class="resume" id="resume"></ul>
+        <details class="detail">
+          <summary>Berechnung im Detail</summary>
+          <dl id="lignes"></dl>
+        </details>
+        <p class="avertissement" id="avertissement">Richtpreis, ohne besondere Fundamente und ohne Baubewilligung. Der definitive Preis wird nach einer Besichtigung schriftlich bestätigt.</p>
+        <p class="avertissement" id="mention-suivi" hidden>Demo: Die gewählte Konfiguration und gesendete Anfragen werden per E-Mail an Wibzo übermittelt.</p>
+        <button type="button" class="cta" id="btn-devis">Offerte erhalten</button>
+        <button type="button" class="cta-secondaire" id="btn-pdf">Richtpreis herunterladen (PDF)</button>
+        <button type="button" class="lien" id="btn-lien">Link zu meiner Konfiguration kopieren</button>
+      </section>
+    </aside>
+  </div>
+
+  <div class="barre-mobile">
+    <p><span id="total-mobile">—</span> <small>CHF inkl. MWST, Richtpreis</small></p>
+    <button type="button" class="cta" id="btn-devis-mobile">Offerte</button>
+  </div>
+
+  <dialog id="dialogue">
+    <form id="form-devis" method="dialog" class="vue-form">
+      <h2>Offerte erhalten</h2>
+      <p>Ihre Konfiguration wird automatisch mitgeschickt. Sie müssen nichts weiter erklären.</p>
+      <label>Vor- und Nachname<input name="nom" required autocomplete="name"></label>
+      <label>E-Mail<input name="email" type="email" required autocomplete="email"></label>
+      <label>Telefon<input name="tel" type="tel" autocomplete="tel"></label>
+      <label>PLZ und Ort der Baustelle<input name="lieu" required autocomplete="postal-code"></label>
+      <label>Bemerkung <small>(optional)</small><textarea name="remarque" rows="3" placeholder="Hanglage, schwierige Zufahrt, Wunschtermin…"></textarea></label>
+      <div class="actions">
+        <button type="button" class="lien" data-fermer>Abbrechen</button>
+        <button type="submit" class="cta">Anfrage senden</button>
+      </div>
+    </form>
+    <div class="vue-recap" id="recap" hidden>
+      <h2>Anfrage bereit</h2>
+      <p id="recap-intro">Genau das erhält die Firma:</p>
+      <img id="recap-image" alt="3D-Bild der gewählten Konfiguration">
+      <pre id="recap-texte"></pre>
+      <div class="actions">
+        <button type="button" class="lien" id="btn-copier">Text kopieren</button>
+        <button type="button" class="lien" id="btn-pdf-recap">PDF</button>
+        <a class="cta" id="btn-mail" hidden>Per E-Mail senden</a>
+        <button type="button" class="cta" data-fermer>Schliessen</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

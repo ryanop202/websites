@@ -116,3 +116,16 @@ Même modèle que ta relance du 4 nov. (chaque mail avec son propre lien de dém
 | Monnier Bois SA | Surchargés, « se rencontrer plus tard » → relancer vers début décembre |
 | 7 entreprises du 28–31 oct. (gbc, mjl-rossier, estodip, surtech, touten-bois, girard-freres, girardoz) | Déjà relancées le 4 nov. → dernière relance possible fin novembre |
 | 13 entreprises du 4 nov. + 9 piscinistes du 5 nov. | Contactées il y a moins d'une semaine → relancer la semaine prochaine |
+
+---
+
+## 27.11.2026 — Relances configurateur 3D programmées (demande de Ryan)
+
+Vérifié dans les Envoyés : dernier message à chaque prospect du configurateur. Relancés = dernier message au plus tard le 17.11, pas de réponse reçue de leur domaine, pas dans la liste « ne plus contacter » (Stavia, Barras, XM Stores, Nicolet, Aqua Emotion, Mains Vertes).
+- **70 relances** : 30 aujourd'hui 27.11 à 11:40–11:47 (dont Sirbatec à 11:47), 40 demain 28.11 à 09:40–09:47 (limite Infomaniak ~200/24 h).
+- 52 en français, 17 en allemand, + Sirbatec (message perso sur l'offre, lien https://sirbatec.wibzo.ch/).
+- Ceux qui avaient déjà reçu 2 messages : « Un dernier message… / Eine letzte Nachricht… » + « sinon je ne vous recontacterai pas ». Ceux à 1 message (partenariats du 13.11) : « Je reviens vers vous… ».
+- Chaque mail reprend le lien de démo de leur dernier message.
+- **Après ça : plus de relance pour ces prospects** (sauf s'ils répondent).
+- Pas relancés : Monnier Bois (a répondu « plus tard », à relancer début décembre), ceux qui ont répondu.
+- **ANNULÉ le 27.11 vers 10:30 (décision de Ryan : « calculateur seulement »)** : les 70 relances 3D ci-dessus ont été déprogrammées et supprimées avant envoi. Aucune n'est partie. Les envois programmés se voient dans le webmail : menu « Envois programmés ».

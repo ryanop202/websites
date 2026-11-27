@@ -88,7 +88,7 @@ export const CONFIG = {
     posLocal: 'arriere',
     profLocal: 1.8,
     gouttieres: true,
-    led: false,
+    led: true,
     borne: false,
     storeToit: false,
     vantaux: 0,

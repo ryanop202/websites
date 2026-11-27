@@ -1,0 +1,8 @@
+{
+  // Démo beat jenni ag (allemand) : https://beat-jenni.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "beat-jenni-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "beat-jenni.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

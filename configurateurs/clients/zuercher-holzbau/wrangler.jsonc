@@ -1,0 +1,8 @@
+{
+  // Démo Zürcher Holzbau Bern AG (allemand) : https://zuercher-holzbau.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "zuercher-holzbau-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "zuercher-holzbau.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

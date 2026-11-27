@@ -1,0 +1,8 @@
+{
+  // Démo Ackermann Gebäudehüllen GmbH (allemand) : https://ackermann-gh.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "ackermann-gh-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "ackermann-gh.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

@@ -93,7 +93,7 @@ export const CONFIG = {
     posLocal: 'arriere',
     profLocal: 1.8,
     gouttieres: false,
-    led: false,
+    led: true,
     borne: false,
     chauffage: false,
     angleLames: 45,

@@ -1,0 +1,8 @@
+{
+  // Démo Schmid Storen AG (allemand) : https://schmid-storen.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "schmid-storen-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "schmid-storen.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

@@ -1,0 +1,8 @@
+{
+  // Démo Schlatter Holzbau (allemand) : https://schlatter-holzbau.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "schlatter-holzbau-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "schlatter-holzbau.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

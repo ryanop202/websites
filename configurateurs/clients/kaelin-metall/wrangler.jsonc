@@ -1,0 +1,8 @@
+{
+  // Démo Kälin Metallbau AG (allemand) : https://kaelin-metall.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "kaelin-metall-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "kaelin-metall.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

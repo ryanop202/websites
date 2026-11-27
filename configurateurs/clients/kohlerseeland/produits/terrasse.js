@@ -5,8 +5,8 @@
 
 export const CONFIG = {
   entreprise: {
-    nom: 'Votre entreprise',
-    activite: 'Terrasses & aménagements extérieurs',
+    nom: 'Ihre Firma',
+    activite: 'Terrassen & Gartenbau',
     initiales: 'VE',
     email: '', // e-mail qui reçoit les demandes (vide = démo)
   },
@@ -16,32 +16,32 @@ export const CONFIG = {
   demo: true,
   // Notifications par e-mail à Ryan (démo publique de wibzo.ch)
   suivi: { cleWeb3Forms: '73b06b18-08c3-4c83-9ca8-42288a70dd2b' }, // clé publique, faite pour le code de la page
-  chapo: 'Dessinez votre terrasse étape par étape. Le prix se met à jour à chaque choix.',
+  chapo: 'Gestalten Sie Ihre Terrasse Schritt für Schritt. Der Preis passt sich jeder Wahl an.',
   libelles: {
-    titre: 'Terrasse sur mesure',
-    objet: 'terrasse',
-    passage: 'plancher',
+    titre: 'Terrasse nach Mass',
+    objet: 'Terrasse',
+    passage: 'Boden',
     inverserCotes: true,
-    largeur: 'Avancée',
-    largeurAide: 'depuis la façade',
-    profondeur: 'Largeur',
-    profondeurAide: 'le long de la façade',
-    hauteur: 'Hauteur du plancher',
-    hauteurAide: 'au-dessus du terrain',
-    implantationAide: 'Contre la maison, la terrasse part de la façade. Isolée, elle est posée dans le jardin.',
-    toiture: 'Revêtement',
-    toitureCourt: 'Revêtement',
-    couverture: 'Matériau',
-    teinte: 'Couleur',
-    finition: 'Sens de pose',
-    finitionCourt: 'Pose',
-    finitionLigne: 'Pose',
-    parois: 'Garde-corps',
-    paroisCourt: 'Garde-corps',
-    paroisAide: 'Touchez un côté pour ajouter un garde-corps. Le passage des marches reste libre.',
-    bardage: 'Type de garde-corps',
-    paroiLigne: 'Garde-corps',
-    ledAide: 'spots encastrés dans le plancher et les marches',
+    largeur: 'Tiefe',
+    largeurAide: 'ab der Fassade',
+    profondeur: 'Breite',
+    profondeurAide: 'entlang der Fassade',
+    hauteur: 'Bodenhöhe',
+    hauteurAide: 'über dem Gelände',
+    implantationAide: 'Am Haus beginnt die Terrasse an der Fassade. Freistehend liegt sie im Garten.',
+    toiture: 'Belag',
+    toitureCourt: 'Belag',
+    couverture: 'Material',
+    teinte: 'Farbe',
+    finition: 'Verlegerichtung',
+    finitionCourt: 'Verlegung',
+    finitionLigne: 'Verlegung',
+    parois: 'Geländer',
+    paroisCourt: 'Geländer',
+    paroisAide: 'Tippen Sie auf eine Seite, um ein Geländer hinzuzufügen. Der Zugang zu den Stufen bleibt frei.',
+    bardage: 'Art des Geländers',
+    paroiLigne: 'Geländer',
+    ledAide: 'in Boden und Stufen eingelassene Spots',
   },
   local: false,
   equipements: ['led'],
@@ -51,7 +51,7 @@ export const CONFIG = {
   hauteurSansMarche: 0.2,  // en dessous : pas de marche
   largeurMarches: 1.4,
   hauteurGardeCorps: 1.0,
-  noteGardeCorps: 'garde-corps recommandé (norme SIA 358)',
+  noteGardeCorps: 'Geländer empfohlen (Norm SIA 358)',
 
   // [min, max, pas] en mètres
   limites: {
@@ -63,21 +63,21 @@ export const CONFIG = {
   profondeursLocal: [1.2, 1.8, 2.4],
 
   implantations: {
-    non: { label: 'Isolée', aide: 'dans le jardin' },
-    gauche: { label: 'Contre la maison', aide: 'façade à gauche' },
-    droite: { label: 'Contre la maison', aide: 'façade à droite' },
+    non: { label: 'Freistehend', aide: 'im Garten' },
+    gauche: { label: 'Am Haus', aide: 'Fassade links' },
+    droite: { label: 'Am Haus', aide: 'Fassade rechts' },
   },
   positionsLocal: {
-    arriere: { label: 'Arrière' },
-    gauche: { label: 'Gauche' },
-    droite: { label: 'Droite' },
+    arriere: { label: 'Hinten' },
+    gauche: { label: 'Links' },
+    droite: { label: 'Rechts' },
   },
 
   // (raccourcis : largeur le long de la façade × avancée)
   raccourcis: [
     { label: '4 × 3 m', profondeur: 4, largeur: 3, hauteur: 0.15 },
     { label: '6 × 4 m', profondeur: 6, largeur: 4, hauteur: 0.4 },
-    { label: '8 × 4,5 m', profondeur: 8, largeur: 4.5, hauteur: 0.8 },
+    { label: '8 × 4.5 m', profondeur: 8, largeur: 4.5, hauteur: 0.8 },
   ],
 
   defauts: {
@@ -106,55 +106,55 @@ export const CONFIG = {
   },
 
   toits: {
-    plat: { label: 'Plat', pente: 0, couvertures: ['bois', 'composite', 'gres'] },
+    plat: { label: 'Flach', pente: 0, couvertures: ['bois', 'composite', 'gres'] },
   },
 
   couvertures: {
     bois: {
-      label: 'Lames en bois', type: 'lames', epaisseur: 0.025,
+      label: 'Holzdielen', type: 'lames', epaisseur: 0.025,
       teintes: {
-        meleze: { label: 'Mélèze naturel', couleur: '#BE8E5C' },
+        meleze: { label: 'Lärche natur', couleur: '#BE8E5C' },
         douglas: { label: 'Douglas', couleur: '#C79A68' },
-        thermo: { label: 'Frêne thermo-traité', couleur: '#7B5235' },
-        grise: { label: 'Bois grisé', couleur: '#A39C91' },
+        thermo: { label: 'Thermo-Esche', couleur: '#7B5235' },
+        grise: { label: 'Vergrautes Holz', couleur: '#A39C91' },
       },
     },
     composite: {
-      label: 'Lames composite', type: 'lames', rainures: true, epaisseur: 0.025,
+      label: 'WPC-Dielen', type: 'lames', rainures: true, epaisseur: 0.025,
       teintes: {
-        gris: { label: 'Gris clair', couleur: '#A3A29D' },
-        anthracite: { label: 'Anthracite', couleur: '#4B4C4E' },
-        brun: { label: 'Brun', couleur: '#6E5240' },
-        teck: { label: 'Teck', couleur: '#A27A55' },
+        gris: { label: 'Hellgrau', couleur: '#A3A29D' },
+        anthracite: { label: 'Anthrazit', couleur: '#4B4C4E' },
+        brun: { label: 'Braun', couleur: '#6E5240' },
+        teck: { label: 'Teak', couleur: '#A27A55' },
       },
     },
     gres: {
-      label: 'Dalles grès cérame 120 × 60', type: 'dalles', epaisseur: 0.02,
+      label: 'Feinsteinzeug-Platten 120 × 60', type: 'dalles', epaisseur: 0.02,
       teintes: {
-        beton: { label: 'Gris béton', couleur: '#BDBAB3' },
-        beige: { label: 'Beige pierre', couleur: '#DCCFB8' },
-        anthracite: { label: 'Anthracite', couleur: '#626365' },
-        bois: { label: 'Effet bois', couleur: '#AD8A64' },
+        beton: { label: 'Betongrau', couleur: '#BDBAB3' },
+        beige: { label: 'Steinbeige', couleur: '#DCCFB8' },
+        anthracite: { label: 'Anthrazit', couleur: '#626365' },
+        bois: { label: 'Holzoptik', couleur: '#AD8A64' },
       },
     },
   },
 
   // Sens de pose (la clé « bois » est celle lue par le moteur pour cette étape)
   bois: {
-    parallele: { label: 'Parallèle à la façade', couleur: '#B8A68C', facteur: 1, sens: 'parallele' },
-    perpendiculaire: { label: 'Perpendiculaire à la façade', couleur: '#A8957A', facteur: 1.03, sens: 'perpendiculaire' },
-    cadre: { label: 'Avec cadre périphérique (lames)', couleur: '#8F7C62', facteur: 1.1, sens: 'parallele', cadre: true },
+    parallele: { label: 'Parallel zur Fassade', couleur: '#B8A68C', facteur: 1, sens: 'parallele' },
+    perpendiculaire: { label: 'Quer zur Fassade', couleur: '#A8957A', facteur: 1.03, sens: 'perpendiculaire' },
+    cadre: { label: 'Mit umlaufendem Rahmen', couleur: '#8F7C62', facteur: 1.1, sens: 'parallele', cadre: true },
   },
 
   // Types de garde-corps
   bardages: {
-    verre: { label: 'Verre', vitrage: true, facteur: 1.9 },
-    bois: { label: 'Bois à barreaux', barreaux: true, couleur: '#A27448', facteur: 1 },
-    cables: { label: 'Câbles inox', cables: true, facteur: 1.45 },
+    verre: { label: 'Glas', vitrage: true, facteur: 1.9 },
+    bois: { label: 'Holz mit Stäben', barreaux: true, couleur: '#A27448', facteur: 1 },
+    cables: { label: 'Edelstahlseile', cables: true, facteur: 1.45 },
   },
 
   vehicules: {
-    aucun: { label: 'Aucun' },
+    aucun: { label: 'Keines' },
   },
 
   // Montants HT en CHF — FICTIFS

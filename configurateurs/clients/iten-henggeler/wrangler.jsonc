@@ -1,0 +1,8 @@
+{
+  // Démo Iten & Henggeler Holzbau AG (allemand) : https://iten-henggeler.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "iten-henggeler-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "iten-henggeler.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

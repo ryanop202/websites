@@ -1,0 +1,8 @@
+{
+  // Démo wdHOLZBAU (allemand) : https://wdholzbau.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "wdholzbau-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "wdholzbau.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

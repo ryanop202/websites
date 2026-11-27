@@ -1,0 +1,8 @@
+{
+  // Démo Bernegger Holzbau AG (allemand) : https://bernegger-holzbau.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "bernegger-holzbau-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "bernegger-holzbau.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

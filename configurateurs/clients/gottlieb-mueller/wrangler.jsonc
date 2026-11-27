@@ -1,0 +1,8 @@
+{
+  // Démo Gottlieb Müller AG (allemand) : https://gottlieb-mueller.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "gottlieb-mueller-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "gottlieb-mueller.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

@@ -1,0 +1,8 @@
+{
+  // Démo Russi Metallbau AG (allemand) : https://russi-metallbau.wibzo.ch — mise à jour : `npx wrangler deploy` dans ce dossier
+  "name": "russi-metallbau-3d-configurateur",
+  "compatibility_date": "2026-10-23",
+  "workers_dev": false,
+  "routes": [{ "pattern": "russi-metallbau.wibzo.ch", "custom_domain": true }],
+  "assets": { "directory": "." }
+}

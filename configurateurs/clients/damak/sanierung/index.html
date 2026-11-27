@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Wintergarten-Sanierung · DAMAK</title>
+  <meta name="description" content="Wintergarten-Sanierung: bestehende Anlage beschreiben, Arbeiten wählen und sofort einen Richtpreis sehen.">
+  <meta name="robots" content="noindex">
+  <link rel="preload" href="vendor/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="entete">
+    <div class="wrap">
+      <a class="marque" href="#calculer" data-calc><span class="marque-logo" id="logo">W</span><span class="marque-nom" id="nomEntreprise"></span></a>
+      <nav class="nav" aria-label="Sections">
+        <a href="#calculer" data-calc id="navCalc"></a>
+        <a href="#tarifs" id="navTarifs"></a>
+        <a href="#faq-section" id="navFaq"></a>
+        <span class="outils">
+          <a class="lien-3d" id="lien3d" href="../" hidden></a>
+          <span class="badge-demo" id="badgeDemo"></span>
+          <select id="choixMetier" aria-label="Métier"></select>
+          <button type="button" id="langue">DE</button>
+        </span>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-plan" id="heroPlan"></div>
+    <div class="wrap">
+      <div class="sur-titre" id="surTitre"></div>
+      <h1><span id="titreService"></span><br><span id="motA">à</span> <span class="ville" id="ville"></span></h1>
+      <p id="sousTitre"></p>
+    </div>
+  </section>
+
+  <main>
+    <section class="estimateur" id="calculer">
+      <div class="wrap"><div class="carte" id="carte" aria-live="polite"></div></div>
+    </section>
+
+    <section class="section" id="tarifs">
+      <div class="wrap">
+        <div class="entete-section"><div class="sur-titre" id="tarifsSur"></div><h2 id="tarifsT"></h2><p id="tarifsP"></p></div>
+        <div class="tarif">
+          <div class="tarif-carte" id="tarifCarte"></div>
+          <div class="tableau"><table id="tableTarifs"></table></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="entete-section"><div class="sur-titre" id="compSur"></div><h2 id="compT"></h2><p id="compP"></p></div>
+        <div class="tableau"><table id="tableComp"></table></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="entete-section"><div class="sur-titre" id="zonesSur"></div><h2 id="zonesT"></h2><p id="zonesP"></p></div>
+        <div class="zones" id="listeZones"></div>
+      </div>
+    </section>
+
+    <section class="section" id="faq-section">
+      <div class="wrap">
+        <div class="entete-section"><div class="sur-titre" id="faqSur"></div><h2 id="faqT"></h2></div>
+        <div class="faq" id="faq"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bas"><div class="wrap"><span id="basNote"></span><span id="basWibzo"></span></div></footer>
+
+  <script src="metiers.js"></script>
+  <script src="damak.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

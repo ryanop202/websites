@@ -37,3 +37,4 @@ Les prix sont fictifs. Pour un vrai client, il faut les remplacer par ses propre
 - 27.11.2026 : démo perso Le Jardin de la Chaumière (Villarepos) : https://jardinchaumiere.wibzo.ch (dossier clients/jardinchaumiere/). Travaux au m²/m, prix = exemples, en attente de ses tarifs.
 - 27.11.2026 : lot 8 = 29 prospects programmés 11:45–11:50 (places libérées par l'annulation des relances 3D). Total ~185 sur 24 h.
 - 27.11.2026 : lot 9 = 131 prospects programmés lundi 30.11 entre 08:00 et 08:59 (demande de Ryan : 185, mais local.ch n'a donné que 138 nouveaux ; 6 retirés hors sujet, 1 adresse refusée).
+- 27.11.2026 : lot 10 = 54 prospects (nouvelles villes : Bienne, Valais, Jura, Neuchâtel, Oberland, Suisse centrale/orientale) programmés lundi 30.11 08:02–08:58. Lundi total = 185.
